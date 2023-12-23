@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:hyper_ui/core.dart';
-import '../view/statistik_pengeluaran_view.dart';
+import '../view/kategori_list_view.dart';
 
-class StatistikPengeluaranController extends State<StatistikPengeluaranView> {
-  static late StatistikPengeluaranController instance;
-  late StatistikPengeluaranView view;
+class KategoriListController extends State<KategoriListView> {
+  static late KategoriListController instance;
+  late KategoriListView view;
 
   @override
   void initState() {
@@ -21,19 +21,19 @@ class StatistikPengeluaranController extends State<StatistikPengeluaranView> {
   List pengeluaranList = [
     {
       "label": "Makanan",
-      "total": 150000,
+      "budget": 200000,
     },
     {
       "label": "Kopi",
-      "total": 123000,
+      "budget": 150000,
     },
     {
       "label": "Snack",
-      "total": 45000,
+      "budget": 0,
     },
     {
       "label": "Minuman",
-      "total": 230000,
+      "budget": 0,
     }
   ];
 }

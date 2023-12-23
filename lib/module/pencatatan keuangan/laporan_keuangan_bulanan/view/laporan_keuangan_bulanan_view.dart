@@ -8,53 +8,54 @@ class LaporanKeuanganBulananView extends StatefulWidget {
   Widget build(context, LaporanKeuanganBulananController controller) {
     controller.view = this;
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Container(
-          padding: const EdgeInsets.all(10),
-          child: Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "Desember",
+      body: ListView.builder(
+        itemCount: controller.items.length,
+        padding: EdgeInsets.zero,
+        clipBehavior: Clip.none,
+        itemBuilder: (context, index) {
+          var item = controller.items[index];
+          String date = DateFormat("MMMM").format(DateTime.parse(item["date"]));
+          return Container(
+            color: index % 2 == 0 ? Colors.grey[300] : Colors.white,
+            padding: EdgeInsets.symmetric(
+              horizontal: 20.0,
+              vertical: 10.0,
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(
+                  child: Text(
+                    date,
                     style: TextStyle(fontSize: 16),
                   ),
-                  Text(
-                    "250.000",
+                ),
+                Expanded(
+                  child: Text(
+                    NumberFormat().format(item["pemasukan"] ?? 0),
+                    textAlign: TextAlign.right,
                     style: TextStyle(
                       fontSize: 14,
                       color: Colors.blue,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
-                  Text(
-                    "75.000",
-                    style: TextStyle(fontSize: 14),
+                ),
+                Expanded(
+                  child: Text(
+                    NumberFormat().format(item["pengeluaran"] ?? 0),
+                    textAlign: TextAlign.right,
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: Colors.red,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
-                ],
-              ),
-              Divider(),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "November",
-                    style: TextStyle(fontSize: 16),
-                  ),
-                  Text("250.000",
-                      style: TextStyle(
-                        fontSize: 14,
-                        color: Colors.blue,
-                      )),
-                  Text(
-                    "75.000",
-                    style: TextStyle(fontSize: 14),
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ),
+                ),
+              ],
+            ),
+          );
+        },
       ),
     );
   }

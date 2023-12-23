@@ -27,35 +27,20 @@ class StatistikPengeluaranView extends StatefulWidget {
                 ),
                 Builder(
                   builder: (context) {
-                    final List<Map> chartData = [
-                      {
-                        "year": "Jan",
-                        "sales": 40,
-                      },
-                      {
-                        "year": "Feb",
-                        "sales": 90,
-                      },
-                      {
-                        "year": "Mar",
-                        "sales": 30,
-                      },
-                      {
-                        "year": "Apr",
-                        "sales": 80,
-                      },
-                      {
-                        "year": "May",
-                        "sales": 90,
-                      }
-                    ];
+                    final List<Map> chartData =
+                        controller.pengeluaranList.map((e) {
+                      return {
+                        "year": e["label"],
+                        "sales": e["total"],
+                      };
+                    }).toList();
 
                     return Container(
                       height: 300,
                       color: Theme.of(context).cardColor,
                       // padding: const EdgeInsets.all(12.0),
                       child: SfCircularChart(
-                        legend: Legend(isVisible: true),
+                        legend: Legend(isVisible: false),
                         series: <CircularSeries>[
                           PieSeries<Map, String>(
                             dataSource: chartData,
@@ -70,14 +55,11 @@ class StatistikPengeluaranView extends StatefulWidget {
                     );
                   },
                 ),
-                PengeluaranCard(
-                  tittle: "makanan",
-                  harga: "150.000",
-                ),
-                PengeluaranCard(
-                  tittle: "kopi",
-                  harga: "20.000",
-                ),
+                for (var item in controller.pengeluaranList)
+                  PengeluaranCard(
+                    title: item["label"],
+                    harga: NumberFormat().format(item["total"]),
+                  ),
               ],
             ),
           ),

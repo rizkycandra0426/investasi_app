@@ -3,10 +3,10 @@
 import 'package:flutter/material.dart';
 
 class PengeluaranCard extends StatelessWidget {
-  const PengeluaranCard({Key? key, required this.tittle, required this.harga})
+  const PengeluaranCard({Key? key, required this.title, required this.harga})
       : super(key: key);
 
-  final String tittle;
+  final String title;
   final String harga;
 
   @override
@@ -33,7 +33,7 @@ class PengeluaranCard extends StatelessWidget {
                 right: 10,
               ), // Adds 10 margin on all sides
               child: Text(
-                tittle,
+                title,
                 style: TextStyle(fontSize: 16),
               ),
             ),

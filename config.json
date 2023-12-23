@@ -3,7 +3,9 @@
         "statistik_dashboard",
         "statistik_pengeluaran",
         "anggaran_pengeluaran",
-        "catatan_pengeluaran"
+        "catatan_pengeluaran",
+        "kategori_list",
+        "kategori_list_form"
     ],
     "module_directory_name": "module/statistik",
     "experimental_mode": false,

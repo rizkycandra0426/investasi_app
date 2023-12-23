@@ -115,12 +115,14 @@ class StatistikDashboardView extends StatefulWidget {
                                   height: 110,
                                 ),
                                 Expanded(
-                                  child: TabBarView(
-                                    children: [
-                                      StatistikPengeluaranView(),
-                                      AnggaranPengeluaranView(),
-                                      CatatanPengeluaranView(),
-                                    ],
+                                  child: Container(
+                                    child: TabBarView(
+                                      children: [
+                                        StatistikPengeluaranView(),
+                                        AnggaranPengeluaranView(),
+                                        CatatanPengeluaranView(),
+                                      ],
+                                    ),
                                   ),
                                 )
                               ],

@@ -3,7 +3,9 @@ import 'package:hyper_ui/shared/theme/theme_config.dart';
 import 'package:flutter/material.dart';
 
 ThemeData getDefaultTheme() {
-  return ThemeData().copyWith(
+  return ThemeData(
+    useMaterial3: false,
+  ).copyWith(
     primaryColor: primaryColor,
     scaffoldBackgroundColor: Colors.white,
     colorScheme: ColorScheme.fromSeed(seedColor: primaryColor),

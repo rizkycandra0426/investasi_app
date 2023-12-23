@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hyper_ui/core.dart';
 import '../controller/anggaran_pengeluaran_controller.dart';
+import '../../../../shared/app/pengeluaran_item.dart';
 
 class AnggaranPengeluaranView extends StatefulWidget {
   const AnggaranPengeluaranView({Key? key}) : super(key: key);
@@ -15,167 +16,88 @@ class AnggaranPengeluaranView extends StatefulWidget {
       body: ListView(
         physics: ScrollPhysics(),
         children: [
-          Container(
-            width: 10,
-            height: 160,
-            margin: EdgeInsets.all(10),
-            padding: EdgeInsets.all(10),
-            decoration: BoxDecoration(
-              color: Colors.grey,
-              borderRadius: BorderRadius.circular(20),
+          Padding(
+            padding: EdgeInsets.symmetric(
+              horizontal: 20.0,
+              vertical: 8.0,
             ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+            child: Row(
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      "Bulanan",
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: Colors.white,
-                        letterSpacing: 8,
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Sisa",
+                        style: TextStyle(
+                          fontSize: 14.0,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
-                    ),
-                    ElevatedButton(
+                      const SizedBox(
+                        height: 4.0,
+                      ),
+                      Text(
+                        "${NumberFormat().format(controller.sisa)}",
+                        style: TextStyle(
+                          fontSize: 20.0,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Transform.scale(
+                  scale: 0.8,
+                  alignment: Alignment.centerRight,
+                  child: SizedBox(
+                    height: 42,
+                    width: 150.0,
+                    child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.blueGrey,
-                          fixedSize: Size(100, 30)),
-                      onPressed: () {},
-                      child: const Text(
-                        "Pengaturan",
-                        style: TextStyle(fontSize: 13),
+                        backgroundColor: Color(0xfff7f7f9),
+                        foregroundColor: Color(0xffadadaf),
+                      ),
+                      onPressed: () => Get.to(KategoriListView()),
+                      child: const Row(
+                        children: [
+                          Expanded(
+                            child: Text("Pengaturan"),
+                          ),
+                          Icon(
+                            Icons.chevron_right,
+                            size: 24.0,
+                          ),
+                        ],
                       ),
                     ),
-                  ],
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                Column(
-                  children: [
-                    Stack(
-                      children: [
-                        Container(
-                          height: 40,
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(20),
-                              bottomRight: Radius.circular(20),
-                            ),
-                          ),
-                        ),
-                        Positioned(
-                          top: 0,
-                          left: 0,
-                          right: 100,
-                          height: 40,
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: Colors.red,
-                              borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(20),
-                                bottomRight: Radius.circular(20),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Text(
-                      "250.000 / 500.000 ",
-                      textAlign: TextAlign.right,
-                      style: TextStyle(
-                        fontSize: 14,
-                        color: Colors.white,
-                        letterSpacing: 8,
-                      ),
-                    ),
-                  ],
+                  ),
                 ),
               ],
             ),
           ),
-          Container(
-            width: 25,
-            height: 90,
-            margin: EdgeInsets.all(10),
-            padding: EdgeInsets.only(
-              top: 10,
-              right: 10,
-              left: 10,
-              bottom: 5,
-            ),
-            decoration: BoxDecoration(
-              color: Colors.grey,
-              borderRadius: BorderRadius.circular(20),
-            ),
-            child: Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      "Makanan&Minuman",
-                      style: TextStyle(
-                        fontSize: 14,
-                        color: Colors.white,
-                        letterSpacing: 5,
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                Column(
-                  children: [
-                    Stack(
-                      children: [
-                        Container(
-                          height: 28,
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(20),
-                              bottomRight: Radius.circular(20),
-                            ),
-                          ),
-                        ),
-                        Positioned(
-                          top: 0,
-                          left: 0,
-                          right: 50,
-                          height: 28,
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: Colors.red,
-                              borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(20),
-                                bottomRight: Radius.circular(20),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    Text(
-                      "100.000 / 200.000",
-                      style: TextStyle(
-                        fontSize: 14,
-                        color: Colors.white,
-                        letterSpacing: 8,
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
+          PengeluaranItem(
+            label: "Total",
+            total: controller.total,
+            budget: controller.totalBudget,
+            index: 1,
+          ),
+          ListView.builder(
+            itemCount: controller.pengeluaranList.length,
+            physics: const ScrollPhysics(),
+            shrinkWrap: true,
+            itemBuilder: (BuildContext context, int index) {
+              var item = controller.pengeluaranList[index];
+              return PengeluaranItem(
+                label: item["label"],
+                total: double.parse(item["total"].toString()),
+                budget: item["budget"] == null
+                    ? null
+                    : double.parse((item["budget"] ?? 0).toString()),
+                index: index,
+                enablePercentage: true,
+              );
+            },
           ),
         ],
       ),
