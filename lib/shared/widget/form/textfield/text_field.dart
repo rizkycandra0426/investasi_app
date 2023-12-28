@@ -78,9 +78,11 @@ class _QTextFieldState extends State<QTextField> {
         obscureText: widget.obscure,
         decoration: InputDecoration(
           labelText: widget.label,
-          suffixIcon: Icon(
-            widget.suffixIcon ?? Icons.abc,
-          ),
+          suffixIcon: widget.suffixIcon == null
+              ? null
+              : Icon(
+                  widget.suffixIcon,
+                ),
           helperText: widget.helper,
           hintText: widget.hint,
         ),

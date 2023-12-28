@@ -240,37 +240,18 @@ class TransaksiKeuanganView extends StatefulWidget {
                           width: 12.0,
                         ),
                         Expanded(
-                          child: QDropdownField(
-                            label: "",
-                            validator: Validator.required,
-                            items: [
-                              {
-                                "label": "Hari ini",
-                                "value": DateTime.now().yMd,
+                          child: AbsorbPointer(
+                            absorbing: true,
+                            child: QTextField(
+                              label: "",
+                              validator: Validator.required,
+                              suffixIcon: null,
+                              prefixIcon: null,
+                              value: "${DateTime.now().yMd}",
+                              onChanged: (value) {
+                                controller.date = DateTime.now();
                               },
-                              {
-                                "label": "Besok",
-                                "value": DateTime.now().add(Duration(days: 1)),
-                              },
-                              {
-                                "label": "Lusa",
-                                "value": DateTime.now().add(Duration(days: 2)),
-                              },
-                              {
-                                "label": "Kemarin",
-                                "value":
-                                    DateTime.now().subtract(Duration(days: 1)),
-                              },
-                              {
-                                "label": "Kemarin lusa",
-                                "value":
-                                    DateTime.now().subtract(Duration(days: 2)),
-                              },
-                            ],
-                            value: DateTime.now().yMd,
-                            onChanged: (value, label) {
-                              controller.date = value;
-                            },
+                            ),
                           ),
                         ),
                       ],

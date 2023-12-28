@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hyper_ui/core.dart';
+import 'package:hyper_ui/model/transaction_by_year_response.dart';
+import 'package:hyper_ui/service/transaction_history_service.dart';
 import '../view/laporan_keuangan_bulanan_view.dart';
 
 class LaporanKeuanganBulananController
@@ -11,6 +13,7 @@ class LaporanKeuanganBulananController
   void initState() {
     instance = this;
     super.initState();
+    getHistories();
   }
 
   @override
@@ -18,62 +21,36 @@ class LaporanKeuanganBulananController
 
   @override
   Widget build(BuildContext context) => widget.build(context, this);
-  List items = [
-    {
-      "date": "2023-12-01 08:30:00",
-      "account_name": "Kas",
-      "description": "Makan sate",
-      "pemasukan": 99000,
-      "pengeluaran": 25000,
-    },
-    {
-      "date": "2023-11-01 10:15:00",
-      "account_name": "Bank",
-      "description": "Pembelian buku",
-      "pemasukan": 70000,
-      "pengeluaran": 777000,
-    },
-    {
-      "date": "2023-10-01 14:45:00",
-      "account_name": "Kas",
-      "description": "Belanja bahan makanan",
-      "pemasukan": 23000,
-      "pengeluaran": 2000,
-    },
-    {
-      "date": "2023-09-01 09:20:00",
-      "account_name": "Bank",
-      "description": "Bayar tagihan listrik",
-      "pemasukan": 100000,
-      "pengeluaran": 5000,
-    },
-    {
-      "date": "2023-08-01 12:30:00",
-      "account_name": "Kas",
-      "description": "Beli tiket bioskop",
-      "pemasukan": 23000,
-      "pengeluaran": 12000,
-    },
-    {
-      "date": "2023-07-01 17:00:00",
-      "account_name": "Kas",
-      "description": "Makan di restoran",
-      "pemasukan": 25000,
-      "pengeluaran": 23000,
-    },
-    {
-      "date": "2023-06-01 11:10:00",
-      "account_name": "Bank",
-      "description": "Pembayaran angsuran mobil",
-      "pemasukan": 33000,
-      "pengeluaran": 23000,
-    },
-    {
-      "date": "2023-05-01 15:45:00",
-      "account_name": "Kas",
-      "description": "Makan di restoran",
-      "pemasukan": 66000,
-      "pengeluaran": 23000,
-    },
-  ];
+
+  TransactionByYearResponse? response;
+  bool loading = true;
+
+  getHistories({
+    int? year,
+  }) async {
+    loading = true;
+    setState(() {});
+
+    response = await TransactionHistoryService().byYear(
+      year: year ?? DateTime.now().year,
+    );
+    calculateTotal();
+
+    loading = false;
+    setState(() {});
+  }
+
+  calculateTotal() {
+    double pemasukan = 0;
+    double pengeluaran = 0;
+    for (var item in response!.data!) {
+      pemasukan += item.totalPemasukan!;
+      pengeluaran += item.totalPengeluaran!;
+    }
+
+    DashboardController.instance.balance = pemasukan - pengeluaran;
+    DashboardController.instance.pemasukan = pemasukan;
+    DashboardController.instance.pengeluaran = pengeluaran;
+    DashboardController.instance.setState(() {});
+  }
 }

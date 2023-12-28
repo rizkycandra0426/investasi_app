@@ -11,15 +11,6 @@ class DashboardView extends StatefulWidget {
   Widget build(context, DashboardController controller) {
     controller.view = this;
 
-    var now = DateTime.now();
-    var datef = DateFormat("MMMM y").format(
-      DateTime(now.year, (now.month + controller.counter), 1).add(
-        Duration(
-          days: controller.counter,
-        ),
-      ),
-    );
-
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
@@ -37,7 +28,7 @@ class DashboardView extends StatefulWidget {
             Expanded(
               child: Center(
                 child: Text(
-                  "$datef",
+                  "${controller.currentDateFormatted}",
                   style: TextStyle(
                     fontSize: 18.0,
                   ),

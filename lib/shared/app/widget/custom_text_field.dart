@@ -1,22 +1,43 @@
 import 'package:flutter/material.dart';
 import 'package:hyper_ui/core.dart';
 
-class CustomTextField extends StatelessWidget {
+class CustomTextField extends StatefulWidget {
+  final String? value;
   final String? title;
   final String? hintText;
   final TextEditingController? textEditingController;
   final bool? obscureText;
   final Widget? suffixIcon;
   final String? iconForm;
-  const CustomTextField({
+  final Function(String) onChanged;
+  CustomTextField({
     super.key,
+    this.value,
     this.title,
     this.hintText,
     this.textEditingController,
     this.obscureText,
     this.suffixIcon,
     this.iconForm,
+    required this.onChanged,
   });
+
+  @override
+  State<CustomTextField> createState() => _CustomTextFieldState();
+}
+
+class _CustomTextFieldState extends State<CustomTextField> {
+  bool isPasswordVisible = false;
+  updateVisiblility() {
+    isPasswordVisible = !isPasswordVisible;
+    setState(() {});
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    isPasswordVisible = widget.obscureText == true;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -24,17 +45,17 @@ class CustomTextField extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          title ?? 'Change title',
+          widget.title ?? 'Change title',
           style: blackTextStyle.copyWith(
             fontSize: 14,
             fontWeight: medium,
           ),
         ),
-        const SizedBox(
+        SizedBox(
           height: 5,
         ),
         Container(
-          padding: const EdgeInsets.symmetric(
+          padding: EdgeInsets.symmetric(
             horizontal: 8,
           ),
           width: double.infinity,
@@ -50,23 +71,33 @@ class CustomTextField extends StatelessWidget {
             children: [
               // Icon(Icons.email),
               Image.asset(
-                iconForm ?? 'assets/icons/icon_email.png',
+                widget.iconForm ?? 'assets/icons/icon_email.png',
                 width: 16,
               ),
-              const SizedBox(
+              SizedBox(
                 width: 8,
               ),
               Expanded(
-                child: TextField(
+                child: TextFormField(
+                  initialValue: widget.value,
                   style: blackTextStyle.copyWith(),
-                  obscureText: obscureText ?? false,
-                  controller: textEditingController,
+                  obscureText: isPasswordVisible && widget.obscureText == true,
+                  controller: widget.textEditingController,
                   decoration: InputDecoration(
+                    fillColor: Colors.white,
                     border: InputBorder.none,
-                    hintText: hintText ?? 'Change Hint Text',
+                    hintText: widget.hintText ?? 'Change Hint Text',
                     hintStyle: greyTextStyle.copyWith(),
-                    suffixIcon: suffixIcon ?? const SizedBox(),
+                    suffixIcon: widget.obscureText == null
+                        ? null
+                        : InkWell(
+                            child: Icon(isPasswordVisible
+                                ? Icons.visibility_off
+                                : Icons.visibility),
+                            onTap: () => updateVisiblility(),
+                          ),
                   ),
+                  onChanged: (value) => widget.onChanged(value),
                 ),
               ),
             ],

@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hyper_ui/core.dart';
+import 'package:hyper_ui/model/transaction_by_month_and_year_response.dart';
+import 'package:hyper_ui/model/transaction_categories_by_month_and_year_response.dart';
+import 'package:hyper_ui/service/transaction_history_service.dart';
 import '../view/statistik_pengeluaran_view.dart';
 
 class StatistikPengeluaranController extends State<StatistikPengeluaranView> {
@@ -10,6 +13,7 @@ class StatistikPengeluaranController extends State<StatistikPengeluaranView> {
   void initState() {
     instance = this;
     super.initState();
+    getHistories();
   }
 
   @override
@@ -18,22 +22,29 @@ class StatistikPengeluaranController extends State<StatistikPengeluaranView> {
   @override
   Widget build(BuildContext context) => widget.build(context, this);
 
-  List pengeluaranList = [
-    {
-      "label": "Makanan",
-      "total": 150000,
-    },
-    {
-      "label": "Kopi",
-      "total": 123000,
-    },
-    {
-      "label": "Snack",
-      "total": 45000,
-    },
-    {
-      "label": "Minuman",
-      "total": 230000,
+  TransactionCategoriesByYearResponse? response;
+  bool loading = true;
+  List items = [];
+  getHistories({
+    int? month,
+    int? year,
+  }) async {
+    loading = true;
+    setState(() {});
+
+    response = await TransactionHistoryService().categoriesByMonthAndYear(
+      month: month ?? DateTime.now().month,
+      year: year ?? DateTime.now().year,
+    );
+
+    items = [];
+    for (var item in response!.data!) {
+      items.add({
+        "label": item.namaKategoriPengeluaran,
+        "total": item.total,
+      });
     }
-  ];
+    loading = false;
+    setState(() {});
+  }
 }

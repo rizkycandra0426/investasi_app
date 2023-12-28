@@ -1,20 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:hyper_ui/core.dart';
-import '../controller/laporan_keuangan_bulanan_controller.dart';
+import 'package:hyper_ui/shared/widget/loading/loading_scaffold.dart';
 
 class LaporanKeuanganBulananView extends StatefulWidget {
   const LaporanKeuanganBulananView({Key? key}) : super(key: key);
 
   Widget build(context, LaporanKeuanganBulananController controller) {
     controller.view = this;
+    if (controller.loading) return LoadingScaffold();
+    var items = controller.response!.data!;
+
     return Scaffold(
       body: ListView.builder(
-        itemCount: controller.items.length,
+        itemCount: items.length,
         padding: EdgeInsets.zero,
         clipBehavior: Clip.none,
         itemBuilder: (context, index) {
-          var item = controller.items[index];
-          String date = DateFormat("MMMM").format(DateTime.parse(item["date"]));
+          var item = items[index];
+          String date = item.month!;
           return Container(
             color: index % 2 == 0 ? Colors.grey[300] : Colors.white,
             padding: EdgeInsets.symmetric(
@@ -32,7 +35,7 @@ class LaporanKeuanganBulananView extends StatefulWidget {
                 ),
                 Expanded(
                   child: Text(
-                    NumberFormat().format(item["pemasukan"] ?? 0),
+                    NumberFormat().format(item.totalPemasukan ?? 0),
                     textAlign: TextAlign.right,
                     style: TextStyle(
                       fontSize: 14,
@@ -43,7 +46,7 @@ class LaporanKeuanganBulananView extends StatefulWidget {
                 ),
                 Expanded(
                   child: Text(
-                    NumberFormat().format(item["pengeluaran"] ?? 0),
+                    NumberFormat().format(item.totalPengeluaran ?? 0),
                     textAlign: TextAlign.right,
                     style: TextStyle(
                       fontSize: 14,

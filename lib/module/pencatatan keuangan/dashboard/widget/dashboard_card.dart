@@ -1,6 +1,7 @@
 // ignore_for_file: camel_case_types, prefer_typing_uninitialized_variables
 
 import 'package:flutter/material.dart';
+import 'package:hyper_ui/core.dart';
 import 'package:hyper_ui/module/pencatatan%20keuangan/dashboard/widget/dashboard_card_expense.dart';
 import 'package:hyper_ui/module/pencatatan%20keuangan/dashboard/widget/dashboard_card_income.dart';
 
@@ -9,6 +10,7 @@ class DashboardCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var controller = DashboardController.instance;
     return Container(
       width: MediaQuery.of(context).size.width,
       margin: EdgeInsets.only(
@@ -56,7 +58,7 @@ class DashboardCard extends StatelessWidget {
                 height: 5,
               ),
               Text(
-                '500.000',
+                '${NumberFormat().format(controller.balance)}',
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 18,
@@ -73,10 +75,10 @@ class DashboardCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     DashboardCardIncome(
-                      value: "1.000.000",
+                      value: '${NumberFormat().format(controller.pemasukan)}',
                     ),
                     DashboardCardExpense(
-                      value: "500.000",
+                      value: '${NumberFormat().format(controller.pengeluaran)}',
                     ),
                   ],
                 ),

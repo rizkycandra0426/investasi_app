@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hyper_ui/core.dart';
 import 'package:hyper_ui/shared/util/animation/animation.dart';
+import 'package:hyper_ui/shared/widget/loading/loading_scaffold.dart';
 import '../controller/laporan_keuangan_harian_controller.dart';
 
 class LaporanKeuanganHarianView extends StatefulWidget {
@@ -14,6 +15,9 @@ class LaporanKeuanganHarianView extends StatefulWidget {
 
   Widget build(context, LaporanKeuanganHarianController controller) {
     controller.view = this;
+    if (controller.loading) return LoadingScaffold();
+    var items = controller.response!.data!;
+
     return Scaffold(
       appBar: enableAppBar
           ? AppBar(
@@ -24,24 +28,27 @@ class LaporanKeuanganHarianView extends StatefulWidget {
         children: [
           Expanded(
             child: ListView.builder(
-              itemCount: controller.items.length,
+              itemCount: items.length,
               physics: ScrollPhysics(),
               itemBuilder: (BuildContext context, int index) {
-                var item = controller.items[index];
+                var item = items[index];
 
                 if (date != null) {
                   var filterDate = DateFormat("d MMM y").format(date!);
                   var currentDate = DateFormat("d MMM y")
-                      .format(DateTime.parse(item["date"]));
+                      .format(DateTime.parse(item.createdAt!));
 
                   if (filterDate != currentDate) {
                     return Container();
                   }
                 }
 
-                var day = DateFormat("d").format(DateTime.parse(item["date"]));
+                var day =
+                    DateFormat("d").format(DateTime.parse(item.createdAt!));
                 var dayName =
-                    DateFormat("EEEE").format(DateTime.parse(item["date"]));
+                    DateFormat("EEEE").format(DateTime.parse(item.createdAt!));
+                var monthName =
+                    DateFormat("MMMM").format(DateTime.parse(item.createdAt!));
 
                 bool visible = false;
                 bool dividerVisible = false;
@@ -51,32 +58,42 @@ class LaporanKeuanganHarianView extends StatefulWidget {
                 }
 
                 if (index > 0) {
-                  var beforeItem = controller.items[index - 1];
+                  var beforeItem = items[index - 1];
                   var dateBefore = DateFormat("d MMM y")
-                      .format(DateTime.parse(beforeItem["date"]));
+                      .format(DateTime.parse(beforeItem.createdAt!));
                   var currentDate = DateFormat("d MMM y")
-                      .format(DateTime.parse(item["date"]));
+                      .format(DateTime.parse(item.createdAt!));
 
                   if (dateBefore != currentDate) {
                     visible = true;
                   }
                 }
 
-                if (index < controller.items.length - 1) {
-                  var afterItem = controller.items[index + 1];
+                if (index < items.length - 1) {
+                  var afterItem = items[index + 1];
                   var dateBefore = DateFormat("d MMM y")
-                      .format(DateTime.parse(afterItem["date"]));
+                      .format(DateTime.parse(item.createdAt!));
                   var currentDate = DateFormat("d MMM y")
-                      .format(DateTime.parse(item["date"]));
+                      .format(DateTime.parse(item.createdAt!));
 
                   if (dateBefore != currentDate) {
                     dividerVisible = true;
                   }
                 }
 
-                var amount = "Rp " + NumberFormat().format(item["amount"]);
+                var amount = "Rp " + NumberFormat().format(item.jumlah);
+                bool isPemasukan = item.type == "Pemasukan";
+                bool isPengeluaran = item.type == "Pengeluaran";
+
                 return Column(
                   children: [
+                    if (visible && index > 0)
+                      Container(
+                        height: 12,
+                        decoration: BoxDecoration(
+                          color: Colors.grey[100],
+                        ),
+                      ),
                     if (visible)
                       Padding(
                         padding: EdgeInsets.symmetric(
@@ -85,57 +102,29 @@ class LaporanKeuanganHarianView extends StatefulWidget {
                         ),
                         child: Row(
                           children: [
-                            Container(
-                              width: 80,
-                              child: Row(
-                                children: [
-                                  Text(
-                                    "$day",
-                                    style: TextStyle(
-                                      fontSize: 14.0,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    width: 4.0,
-                                  ),
-                                  Container(
-                                    padding: EdgeInsets.all(2.0),
-                                    decoration: BoxDecoration(
-                                      color: dangerColor,
-                                      borderRadius: BorderRadius.all(
-                                        Radius.circular(4.0),
-                                      ),
-                                    ),
-                                    child: Text(
-                                      "$dayName",
-                                      style: TextStyle(
-                                        fontSize: 8.0,
-                                        color: Colors.white,
-                                      ),
-                                    ),
-                                  ),
-                                ],
+                            Text(
+                              "$day",
+                              style: TextStyle(
+                                fontSize: 16.0,
+                                fontWeight: FontWeight.bold,
                               ),
                             ),
-                            Expanded(
-                              child: Text(
-                                "Rp 230.000.000,-",
-                                style: TextStyle(
-                                  fontSize: 12.0,
-                                  fontWeight: FontWeight.bold,
-                                  color: infoColor,
+                            SizedBox(
+                              width: 4.0,
+                            ),
+                            Container(
+                              padding: EdgeInsets.all(2.0),
+                              decoration: BoxDecoration(
+                                color: dangerColor,
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(4.0),
                                 ),
                               ),
-                            ),
-                            Expanded(
                               child: Text(
-                                "Rp 230.000.000,-",
-                                textAlign: TextAlign.right,
+                                "$monthName",
                                 style: TextStyle(
                                   fontSize: 12.0,
-                                  fontWeight: FontWeight.bold,
-                                  color: warningColor,
+                                  color: Colors.white,
                                 ),
                               ),
                             ),
@@ -145,27 +134,17 @@ class LaporanKeuanganHarianView extends StatefulWidget {
                     Divider(),
                     Padding(
                       padding: EdgeInsets.symmetric(
-                        horizontal: 12.0,
+                        horizontal: 20.0,
                         vertical: 4.0,
                       ),
                       child: Row(
                         children: [
-                          Container(
-                            width: 80,
-                            child: Text(
-                              "${item["category"]}",
-                              style: TextStyle(
-                                fontSize: 14.0,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ),
                           Expanded(
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  "${item["account_name"]}",
+                                  "${item.namaKategori}",
                                   textAlign: TextAlign.start,
                                   style: TextStyle(
                                     fontSize: 12.0,
@@ -173,11 +152,11 @@ class LaporanKeuanganHarianView extends StatefulWidget {
                                     color: infoColor,
                                   ),
                                 ),
-                                const SizedBox(
+                                SizedBox(
                                   height: 4.0,
                                 ),
                                 Text(
-                                  "${item["description"]}",
+                                  "${item.catatan}",
                                   style: TextStyle(
                                     fontSize: 12.0,
                                   ),
@@ -185,14 +164,27 @@ class LaporanKeuanganHarianView extends StatefulWidget {
                               ],
                             ),
                           ),
-                          Expanded(
+                          Container(
+                            width: 80.0,
                             child: Text(
                               "${amount}",
                               textAlign: TextAlign.right,
                               style: TextStyle(
-                                fontSize: 12.0,
+                                fontSize: isPemasukan ? 12.0 : 0,
                                 fontWeight: FontWeight.bold,
-                                color: warningColor,
+                                color: isPemasukan ? infoColor : warningColor,
+                              ),
+                            ),
+                          ),
+                          Container(
+                            width: 80.0,
+                            child: Text(
+                              "${amount}",
+                              textAlign: TextAlign.right,
+                              style: TextStyle(
+                                fontSize: isPengeluaran ? 12.0 : 0,
+                                fontWeight: FontWeight.bold,
+                                color: isPengeluaran ? dangerColor : infoColor,
                               ),
                             ),
                           ),

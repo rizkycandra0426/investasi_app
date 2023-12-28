@@ -54,12 +54,30 @@ class ProfileView extends StatefulWidget {
               child: Container(
                 height: 500,
                 width: MediaQuery.of(context).size.width,
+                padding: EdgeInsets.symmetric(
+                  horizontal: 20.0,
+                  vertical: 20.0,
+                ),
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(50),
                     topRight: Radius.circular(50),
                   ),
+                ),
+                child: Column(
+                  children: [
+                    ListTile(
+                      minLeadingWidth: 0.0,
+                      title: Text("Logout"),
+                      trailing: Icon(
+                        Icons.logout,
+                        color: Colors.red,
+                        size: 24.0,
+                      ),
+                      onTap: () => controller.logout(),
+                    ),
+                  ],
                 ),
               ),
             ),

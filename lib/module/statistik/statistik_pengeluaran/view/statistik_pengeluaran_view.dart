@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hyper_ui/core.dart';
+import 'package:hyper_ui/shared/widget/loading/loading_scaffold.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import '../controller/statistik_pengeluaran_controller.dart';
 import '../widget/pengeluaran_card.dart';
@@ -9,6 +10,7 @@ class StatistikPengeluaranView extends StatefulWidget {
 
   Widget build(context, StatistikPengeluaranController controller) {
     controller.view = this;
+    if (controller.loading) return LoadingScaffold();
     return Scaffold(
       // appBar: AppBar(
       //   title: const Text("StatistikPengeluaran"),
@@ -27,8 +29,7 @@ class StatistikPengeluaranView extends StatefulWidget {
                 ),
                 Builder(
                   builder: (context) {
-                    final List<Map> chartData =
-                        controller.pengeluaranList.map((e) {
+                    final List<Map> chartData = controller.items.map((e) {
                       return {
                         "year": e["label"],
                         "sales": e["total"],
@@ -55,7 +56,7 @@ class StatistikPengeluaranView extends StatefulWidget {
                     );
                   },
                 ),
-                for (var item in controller.pengeluaranList)
+                for (var item in controller.items)
                   PengeluaranCard(
                     title: item["label"],
                     harga: NumberFormat().format(item["total"]),

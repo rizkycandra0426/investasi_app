@@ -7,7 +7,6 @@ class LoginView extends StatefulWidget {
 
   Widget build(context, LoginController controller) {
     controller.view = this;
-    bool _isVisible = false;
     return Scaffold(
       body: Padding(
         padding: EdgeInsets.symmetric(
@@ -44,6 +43,10 @@ class LoginView extends StatefulWidget {
                 hintText: 'Masukan alamat email.....',
                 iconForm: "assets/icons/icon_email.png",
                 // textEditingController: emailController,
+                onChanged: (value) {
+                  controller.email = value;
+                },
+                value: controller.email,
               ),
               const SizedBox(
                 height: 20,
@@ -51,26 +54,13 @@ class LoginView extends StatefulWidget {
               CustomTextField(
                 title: 'Password',
                 hintText: 'Masukan password.....',
-                obscureText: !_isVisible,
+                obscureText: true,
                 iconForm: "assets/icons/icon_password.png",
                 // textEditingController: passwordController,
-                suffixIcon: IconButton(
-                  onPressed: () {
-                    // setState(() {
-                    //   _isVisible = !_isVisible;
-                    // });
-                  },
-                  icon: _isVisible
-                      // ignore: dead_code
-                      ? Icon(
-                          Icons.visibility,
-                          color: Colors.black,
-                        )
-                      : const Icon(
-                          Icons.visibility_off,
-                          color: Colors.grey,
-                        ),
-                ),
+                onChanged: (value) {
+                  controller.password = value;
+                },
+                value: controller.password,
               ),
               const SizedBox(
                 height: 41,
@@ -80,10 +70,7 @@ class LoginView extends StatefulWidget {
                 width: double.infinity,
                 child: CustomButton(
                   title: 'Login',
-                  onPressed: () {
-                    Get.offAll(MainNavigationView());
-                    //  formValidate();
-                  },
+                  onPressed: () => controller.login(),
                 ),
               ),
               const SizedBox(
