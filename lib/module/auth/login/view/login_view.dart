@@ -1,12 +1,9 @@
-import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/material.dart';
 import 'package:hyper_ui/core.dart';
-import 'package:hyper_ui/module/authentication/widget/custom_button.dart';
-import 'package:hyper_ui/module/authentication/widget/custom_text_field.dart';
-import 'package:hyper_ui/module/authentication/widget/theme.dart';
+import '../controller/login_controller.dart';
 
 class LoginView extends StatefulWidget {
-  LoginView({Key? key}) : super(key: key);
+  const LoginView({Key? key}) : super(key: key);
 
   Widget build(context, LoginController controller) {
     controller.view = this;

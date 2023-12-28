@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hyper_ui/module/authentication/widget/theme.dart';
+import 'package:hyper_ui/core.dart';
 
 class CustomButton extends StatelessWidget {
   final String? title;

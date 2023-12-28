@@ -1,5 +1,7 @@
 {
     "modules": [
+        "auth/login",
+        "auth/register",
         "statistik_dashboard",
         "statistik_pengeluaran",
         "anggaran_pengeluaran",
