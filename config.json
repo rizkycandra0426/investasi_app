@@ -1,15 +1,11 @@
 {
     "modules": [
-        "auth/login",
-        "auth/register",
-        "statistik_dashboard",
-        "statistik_pengeluaran",
-        "anggaran_pengeluaran",
-        "catatan_pengeluaran",
-        "kategori_list",
-        "kategori_list_form"
+        "investasi",
+        "pinjaman",
+        "saham",
+        "dashboard_investasi"
     ],
-    "module_directory_name": "module/statistik",
+    "module_directory_name": "module/investasi",
     "experimental_mode": false,
     "learning_mode": false,
     "unfreezed": true,

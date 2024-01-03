@@ -26,23 +26,23 @@ class ProfileView extends StatefulWidget {
               color: Colors.blue,
               child: Column(
                 children: [
-                  SizedBox(height: 55.0),
+                  SizedBox(height: 70.0),
                   CircleAvatar(
-                    radius: 46.0,
+                    radius: 67.0,
                     backgroundImage: NetworkImage(
                       "https://i.ibb.co/PGv8ZzG/me.jpg",
                     ),
                   ),
-                  SizedBox(height: 6.0),
+                  SizedBox(height: 10.0),
                   Text(
                     "Rizky",
                     style:
-                        TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
+                        TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
                   ),
                   SizedBox(height: 6.0),
                   Text(
                     "rizky@gmail.com",
-                    style: TextStyle(fontSize: 16.0),
+                    style: TextStyle(fontSize: 18.0),
                   ),
                 ], // Tutup Column
               ),

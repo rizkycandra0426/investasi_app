@@ -10,9 +10,7 @@ class MainNavigationView extends StatefulWidget {
     List<Widget> pages = [
       DashboardView(),
       StatistikDashboardView(),
-      Container(
-        color: Colors.blue[100],
-      ),
+      DashboardInvestasiView(),
       ProfileView(),
     ];
     List<Map<String, dynamic>> menus = [

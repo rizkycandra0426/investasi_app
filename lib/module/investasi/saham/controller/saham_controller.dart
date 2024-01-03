@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:hyper_ui/core.dart';
-import '../view/kategori_list_form_view.dart';
+import '../view/saham_view.dart';
 
-class KategoriListFormController extends State<KategoriListFormView> {
-  static late KategoriListFormController instance;
-  late KategoriListFormView view;
+class SahamController extends State<SahamView> {
+  static late SahamController instance;
+  late SahamView view;
 
   @override
   void initState() {
