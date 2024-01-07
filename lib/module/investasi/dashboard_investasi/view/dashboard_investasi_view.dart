@@ -18,10 +18,36 @@ class DashboardInvestasiView extends StatefulWidget {
               child: Container(
                 width: MediaQuery.of(context).size.width,
                 height: 170,
-                color: Colors.red,
-                margin: EdgeInsets.only(
-                  right: 80,
-                  left: 80,
+                decoration: BoxDecoration(
+                  color: Colors.blue[600],
+                  borderRadius: BorderRadius.circular(25),
+                ),
+                margin: const EdgeInsets.symmetric(horizontal: 80),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    CircleAvatar(
+                      radius: 50,
+                      backgroundColor: Colors.white,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            image: AssetImage('assets/images/Investasi.png'),
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 10),
+                    Text(
+                      "Investasi",
+                      style: TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ],
                 ),
               ),
               onTap: () {
@@ -35,10 +61,36 @@ class DashboardInvestasiView extends StatefulWidget {
               child: Container(
                 width: MediaQuery.of(context).size.width,
                 height: 170,
-                color: Colors.green,
-                margin: EdgeInsets.only(
-                  right: 80,
-                  left: 80,
+                decoration: BoxDecoration(
+                  color: Colors.blue[600],
+                  borderRadius: BorderRadius.circular(25),
+                ),
+                margin: const EdgeInsets.symmetric(horizontal: 80),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    CircleAvatar(
+                      radius: 50,
+                      backgroundColor: Colors.white,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            image: AssetImage('assets/images/Pinjaman.png'),
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 10),
+                    Text(
+                      "Pinjaman",
+                      style: TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ],
                 ),
               ),
               onTap: () {
@@ -52,10 +104,36 @@ class DashboardInvestasiView extends StatefulWidget {
               child: Container(
                 width: MediaQuery.of(context).size.width,
                 height: 170,
-                color: Colors.blue,
-                margin: EdgeInsets.only(
-                  right: 80,
-                  left: 80,
+                decoration: BoxDecoration(
+                  color: Colors.blue[600],
+                  borderRadius: BorderRadius.circular(25),
+                ),
+                margin: const EdgeInsets.symmetric(horizontal: 80),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    CircleAvatar(
+                      radius: 50,
+                      backgroundColor: Colors.white,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            image: AssetImage('assets/images/Saham.png'),
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 10),
+                    Text(
+                      "Saham",
+                      style: TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ],
                 ),
               ),
               onTap: () {

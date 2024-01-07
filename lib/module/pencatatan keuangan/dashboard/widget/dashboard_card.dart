@@ -19,11 +19,15 @@ class DashboardCard extends StatelessWidget {
       ),
       child: Container(
         decoration: BoxDecoration(
-          color: Colors.blue,
+          image: DecorationImage(
+            image: AssetImage(
+                'assets/images/kartu.png'), // Ganti dengan nama file gambar Anda
+            fit: BoxFit.cover, // Atur gambar agar memenuhi container
+          ),
           boxShadow: [
             BoxShadow(
               color: Colors.white24,
-              blurRadius: 20,
+              blurRadius: 30,
               offset: Offset(0, 11),
             ),
           ],
