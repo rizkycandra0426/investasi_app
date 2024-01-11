@@ -20,7 +20,7 @@ class InvestasiView extends StatefulWidget {
                 Icons.arrow_back,
                 size: 24.0,
               ),
-              onPressed: () => Get.to(DashboardInvestasiView()),
+              onPressed: () => Get.offAll(MainNavigationView()),
             ),
             Expanded(
               child: Center(

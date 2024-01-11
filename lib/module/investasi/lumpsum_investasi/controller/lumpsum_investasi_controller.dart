@@ -6,6 +6,8 @@ class LumpsumInvestasiController extends State<LumpsumInvestasiView> {
   static late LumpsumInvestasiController instance;
   late LumpsumInvestasiView view;
 
+  set memo(String memo) {}
+
   @override
   void initState() {
     instance = this;

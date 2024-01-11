@@ -51,7 +51,7 @@ class DashboardInvestasiView extends StatefulWidget {
                 ),
               ),
               onTap: () {
-                Get.to(InvestasiView());
+                Get.offAll(InvestasiView());
               },
             ),
             SizedBox(
@@ -94,7 +94,7 @@ class DashboardInvestasiView extends StatefulWidget {
                 ),
               ),
               onTap: () {
-                Get.to(PinjamanView());
+                Get.offAll(PinjamanView());
               },
             ),
             SizedBox(
@@ -137,7 +137,7 @@ class DashboardInvestasiView extends StatefulWidget {
                 ),
               ),
               onTap: () {
-                Get.to(SahamView());
+                Get.offAll(SahamView());
               },
             ),
           ],
