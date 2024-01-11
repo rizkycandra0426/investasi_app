@@ -3,7 +3,10 @@
         "investasi",
         "pinjaman",
         "saham",
-        "dashboard_investasi"
+        "dashboard_investasi",
+        "lumpsum_investasi",
+        "bulanan_investasi",
+        "target_investasi"
     ],
     "module_directory_name": "module/investasi",
     "experimental_mode": false,

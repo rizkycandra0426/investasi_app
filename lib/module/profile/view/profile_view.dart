@@ -47,16 +47,14 @@ class ProfileView extends StatefulWidget {
                 ], // Tutup Column
               ),
             ),
-
-            // Positioned container putih di atas
             Positioned(
-              top: 300, // Atur posisi atas sesuai kebutuhan
+              top: 390,
               child: Container(
-                height: 500,
+                height: 400,
                 width: MediaQuery.of(context).size.width,
                 padding: EdgeInsets.symmetric(
-                  horizontal: 20.0,
-                  vertical: 20.0,
+                  // horizontal: 10,
+                  vertical: 20,
                 ),
                 decoration: BoxDecoration(
                   color: Colors.white,
@@ -67,15 +65,74 @@ class ProfileView extends StatefulWidget {
                 ),
                 child: Column(
                   children: [
-                    ListTile(
-                      minLeadingWidth: 0.0,
-                      title: Text("Logout"),
-                      trailing: Icon(
-                        Icons.logout,
-                        color: Colors.red,
-                        size: 24.0,
-                      ),
-                      onTap: () => controller.logout(),
+                    SizedBox(
+                      height: 50,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Container(
+                          width: 180,
+                          height: 90,
+                          decoration: BoxDecoration(
+                            color: Colors.red,
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          child: Row(
+                            children: [
+                              CircleAvatar(
+                                radius: 30,
+                                backgroundColor: Colors.white,
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                      image: AssetImage(
+                                          'assets/images/Investasi.png'),
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                width: 10,
+                              ),
+                              Text("text"),
+                            ],
+                          ),
+                        ),
+                        Container(
+                          height: 90,
+                          width: 180,
+                          decoration: BoxDecoration(
+                            color: Colors.green,
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Container(
+                          width: 180,
+                          height: 90,
+                          decoration: BoxDecoration(
+                            color: Colors.blue,
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                        ),
+                        Container(
+                          width: 180,
+                          height: 90,
+                          decoration: BoxDecoration(
+                            color: Colors.blue,
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ),

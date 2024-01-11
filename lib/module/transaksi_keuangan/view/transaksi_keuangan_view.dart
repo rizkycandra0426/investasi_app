@@ -55,12 +55,10 @@ class TransaksiKeuanganView extends StatefulWidget {
                     textAlign: TextAlign.center,
                     style: TextStyle(color: Colors.white, fontSize: 26),
                     decoration: InputDecoration(
-                      border: InputBorder
-                          .none, // Menghilangkan garis tepi TextField
+                      border: InputBorder.none,
                       filled: true,
-                      fillColor: Colors
-                          .transparent, // Sesuaikan dengan warna latar belakang
-                      hintText: 'Rp', // Atur teks petunjuk jika diperlukan
+                      fillColor: Colors.transparent,
+                      hintText: 'Rp',
                       hintStyle: TextStyle(color: Colors.white70, fontSize: 26),
                     ),
                     onChanged: (value) {
@@ -147,13 +145,10 @@ class TransaksiKeuanganView extends StatefulWidget {
                       textAlign: TextAlign.center,
                       style: TextStyle(color: Colors.black, fontSize: 20),
                       decoration: InputDecoration(
-                        border: InputBorder
-                            .none, // Menghilangkan garis tepi TextField
+                        border: InputBorder.none,
                         filled: true,
-                        fillColor: Colors
-                            .transparent, // Sesuaikan dengan warna latar belakang
-                        hintText:
-                            'Catatan', // Atur teks petunjuk jika diperlukan
+                        fillColor: Colors.transparent,
+                        hintText: 'Catatan',
                         hintStyle:
                             TextStyle(color: Colors.black38, fontSize: 20),
                       ),
