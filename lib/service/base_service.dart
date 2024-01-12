@@ -2,7 +2,8 @@ import 'package:dio/dio.dart';
 import 'package:hyper_ui/model/kategori_pemasukan_response.dart';
 
 class BaseService<T> {
-  String baseUrl = "http://10.168.55.234:8000/api";
+  // String baseUrl = "http://10.168.55.234:8000/api";
+  String baseUrl = "http://192.168.1.9:8000/api";
   String endpoint = "kategori_pemasukans";
 
   Future<T> get() async {
@@ -36,8 +37,14 @@ class BaseService<T> {
   }
 
   Future update(int id, Map data) async {
+    var url = "$baseUrl/$endpoint/$id";
+
+    print("URL: $url");
+    print("data: $data");
+    print("-------------");
+
     var response = await Dio().post(
-      "$baseUrl/$endpoint/$id",
+      url,
       options: Options(
         headers: {
           "Content-Type": "application/json",
@@ -49,7 +56,7 @@ class BaseService<T> {
   }
 
   Future delete(int id) async {
-    var response = await Dio().post(
+    var response = await Dio().delete(
       "$baseUrl/$endpoint/$id",
       options: Options(
         headers: {

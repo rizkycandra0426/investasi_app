@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:hyper_ui/core.dart';
-import 'package:hyper_ui/module/pencatatan%20keuangan/dashboard/widget/dashboard_card_expense.dart';
-import 'package:hyper_ui/module/pencatatan%20keuangan/dashboard/widget/dashboard_card_income.dart';
-import 'package:hyper_ui/module/pencatatan%20keuangan/dashboard/widget/dashboard_clippath.dart';
-import 'package:hyper_ui/shared/util/animation/animation.dart';
 
 class DashboardView extends StatefulWidget {
   DashboardView({Key? key}) : super(key: key);

@@ -28,9 +28,27 @@ class TransaksiKeuanganController extends State<TransaksiKeuanganView> {
 
   bool get isPengeluaran => isPemasukan == false;
 
+  bool get isEditMode => widget.item != null;
+
+  bool loading = true;
+
   loadData() async {
+    loading = true;
+    setState(() {});
     await getPemasukanCategories();
     await getPengeluaranCategories();
+
+    if (isEditMode) {
+      categoryName = widget.item!.namaKategori!;
+      idCategory = widget.item!.idKategori!;
+      amount = double.parse(widget.item!.jumlah!.toString());
+      memo = widget.item!.catatan!;
+
+      if (widget.item!.type == "Pengeluaran") {
+        isPemasukan = false;
+      }
+    }
+    loading = false;
     setState(() {});
   }
 
@@ -104,6 +122,42 @@ class TransaksiKeuanganController extends State<TransaksiKeuanganView> {
         "catatan": memo,
         "id_kategori_pengeluaran": idCategory,
       });
+    }
+    hideLoading();
+    Get.offAll(MainNavigationView());
+  }
+
+  update() async {
+    showLoading();
+    if (isPemasukan) {
+      await PemasukanService().update(widget.item!.id!, {
+        "user_id": 1,
+        "tanggal": date.yMd,
+        "jumlah": amount,
+        "catatan": memo,
+        "id_kategori_pemasukan": idCategory,
+        "_method": "PUT",
+      });
+    } else {
+      await PengeluaranService().update(widget.item!.id!, {
+        "user_id": 1,
+        "tanggal": date.yMd,
+        "jumlah": amount,
+        "catatan": memo,
+        "id_kategori_pengeluaran": idCategory,
+        "_method": "PUT",
+      });
+    }
+    hideLoading();
+    Get.offAll(MainNavigationView());
+  }
+
+  delete() async {
+    showLoading();
+    if (isPemasukan) {
+      await PemasukanService().delete(widget.item!.id!);
+    } else {
+      await PengeluaranService().delete(widget.item!.id!);
     }
     hideLoading();
     Get.offAll(MainNavigationView());

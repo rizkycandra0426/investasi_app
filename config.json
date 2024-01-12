@@ -1,11 +1,8 @@
 {
     "modules": [
-        "investasi",
-        "pinjaman",
-        "saham",
-        "dashboard_investasi"
+        "pencatatan_keuangan/laporan_keuangan_harian_form"
     ],
-    "module_directory_name": "module/investasi",
+    "module_directory_name": "module",
     "experimental_mode": false,
     "learning_mode": false,
     "unfreezed": true,
