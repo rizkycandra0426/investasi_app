@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 class TransactionByMonthAndYearResponse {
-  List<Datum>? data;
+  List<HistoryHarian>? data;
 
   TransactionByMonthAndYearResponse({
     this.data,
@@ -17,7 +17,8 @@ class TransactionByMonthAndYearResponse {
       TransactionByMonthAndYearResponse(
         data: json["data"] == null
             ? []
-            : List<Datum>.from(json["data"]!.map((x) => Datum.fromJson(x))),
+            : List<HistoryHarian>.from(
+                json["data"]!.map((x) => HistoryHarian.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
@@ -27,7 +28,7 @@ class TransactionByMonthAndYearResponse {
       };
 }
 
-class Datum {
+class HistoryHarian {
   int? id;
   int? userId;
   DateTime? tanggal;
@@ -39,7 +40,7 @@ class Datum {
   String? updatedAt;
   String? type;
 
-  Datum({
+  HistoryHarian({
     this.id,
     this.userId,
     this.tanggal,
@@ -52,11 +53,12 @@ class Datum {
     this.type,
   });
 
-  factory Datum.fromRawJson(String str) => Datum.fromJson(json.decode(str));
+  factory HistoryHarian.fromRawJson(String str) =>
+      HistoryHarian.fromJson(json.decode(str));
 
   String toRawJson() => json.encode(toJson());
 
-  factory Datum.fromJson(Map<String, dynamic> json) => Datum(
+  factory HistoryHarian.fromJson(Map<String, dynamic> json) => HistoryHarian(
         id: json["id"],
         userId: json["user_id"],
         tanggal:

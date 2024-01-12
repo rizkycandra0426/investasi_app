@@ -1,14 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:hyper_ui/core.dart';
+import 'package:hyper_ui/model/transaction_by_month_and_year_response.dart';
 import 'package:hyper_ui/module/transaksi_keuangan/widget/transaksi_clipath.dart';
 import 'package:hyper_ui/shared/util/date_util/date_util.dart';
 import '../controller/transaksi_keuangan_controller.dart';
 
 class TransaksiKeuanganView extends StatefulWidget {
-  TransaksiKeuanganView({Key? key}) : super(key: key);
+  final HistoryHarian? item;
+  TransaksiKeuanganView({
+    Key? key,
+    this.item,
+  }) : super(key: key);
 
   Widget build(context, TransaksiKeuanganController controller) {
     controller.view = this;
+    if (controller.loading) {
+      return Scaffold(
+        body: Center(
+          child: CircularProgressIndicator(),
+        ),
+      );
+    }
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
@@ -49,11 +61,13 @@ class TransaksiKeuanganView extends StatefulWidget {
                 color: Colors.blue,
                 child: Container(
                   margin: EdgeInsets.only(top: 225, left: 10, right: 10),
-                  child: TextField(
+                  child: TextFormField(
+                    initialValue: item?.jumlah?.toString(),
                     showCursor: true,
                     cursorColor: Colors.transparent,
                     textAlign: TextAlign.center,
                     style: TextStyle(color: Colors.white, fontSize: 26),
+                    keyboardType: TextInputType.number,
                     decoration: InputDecoration(
                       border: InputBorder.none,
                       filled: true,
@@ -139,7 +153,8 @@ class TransaksiKeuanganView extends StatefulWidget {
                     ),
                   ),
                   child: Center(
-                    child: TextField(
+                    child: TextFormField(
+                      initialValue: item?.catatan?.toString(),
                       showCursor: true,
                       cursorColor: Colors.transparent,
                       textAlign: TextAlign.center,
@@ -164,96 +179,132 @@ class TransaksiKeuanganView extends StatefulWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    Container(
-                      width: 155,
-                      height: 55,
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.blue,
-                        ),
-                        onPressed: () {
-                          Get.offAll(TransaksiKeuanganView());
-                        },
-                        child: Text(
-                          "Tambah Lagi",
-                          style: TextStyle(fontSize: 18),
-                        ),
-                      ),
-                    ),
-                    Container(
-                      width: 155,
-                      height: 55,
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.grey[400],
-                        ),
-                        onPressed: () => controller.save(),
-                        child: Text(
-                          "Selesai",
-                          style: TextStyle(fontSize: 18, color: Colors.black),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Positioned(
-                left: 20,
-                right: 20,
-                top: 20,
-                child: SafeArea(
-                  child: Container(
-                    height: 80,
-                    width: MediaQuery.of(context).size.width,
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: QDropdownField(
-                            label: "",
-                            validator: Validator.required,
-                            items: [
-                              {
-                                "label": "Pemasukan",
-                                "value": "Pemasukan",
-                              },
-                              {
-                                "label": "Pengeluaran",
-                                "value": "Pengeluaran",
-                              }
-                            ],
-                            value: "Pemasukan",
-                            onChanged: (value, label) {
-                              controller.isPemasukan =
-                                  value == "Pengeluaran" ? false : true;
-                              controller.idCategory = 0;
-                              controller.categoryName = "";
-                              controller.setState(() {});
-                            },
+                    if (!controller.isEditMode)
+                      Container(
+                        width: 155,
+                        height: 55,
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.blue,
+                          ),
+                          onPressed: () {
+                            Get.offAll(TransaksiKeuanganView());
+                          },
+                          child: Text(
+                            "Tambah Lagi",
+                            style: TextStyle(fontSize: 18),
                           ),
                         ),
-                        SizedBox(
-                          width: 12.0,
+                      ),
+                    if (!controller.isEditMode)
+                      Container(
+                        width: 155,
+                        height: 55,
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.grey[400],
+                          ),
+                          onPressed: () => controller.save(),
+                          child: Text(
+                            "Selesai",
+                            style: TextStyle(fontSize: 18, color: Colors.black),
+                          ),
                         ),
-                        Expanded(
-                          child: AbsorbPointer(
-                            absorbing: true,
-                            child: QTextField(
-                              label: "",
-                              validator: Validator.required,
-                              suffixIcon: null,
-                              prefixIcon: null,
-                              value: "${DateTime.now().yMd}",
-                              onChanged: (value) {
-                                controller.date = DateTime.now();
-                              },
+                      ),
+                    if (controller.isEditMode)
+                      Container(
+                        width: 155,
+                        height: 55,
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.red[400],
+                          ),
+                          onPressed: () => controller.delete(),
+                          child: Text(
+                            "Delete",
+                            style: TextStyle(
+                              fontSize: 18,
+                              color: Colors.white,
                             ),
                           ),
                         ),
-                      ],
+                      ),
+                    if (controller.isEditMode)
+                      Container(
+                        width: 155,
+                        height: 55,
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.grey[400],
+                          ),
+                          onPressed: () => controller.update(),
+                          child: Text(
+                            "Update",
+                            style: TextStyle(fontSize: 18, color: Colors.black),
+                          ),
+                        ),
+                      ),
+                  ],
+                ),
+              ),
+              if (!controller.isEditMode)
+                Positioned(
+                  left: 20,
+                  right: 20,
+                  top: 20,
+                  child: SafeArea(
+                    child: Container(
+                      height: 80,
+                      width: MediaQuery.of(context).size.width,
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: QDropdownField(
+                              label: "",
+                              validator: Validator.required,
+                              items: [
+                                {
+                                  "label": "Pemasukan",
+                                  "value": "Pemasukan",
+                                },
+                                {
+                                  "label": "Pengeluaran",
+                                  "value": "Pengeluaran",
+                                }
+                              ],
+                              value: "Pemasukan",
+                              onChanged: (value, label) {
+                                controller.isPemasukan =
+                                    value == "Pengeluaran" ? false : true;
+                                controller.idCategory = 0;
+                                controller.categoryName = "";
+                                controller.setState(() {});
+                              },
+                            ),
+                          ),
+                          SizedBox(
+                            width: 12.0,
+                          ),
+                          Expanded(
+                            child: AbsorbPointer(
+                              absorbing: true,
+                              child: QTextField(
+                                label: "",
+                                validator: Validator.required,
+                                suffixIcon: null,
+                                prefixIcon: null,
+                                value: "${DateTime.now().yMd}",
+                                onChanged: (value) {
+                                  controller.date = DateTime.now();
+                                },
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
-              ),
               if (controller.isBottomSheetVisible)
                 Positioned(
                   bottom: 20,

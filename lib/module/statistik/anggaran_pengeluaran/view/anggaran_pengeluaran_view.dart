@@ -8,6 +8,7 @@ class AnggaranPengeluaranView extends StatefulWidget {
 
   Widget build(context, AnggaranPengeluaranController controller) {
     controller.view = this;
+
     return Scaffold(
       // appBar: AppBar(
       //   title: const Text("AnggaranPengeluaran"),
