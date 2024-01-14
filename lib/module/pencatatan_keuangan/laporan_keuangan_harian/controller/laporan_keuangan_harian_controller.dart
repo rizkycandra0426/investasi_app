@@ -17,10 +17,18 @@ class LaporanKeuanganHarianController extends State<LaporanKeuanganHarianView> {
   }
 
   void onReady() {
-    getHistories(
-      month: view.date?.month,
-      year: view.date?.year,
-    );
+    if (view.date == null) {
+      var dashboardController = DashboardController.instance;
+      getHistories(
+        month: dashboardController.currentDate.month,
+        year: dashboardController.currentDate.year,
+      );
+    } else {
+      getHistories(
+        month: view.date?.month,
+        year: view.date?.year,
+      );
+    }
   }
 
   @override
