@@ -1,16 +1,6 @@
 {
     "modules": [
-<<<<<<< HEAD
-        "investasi",
-        "pinjaman",
-        "saham",
-        "dashboard_investasi",
-        "lumpsum_investasi",
-        "bulanan_investasi",
-        "target_investasi"
-=======
         "pencatatan_keuangan/laporan_keuangan_harian_form"
->>>>>>> 634bacd7d1ce018b41d1615192f0c341279c974a
     ],
     "module_directory_name": "module",
     "experimental_mode": false,
