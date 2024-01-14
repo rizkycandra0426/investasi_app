@@ -29,6 +29,7 @@ class StatistikPengeluaranController extends State<StatistikPengeluaranView> {
     int? month,
     int? year,
   }) async {
+    if (!mounted) return;
     loading = true;
     setState(() {});
 

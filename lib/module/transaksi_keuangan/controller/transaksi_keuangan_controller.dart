@@ -98,7 +98,7 @@ class TransaksiKeuanganController extends State<TransaksiKeuanganView> {
     hideBottomSheet();
   }
 
-  save() async {
+  save([bool navigate = true]) async {
     bool isValid = formKey.currentState!.validate();
     if (!isValid || idCategory <= 0 || categoryName.isEmpty || memo.isEmpty) {
       snackbarDanger(message: "Data tidak lengkap!");
@@ -124,7 +124,9 @@ class TransaksiKeuanganController extends State<TransaksiKeuanganView> {
       });
     }
     hideLoading();
-    Get.offAll(MainNavigationView());
+    if (navigate == true) {
+      Get.offAll(MainNavigationView());
+    }
   }
 
   update() async {

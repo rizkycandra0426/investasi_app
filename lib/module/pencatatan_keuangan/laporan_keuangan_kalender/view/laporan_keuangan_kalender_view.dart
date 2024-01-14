@@ -13,71 +13,81 @@ class LaporanKeuanganKalenderView extends StatefulWidget {
     if (controller.loading) return LoadingScaffold();
     var items = controller.response!.data!;
 
+    var dashboardController = DashboardController.instance;
     return Scaffold(
-      body: SfCalendar(
-        view: CalendarView.month,
-        monthViewSettings: MonthViewSettings(showAgenda: true),
-        monthCellBuilder: (context, details) {
-          return Container(
-            padding: EdgeInsets.all(4.0),
-            height: 60.0,
-            decoration: BoxDecoration(
-              border: Border.all(
-                width: 1.0,
-                color: Colors.grey[200]!,
-              ),
-            ),
-            child: Stack(
-              children: [
-                Text(
-                  "${details.date.day}",
-                  style: TextStyle(
-                    fontSize: 12.0,
-                  ),
-                ),
-                // Text(
-                //   "${items.first.createdAt}",
-                //   style: TextStyle(
-                //     fontSize: 20.0,
-                //   ),
-                // ),
-                if (items.contains((e) =>
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Expanded(
+            child: SfCalendar(
+              view: CalendarView.month,
+              initialDisplayDate: dashboardController.currentDate,
+              monthViewSettings: MonthViewSettings(showAgenda: true),
+              monthCellBuilder: (context, details) {
+                bool displayMarker = false;
+                var find = controller.response!.data!.indexWhere((e) =>
                     DateTime.parse(e.createdAt!).day == details.date.day &&
-                    DateTime.parse(e.createdAt!).year == details.date.year))
-                  Positioned(
-                    right: 0,
-                    bottom: 0,
-                    child: Icon(
-                      Icons.circle,
-                      size: 10.0,
-                      color: infoColor,
+                    DateTime.parse(e.createdAt!).month == details.date.month &&
+                    DateTime.parse(e.createdAt!).year == details.date.year);
+                if (find > -1) {
+                  displayMarker = true;
+                }
+                return Container(
+                  padding: EdgeInsets.all(4.0),
+                  height: 60.0,
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      width: 1.0,
+                      color: Colors.grey[200]!,
                     ),
                   ),
-              ],
-            ),
-          );
-        },
-        onTap: (e) async {
-          await showDialog<void>(
-            context: context,
-            barrierDismissible: true,
-            builder: (BuildContext context) {
-              return Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Container(
-                    height: MediaQuery.of(context).size.height * 0.6,
-                    margin: EdgeInsets.symmetric(horizontal: 20.0),
-                    child: LaporanKeuanganHarianView(
-                      enableAppBar: true,
-                      date: e.date,
-                    ).animate().move().fadeIn(),
+                  child: Stack(
+                    children: [
+                      Text(
+                        "${details.date.day}",
+                        style: TextStyle(
+                          fontSize: 12.0,
+                        ),
+                      ),
+                      if (displayMarker)
+                        Positioned(
+                          right: 0,
+                          bottom: 0,
+                          child: Icon(
+                            Icons.circle,
+                            size: 10.0,
+                            color: infoColor,
+                          ),
+                        ),
+                    ],
                   ),
-                ],
-              );
-            },
-          );
-        },
+                );
+              },
+              onTap: (e) async {
+                await showDialog<void>(
+                  context: context,
+                  barrierDismissible: true,
+                  builder: (BuildContext context) {
+                    return Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Container(
+                          height: MediaQuery.of(context).size.height * 0.6,
+                          margin: EdgeInsets.symmetric(horizontal: 20.0),
+                          child: LaporanKeuanganHarianView(
+                            key: UniqueKey(),
+                            enableAppBar: true,
+                            date: e.date,
+                          ).animate().move().fadeIn(),
+                        ),
+                      ],
+                    );
+                  },
+                );
+              },
+            ),
+          ),
+        ],
       ),
     );
   }

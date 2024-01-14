@@ -70,6 +70,7 @@ export 'package:hyper_ui/module/transaksi_keuangan/view/transaksi_keuangan_view.
 export 'package:hyper_ui/module/transaksi_keuangan/widget/transaksi_clipath.dart';
 export 'package:hyper_ui/service/auth_service.dart';
 export 'package:hyper_ui/service/base_service.dart';
+export 'package:hyper_ui/service/db_service.dart';
 export 'package:hyper_ui/service/kategori_pemasukan_service.dart';
 export 'package:hyper_ui/service/kategori_pengeluaran_service.dart';
 export 'package:hyper_ui/service/pemasukan_service.dart';

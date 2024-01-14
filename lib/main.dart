@@ -1,8 +1,10 @@
 import 'package:hyper_ui/core.dart';
 import 'package:flutter/material.dart';
+import 'package:hyper_ui/service/db_service.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await DBService.init();
   runMainApp();
 }
 

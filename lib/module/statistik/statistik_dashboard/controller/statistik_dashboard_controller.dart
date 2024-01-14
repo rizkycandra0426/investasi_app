@@ -28,4 +28,14 @@ class StatistikDashboardController extends State<StatistikDashboardView> {
     counter--;
     setState(() {});
   }
+
+  int selectedIndex = 0;
+  updateSelectedIndex(int newIndex) {
+    selectedIndex = newIndex;
+  }
+
+  DateTime get currentDate {
+    DateTime now = DateTime.now();
+    return DateTime(now.year, (now.month + counter));
+  }
 }

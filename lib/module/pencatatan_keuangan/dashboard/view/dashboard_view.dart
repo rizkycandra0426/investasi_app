@@ -42,6 +42,7 @@ class DashboardView extends StatefulWidget {
         ),
       ),
       body: SizedBox(
+        key: Key("key_${controller.counter}"),
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
         child: Stack(
@@ -69,6 +70,7 @@ class DashboardView extends StatefulWidget {
                       child: Container(
                         child: DefaultTabController(
                           length: 3,
+                          initialIndex: controller.selectedIndex,
                           child: Container(
                             child: Column(
                               children: [
@@ -89,6 +91,8 @@ class DashboardView extends StatefulWidget {
                                             BorderRadius.circular(25.0)),
                                     labelColor: Colors.white,
                                     unselectedLabelColor: Colors.blue,
+                                    onTap: (index) =>
+                                        controller.updateSelectedIndex(index),
                                     tabs: [
                                       Tab(
                                         text: "Harian",
