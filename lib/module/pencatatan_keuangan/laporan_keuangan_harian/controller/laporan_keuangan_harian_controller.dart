@@ -13,7 +13,23 @@ class LaporanKeuanganHarianController extends State<LaporanKeuanganHarianView> {
   void initState() {
     instance = this;
     super.initState();
-    getHistories();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => onReady());
+  }
+
+  void onReady() {
+    if (view.date == null) {
+      var dashboardController = DashboardController.instance;
+      getHistories(
+        month: dashboardController.currentDate.month,
+        year: dashboardController.currentDate.year,
+      );
+    } else {
+      getHistories(
+        month: view.date?.month,
+        year: view.date?.year,
+      );
+    }
   }
 
   @override
@@ -28,6 +44,7 @@ class LaporanKeuanganHarianController extends State<LaporanKeuanganHarianView> {
     int? month,
     int? year,
   }) async {
+    if (!mounted) return;
     loading = true;
     setState(() {});
 

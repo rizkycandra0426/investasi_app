@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hyper_ui/core.dart';
+import 'package:hyper_ui/service/budget_service.dart';
 import '../controller/anggaran_pengeluaran_controller.dart';
 import '../../../../shared/app/pengeluaran_item.dart';
 
@@ -8,6 +9,7 @@ class AnggaranPengeluaranView extends StatefulWidget {
 
   Widget build(context, AnggaranPengeluaranController controller) {
     controller.view = this;
+    if (controller.response == null) return LoadingScaffold();
 
     return Scaffold(
       // appBar: AppBar(
@@ -29,7 +31,7 @@ class AnggaranPengeluaranView extends StatefulWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "Sisa",
+                        "Sisa budget",
                         style: TextStyle(
                           fontSize: 14.0,
                           fontWeight: FontWeight.bold,
@@ -59,7 +61,10 @@ class AnggaranPengeluaranView extends StatefulWidget {
                         backgroundColor: Color(0xfff7f7f9),
                         foregroundColor: Color(0xffadadaf),
                       ),
-                      onPressed: () => Get.to(KategoriListView()),
+                      onPressed: () async {
+                        await Get.to(KategoriListView());
+                        controller.setState(() {});
+                      },
                       child: const Row(
                         children: [
                           Expanded(
@@ -84,17 +89,17 @@ class AnggaranPengeluaranView extends StatefulWidget {
             index: 1,
           ),
           ListView.builder(
-            itemCount: controller.pengeluaranList.length,
+            itemCount: controller.response!.data!.length,
             physics: const ScrollPhysics(),
             shrinkWrap: true,
             itemBuilder: (BuildContext context, int index) {
-              var item = controller.pengeluaranList[index];
+              var item = controller.response!.data![index];
+              var budget = getBudget(item.namaKategoriPengeluaran!);
+
               return PengeluaranItem(
-                label: item["label"],
-                total: double.parse(item["total"].toString()),
-                budget: item["budget"] == null
-                    ? null
-                    : double.parse((item["budget"] ?? 0).toString()),
+                label: item.namaKategoriPengeluaran!,
+                total: double.parse(item.total!.toString()),
+                budget: budget,
                 index: index,
                 enablePercentage: true,
               );

@@ -15,7 +15,12 @@ class LaporanKeuanganKalenderController
   void initState() {
     instance = this;
     super.initState();
-    getHistories();
+
+    var dashboardController = DashboardController.instance;
+    getHistories(
+      month: dashboardController.currentDate.month,
+      year: dashboardController.currentDate.year,
+    );
   }
 
   @override
@@ -30,6 +35,8 @@ class LaporanKeuanganKalenderController
     int? month,
     int? year,
   }) async {
+    if (!mounted) return;
+    print("getHistories... $month/$year");
     loading = true;
     setState(() {});
 
@@ -39,6 +46,7 @@ class LaporanKeuanganKalenderController
       month: month ?? DateTime.now().month,
       year: year ?? DateTime.now().year,
     );
+    print("data length: ${response!.data!.length}");
     calculateTotal();
 
     loading = false;

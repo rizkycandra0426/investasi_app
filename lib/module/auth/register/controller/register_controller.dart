@@ -13,9 +13,9 @@ class RegisterController extends State<RegisterView> {
   void initState() {
     instance = this;
     if (kDebugMode) {
-      name = Faker.instance.name.fullName();
-      email = Faker.instance.internet.email().toLowerCase();
-      password = "123456";
+      // name = Faker.instance.name.fullName();
+      // email = Faker.instance.internet.email().toLowerCase();
+      // password = "123456";
     }
     super.initState();
   }

@@ -29,6 +29,8 @@ class LaporanKeuanganBulananController
   getHistories({
     int? year,
   }) async {
+    if (!mounted) return;
+    if (!mounted) return;
     loading = true;
     setState(() {});
 

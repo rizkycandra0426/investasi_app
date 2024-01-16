@@ -34,7 +34,7 @@ class PengeluaranItem extends StatelessWidget {
       ),
       child: Column(
         children: [
-          if (budget != null && enablePercentage)
+          if (budget != null && budget != 0 && enablePercentage)
             Container(
               width: MediaQuery.of(context).size.width,
               height: 22,
@@ -54,14 +54,16 @@ class PengeluaranItem extends StatelessWidget {
                     child: LinearProgressIndicator(
                       value: progressPercentage,
                       backgroundColor: Colors.grey[300],
+                      color: percent < 100 ? Colors.blue : Colors.red,
                     ),
                   ),
                   Align(
                     alignment: Alignment.centerRight,
                     child: Text(
-                      "${percent}%",
+                      "${percent.toStringAsFixed(2)}%",
                       style: TextStyle(
                         fontSize: 14.0,
+                        color: Colors.black,
                       ),
                     ),
                   ),
@@ -83,7 +85,7 @@ class PengeluaranItem extends StatelessWidget {
               ),
               if (budget != null)
                 Text(
-                  "${NumberFormat().format(total)}/${NumberFormat().format(budget ?? 0)}",
+                  "${NumberFormat().format(total)}${(budget == null || budget == 0) ? '' : '/${NumberFormat().format(budget ?? 0)}'}",
                   style: TextStyle(
                     fontSize: 16.0,
                   ),

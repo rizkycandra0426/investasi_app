@@ -23,49 +23,15 @@ class DashboardController extends State<DashboardView> {
 
   int counter = 0;
   next() {
+    if (!mounted) return;
     counter++;
     setState(() {});
-
-    //reload data harian
-    LaporanKeuanganHarianController.instance.getHistories(
-      month: currentDate.month,
-      year: currentDate.year,
-    );
-    LaporanKeuanganBulananController.instance.getHistories(
-      year: currentDate.year,
-    );
-    LaporanKeuanganKalenderController.instance.getHistories(
-      month: currentDate.month,
-      year: currentDate.year,
-    );
-    StatistikPengeluaranController.instance.getHistories(
-      month: currentDate.month,
-      year: currentDate.year,
-    );
   }
 
   prev() {
+    if (!mounted) return;
     counter--;
     setState(() {});
-
-    //reload data harian
-    LaporanKeuanganHarianController.instance.getHistories(
-      month: currentDate.month,
-      year: currentDate.year,
-    );
-    LaporanKeuanganBulananController.instance.getHistories(
-      year: currentDate.year,
-    );
-    LaporanKeuanganKalenderController.instance.getHistories(
-      month: currentDate.month,
-      year: currentDate.year,
-    );
-    StatistikPengeluaranController.instance.getHistories(
-      month: currentDate.month,
-      year: currentDate.year,
-    );
-    print("OK");
-    print("OK");
   }
 
   DateTime get currentDate {
@@ -84,4 +50,9 @@ class DashboardController extends State<DashboardView> {
   double balance = 0;
   double pemasukan = 0;
   double pengeluaran = 0;
+
+  int selectedIndex = 0;
+  updateSelectedIndex(int newIndex) {
+    selectedIndex = newIndex;
+  }
 }

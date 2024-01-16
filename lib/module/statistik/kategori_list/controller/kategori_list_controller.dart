@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hyper_ui/core.dart';
+import 'package:hyper_ui/model/transaction_categories_by_month_and_year_response.dart';
 import '../view/kategori_list_view.dart';
 
 class KategoriListController extends State<KategoriListView> {
@@ -10,6 +11,7 @@ class KategoriListController extends State<KategoriListView> {
   void initState() {
     instance = this;
     super.initState();
+    getHistories();
   }
 
   @override
@@ -18,22 +20,29 @@ class KategoriListController extends State<KategoriListView> {
   @override
   Widget build(BuildContext context) => widget.build(context, this);
 
-  List pengeluaranList = [
-    {
-      "label": "Makanan",
-      "budget": 200000,
-    },
-    {
-      "label": "Kopi",
-      "budget": 150000,
-    },
-    {
-      "label": "Snack",
-      "budget": 0,
-    },
-    {
-      "label": "Minuman",
-      "budget": 0,
+  TransactionCategoriesByYearResponse? response;
+  bool loading = true;
+  List items = [];
+  getHistories({
+    int? month,
+    int? year,
+  }) async {
+    loading = true;
+    setState(() {});
+
+    response = await TransactionHistoryService().categoriesByMonthAndYear(
+      month: month ?? DateTime.now().month,
+      year: year ?? DateTime.now().year,
+    );
+
+    items = [];
+    for (var item in response!.data!) {
+      items.add({
+        "label": item.namaKategoriPengeluaran,
+        "total": item.total,
+      });
     }
-  ];
+    loading = false;
+    setState(() {});
+  }
 }

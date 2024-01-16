@@ -38,6 +38,9 @@ class _QNumberFieldState extends State<QNumberField> {
   void initState() {
     super.initState();
     value = widget.value?.replaceAll(RegExp(r'[^0-9.]'), '');
+    if (value != null && value!.endsWith(".0")) {
+      value = value!.replaceAll(".0", "");
+    }
     print("value: $value");
     print("value: ${widget.value}");
     controller = TextEditingController();

@@ -187,7 +187,8 @@ class TransaksiKeuanganView extends StatefulWidget {
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.blue,
                           ),
-                          onPressed: () {
+                          onPressed: () async {
+                            await controller.save(false);
                             Get.offAll(TransaksiKeuanganView());
                           },
                           child: Text(

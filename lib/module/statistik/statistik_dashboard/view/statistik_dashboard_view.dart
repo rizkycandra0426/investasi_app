@@ -78,6 +78,8 @@ class StatistikDashboardView extends StatefulWidget {
                       child: Container(
                         child: DefaultTabController(
                           length: 3,
+                          initialIndex: controller.selectedIndex,
+                          key: Key("key_${controller.counter}"),
                           child: Container(
                             child: Column(
                               children: [
@@ -98,6 +100,8 @@ class StatistikDashboardView extends StatefulWidget {
                                             BorderRadius.circular(25.0)),
                                     labelColor: Colors.white,
                                     unselectedLabelColor: Colors.blue,
+                                    onTap: (index) =>
+                                        controller.updateSelectedIndex(index),
                                     tabs: [
                                       Tab(
                                         text: "Statistik",
