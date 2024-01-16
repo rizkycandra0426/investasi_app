@@ -79,8 +79,15 @@ class ProfileView extends StatefulWidget {
                             width: 180,
                             height: 90,
                             decoration: BoxDecoration(
-                              color: Colors.red,
+                              color: Colors.white30,
                               borderRadius: BorderRadius.circular(20),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Color(0x19000000),
+                                  blurRadius: 24,
+                                  offset: Offset(0, 11),
+                                ),
+                              ],
                             ),
                             padding: EdgeInsets.all(10),
                             child: Row(
@@ -116,8 +123,15 @@ class ProfileView extends StatefulWidget {
                             height: 90,
                             width: 180,
                             decoration: BoxDecoration(
-                              color: Colors.green,
+                              color: Colors.white30,
                               borderRadius: BorderRadius.circular(20),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Color(0x19000000),
+                                  blurRadius: 24,
+                                  offset: Offset(0, 11),
+                                ),
+                              ],
                             ),
                             padding: EdgeInsets.all(10),
                             child: Row(
@@ -163,8 +177,15 @@ class ProfileView extends StatefulWidget {
                             width: 180,
                             height: 90,
                             decoration: BoxDecoration(
-                              color: Colors.blue,
+                              color: Colors.white30,
                               borderRadius: BorderRadius.circular(20),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Color(0x19000000),
+                                  blurRadius: 24,
+                                  offset: Offset(0, 11),
+                                ),
+                              ],
                             ),
                             padding: EdgeInsets.all(10),
                             child: Row(
@@ -202,8 +223,15 @@ class ProfileView extends StatefulWidget {
                             width: 180,
                             height: 90,
                             decoration: BoxDecoration(
-                              color: Colors.blue,
+                              color: Colors.white30,
                               borderRadius: BorderRadius.circular(20),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Color(0x19000000),
+                                  blurRadius: 24,
+                                  offset: Offset(0, 11),
+                                ),
+                              ],
                             ),
                             padding: EdgeInsets.all(10),
                             child: Row(
