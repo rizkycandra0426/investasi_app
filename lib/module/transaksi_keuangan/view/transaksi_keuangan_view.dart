@@ -225,7 +225,7 @@ class TransaksiKeuanganView extends StatefulWidget {
                             "Delete",
                             style: TextStyle(
                               fontSize: 18,
-                              color: Colors.white,
+                              color: Colors.grey[300],
                             ),
                           ),
                         ),

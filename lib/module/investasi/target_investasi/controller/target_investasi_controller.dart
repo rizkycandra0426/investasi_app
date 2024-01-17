@@ -17,4 +17,6 @@ class TargetInvestasiController extends State<TargetInvestasiView> {
 
   @override
   Widget build(BuildContext context) => widget.build(context, this);
+
+  bool isTarget = true;
 }

@@ -208,7 +208,7 @@ class ProfileView extends StatefulWidget {
                                   width: 10,
                                 ),
                                 Text(
-                                  "Berita",
+                                  "About Us",
                                   style: TextStyle(fontSize: 18.0),
                                 ),
                               ],
@@ -238,7 +238,7 @@ class ProfileView extends StatefulWidget {
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
                                 Text(
-                                  "Berita",
+                                  "Logout",
                                   style: TextStyle(fontSize: 18.0),
                                 ),
                                 SizedBox(

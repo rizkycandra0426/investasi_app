@@ -21,7 +21,8 @@ class TargetInvestasiView extends StatefulWidget {
                 height: 90,
                 width: MediaQuery.of(context).size.width,
                 decoration: BoxDecoration(
-                  color: Colors.white,
+                  color: Colors.grey[300],
+                  borderRadius: BorderRadius.circular(20),
                   boxShadow: [
                     BoxShadow(
                       color: Color(0x19000000),
@@ -33,7 +34,7 @@ class TargetInvestasiView extends StatefulWidget {
                 child: Column(
                   children: [
                     Text(
-                      "Target Investasi",
+                      "Dana Investasi Awal",
                       style: TextStyle(
                         fontSize: 16,
                         color: Colors.black,
@@ -52,7 +53,7 @@ class TargetInvestasiView extends StatefulWidget {
                             textAlign: TextAlign.center,
                             showCursor: true,
                             cursorColor: Colors.transparent,
-                            style: TextStyle(color: Colors.black, fontSize: 14),
+                            style: TextStyle(color: Colors.black, fontSize: 15),
                             decoration: InputDecoration(
                               filled: true,
                               fillColor: Colors.transparent,
@@ -70,7 +71,8 @@ class TargetInvestasiView extends StatefulWidget {
                 height: 90,
                 width: MediaQuery.of(context).size.width,
                 decoration: BoxDecoration(
-                  color: Colors.white,
+                  color: Colors.grey[300],
+                  borderRadius: BorderRadius.circular(20),
                   boxShadow: [
                     BoxShadow(
                       color: Color(0x19000000),
@@ -96,7 +98,7 @@ class TargetInvestasiView extends StatefulWidget {
                             textAlign: TextAlign.center,
                             showCursor: true,
                             cursorColor: Colors.transparent,
-                            style: TextStyle(color: Colors.black, fontSize: 14),
+                            style: TextStyle(color: Colors.black, fontSize: 15),
                             decoration: InputDecoration(
                               filled: true,
                               fillColor: Colors.transparent,
@@ -119,10 +121,11 @@ class TargetInvestasiView extends StatefulWidget {
               SizedBox(height: 20),
               Container(
                 padding: EdgeInsets.only(top: 5, left: 10, right: 10),
-                height: 90,
+                height: 105,
                 width: MediaQuery.of(context).size.width,
                 decoration: BoxDecoration(
-                  color: Colors.white,
+                  color: Colors.grey[300],
+                  borderRadius: BorderRadius.circular(20),
                   boxShadow: [
                     BoxShadow(
                       color: Color(0x19000000),
@@ -135,88 +138,45 @@ class TargetInvestasiView extends StatefulWidget {
                   children: [
                     Text(
                       "Presentase Bunga",
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: Colors.black,
-                      ),
+                      style: TextStyle(fontSize: 16, color: Colors.black),
                     ),
                     SizedBox(height: 5),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: TextField(
-                            textAlign: TextAlign.center,
-                            showCursor: true,
-                            cursorColor: Colors.transparent,
-                            style: TextStyle(color: Colors.black, fontSize: 14),
-                            decoration: InputDecoration(
-                              filled: true,
-                              fillColor: Colors.transparent,
-                            ),
-                          ),
-                        ),
-                        SizedBox(width: 5),
-                        Text(
-                          "%",
-                          style: TextStyle(fontSize: 14),
-                        ),
+                    QDropdownField(
+                      label: "",
+                      validator: Validator.required,
+                      items: [
+                        {
+                          "label": "Sangat Konservatif",
+                          "value": "Sangat Konservatif",
+                        },
+                        {
+                          "label": "Konservatif",
+                          "value": "Konserfativ",
+                        },
+                        {
+                          "label": "Moderat",
+                          "value": "Moderat",
+                        },
+                        {
+                          "label": "Agresif",
+                          "value": "Agresif",
+                        }
                       ],
-                    )
-                  ],
-                ),
-              ),
-              SizedBox(height: 20),
-              Container(
-                padding: EdgeInsets.only(top: 5, left: 10, right: 10),
-                height: 90,
-                width: MediaQuery.of(context).size.width,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  boxShadow: [
-                    BoxShadow(
-                      color: Color(0x19000000),
-                      blurRadius: 24,
-                      offset: Offset(0, 11),
+                      value: "Sangat Konservatif",
+                      onChanged: (value, label) {
+                        controller.isTarget =
+                            value == "Konserfatif,Moderat,Agresif"
+                                ? false
+                                : true;
+                        controller.setState(() {});
+                      },
                     ),
-                  ],
-                ),
-                child: Column(
-                  children: [
-                    Text(
-                      "Perkiraan Dana Investasi/Bulan",
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: Colors.black,
-                      ),
-                    ),
-                    SizedBox(height: 5),
-                    Row(
-                      children: [
-                        Text(
-                          "Rp.",
-                          style: TextStyle(fontSize: 14),
-                        ),
-                        SizedBox(width: 5),
-                        Expanded(
-                          child: TextField(
-                            textAlign: TextAlign.center,
-                            showCursor: true,
-                            cursorColor: Colors.transparent,
-                            style: TextStyle(color: Colors.black, fontSize: 14),
-                            decoration: InputDecoration(
-                              filled: true,
-                              fillColor: Colors.transparent,
-                            ),
-                          ),
-                        ),
-                      ],
-                    )
                   ],
                 ),
               ),
               SizedBox(height: 40),
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Container(
                     height: 55,
@@ -259,6 +219,56 @@ class TargetInvestasiView extends StatefulWidget {
                     ),
                   ),
                 ],
+              ),
+              SizedBox(height: 20),
+              Container(
+                padding: EdgeInsets.only(top: 5, left: 10, right: 10),
+                height: 90,
+                width: MediaQuery.of(context).size.width,
+                decoration: BoxDecoration(
+                  color: Colors.grey[300],
+                  borderRadius: BorderRadius.circular(20),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Color(0x19000000),
+                      blurRadius: 24,
+                      offset: Offset(0, 11),
+                    ),
+                  ],
+                ),
+                child: Column(
+                  children: [
+                    Text(
+                      "Perkiraan Dana Investasi/Bulan",
+                      style: TextStyle(
+                        fontSize: 16,
+                        color: Colors.black,
+                      ),
+                    ),
+                    SizedBox(height: 5),
+                    Row(
+                      children: [
+                        Text(
+                          "Rp.",
+                          style: TextStyle(fontSize: 14),
+                        ),
+                        SizedBox(width: 5),
+                        Expanded(
+                          child: TextField(
+                            textAlign: TextAlign.center,
+                            showCursor: true,
+                            cursorColor: Colors.transparent,
+                            style: TextStyle(color: Colors.black, fontSize: 15),
+                            decoration: InputDecoration(
+                              filled: true,
+                              fillColor: Colors.transparent,
+                            ),
+                          ),
+                        ),
+                      ],
+                    )
+                  ],
+                ),
               ),
             ],
           ),

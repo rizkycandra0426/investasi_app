@@ -17,4 +17,6 @@ class PinjamanController extends State<PinjamanView> {
 
   @override
   Widget build(BuildContext context) => widget.build(context, this);
+
+  bool isPinjaman = true;
 }

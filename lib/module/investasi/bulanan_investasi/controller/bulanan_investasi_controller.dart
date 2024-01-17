@@ -17,4 +17,6 @@ class BulananInvestasiController extends State<BulananInvestasiView> {
 
   @override
   Widget build(BuildContext context) => widget.build(context, this);
+
+  bool isBulanan = true;
 }
