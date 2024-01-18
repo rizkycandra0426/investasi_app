@@ -23,7 +23,7 @@ class DashboardCardIncome extends StatelessWidget {
           child: Icon(
             Icons.arrow_downward,
             size: 24,
-            color: Colors.green[700],
+            color: Colors.blue,
           ),
           margin: const EdgeInsets.only(
             right: 8,

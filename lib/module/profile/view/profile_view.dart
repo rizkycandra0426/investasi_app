@@ -79,7 +79,7 @@ class ProfileView extends StatefulWidget {
                             width: 180,
                             height: 90,
                             decoration: BoxDecoration(
-                              color: Colors.white30,
+                              color: Colors.orange[300],
                               borderRadius: BorderRadius.circular(20),
                               boxShadow: [
                                 BoxShadow(
@@ -94,22 +94,21 @@ class ProfileView extends StatefulWidget {
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
                                 CircleAvatar(
-                                  radius: 30,
+                                  radius: 25,
                                   backgroundColor: Colors.white,
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                      image: DecorationImage(
-                                        image: AssetImage(
-                                            'assets/images/Investasi.png'),
-                                        fit: BoxFit.cover,
-                                      ),
-                                    ),
+                                  child: Icon(
+                                    Icons.notifications,
+                                    color: Colors.orange,
+                                    size: 45,
                                   ),
                                 ),
-                                SizedBox(width: 10),
+                                SizedBox(width: 5),
                                 Text(
                                   "Berita",
-                                  style: TextStyle(fontSize: 18.0),
+                                  style: TextStyle(
+                                      fontSize: 18.0,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white70),
                                 ),
                               ],
                             ),
@@ -123,7 +122,7 @@ class ProfileView extends StatefulWidget {
                             height: 90,
                             width: 180,
                             decoration: BoxDecoration(
-                              color: Colors.white30,
+                              color: Colors.blue[300],
                               borderRadius: BorderRadius.circular(20),
                               boxShadow: [
                                 BoxShadow(
@@ -138,23 +137,22 @@ class ProfileView extends StatefulWidget {
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
                                 Text(
-                                  "Berita",
-                                  style: TextStyle(fontSize: 18.0),
+                                  "Mengenai",
+                                  style: TextStyle(
+                                      fontSize: 18.0,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white70),
                                 ),
                                 SizedBox(
-                                  width: 10,
+                                  width: 5,
                                 ),
                                 CircleAvatar(
-                                  radius: 30,
+                                  radius: 25,
                                   backgroundColor: Colors.white,
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                      image: DecorationImage(
-                                        image: AssetImage(
-                                            'assets/images/Investasi.png'),
-                                        fit: BoxFit.cover,
-                                      ),
-                                    ),
+                                  child: Icon(
+                                    Icons.info,
+                                    color: Colors.blue,
+                                    size: 45,
                                   ),
                                 ),
                               ],
@@ -177,7 +175,7 @@ class ProfileView extends StatefulWidget {
                             width: 180,
                             height: 90,
                             decoration: BoxDecoration(
-                              color: Colors.white30,
+                              color: Colors.green[300],
                               borderRadius: BorderRadius.circular(20),
                               boxShadow: [
                                 BoxShadow(
@@ -187,29 +185,43 @@ class ProfileView extends StatefulWidget {
                                 ),
                               ],
                             ),
-                            padding: EdgeInsets.all(10),
+                            padding: EdgeInsets.only(
+                                top: 20, bottom: 20, left: 10, right: 10),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
                                 CircleAvatar(
-                                  radius: 30,
+                                  radius: 25,
                                   backgroundColor: Colors.white,
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                      image: DecorationImage(
-                                        image: AssetImage(
-                                            'assets/images/Investasi.png'),
-                                        fit: BoxFit.cover,
-                                      ),
-                                    ),
+                                  child: Icon(
+                                    Icons.edit_document,
+                                    color: Colors.green,
+                                    size: 45,
                                   ),
                                 ),
                                 SizedBox(
-                                  width: 10,
+                                  width: 5,
                                 ),
-                                Text(
-                                  "About Us",
-                                  style: TextStyle(fontSize: 18.0),
+                                Column(
+                                  children: [
+                                    Text(
+                                      "Total Transaksi",
+                                      style: TextStyle(
+                                          fontSize: 16.0,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.white70),
+                                    ),
+                                    SizedBox(
+                                      height: 10,
+                                    ),
+                                    Text(
+                                      "150",
+                                      style: TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.white70),
+                                    ),
+                                  ],
                                 ),
                               ],
                             ),
@@ -223,7 +235,7 @@ class ProfileView extends StatefulWidget {
                             width: 180,
                             height: 90,
                             decoration: BoxDecoration(
-                              color: Colors.white30,
+                              color: Colors.red[300],
                               borderRadius: BorderRadius.circular(20),
                               boxShadow: [
                                 BoxShadow(
@@ -239,22 +251,21 @@ class ProfileView extends StatefulWidget {
                               children: [
                                 Text(
                                   "Logout",
-                                  style: TextStyle(fontSize: 18.0),
+                                  style: TextStyle(
+                                      fontSize: 18.0,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white70),
                                 ),
                                 SizedBox(
-                                  width: 10,
+                                  width: 5,
                                 ),
                                 CircleAvatar(
-                                  radius: 30,
+                                  radius: 25,
                                   backgroundColor: Colors.white,
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                      image: DecorationImage(
-                                        image: AssetImage(
-                                            'assets/images/Investasi.png'),
-                                        fit: BoxFit.cover,
-                                      ),
-                                    ),
+                                  child: Icon(
+                                    Icons.logout,
+                                    color: Colors.red,
+                                    size: 45,
                                   ),
                                 ),
                               ],
