@@ -9,13 +9,36 @@ class RegisterView extends StatefulWidget {
     controller.view = this;
     return Scaffold(
       body: SafeArea(
-        child: Container(
+        child: SingleChildScrollView(
           padding: EdgeInsets.symmetric(
             horizontal: defaultMargin,
           ),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              const SizedBox(
+                height: 25,
+              ),
+              Center(
+                child: Image.asset(
+                  "assets/images/logo.png",
+                  height: 230,
+                ),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              Text(
+                'REGISTER',
+                style: blackTextStyle.copyWith(
+                  fontSize: 24,
+                  fontWeight: FontWeight.w500,
+                ),
+                textAlign: TextAlign.left,
+              ),
+              const SizedBox(
+                height: 15,
+              ),
               CustomTextField(
                 title: 'Name',
                 hintText: 'Masukan nama lengkap.....',
