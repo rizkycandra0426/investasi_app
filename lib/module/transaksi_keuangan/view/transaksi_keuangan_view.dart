@@ -105,7 +105,7 @@ class TransaksiKeuanganView extends StatefulWidget {
                     height: 60,
                     width: MediaQuery.of(context).size.width,
                     decoration: BoxDecoration(
-                      color: Colors.grey[350],
+                      color: Colors.white60,
                       boxShadow: [
                         BoxShadow(
                           color: Color(0x19000000),
@@ -140,7 +140,7 @@ class TransaksiKeuanganView extends StatefulWidget {
                   height: 60,
                   width: MediaQuery.of(context).size.width,
                   decoration: BoxDecoration(
-                    color: Colors.grey[350],
+                    color: Colors.white,
                     boxShadow: [
                       BoxShadow(
                         color: Color(0x19000000),
@@ -165,7 +165,7 @@ class TransaksiKeuanganView extends StatefulWidget {
                         fillColor: Colors.transparent,
                         hintText: 'Catatan',
                         hintStyle:
-                            TextStyle(color: Colors.black38, fontSize: 20),
+                            TextStyle(color: Colors.black54, fontSize: 20),
                       ),
                       onChanged: (value) {
                         controller.memo = value;
@@ -203,7 +203,7 @@ class TransaksiKeuanganView extends StatefulWidget {
                         height: 55,
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.grey[400],
+                            backgroundColor: Colors.white,
                           ),
                           onPressed: () => controller.save(),
                           child: Text(
@@ -225,7 +225,7 @@ class TransaksiKeuanganView extends StatefulWidget {
                             "Delete",
                             style: TextStyle(
                               fontSize: 18,
-                              color: Colors.grey[300],
+                              color: Colors.white60,
                             ),
                           ),
                         ),
@@ -236,7 +236,7 @@ class TransaksiKeuanganView extends StatefulWidget {
                         height: 55,
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.grey[400],
+                            backgroundColor: Colors.white60,
                           ),
                           onPressed: () => controller.update(),
                           child: Text(
@@ -313,7 +313,7 @@ class TransaksiKeuanganView extends StatefulWidget {
                   right: 20,
                   child: Container(
                     decoration: BoxDecoration(
-                      color: Colors.white,
+                      color: Colors.white60,
                       boxShadow: [
                         BoxShadow(
                           color: Color(0x19000000),
@@ -323,7 +323,7 @@ class TransaksiKeuanganView extends StatefulWidget {
                       ],
                       border: Border.all(
                         width: 1.0,
-                        color: Colors.grey[300]!,
+                        color: Colors.white60,
                       ),
                       borderRadius: BorderRadius.all(
                         Radius.circular(12.0),
