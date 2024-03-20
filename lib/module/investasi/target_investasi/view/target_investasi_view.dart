@@ -21,7 +21,7 @@ class TargetInvestasiView extends StatefulWidget {
                 height: 90,
                 width: MediaQuery.of(context).size.width,
                 decoration: BoxDecoration(
-                  color: Colors.grey[300],
+                  color: Colors.white70,
                   borderRadius: BorderRadius.circular(20),
                   boxShadow: [
                     BoxShadow(
@@ -71,7 +71,7 @@ class TargetInvestasiView extends StatefulWidget {
                 height: 90,
                 width: MediaQuery.of(context).size.width,
                 decoration: BoxDecoration(
-                  color: Colors.grey[300],
+                  color: Colors.white70,
                   borderRadius: BorderRadius.circular(20),
                   boxShadow: [
                     BoxShadow(
@@ -124,7 +124,7 @@ class TargetInvestasiView extends StatefulWidget {
                 height: 105,
                 width: MediaQuery.of(context).size.width,
                 decoration: BoxDecoration(
-                  color: Colors.grey[300],
+                  color: Colors.white70,
                   borderRadius: BorderRadius.circular(20),
                   boxShadow: [
                     BoxShadow(
@@ -178,98 +178,131 @@ class TargetInvestasiView extends StatefulWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Container(
-                    height: 55,
-                    width: 130,
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.blue,
-                        shape: RoundedRectangleBorder(
-                          borderRadius:
-                              BorderRadius.circular(30), // Border radius 30
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          padding: EdgeInsets.zero,
+                          backgroundColor: Colors.blue,
+                          shape: RoundedRectangleBorder(
+                            borderRadius:
+                                BorderRadius.circular(30), // Border radius 30
+                          ),
                         ),
-                      ),
-                      onPressed: () {
-                        Get.offAll(LumpsumInvestasiView());
-                      },
-                      child: Text(
-                        "Hitung",
-                        style: TextStyle(fontSize: 18),
+                        onPressed: () {
+                          controller.buttonPressed();
+                        },
+                        child: Ink(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(
+                                30), // Same as button's border radius
+                          ),
+                          child: Container(
+                            height: 55,
+                            alignment: Alignment.center,
+                            child: Text(
+                              "Hitung",
+                              style: TextStyle(
+                                fontSize: 18,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                        ),
                       ),
                     ),
                   ),
-                  Container(
-                    height: 55,
-                    width: 130,
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.grey[600],
-                        shape: RoundedRectangleBorder(
-                          borderRadius:
-                              BorderRadius.circular(30), // Border radius 30
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          padding: EdgeInsets.zero,
+                          backgroundColor: Colors.white,
+                          shape: RoundedRectangleBorder(
+                            borderRadius:
+                                BorderRadius.circular(30), // Border radius 30
+                          ),
                         ),
-                      ),
-                      onPressed: () {
-                        Get.offAll(LumpsumInvestasiView());
-                      },
-                      child: Text(
-                        "Reset",
-                        style: TextStyle(fontSize: 18),
+                        onPressed: () {
+                          controller.toggleContainerVisibility();
+                        },
+                        child: Ink(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(
+                                30), // Same as button's border radius
+                          ),
+                          child: Container(
+                            height: 55,
+                            alignment: Alignment.center,
+                            child: Text(
+                              "Reset",
+                              style: TextStyle(
+                                fontSize: 18,
+                                color: Colors.black,
+                              ),
+                            ),
+                          ),
+                        ),
                       ),
                     ),
                   ),
                 ],
               ),
-              SizedBox(height: 20),
-              Container(
-                padding: EdgeInsets.only(top: 5, left: 10, right: 10),
-                height: 90,
-                width: MediaQuery.of(context).size.width,
-                decoration: BoxDecoration(
-                  color: Colors.grey[300],
-                  borderRadius: BorderRadius.circular(20),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Color(0x19000000),
-                      blurRadius: 24,
-                      offset: Offset(0, 11),
-                    ),
-                  ],
-                ),
-                child: Column(
-                  children: [
-                    Text(
-                      "Perkiraan Dana Investasi/Bulan",
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: Colors.black,
+              SizedBox(height: 30),
+              controller.isButtonPressed
+                  ? Container(
+                      padding: EdgeInsets.only(top: 5, left: 10, right: 10),
+                      height: 90,
+                      width: MediaQuery.of(context).size.width,
+                      decoration: BoxDecoration(
+                        color: const Color.fromRGBO(224, 224, 224, 1),
+                        borderRadius: BorderRadius.circular(20),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Color(0x19000000),
+                            blurRadius: 24,
+                            offset: Offset(0, 11),
+                          ),
+                        ],
                       ),
-                    ),
-                    SizedBox(height: 5),
-                    Row(
-                      children: [
-                        Text(
-                          "Rp.",
-                          style: TextStyle(fontSize: 14),
-                        ),
-                        SizedBox(width: 5),
-                        Expanded(
-                          child: TextField(
-                            textAlign: TextAlign.center,
-                            showCursor: true,
-                            cursorColor: Colors.transparent,
-                            style: TextStyle(color: Colors.black, fontSize: 15),
-                            decoration: InputDecoration(
-                              filled: true,
-                              fillColor: Colors.transparent,
+                      child: Column(
+                        children: [
+                          Text(
+                            "Perkiraan Dana Investasi/Bulan",
+                            style: TextStyle(
+                              fontSize: 16,
+                              color: Colors.black,
                             ),
                           ),
-                        ),
-                      ],
+                          SizedBox(height: 5),
+                          Row(
+                            children: [
+                              Text(
+                                "Rp.",
+                                style: TextStyle(fontSize: 14),
+                              ),
+                              SizedBox(width: 5),
+                              Expanded(
+                                child: TextField(
+                                  textAlign: TextAlign.center,
+                                  showCursor: true,
+                                  cursorColor: Colors.transparent,
+                                  style: TextStyle(
+                                      color: Colors.black, fontSize: 15),
+                                  decoration: InputDecoration(
+                                    filled: true,
+                                    fillColor: Colors.transparent,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          )
+                        ],
+                      ),
                     )
-                  ],
-                ),
-              ),
+                  : SizedBox(),
             ],
           ),
         ),

@@ -56,7 +56,7 @@ class InvestasiView extends StatefulWidget {
                 child: Column(
                   children: [
                     SizedBox(
-                      height: 30,
+                      height: 10,
                     ),
                     Expanded(
                       child: Container(

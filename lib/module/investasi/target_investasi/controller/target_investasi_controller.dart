@@ -19,4 +19,18 @@ class TargetInvestasiController extends State<TargetInvestasiView> {
   Widget build(BuildContext context) => widget.build(context, this);
 
   bool isTarget = true;
+  bool isButtonPressed = false;
+  bool isContainerVisible = true;
+
+  void buttonPressed() {
+    setState(() {
+      isButtonPressed = true;
+    });
+  }
+
+  void toggleContainerVisibility() {
+    setState(() {
+      isButtonPressed = !isButtonPressed; // Membalikkan status isButtonPressed
+    });
+  }
 }
