@@ -19,4 +19,18 @@ class PinjamanController extends State<PinjamanView> {
   Widget build(BuildContext context) => widget.build(context, this);
 
   bool isPinjaman = true;
+  bool isButtonPressed = false;
+  bool isContainerVisible = true;
+
+  void buttonPressed() {
+    setState(() {
+      isButtonPressed = true;
+    });
+  }
+
+  void toggleContainerVisibility() {
+    setState(() {
+      isButtonPressed = !isButtonPressed; // Membalikkan status isButtonPressed
+    });
+  }
 }

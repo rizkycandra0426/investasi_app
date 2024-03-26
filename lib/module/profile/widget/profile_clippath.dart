@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
 
-class ProfileClipPathClass extends CustomClipper<Path> {
+class ProfileCardClipPath extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {
     var path = Path();
-    path.moveTo(0, 70); // Mulai dari bagian atas kiri
+    path.lineTo(0, size.height - 35);
     path.quadraticBezierTo(
       size.width / 2,
-      0,
+      size.height,
       size.width,
-      70,
+      size.height - 35,
     );
-    path.lineTo(size.width, size.height);
-    path.lineTo(0, size.height);
+    path.lineTo(size.width, 0);
     path.close();
 
     return path;

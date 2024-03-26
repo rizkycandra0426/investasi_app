@@ -62,7 +62,7 @@ class PinjamanView extends StatefulWidget {
                       height: 90,
                       width: MediaQuery.of(context).size.width,
                       decoration: BoxDecoration(
-                        color: Colors.grey[300],
+                        color: Colors.white70,
                         borderRadius: BorderRadius.circular(20),
                         boxShadow: [
                           BoxShadow(
@@ -113,7 +113,7 @@ class PinjamanView extends StatefulWidget {
                       height: 90,
                       width: MediaQuery.of(context).size.width,
                       decoration: BoxDecoration(
-                        color: Colors.grey[300],
+                        color: Colors.white70,
                         borderRadius: BorderRadius.circular(20),
                         boxShadow: [
                           BoxShadow(
@@ -167,7 +167,7 @@ class PinjamanView extends StatefulWidget {
                       height: 105,
                       width: MediaQuery.of(context).size.width,
                       decoration: BoxDecoration(
-                        color: Colors.grey[300],
+                        color: Colors.white70,
                         borderRadius: BorderRadius.circular(20),
                         boxShadow: [
                           BoxShadow(
@@ -223,7 +223,7 @@ class PinjamanView extends StatefulWidget {
                               ),
                             ),
                             onPressed: () {
-                              Get.offAll(LumpsumInvestasiView());
+                              controller.buttonPressed();
                             },
                             child: Text(
                               "Hitung",
@@ -236,74 +236,78 @@ class PinjamanView extends StatefulWidget {
                           width: 130,
                           child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.grey[600],
+                              backgroundColor: Colors.white,
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(
                                     30), // Border radius 30
                               ),
                             ),
                             onPressed: () {
-                              Get.offAll(LumpsumInvestasiView());
+                              controller.toggleContainerVisibility();
                             },
                             child: Text(
                               "Reset",
-                              style: TextStyle(fontSize: 18),
+                              style:
+                                  TextStyle(fontSize: 18, color: Colors.black),
                             ),
                           ),
                         ),
                       ],
                     ),
                     SizedBox(height: 20),
-                    Container(
-                      padding: EdgeInsets.only(top: 5, left: 10, right: 10),
-                      height: 90,
-                      width: MediaQuery.of(context).size.width,
-                      decoration: BoxDecoration(
-                        color: Colors.grey[300],
-                        borderRadius: BorderRadius.circular(20),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Color(0x19000000),
-                            blurRadius: 24,
-                            offset: Offset(0, 11),
-                          ),
-                        ],
-                      ),
-                      child: Column(
-                        children: [
-                          Text(
-                            "Perkiraan Dana Investasi/Bulan",
-                            style: TextStyle(
-                              fontSize: 16,
-                              color: Colors.black,
+                    controller.isButtonPressed
+                        ? Container(
+                            padding:
+                                EdgeInsets.only(top: 5, left: 10, right: 10),
+                            height: 90,
+                            width: MediaQuery.of(context).size.width,
+                            decoration: BoxDecoration(
+                              color: Colors.white70,
+                              borderRadius: BorderRadius.circular(20),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Color(0x19000000),
+                                  blurRadius: 24,
+                                  offset: Offset(0, 11),
+                                ),
+                              ],
                             ),
-                          ),
-                          SizedBox(height: 5),
-                          Row(
-                            children: [
-                              Text(
-                                "Rp.",
-                                style: TextStyle(fontSize: 14),
-                              ),
-                              SizedBox(width: 5),
-                              Expanded(
-                                child: TextField(
-                                  textAlign: TextAlign.center,
-                                  showCursor: true,
-                                  cursorColor: Colors.transparent,
+                            child: Column(
+                              children: [
+                                Text(
+                                  "Perkiraan Dana Investasi/Bulan",
                                   style: TextStyle(
-                                      color: Colors.black, fontSize: 15),
-                                  decoration: InputDecoration(
-                                    filled: true,
-                                    fillColor: Colors.transparent,
+                                    fontSize: 16,
+                                    color: Colors.black,
                                   ),
                                 ),
-                              ),
-                            ],
+                                SizedBox(height: 5),
+                                Row(
+                                  children: [
+                                    Text(
+                                      "Rp.",
+                                      style: TextStyle(fontSize: 14),
+                                    ),
+                                    SizedBox(width: 5),
+                                    Expanded(
+                                      child: TextField(
+                                        textAlign: TextAlign.center,
+                                        showCursor: true,
+                                        cursorColor: Colors.transparent,
+                                        style: TextStyle(
+                                            color: Colors.black, fontSize: 15),
+                                        decoration: InputDecoration(
+                                          filled: true,
+                                          fillColor: Colors.transparent,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                )
+                              ],
+                            ),
                           )
-                        ],
-                      ),
-                    )
+                        : SizedBox(),
                   ],
                 ),
               ),

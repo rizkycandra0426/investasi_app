@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:hyper_ui/core.dart';
-import '../view/favorite_view.dart';
+import '../view/stock_view.dart';
 
-class FavoriteController extends State<FavoriteView> {
-  static late FavoriteController instance;
-  late FavoriteView view;
+class StockController extends State<StockView> {
+  static late StockController instance;
+  late StockView view;
 
   @override
   void initState() {

@@ -12,8 +12,7 @@ export 'package:hyper_ui/module/auth/register/controller/register_controller.dar
 export 'package:hyper_ui/module/auth/register/view/register_view.dart';
 export 'package:hyper_ui/module/debug/controller/debug_controller.dart';
 export 'package:hyper_ui/module/debug/view/debug_view.dart';
-export 'package:hyper_ui/module/favorite/controller/favorite_controller.dart';
-export 'package:hyper_ui/module/favorite/view/favorite_view.dart';
+
 export 'package:hyper_ui/module/investasi/bulanan_investasi/controller/bulanan_investasi_controller.dart';
 export 'package:hyper_ui/module/investasi/bulanan_investasi/view/bulanan_investasi_view.dart';
 export 'package:hyper_ui/module/investasi/dashboard_investasi/controller/dashboard_investasi_controller.dart';
@@ -26,15 +25,36 @@ export 'package:hyper_ui/module/investasi/lumpsum_investasi/view/lumpsum_investa
 export 'package:hyper_ui/module/investasi/pinjaman/controller/pinjaman_controller.dart';
 export 'package:hyper_ui/module/investasi/pinjaman/view/pinjaman_view.dart';
 export 'package:hyper_ui/module/investasi/pinjaman/widget/pinjaman_clippath.dart';
-export 'package:hyper_ui/module/investasi/saham/controller/saham_controller.dart';
-export 'package:hyper_ui/module/investasi/saham/view/saham_view.dart';
 export 'package:hyper_ui/module/investasi/target_investasi/controller/target_investasi_controller.dart';
 export 'package:hyper_ui/module/investasi/target_investasi/view/target_investasi_view.dart';
 export 'package:hyper_ui/module/main_navigation/controller/main_navigation_controller.dart';
 export 'package:hyper_ui/module/main_navigation/view/main_navigation_view.dart';
+export 'package:hyper_ui/module/pencatatan_keuangan/dashboard/controller/dashboard_controller.dart';
+export 'package:hyper_ui/module/pencatatan_keuangan/dashboard/view/dashboard_view.dart';
+export 'package:hyper_ui/module/pencatatan_keuangan/dashboard/widget/dashboard_card.dart';
+export 'package:hyper_ui/module/pencatatan_keuangan/dashboard/widget/dashboard_card_expense.dart';
+export 'package:hyper_ui/module/pencatatan_keuangan/dashboard/widget/dashboard_card_income.dart';
+export 'package:hyper_ui/module/pencatatan_keuangan/dashboard/widget/dashboard_clippath.dart';
+export 'package:hyper_ui/module/pencatatan_keuangan/laporan_keuangan_bulanan/controller/laporan_keuangan_bulanan_controller.dart';
+export 'package:hyper_ui/module/pencatatan_keuangan/laporan_keuangan_bulanan/view/laporan_keuangan_bulanan_view.dart';
+export 'package:hyper_ui/module/pencatatan_keuangan/laporan_keuangan_harian/controller/laporan_keuangan_harian_controller.dart';
+export 'package:hyper_ui/module/pencatatan_keuangan/laporan_keuangan_harian/view/laporan_keuangan_harian_view.dart';
+export 'package:hyper_ui/module/pencatatan_keuangan/laporan_keuangan_harian_form/controller/laporan_keuangan_harian_form_controller.dart';
+export 'package:hyper_ui/module/pencatatan_keuangan/laporan_keuangan_harian_form/view/laporan_keuangan_harian_form_view.dart';
+export 'package:hyper_ui/module/pencatatan_keuangan/laporan_keuangan_kalender/controller/laporan_keuangan_kalender_controller.dart';
+export 'package:hyper_ui/module/pencatatan_keuangan/laporan_keuangan_kalender/model/meeting.dart';
+export 'package:hyper_ui/module/pencatatan_keuangan/laporan_keuangan_kalender/view/laporan_keuangan_kalender_view.dart';
 export 'package:hyper_ui/module/profile/controller/profile_controller.dart';
 export 'package:hyper_ui/module/profile/view/profile_view.dart';
-export 'package:hyper_ui/module/profile/widget/profile_clipath.dart';
+
+export 'package:hyper_ui/module/saham/portofolio/controller/portofolio_controller.dart';
+export 'package:hyper_ui/module/saham/portofolio/view/portofolio_view.dart';
+export 'package:hyper_ui/module/saham/saham/controller/saham_controller.dart';
+export 'package:hyper_ui/module/saham/saham/view/saham_view.dart';
+export 'package:hyper_ui/module/saham/stock/controller/stock_controller.dart';
+export 'package:hyper_ui/module/saham/stock/view/stock_view.dart';
+export 'package:hyper_ui/module/saham/stock_detail/controller/stock_detail_controller.dart';
+export 'package:hyper_ui/module/saham/stock_detail/view/stock_detail_view.dart';
 export 'package:hyper_ui/module/statistik/anggaran_pengeluaran/controller/anggaran_pengeluaran_controller.dart';
 export 'package:hyper_ui/module/statistik/anggaran_pengeluaran/view/anggaran_pengeluaran_view.dart';
 export 'package:hyper_ui/module/statistik/catatan_pengeluaran/controller/catatan_pengeluaran_controller.dart';
@@ -55,6 +75,7 @@ export 'package:hyper_ui/module/transaksi_keuangan/view/transaksi_keuangan_view.
 export 'package:hyper_ui/module/transaksi_keuangan/widget/transaksi_clipath.dart';
 export 'package:hyper_ui/service/auth_service.dart';
 export 'package:hyper_ui/service/base_service.dart';
+export 'package:hyper_ui/service/budget_service.dart';
 export 'package:hyper_ui/service/db_service.dart';
 export 'package:hyper_ui/service/kategori_pemasukan_service.dart';
 export 'package:hyper_ui/service/kategori_pengeluaran_service.dart';

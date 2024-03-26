@@ -257,7 +257,7 @@ class BulananInvestasiView extends StatefulWidget {
                       height: 90,
                       width: MediaQuery.of(context).size.width,
                       decoration: BoxDecoration(
-                        color: const Color.fromRGBO(224, 224, 224, 1),
+                        color: Colors.white70,
                         borderRadius: BorderRadius.circular(20),
                         boxShadow: [
                           BoxShadow(

@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:hyper_ui/model/kategori_pemasukan_response.dart';
 
 class BaseService<T> {
-  String baseUrl = "http://192.168.18.182:8000/api";
+  String baseUrl = "http://192.168.18.122:8000/api";
   String endpoint = "kategori_pemasukans";
 
   Future<T> get() async {

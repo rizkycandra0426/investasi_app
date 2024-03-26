@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:hyper_ui/core.dart';
-import '../view/laporan_keuangan_harian_form_view.dart';
+import '../view/portofolio_view.dart';
 
-class LaporanKeuanganHarianFormController
-    extends State<LaporanKeuanganHarianFormView> {
-  static late LaporanKeuanganHarianFormController instance;
-  late LaporanKeuanganHarianFormView view;
+class PortofolioController extends State<PortofolioView> {
+  static late PortofolioController instance;
+  late PortofolioView view;
 
   @override
   void initState() {
