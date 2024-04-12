@@ -8,26 +8,26 @@ class RegisterView extends StatefulWidget {
   Widget build(context, RegisterController controller) {
     controller.view = this;
     return Scaffold(
-      body: SafeArea(
+      body: Padding(
+        padding: EdgeInsets.symmetric(
+          horizontal: defaultMargin,
+        ),
         child: SingleChildScrollView(
-          padding: EdgeInsets.symmetric(
-            horizontal: defaultMargin,
-          ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(
-                height: 25,
+                height: 30,
               ),
               Center(
                 child: Image.asset(
-                  "assets/images/logo.png",
-                  height: 230,
+                  "assets/images/logo_new.png",
+                  height: 270,
                 ),
               ),
-              const SizedBox(
-                height: 10,
-              ),
+              // const SizedBox(
+              //   height: 10,
+              // ),
               Text(
                 'REGISTER',
                 style: blackTextStyle.copyWith(
@@ -49,7 +49,7 @@ class RegisterView extends StatefulWidget {
                 value: controller.name,
               ),
               SizedBox(
-                height: 20,
+                height: 10,
               ),
               CustomTextField(
                 title: 'Email',
@@ -61,7 +61,7 @@ class RegisterView extends StatefulWidget {
                 value: controller.email,
               ),
               SizedBox(
-                height: 20,
+                height: 10,
               ),
               CustomTextField(
                 title: 'Password',
@@ -74,7 +74,7 @@ class RegisterView extends StatefulWidget {
                 value: controller.password,
               ),
               SizedBox(
-                height: 16,
+                height: 25,
               ),
               SizedBox(
                 height: 45,

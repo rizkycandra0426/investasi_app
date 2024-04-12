@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hyper_ui/core.dart';
 import 'package:hyper_ui/module/investasi/pinjaman/widget/pinjaman_clippath.dart';
+import 'package:hyper_ui/shared/util/type_extension/num_extension.dart';
 import '../controller/pinjaman_controller.dart';
 
 class PinjamanView extends StatefulWidget {
@@ -16,13 +17,6 @@ class PinjamanView extends StatefulWidget {
         title: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            IconButton(
-              icon: Icon(
-                Icons.arrow_back,
-                size: 24.0,
-              ),
-              onPressed: () => Get.offAll(MainNavigationView()),
-            ),
             SizedBox(width: 50),
             Text(
               "Rancangan Pinjaman",
@@ -34,6 +28,7 @@ class PinjamanView extends StatefulWidget {
         ),
       ),
       body: SingleChildScrollView(
+        controller: controller.scrollController,
         child: Stack(
           children: [
             ClipPath(
@@ -73,7 +68,7 @@ class PinjamanView extends StatefulWidget {
                       child: Column(
                         children: [
                           Text(
-                            "Dana Investasi Awal",
+                            "Pinjaman Awal",
                             style: TextStyle(
                               fontSize: 16,
                               color: Colors.black,
@@ -88,16 +83,25 @@ class PinjamanView extends StatefulWidget {
                               ),
                               SizedBox(width: 5),
                               Expanded(
-                                child: TextField(
+                                child: TextFormField(
+                                  initialValue: controller.pinjamanAwal
+                                      .toStringAsFixed(0),
+                                  key: Key(
+                                      "investasi_awal_${controller.pinjamanAwal}"),
                                   textAlign: TextAlign.center,
                                   showCursor: true,
                                   cursorColor: Colors.transparent,
                                   style: TextStyle(
                                       color: Colors.black, fontSize: 15),
+                                  keyboardType: TextInputType.number,
                                   decoration: InputDecoration(
                                     filled: true,
                                     fillColor: Colors.transparent,
                                   ),
+                                  onChanged: (value) {
+                                    controller.pinjamanAwal =
+                                        double.tryParse(value) ?? 0;
+                                  },
                                 ),
                               ),
                             ],
@@ -134,16 +138,25 @@ class PinjamanView extends StatefulWidget {
                           Row(
                             children: [
                               Expanded(
-                                child: TextField(
+                                child: TextFormField(
+                                  initialValue: controller.jangkaWaktuDalamTahun
+                                      .toStringAsFixed(0),
+                                  key: Key(
+                                      "jangka_waktu_${controller.jangkaWaktuDalamTahun}"),
                                   textAlign: TextAlign.center,
                                   showCursor: true,
                                   cursorColor: Colors.transparent,
                                   style: TextStyle(
                                       color: Colors.black, fontSize: 15),
+                                  keyboardType: TextInputType.number,
                                   decoration: InputDecoration(
                                     filled: true,
                                     fillColor: Colors.transparent,
                                   ),
+                                  onChanged: (value) {
+                                    controller.jangkaWaktuDalamTahun =
+                                        int.tryParse(value) ?? 0;
+                                  },
                                 ),
                               ),
                               SizedBox(width: 5),
@@ -178,30 +191,44 @@ class PinjamanView extends StatefulWidget {
                       child: Column(
                         children: [
                           Text(
-                            "Presentase Bunga",
-                            style: TextStyle(fontSize: 16, color: Colors.black),
+                            "Persentase Bunga",
+                            style: TextStyle(
+                              fontSize: 16,
+                              color: Colors.black,
+                            ),
                           ),
                           SizedBox(height: 5),
-                          QDropdownField(
-                            label: "",
-                            validator: Validator.required,
-                            items: [
-                              {
-                                "label": "Menetap",
-                                "value": "Menetap",
-                              },
-                              {
-                                "label": "Menurun",
-                                "value": "Menurun",
-                              }
+                          Row(
+                            children: [
+                              Expanded(
+                                child: TextField(
+                                  key: Key("key_${controller.persentaseBunga}"),
+                                  textAlign: TextAlign.center,
+                                  showCursor: true,
+                                  cursorColor: Colors.transparent,
+                                  style: TextStyle(
+                                      color: Colors.black, fontSize: 15),
+                                  keyboardType: TextInputType.number,
+                                  decoration: InputDecoration(
+                                    filled: true,
+                                    fillColor: Colors.transparent,
+                                  ),
+                                  onChanged: (value) {
+                                    controller.persentaseBunga =
+                                        double.tryParse(value) ?? 0;
+                                  },
+                                ),
+                              ),
+                              SizedBox(width: 5),
+                              Text(
+                                "%",
+                                style: TextStyle(
+                                  fontSize: 14,
+                                ),
+                                textAlign: TextAlign.right,
+                              ),
                             ],
-                            value: "Menetap",
-                            onChanged: (value, label) {
-                              controller.isPinjaman =
-                                  value == "Menurun" ? false : true;
-                              controller.setState(() {});
-                            },
-                          ),
+                          )
                         ],
                       ),
                     ),
@@ -221,11 +248,25 @@ class PinjamanView extends StatefulWidget {
                               ),
                             ),
                             onPressed: () {
-                              controller.buttonPressed();
+                              print("HITUNG?");
+                              controller.hitung();
                             },
-                            child: Text(
-                              "Hitung",
-                              style: TextStyle(fontSize: 18),
+                            child: Ink(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(
+                                    30), // Same as button's border radius
+                              ),
+                              child: Container(
+                                height: 55,
+                                alignment: Alignment.center,
+                                child: Text(
+                                  "Hitung",
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ),
                             ),
                           ),
                         ),
@@ -243,10 +284,22 @@ class PinjamanView extends StatefulWidget {
                             onPressed: () {
                               controller.toggleContainerVisibility();
                             },
-                            child: Text(
-                              "Reset",
-                              style:
-                                  TextStyle(fontSize: 18, color: Colors.black),
+                            child: Ink(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(
+                                    30), // Same as button's border radius
+                              ),
+                              child: Container(
+                                height: 55,
+                                alignment: Alignment.center,
+                                child: Text(
+                                  "Reset",
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    color: Colors.black,
+                                  ),
+                                ),
+                              ),
                             ),
                           ),
                         ),
@@ -273,7 +326,7 @@ class PinjamanView extends StatefulWidget {
                             child: Column(
                               children: [
                                 Text(
-                                  "Perkiraan Dana Investasi/Bulan",
+                                  "Perkiraan Pembayaran Pinjaman/Bulan",
                                   style: TextStyle(
                                     fontSize: 16,
                                     color: Colors.black,
@@ -283,7 +336,8 @@ class PinjamanView extends StatefulWidget {
                                 Row(
                                   children: [
                                     Text(
-                                      "Rp.",
+                                      // "Rp. ${NumberFormat('###,###.0#', 'en_US').format(controller.hasil)}",
+                                      "${controller.hasil.currency}",
                                       style: TextStyle(fontSize: 14),
                                     ),
                                     SizedBox(width: 5),

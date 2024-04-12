@@ -18,7 +18,7 @@ class ProfileCard extends StatelessWidget {
         decoration: BoxDecoration(
           image: DecorationImage(
             image: AssetImage(
-                'assets/images/kartu.png'), // Ganti dengan nama file gambar Anda
+                'assets/images/card_new.png'), // Ganti dengan nama file gambar Anda
             fit: BoxFit.cover, // Atur gambar agar memenuhi container
           ),
           boxShadow: [
@@ -50,7 +50,7 @@ class ProfileCard extends StatelessWidget {
               ),
               Padding(
                 padding:
-                    EdgeInsets.only(top: 10, left: 25, right: 25, bottom: 15),
+                    EdgeInsets.only(top: 10, left: 20, right: 20, bottom: 15),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -83,12 +83,26 @@ class ProfileCard extends StatelessWidget {
                               fontWeight: FontWeight.w700),
                         ),
                         SizedBox(height: 10),
-                        Text(
-                          "+8%",
-                          style: TextStyle(
-                              color: Colors.green[500],
-                              fontSize: 18,
-                              fontWeight: FontWeight.w700),
+                        Row(
+                          children: [
+                            Text(
+                              "200.000",
+                              style: TextStyle(
+                                fontSize: 18,
+                                color: Colors.white,
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
+                            SizedBox(width: 5),
+                            Text(
+                              "(+18%)",
+                              style: TextStyle(
+                                color: Colors.green[300],
+                                fontSize: 18,
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
+                          ],
                         ),
                       ],
                     ),

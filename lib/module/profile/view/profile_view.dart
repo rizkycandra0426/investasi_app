@@ -109,7 +109,7 @@ class ProfileView extends StatefulWidget {
                         Icons.chevron_right,
                         size: 24.0,
                       ),
-                      onTap: () => controller.berita(),
+                      onTap: () => Get.to(BeritaView()),
                       tileColor: Colors.white70
                           .withOpacity(0.3), // Warna untuk ListTile
                     ),
@@ -129,7 +129,7 @@ class ProfileView extends StatefulWidget {
                         Icons.chevron_right,
                         size: 24.0,
                       ),
-                      onTap: () => controller.aboutus(),
+                      onTap: () => Get.to(AboutUsView()),
                       tileColor: Colors.white70
                           .withOpacity(0.3), // Warna untuk ListTile
                     ),

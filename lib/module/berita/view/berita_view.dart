@@ -26,7 +26,7 @@ class BeritaView extends StatefulWidget {
                         Icons.arrow_back,
                         size: 28,
                       ),
-                      onPressed: () => Get.offAll(MainNavigationView()),
+                      onPressed: () => Get.back(),
                     ),
                   ),
                   SizedBox(width: 100),

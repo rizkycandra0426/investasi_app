@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hyper_ui/core.dart';
+import 'package:hyper_ui/shared/util/type_extension/num_extension.dart';
 import '../controller/target_investasi_controller.dart';
 
 class TargetInvestasiView extends StatefulWidget {
@@ -9,6 +10,7 @@ class TargetInvestasiView extends StatefulWidget {
     controller.view = this;
     return Scaffold(
       body: SingleChildScrollView(
+        controller: controller.scrollController,
         child: Container(
           padding: const EdgeInsets.only(
             left: 40,
@@ -34,7 +36,7 @@ class TargetInvestasiView extends StatefulWidget {
                 child: Column(
                   children: [
                     Text(
-                      "Dana Investasi Awal",
+                      "Target Investasi Awal",
                       style: TextStyle(
                         fontSize: 16,
                         color: Colors.black,
@@ -49,15 +51,24 @@ class TargetInvestasiView extends StatefulWidget {
                         ),
                         SizedBox(width: 5),
                         Expanded(
-                          child: TextField(
+                          child: TextFormField(
+                            initialValue:
+                                controller.investasiAwal.toStringAsFixed(0),
+                            key: Key(
+                                "investasi_awal_${controller.investasiAwal}"),
                             textAlign: TextAlign.center,
                             showCursor: true,
                             cursorColor: Colors.transparent,
                             style: TextStyle(color: Colors.black, fontSize: 15),
+                            keyboardType: TextInputType.number,
                             decoration: InputDecoration(
                               filled: true,
                               fillColor: Colors.transparent,
                             ),
+                            onChanged: (value) {
+                              controller.investasiAwal =
+                                  double.tryParse(value) ?? 0;
+                            },
                           ),
                         ),
                       ],
@@ -94,15 +105,24 @@ class TargetInvestasiView extends StatefulWidget {
                     Row(
                       children: [
                         Expanded(
-                          child: TextField(
+                          child: TextFormField(
+                            initialValue: controller.jangkaWaktuDalamTahun
+                                .toStringAsFixed(0),
+                            key: Key(
+                                "jangka_waktu_${controller.jangkaWaktuDalamTahun}"),
                             textAlign: TextAlign.center,
                             showCursor: true,
                             cursorColor: Colors.transparent,
                             style: TextStyle(color: Colors.black, fontSize: 15),
+                            keyboardType: TextInputType.number,
                             decoration: InputDecoration(
                               filled: true,
                               fillColor: Colors.transparent,
                             ),
+                            onChanged: (value) {
+                              controller.jangkaWaktuDalamTahun =
+                                  int.tryParse(value) ?? 0;
+                            },
                           ),
                         ),
                         SizedBox(width: 5),
@@ -142,6 +162,8 @@ class TargetInvestasiView extends StatefulWidget {
                     ),
                     SizedBox(height: 5),
                     QDropdownField(
+                      key: Key(
+                          "jenis_persentase_${controller.jenisPersentaseBunga}"),
                       label: "",
                       validator: Validator.required,
                       items: [
@@ -151,7 +173,7 @@ class TargetInvestasiView extends StatefulWidget {
                         },
                         {
                           "label": "Konservatif",
-                          "value": "Konserfativ",
+                          "value": "Konservatif",
                         },
                         {
                           "label": "Moderat",
@@ -162,13 +184,14 @@ class TargetInvestasiView extends StatefulWidget {
                           "value": "Agresif",
                         }
                       ],
-                      value: "Sangat Konservatif",
+                      value: controller.jenisPersentaseBunga,
                       onChanged: (value, label) {
                         controller.isTarget =
                             value == "Konserfatif,Moderat,Agresif"
                                 ? false
                                 : true;
                         controller.setState(() {});
+                        controller.jenisPersentaseBunga = value;
                       },
                     ),
                     SizedBox(height: 10), // Spasi sebelum slider
@@ -176,14 +199,21 @@ class TargetInvestasiView extends StatefulWidget {
                       children: [
                         Expanded(
                           child: TextField(
+                            key: Key("key_${controller.jenisPersentaseBunga}"),
                             textAlign: TextAlign.center,
                             showCursor: true,
                             cursorColor: Colors.transparent,
                             style: TextStyle(color: Colors.black, fontSize: 15),
+                            keyboardType: TextInputType.number,
                             decoration: InputDecoration(
                               filled: true,
                               fillColor: Colors.transparent,
+                              hintText: controller.percentageHint,
                             ),
+                            onChanged: (value) {
+                              controller.persentaseBunga =
+                                  double.tryParse(value) ?? 0;
+                            },
                           ),
                         ),
                         SizedBox(width: 5),
@@ -216,7 +246,8 @@ class TargetInvestasiView extends StatefulWidget {
                           ),
                         ),
                         onPressed: () {
-                          controller.buttonPressed();
+                          print("HITUNG?");
+                          controller.hitung();
                         },
                         child: Ink(
                           decoration: BoxDecoration(
@@ -305,7 +336,8 @@ class TargetInvestasiView extends StatefulWidget {
                           Row(
                             children: [
                               Text(
-                                "Rp.",
+                                // "Rp. ${NumberFormat('###,###.0#', 'en_US').format(controller.hasil)}",
+                                "${controller.hasil.currency}",
                                 style: TextStyle(fontSize: 14),
                               ),
                               SizedBox(width: 5),

@@ -6,6 +6,8 @@ class PinjamanController extends State<PinjamanView> {
   static late PinjamanController instance;
   late PinjamanView view;
 
+  ScrollController scrollController = ScrollController();
+
   @override
   void initState() {
     instance = this;
@@ -22,15 +24,60 @@ class PinjamanController extends State<PinjamanView> {
   bool isButtonPressed = false;
   bool isContainerVisible = true;
 
-  void buttonPressed() {
-    setState(() {
-      isButtonPressed = true;
-    });
-  }
-
   void toggleContainerVisibility() {
     setState(() {
       isButtonPressed = !isButtonPressed; // Membalikkan status isButtonPressed
     });
+    reset();
+  }
+
+  double pinjamanAwal = 0;
+  int jangkaWaktuDalamTahun = 0;
+  double persentaseBunga = 0;
+  double hasil = 0;
+  String hintText = "";
+
+  reset() {
+    pinjamanAwal = 0;
+    jangkaWaktuDalamTahun = 0;
+    persentaseBunga = 0;
+    hasil = 0;
+    hintText = "";
+    isButtonPressed = false;
+    setState(() {});
+    scrollController.jumpTo(0);
+  }
+
+  hitung() async {
+    // await Future.delayed(Duration(milliseconds: 100));
+    hitungNilaiPinjaman();
+    setState(() {
+      isButtonPressed = true;
+    });
+
+    await Future.delayed(Duration(milliseconds: 250));
+    scrollController.jumpTo(scrollController.position.maxScrollExtent);
+    print("Scroll to bottom");
+  }
+
+  void hitungNilaiPinjaman() {
+    double principal = pinjamanAwal;
+    double persentase = persentaseBunga;
+    int years = jangkaWaktuDalamTahun;
+
+    double monthlyInterestRate = persentase / 100 / 12;
+
+    int months = years * 12;
+    double denominator = 1.0;
+    for (int i = 0; i < months; i++) {
+      denominator *= (1 + monthlyInterestRate);
+    }
+    double futureValue =
+        (principal * monthlyInterestRate * denominator) / (denominator - 1);
+
+    // Format nilai pembayaran bulanan dengan dua desimal
+    futureValue = double.parse(futureValue.toStringAsFixed(2));
+
+    hasil = futureValue;
   }
 }

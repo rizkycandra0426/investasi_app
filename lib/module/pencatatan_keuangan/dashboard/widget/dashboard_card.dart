@@ -22,7 +22,7 @@ class DashboardCard extends StatelessWidget {
         decoration: BoxDecoration(
           image: DecorationImage(
             image: AssetImage(
-                'assets/images/kartu.png'), // Ganti dengan nama file gambar Anda
+                'assets/images/card_new.png'), // Ganti dengan nama file gambar Anda
             fit: BoxFit.cover, // Atur gambar agar memenuhi container
           ),
           boxShadow: [
