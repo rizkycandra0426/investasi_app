@@ -51,10 +51,10 @@ class BulananInvestasiController extends State<BulananInvestasiView> {
   }
 
   Map<String, List<int>> percentages = {
-    "Sangat Konservatif": [6, 10],
-    "Konservatif": [10, 20],
-    "Moderat": [20, 30],
-    "Agresif": [40, 60]
+    "Sangat Konservatif": [0, 3],
+    "Konservatif": [3, 5],
+    "Moderat": [5, 8],
+    "Agresif": [8, 12]
   };
 
   hitung() async {

@@ -71,13 +71,13 @@ class ProfileView extends StatefulWidget {
               ),
             ),
             Positioned(
-              top: 340,
+              top: 335,
               left: 0,
               right: 0,
               child: ProfileCard(),
             ),
             Positioned(
-              top: 470,
+              top: 450,
               left: 20,
               child: Text(
                 "Settings",
@@ -90,7 +90,7 @@ class ProfileView extends StatefulWidget {
               ),
             ),
             Positioned(
-              top: 500,
+              top: 480,
               left: 20,
               right: 20,
               child: Column(
@@ -102,7 +102,7 @@ class ProfileView extends StatefulWidget {
                     child: ListTile(
                       contentPadding: EdgeInsets.only(left: 20),
                       visualDensity: VisualDensity.compact,
-                      leading: Icon(Icons.notifications),
+                      leading: Icon(Icons.new_releases),
                       minLeadingWidth: 0.0,
                       title: Text("Berita"),
                       trailing: Icon(
@@ -110,6 +110,26 @@ class ProfileView extends StatefulWidget {
                         size: 24.0,
                       ),
                       onTap: () => Get.to(BeritaView()),
+                      tileColor: Colors.white70
+                          .withOpacity(0.3), // Warna untuk ListTile
+                    ),
+                  ),
+                  SizedBox(height: 5), // Spasi antara ListTile
+                  Material(
+                    elevation: 5, // Atur tinggi material untuk efek melayang
+                    borderRadius:
+                        BorderRadius.circular(12), // Atur radius sudut material
+                    child: ListTile(
+                      contentPadding: EdgeInsets.only(left: 20),
+                      visualDensity: VisualDensity.compact,
+                      leading: Icon(Icons.notifications),
+                      minLeadingWidth: 0.0,
+                      title: Text("Notifikasi"),
+                      trailing: Icon(
+                        Icons.chevron_right,
+                        size: 24.0,
+                      ),
+                      onTap: () => Get.to(NotifikasiView()),
                       tileColor: Colors.white70
                           .withOpacity(0.3), // Warna untuk ListTile
                     ),

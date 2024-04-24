@@ -52,8 +52,7 @@ class TargetInvestasiView extends StatefulWidget {
                         SizedBox(width: 5),
                         Expanded(
                           child: TextFormField(
-                            initialValue:
-                                controller.investasiAwal.toStringAsFixed(0),
+                            initialValue: controller.investasiAwal.currency,
                             key: Key(
                                 "investasi_awal_${controller.investasiAwal}"),
                             textAlign: TextAlign.center,
@@ -335,6 +334,11 @@ class TargetInvestasiView extends StatefulWidget {
                           SizedBox(height: 5),
                           Row(
                             children: [
+                              Text(
+                                "Rp.",
+                                style: TextStyle(fontSize: 14),
+                              ),
+                              SizedBox(width: 5),
                               Text(
                                 // "Rp. ${NumberFormat('###,###.0#', 'en_US').format(controller.hasil)}",
                                 "${controller.hasil.currency}",

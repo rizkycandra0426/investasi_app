@@ -37,6 +37,29 @@ class PortofolioView extends StatefulWidget {
                         child: Column(
                           children: [
                             Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'Saldo',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 17,
+                                  ),
+                                ),
+                                SizedBox(width: 5),
+                                Text(
+                                  "Rp.$index",
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 15,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Column(
@@ -49,7 +72,7 @@ class PortofolioView extends StatefulWidget {
                                         fontSize: 15,
                                         fontWeight: FontWeight.bold,
                                       ),
-                                    )
+                                    ),
                                   ],
                                 ),
                               ],
@@ -85,7 +108,7 @@ class PortofolioView extends StatefulWidget {
                   itemCount: 3,
                   itemBuilder: (context, index) {
                     return Card(
-                      color: Colors.white70,
+                      color: Colors.grey[50],
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(15),
                       ),
@@ -95,7 +118,7 @@ class PortofolioView extends StatefulWidget {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => StockDetailView(),
+                              builder: (context) => HistoryTransaksiView(),
                             ),
                           );
                         },

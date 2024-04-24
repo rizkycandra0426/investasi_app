@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hyper_ui/state_util.dart';
 
 class Jualwidget extends StatelessWidget {
   const Jualwidget({Key? key}) : super(key: key);
@@ -28,7 +29,7 @@ class Jualwidget extends StatelessWidget {
             borderRadius: BorderRadius.circular(20.0),
           ),
           child: Container(
-            constraints: BoxConstraints(maxHeight: 350),
+            constraints: BoxConstraints(maxHeight: 380),
             child: Padding(
               padding: const EdgeInsets.all(12.0),
               child: Column(
@@ -74,10 +75,15 @@ class Jualwidget extends StatelessWidget {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(
-                                    'Teks Atas 2',
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
+                                  Container(
+                                    height: 15,
+                                    width: 80,
+                                    alignment: Alignment.center,
+                                    child: Text(
+                                      '50',
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                      ),
                                     ),
                                   ),
                                 ],
@@ -106,7 +112,7 @@ class Jualwidget extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    'Teks Atas 2',
+                                    '27-04-2024',
                                     style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                     ),
@@ -154,93 +160,128 @@ class Jualwidget extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Text('Jumlah Penjualan'),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                Expanded(
-                                  child: ElevatedButton(
-                                    style: ElevatedButton.styleFrom(
-                                      backgroundColor: Colors.white,
-                                      side: BorderSide(
-                                          color: Colors
-                                              .black), // Menambahkan garis tepi hitam
+                            Container(
+                              height:
+                                  100, // Atur tinggi container sesuai kebutuhan
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      Expanded(
+                                        child: ElevatedButton(
+                                          style: ElevatedButton.styleFrom(
+                                            backgroundColor: Colors.white,
+                                            side: BorderSide(
+                                              color: Colors.black,
+                                            ), // Menambahkan garis tepi hitam
+                                          ),
+                                          onPressed: () {
+                                            // Logika untuk tombol pertama
+                                          },
+                                          child: Text(
+                                            '25%',
+                                            style: TextStyle(
+                                              fontSize: 13,
+                                              color: Colors.black,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      SizedBox(width: 10),
+                                      Expanded(
+                                        child: ElevatedButton(
+                                          style: ElevatedButton.styleFrom(
+                                            backgroundColor: Colors.white,
+                                            side: BorderSide(
+                                              color: Colors.black,
+                                            ), // Menambahkan garis tepi hitam
+                                          ),
+                                          onPressed: () {
+                                            // Logika untuk tombol kedua
+                                          },
+                                          child: Text(
+                                            '50%',
+                                            style: TextStyle(
+                                              fontSize: 13,
+                                              color: Colors.black,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      SizedBox(width: 10),
+                                      Expanded(
+                                        child: ElevatedButton(
+                                          style: ElevatedButton.styleFrom(
+                                            backgroundColor: Colors.white,
+                                            side: BorderSide(
+                                              color: Colors.black,
+                                            ), // Menambahkan garis tepi hitam
+                                          ),
+                                          onPressed: () {
+                                            // Logika untuk tombol ketiga
+                                          },
+                                          child: Text(
+                                            '75%',
+                                            style: TextStyle(
+                                              fontSize: 13,
+                                              color: Colors.black,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      SizedBox(width: 10),
+                                      Expanded(
+                                        child: ElevatedButton(
+                                          style: ElevatedButton.styleFrom(
+                                            backgroundColor: Colors.white,
+                                            side: BorderSide(
+                                              color: Colors.black,
+                                            ), // Menambahkan garis tepi hitam
+                                          ),
+                                          onPressed: () {
+                                            // Logika untuk tombol keempat
+                                          },
+                                          child: Text(
+                                            '100%',
+                                            style: TextStyle(
+                                              fontSize: 13,
+                                              color: Colors.black,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                      height:
+                                          5), // Spasi antara tombol dan TextFormField
+                                  Container(
+                                    height: 40,
+                                    decoration: BoxDecoration(
+                                      border: Border.all(
+                                          color: Colors.black, width: 1),
+                                      borderRadius: BorderRadius.circular(8),
                                     ),
-                                    onPressed: () {
-                                      // Logika untuk tombol pertama
-                                    },
-                                    child: Text(
-                                      '25%',
+                                    child: TextFormField(
+                                      initialValue:
+                                          '', // Nilai awal jika diperlukan
+                                      textAlign: TextAlign.center,
+                                      showCursor: true,
+                                      cursorColor: Colors.transparent,
                                       style: TextStyle(
-                                        fontSize: 13,
-                                        color: Colors.black,
+                                          color: Colors.black, fontSize: 12),
+                                      keyboardType: TextInputType.number,
+                                      decoration: InputDecoration(
+                                        filled: true,
+                                        fillColor: Colors.transparent,
                                       ),
                                     ),
                                   ),
-                                ),
-                                SizedBox(width: 10),
-                                Expanded(
-                                  child: ElevatedButton(
-                                    style: ElevatedButton.styleFrom(
-                                      backgroundColor: Colors.white,
-                                      side: BorderSide(
-                                          color: Colors
-                                              .black), // Menambahkan garis tepi hitam
-                                    ),
-                                    onPressed: () {
-                                      // Logika untuk tombol kedua
-                                    },
-                                    child: Text(
-                                      '50%',
-                                      style: TextStyle(
-                                        fontSize: 13,
-                                        color: Colors.black,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                SizedBox(width: 10),
-                                Expanded(
-                                  child: ElevatedButton(
-                                    style: ElevatedButton.styleFrom(
-                                      backgroundColor: Colors.white,
-                                      side: BorderSide(
-                                          color: Colors
-                                              .black), // Menambahkan garis tepi hitam
-                                    ),
-                                    onPressed: () {
-                                      // Logika untuk tombol ketiga
-                                    },
-                                    child: Text(
-                                      '75%',
-                                      style: TextStyle(
-                                        fontSize: 13,
-                                        color: Colors.black,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                SizedBox(width: 10),
-                                Expanded(
-                                  child: ElevatedButton(
-                                    style: ElevatedButton.styleFrom(
-                                      backgroundColor: Colors.white,
-                                      side: BorderSide(
-                                          color: Colors
-                                              .black), // Menambahkan garis tepi hitam
-                                    ),
-                                    onPressed: () {
-                                      // Logika untuk tombol keempat
-                                    },
-                                    child: Text(
-                                      '100%',
-                                      style: TextStyle(
-                                        fontSize: 13,
-                                        color: Colors.black,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
                           ],
                         ),
@@ -253,7 +294,7 @@ class Jualwidget extends StatelessWidget {
                           fixedSize: Size(200, 20),
                           // shape: StadiumBorder(),
                           backgroundColor: Colors.red),
-                      onPressed: () {},
+                      onPressed: () => Get.back(),
                       child: Text(
                         'jual',
                         style: TextStyle(

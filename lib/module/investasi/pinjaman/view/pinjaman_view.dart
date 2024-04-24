@@ -84,8 +84,8 @@ class PinjamanView extends StatefulWidget {
                               SizedBox(width: 5),
                               Expanded(
                                 child: TextFormField(
-                                  initialValue: controller.pinjamanAwal
-                                      .toStringAsFixed(0),
+                                  initialValue:
+                                      controller.pinjamanAwal.currency,
                                   key: Key(
                                       "investasi_awal_${controller.pinjamanAwal}"),
                                   textAlign: TextAlign.center,
@@ -335,6 +335,11 @@ class PinjamanView extends StatefulWidget {
                                 SizedBox(height: 5),
                                 Row(
                                   children: [
+                                    Text(
+                                      "Rp.",
+                                      style: TextStyle(fontSize: 14),
+                                    ),
+                                    SizedBox(width: 5),
                                     Text(
                                       // "Rp. ${NumberFormat('###,###.0#', 'en_US').format(controller.hasil)}",
                                       "${controller.hasil.currency}",

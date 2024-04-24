@@ -51,10 +51,10 @@ class LumpsumInvestasiController extends State<LumpsumInvestasiView> {
   }
 
   Map<String, List<int>> percentages = {
-    "Sangat Konservatif": [6, 10],
-    "Konservatif": [10, 20],
-    "Moderat": [20, 30],
-    "Agresif": [40, 60]
+    "Sangat Konservatif": [0, 3],
+    "Konservatif": [3, 5],
+    "Moderat": [5, 8],
+    "Agresif": [8, 12]
   };
 
   hitung() async {
@@ -79,8 +79,11 @@ class LumpsumInvestasiController extends State<LumpsumInvestasiView> {
     double persentase = persentaseBunga;
     int years = jangkaWaktuDalamTahun;
 
-    // Lakukan perhitungan investasi bulanan
-    double futureValue = principal * (1 + persentase / 100) * (years);
+    // Lakukan perhitungan investasi lumpsum dengan bunga majemuk secara iteratif
+    double futureValue = principal;
+    for (int i = 0; i < years; i++) {
+      futureValue *= (1 + persentase / 100);
+    }
     hasil = futureValue;
   }
 }

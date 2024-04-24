@@ -34,7 +34,7 @@ class BeritaView extends StatefulWidget {
                     margin: EdgeInsets.only(top: 33),
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      "Notifikasi",
+                      "Berita",
                       style: TextStyle(
                         fontWeight: FontWeight.w600,
                         fontSize: 22,
@@ -50,14 +50,7 @@ class BeritaView extends StatefulWidget {
                 ),
                 child: InkWell(
                   splashColor: Colors.blue.withAlpha(30),
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => NotifikasiView(),
-                      ),
-                    );
-                  },
+                  onTap: () {},
                   child: ListTile(
                     leading: CircleAvatar(
                       backgroundColor: Colors.grey[200],

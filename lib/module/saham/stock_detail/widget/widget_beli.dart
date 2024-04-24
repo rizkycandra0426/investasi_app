@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hyper_ui/state_util.dart';
 
 class Beliwidget extends StatelessWidget {
   const Beliwidget({Key? key}) : super(key: key);
@@ -74,10 +75,15 @@ class Beliwidget extends StatelessWidget {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(
-                                    'teks bawah 1',
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
+                                  Container(
+                                    height: 15,
+                                    width: 80,
+                                    alignment: Alignment.center,
+                                    child: Text(
+                                      '100',
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                      ),
                                     ),
                                   ),
                                 ],
@@ -105,10 +111,14 @@ class Beliwidget extends StatelessWidget {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(
-                                    'Teks Atas 2',
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
+                                  Container(
+                                    height: 15,
+                                    width: 80,
+                                    child: Text(
+                                      '23-04-2024',
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                      ),
                                     ),
                                   ),
                                 ],
@@ -156,7 +166,8 @@ class Beliwidget extends StatelessWidget {
                             Text('Jumlah Pembelian'),
                             Container(
                               width: 200,
-                              padding: EdgeInsets.all(10.0),
+                              height: 40,
+                              // padding: EdgeInsets.all(10.0),
                               decoration: BoxDecoration(
                                 border: Border.all(color: Colors.black),
                                 borderRadius: BorderRadius.circular(8.0),
@@ -164,10 +175,20 @@ class Beliwidget extends StatelessWidget {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(
-                                    'Teks Atas 2',
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
+                                  Expanded(
+                                    child: TextFormField(
+                                      initialValue:
+                                          '', // Nilai awal jika diperlukan
+                                      textAlign: TextAlign.center,
+                                      showCursor: true,
+                                      cursorColor: Colors.transparent,
+                                      style: TextStyle(
+                                          color: Colors.black, fontSize: 12),
+                                      keyboardType: TextInputType.number,
+                                      decoration: InputDecoration(
+                                        filled: true,
+                                        fillColor: Colors.transparent,
+                                      ),
                                     ),
                                   ),
                                 ],
@@ -184,7 +205,7 @@ class Beliwidget extends StatelessWidget {
                           fixedSize: Size(200, 20),
                           // shape: StadiumBorder(),
                           backgroundColor: Colors.green),
-                      onPressed: () {},
+                      onPressed: () => Get.back(),
                       child: Text(
                         'BELI',
                         style: TextStyle(

@@ -51,10 +51,10 @@ class TargetInvestasiController extends State<TargetInvestasiView> {
   }
 
   Map<String, List<int>> percentages = {
-    "Sangat Konservatif": [6, 10],
-    "Konservatif": [10, 20],
-    "Moderat": [20, 30],
-    "Agresif": [40, 60]
+    "Sangat Konservatif": [0, 3],
+    "Konservatif": [3, 5],
+    "Moderat": [5, 8],
+    "Agresif": [8, 12]
   };
 
   hitung() async {
@@ -75,20 +75,22 @@ class TargetInvestasiController extends State<TargetInvestasiView> {
   }
 
   void hitungNilaiInvestasi() {
-    double principal = investasiAwal;
+    double targetValue = investasiAwal;
     double persentase = persentaseBunga;
     int years = jangkaWaktuDalamTahun;
 
-    // Lakukan perhitungan investasi bulanandouble futureValue = 0;
+    // Lakukan perhitungan investasi untuk mencapai target secara iteratif
+    double futureValue = 0;
     double monthlyInterestRate = persentase / 100 / 12;
     int months = years * 12;
     double totalMultiplier = 1.0;
     for (int i = 0; i < months; i++) {
       totalMultiplier *= (1 + monthlyInterestRate);
     }
-    double futureValue = (principal * monthlyInterestRate * totalMultiplier) /
-        (totalMultiplier - 1);
+    double monthlyContribution = targetValue /
+        ((((totalMultiplier - 1) / monthlyInterestRate)) *
+            (1 + monthlyInterestRate));
 
-    hasil = futureValue;
+    hasil = monthlyContribution;
   }
 }

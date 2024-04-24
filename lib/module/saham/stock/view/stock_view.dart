@@ -20,6 +20,8 @@ class StockView extends StatefulWidget {
               child: TextField(
                 textInputAction: TextInputAction.search,
                 decoration: InputDecoration(
+                  filled: true,
+                  fillColor: Colors.white,
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(25.0),
                     borderSide: BorderSide(
@@ -54,7 +56,7 @@ class StockView extends StatefulWidget {
                 itemCount: 2,
                 itemBuilder: (context, index) {
                   return Card(
-                    color: Colors.white70,
+                    color: Colors.grey[50],
                     margin: EdgeInsets.only(bottom: 10),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(15),

@@ -41,6 +41,7 @@ dependencies:
   syncfusion_flutter_calendar: ^22.2.12
   fl_chart: ^0.65.0
   shared_preferences: ^2.2.2
+  numberpicker: ^2.1.2
 dev_dependencies:
   flutter_test:
     sdk: flutter

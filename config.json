@@ -1,8 +1,8 @@
 {
     "modules": [
-        "about_us"
+        "history_transaksi"
     ],
-    "module_directory_name": "module",
+    "module_directory_name": "module/saham",
     "experimental_mode": false,
     "learning_mode": false,
     "unfreezed": true,

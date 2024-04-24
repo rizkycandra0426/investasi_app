@@ -2,12 +2,14 @@
 
 import 'package:flutter/material.dart';
 import 'package:hyper_ui/core.dart';
+import 'package:hyper_ui/module/pencatatan_keuangan/dashboard/controller/dashboard_controller.dart';
 
 class ProfileCard extends StatelessWidget {
   const ProfileCard({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    var controller = DashboardController.instance;
     return Container(
       width: MediaQuery.of(context).size.width,
       margin: EdgeInsets.only(
@@ -65,7 +67,7 @@ class ProfileCard extends StatelessWidget {
                         ),
                         SizedBox(height: 10),
                         Text(
-                          "200.000",
+                          "${NumberFormat().format(controller.balance)}",
                           style: TextStyle(
                               color: Colors.white,
                               fontSize: 18,

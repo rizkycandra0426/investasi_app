@@ -43,6 +43,13 @@ class AboutUsView extends StatefulWidget {
                   ),
                 ],
               ),
+              Container(
+                child: Image.asset(
+                  "assets/images/logo_new.png",
+                  height: 220,
+                  fit: BoxFit.fill,
+                ),
+              )
             ],
           ),
         ),
