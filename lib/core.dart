@@ -66,6 +66,8 @@ export 'package:hyper_ui/module/saham/stock_detail/controller/stock_detail_contr
 export 'package:hyper_ui/module/saham/stock_detail/view/stock_detail_view.dart';
 export 'package:hyper_ui/module/saham/stock_detail/widget/widget_beli.dart';
 export 'package:hyper_ui/module/saham/stock_detail/widget/widget_jual.dart';
+export 'package:hyper_ui/module/splash_screen/controller/splash_screen_controller.dart';
+export 'package:hyper_ui/module/splash_screen/view/splash_screen_view.dart';
 export 'package:hyper_ui/module/statistik/anggaran_pengeluaran/controller/anggaran_pengeluaran_controller.dart';
 export 'package:hyper_ui/module/statistik/anggaran_pengeluaran/view/anggaran_pengeluaran_view.dart';
 export 'package:hyper_ui/module/statistik/catatan_pengeluaran/controller/catatan_pengeluaran_controller.dart';

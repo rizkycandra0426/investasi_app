@@ -18,14 +18,32 @@ class ProfileView extends StatefulWidget {
         elevation: 0.0,
         backgroundColor: Colors.transparent,
         title: Center(
-          child: Text(
-            "PROFILE",
-            style: TextStyle(
-              fontSize: 18.0,
-              fontFamily: "Montserrat",
+          child: Padding(
+            padding:
+                const EdgeInsets.only(left: 48), // Atur jarak sesuai kebutuhan
+            child: Text(
+              "PROFILE",
+              style: TextStyle(
+                fontSize: 18.0,
+                fontFamily: "Montserrat",
+              ),
             ),
           ),
         ),
+        actions: [
+          IconButton(
+            iconSize: 28,
+            icon: Icon(Icons.web), // Icon yang ingin ditambahkan
+            onPressed: () {
+              // Navigator.push(
+              //   context,
+              //   MaterialPageRoute(
+              //     builder: (context) => StockDetailView(),
+              //   ),
+              // );
+            },
+          ),
+        ],
       ),
       body: SizedBox(
         height: MediaQuery.of(context).size.height,

@@ -32,13 +32,13 @@ class SahamView extends StatefulWidget {
                   ),
                   SizedBox(width: 40),
                   Container(
-                    margin: EdgeInsets.only(top: 33),
+                    margin: EdgeInsets.only(top: 33, left: 25),
                     alignment: Alignment.centerLeft,
                     child: Text(
                       "Portofolio Saham",
                       style: TextStyle(
                         fontWeight: FontWeight.w900,
-                        fontSize: 26,
+                        fontSize: 22,
                         color: Colors.black87,
                       ),
                     ),

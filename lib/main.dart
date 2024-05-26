@@ -22,7 +22,7 @@ class MainApp extends StatelessWidget {
       navigatorKey: Get.navigatorKey,
       debugShowCheckedModeBanner: false,
       theme: getDefaultTheme(),
-      home: LoginView(),
+      home: SplashScreenView(),
       builder: (context, child) => DebugView(
         context: context,
         child: child,

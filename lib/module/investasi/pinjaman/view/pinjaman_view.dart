@@ -87,7 +87,7 @@ class PinjamanView extends StatefulWidget {
                                   initialValue:
                                       controller.pinjamanAwal.currency,
                                   key: Key(
-                                      "investasi_awal_${controller.pinjamanAwal}"),
+                                      "pinjaman_awal_${controller.pinjamanAwal}"),
                                   textAlign: TextAlign.center,
                                   showCursor: true,
                                   cursorColor: Colors.transparent,
@@ -128,7 +128,7 @@ class PinjamanView extends StatefulWidget {
                       child: Column(
                         children: [
                           Text(
-                            "Jangka Waktu Investasi",
+                            "Jangka Waktu Pinjaman",
                             style: TextStyle(
                               fontSize: 16,
                               color: Colors.black,

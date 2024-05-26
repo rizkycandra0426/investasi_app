@@ -17,7 +17,6 @@ class StatistikPengeluaranView extends StatefulWidget {
     List<Color> generatePieChartColors() {
       // List of colors from Flutter's primary swatches
       List<MaterialColor> primarySwatches = [
-        Colors.indigo,
         Colors.blue,
         Colors.lightBlue,
         Colors.cyan,

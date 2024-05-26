@@ -24,8 +24,14 @@ class NotifikasiController extends State<NotifikasiView> {
     });
   }
 
+  void saveData(int hour, int minute, String timeFormat) {}
+
   @override
-  void dispose() => super.dispose();
+  void dispose() {
+    // Memanggil saveData saat keluar dari tampilan
+    saveData(hour, minute, timeFormat);
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) => widget.build(context, this);
