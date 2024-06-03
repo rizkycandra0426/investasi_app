@@ -56,7 +56,7 @@ class DashboardView extends StatefulWidget {
             ClipPath(
               clipper: DashboardCardClipPath(),
               child: Container(
-                height: 400,
+                height: 360,
                 width: MediaQuery.of(context).size.width,
                 color: primaryColor,
               ),

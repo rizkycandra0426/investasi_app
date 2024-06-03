@@ -59,7 +59,7 @@ class StatistikDashboardView extends StatefulWidget {
             ClipPath(
               clipper: StatistikClipPathClass(),
               child: Container(
-                height: 270,
+                height: 250,
                 width: MediaQuery.of(context).size.width,
                 color: Colors.blue,
               ),

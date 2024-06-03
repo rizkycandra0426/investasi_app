@@ -107,9 +107,9 @@ class NotifikasiView extends StatefulWidget {
                         controller.timeFormat);
                   },
                   style: ButtonStyle(
-                    minimumSize: MaterialStatePropertyAll(Size(200, 50)),
-                    backgroundColor: MaterialStatePropertyAll(Colors.blue),
-                    foregroundColor: MaterialStatePropertyAll(Colors.white),
+                    minimumSize: MaterialStateProperty.all(Size(200, 50)),
+                    backgroundColor: MaterialStateProperty.all(Colors.blue),
+                    foregroundColor: MaterialStateProperty.all(Colors.white),
                   ),
                   child: Text(
                     'Save',

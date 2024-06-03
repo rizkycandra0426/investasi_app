@@ -53,9 +53,11 @@ class BeritaView extends StatefulWidget {
                   onTap: () {},
                   child: ListTile(
                     leading: CircleAvatar(
-                      backgroundColor: Colors.grey[200],
-                      backgroundImage: const NetworkImage(
-                        "https://i.ibb.co/xgwkhVb/740922.png",
+                      backgroundColor: Colors.blue,
+                      child: Icon(
+                        Icons.new_releases,
+                        size: 25,
+                        color: Colors.white,
                       ),
                     ),
                     title: const Text("Apple"),

@@ -9,7 +9,7 @@ class DashboardCardClipPath extends CustomClipper<Path> {
       size.width / 2,
       size.height,
       size.width,
-      size.height - 25,
+      size.height - 35,
     );
     path.lineTo(size.width, 0);
     path.close();

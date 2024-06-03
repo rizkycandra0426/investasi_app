@@ -201,7 +201,9 @@ class PinjamanView extends StatefulWidget {
                           Row(
                             children: [
                               Expanded(
-                                child: TextField(
+                                child: TextFormField(
+                                  initialValue: controller.persentaseBunga
+                                      .toStringAsFixed(0),
                                   key: Key("key_${controller.persentaseBunga}"),
                                   textAlign: TextAlign.center,
                                   showCursor: true,
@@ -215,7 +217,7 @@ class PinjamanView extends StatefulWidget {
                                   ),
                                   onChanged: (value) {
                                     controller.persentaseBunga =
-                                        double.tryParse(value) ?? 0;
+                                        int.tryParse(value) ?? 0;
                                   },
                                 ),
                               ),

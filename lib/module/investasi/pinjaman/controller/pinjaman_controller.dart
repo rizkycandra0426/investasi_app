@@ -33,7 +33,7 @@ class PinjamanController extends State<PinjamanView> {
 
   double pinjamanAwal = 0;
   int jangkaWaktuDalamTahun = 0;
-  double persentaseBunga = 0;
+  int persentaseBunga = 0;
   double hasil = 0;
   String hintText = "";
 
@@ -49,7 +49,6 @@ class PinjamanController extends State<PinjamanView> {
   }
 
   hitung() async {
-    // await Future.delayed(Duration(milliseconds: 100));
     hitungNilaiPinjaman();
     setState(() {
       isButtonPressed = true;
@@ -62,7 +61,7 @@ class PinjamanController extends State<PinjamanView> {
 
   void hitungNilaiPinjaman() {
     double principal = pinjamanAwal;
-    double persentase = persentaseBunga;
+    int persentase = persentaseBunga;
     int years = jangkaWaktuDalamTahun;
 
     double monthlyInterestRate = persentase / 100 / 12;
