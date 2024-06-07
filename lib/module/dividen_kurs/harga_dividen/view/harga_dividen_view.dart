@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:hyper_ui/core.dart';
-import '../controller/saham_controller.dart';
+import 'package:hyper_ui/module/dividen_kurs/dividen/view/dividen_view.dart';
+import 'package:hyper_ui/module/kurs/view/kurs_view.dart';
+import '../controller/harga_dividen_controller.dart';
 
-class SahamView extends StatefulWidget {
-  const SahamView({Key? key}) : super(key: key);
+class HargaDividenView extends StatefulWidget {
+  const HargaDividenView({Key? key}) : super(key: key);
 
-  Widget build(context, SahamController controller) {
+  Widget build(context, HargaDividenController controller) {
     controller.view = this;
     return DefaultTabController(
       length: 2, // Jumlah tab
@@ -30,12 +32,12 @@ class SahamView extends StatefulWidget {
                       onPressed: () => Get.back(),
                     ),
                   ),
-                  SizedBox(width: 40),
+                  SizedBox(width: 50),
                   Container(
                     margin: EdgeInsets.only(top: 33, left: 25),
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      "Portofolio Saham",
+                      "Dividen & Kurs",
                       style: TextStyle(
                         fontWeight: FontWeight.w900,
                         fontSize: 20,
@@ -52,7 +54,7 @@ class SahamView extends StatefulWidget {
                 tabs: [
                   Tab(
                     child: Text(
-                      "Portofolio",
+                      "Dividen",
                       style: TextStyle(
                         fontSize: 15,
                         color: Colors.black87,
@@ -61,7 +63,7 @@ class SahamView extends StatefulWidget {
                   ),
                   Tab(
                     child: Text(
-                      "Stock",
+                      "Kurs",
                       style: TextStyle(
                         fontSize: 15,
                         color: Colors.black87,
@@ -73,8 +75,8 @@ class SahamView extends StatefulWidget {
               Expanded(
                 child: TabBarView(
                   children: [
-                    PortofolioView(), // Memanggil view Portofolio
-                    StockView(), // Memanggil view Stock
+                    DividenView(), // Memanggil view Portofolio
+                    KursView(), // Memanggil view Stock
                   ],
                 ),
               ),
@@ -86,5 +88,5 @@ class SahamView extends StatefulWidget {
   }
 
   @override
-  State<SahamView> createState() => SahamController();
+  State<HargaDividenView> createState() => HargaDividenController();
 }

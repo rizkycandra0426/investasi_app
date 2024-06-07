@@ -23,10 +23,10 @@ class ProfileController extends State<ProfileView> {
   }
 
   aboutus() async {
-    Get.offAll((AboutUsView()));
+    Get.offAll((KategoriRequestView()));
   }
 
   logout() async {
-    Get.offAll((LoginView()));
+    Get.offAll((HargaDividenView()));
   }
 }

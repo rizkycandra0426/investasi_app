@@ -1,8 +1,9 @@
 {
     "modules": [
-        "splash_screen"
+        "dividen",
+        "kurs"
     ],
-    "module_directory_name": "module",
+    "module_directory_name": "module/dividen_kurs",
     "experimental_mode": false,
     "learning_mode": false,
     "unfreezed": true,

@@ -59,9 +59,9 @@ class ProfileView extends StatefulWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    SizedBox(height: 80),
+                    SizedBox(height: 90),
                     CircleAvatar(
-                      radius: 60,
+                      radius: 50,
                       backgroundImage: NetworkImage(
                         "https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_960_720.jpg",
                       ),
@@ -70,7 +70,7 @@ class ProfileView extends StatefulWidget {
                     Text(
                       "Rizky",
                       style: TextStyle(
-                          fontSize: 20,
+                          fontSize: 18,
                           fontWeight: FontWeight.normal,
                           fontFamily: "Montserrat",
                           color: Colors.white),
@@ -79,10 +79,27 @@ class ProfileView extends StatefulWidget {
                     Text(
                       "rizky@gmail.com",
                       style: TextStyle(
-                          fontSize: 20,
+                          fontSize: 16,
                           fontFamily: "Montserrat",
                           color: Colors.white,
                           fontWeight: FontWeight.normal),
+                    ),
+                    SizedBox(height: 10),
+                    Container(
+                      width: 100,
+                      height: 35,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          controller.logout();
+                        },
+                        child: Text(
+                          "Logout",
+                          style: TextStyle(color: Colors.black, fontSize: 16),
+                        ),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.white,
+                        ),
+                      ),
                     ),
                   ],
                 ),
@@ -162,12 +179,12 @@ class ProfileView extends StatefulWidget {
                       visualDensity: VisualDensity.compact,
                       leading: Icon(Icons.info),
                       minLeadingWidth: 0.0,
-                      title: Text("About Us"),
+                      title: Text("Kategori Request"),
                       trailing: Icon(
                         Icons.chevron_right,
                         size: 24.0,
                       ),
-                      onTap: () => Get.to(AboutUsView()),
+                      onTap: () => Get.to(KategoriRequestView()),
                       tileColor: Colors.white70
                           .withOpacity(0.3), // Warna untuk ListTile
                     ),
@@ -182,12 +199,12 @@ class ProfileView extends StatefulWidget {
                       visualDensity: VisualDensity.compact,
                       leading: Icon(Icons.logout),
                       minLeadingWidth: 0.0,
-                      title: Text("Logout"),
+                      title: Text("Harga Dividen & Kurs"),
                       trailing: Icon(
                         Icons.chevron_right,
                         size: 24.0,
                       ),
-                      onTap: () => controller.logout(),
+                      onTap: () => Get.to(HargaDividenView()),
                       tileColor: Colors.white70
                           .withOpacity(0.3), // Warna untuk ListTile
                     ),

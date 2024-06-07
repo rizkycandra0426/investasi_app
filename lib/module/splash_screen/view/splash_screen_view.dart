@@ -19,15 +19,6 @@ class SplashScreenView extends StatefulWidget {
                 "assets/animations/logo_animasi.json",
               ),
             ),
-            SizedBox(height: 20),
-            Text(
-              "hallo",
-              style: TextStyle(
-                fontSize: 18, // Ubah sesuai kebutuhan
-                fontWeight: FontWeight.bold,
-                color: Colors.black,
-              ),
-            ),
           ],
         ),
       ),
@@ -42,13 +33,12 @@ class SplashScreenView extends StatefulWidget {
   State<SplashScreenView> createState() => SplashScreenController();
 }
 
-
 // Column(
-      //   children: [
-      //     Center(
-      //       child: Lottie.asset(
-      //         "assets/animations/logo_animasi.json",
-      //       ),
-      //     ),
-      //   ],
-      // ),
+//   children: [
+//     Center(
+//       child: Lottie.asset(
+//         "assets/animations/logo_animasi.json",
+//       ),
+//     ),
+//   ],
+// ),
