@@ -8,15 +8,36 @@ class KursView extends StatefulWidget {
   Widget build(context, KursController controller) {
     controller.view = this;
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Kurs"),
-        actions: const [],
-      ),
       body: SingleChildScrollView(
         child: Container(
           padding: const EdgeInsets.all(10.0),
           child: Column(
-            children: const [],
+            children: [
+              Container(
+                height: 40,
+                width: MediaQuery.of(context).size.width,
+                decoration: BoxDecoration(
+                  color: Colors.blue,
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(10),
+                  ),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Text(
+                      "Negara",
+                      style: TextStyle(fontSize: 20, color: Colors.white),
+                    ),
+                    Text(
+                      "Total",
+                      style: TextStyle(fontSize: 20, color: Colors.white),
+                    ),
+                  ],
+                ),
+              ),
+              Divider(),
+            ],
           ),
         ),
       ),

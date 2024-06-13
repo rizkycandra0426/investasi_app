@@ -24,11 +24,11 @@ class CatatanPengeluaranView extends StatefulWidget {
                 children: [
                   Text(
                     "Catatan",
-                    style: TextStyle(fontSize: 24),
+                    style: TextStyle(fontSize: 20),
                   ),
                   Text(
                     "Total",
-                    style: TextStyle(fontSize: 24),
+                    style: TextStyle(fontSize: 20),
                   ),
                 ],
               ),
