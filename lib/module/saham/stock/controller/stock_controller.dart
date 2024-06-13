@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hyper_ui/core.dart';
+import 'package:hyper_ui/service/stock_service.dart';
 import '../view/stock_view.dart';
 
 class StockController extends State<StockView> {
@@ -11,6 +12,7 @@ class StockController extends State<StockView> {
   void initState() {
     instance = this;
     super.initState();
+    getData();
   }
 
   @override
@@ -22,4 +24,13 @@ class StockController extends State<StockView> {
   // void updateSearchQuery(String query) {
   //   searchQuery.value = query;
   // }
+
+  bool loading = false;
+  List items = [];
+  getData() async {
+    Map<String, dynamic> response = await StockService().get();
+    print(response);
+    items = response["data"];
+    setState(() {});
+  }
 }

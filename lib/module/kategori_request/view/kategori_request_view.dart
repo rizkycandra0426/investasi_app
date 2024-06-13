@@ -4,7 +4,7 @@ import 'package:hyper_ui/module/kategori_request/widget/request_clippath.dart';
 import '../controller/kategori_request_controller.dart';
 
 class KategoriRequestView extends StatefulWidget {
-  const KategoriRequestView({Key? key}) : super(key: key);
+  KategoriRequestView({Key? key}) : super(key: key);
 
   Widget build(context, KategoriRequestController controller) {
     controller.view = this;
@@ -38,7 +38,7 @@ class KategoriRequestView extends StatefulWidget {
               ),
             ),
             Container(
-              padding: const EdgeInsets.only(
+              padding: EdgeInsets.only(
                 left: 40,
                 right: 40,
               ),
@@ -64,7 +64,7 @@ class KategoriRequestView extends StatefulWidget {
                       child: Column(
                         children: [
                           Text(
-                            "Dana Investasi Awal",
+                            "Nama kategori",
                             style: TextStyle(
                               fontSize: 16,
                               color: Colors.black,
@@ -73,11 +73,6 @@ class KategoriRequestView extends StatefulWidget {
                           SizedBox(height: 5),
                           Row(
                             children: [
-                              Text(
-                                "Rp.",
-                                style: TextStyle(fontSize: 14),
-                              ),
-                              SizedBox(width: 5),
                               Expanded(
                                 child: TextFormField(
                                   textAlign: TextAlign.center,
@@ -85,12 +80,13 @@ class KategoriRequestView extends StatefulWidget {
                                   cursorColor: Colors.transparent,
                                   style: TextStyle(
                                       color: Colors.black, fontSize: 15),
-                                  keyboardType: TextInputType.number,
                                   decoration: InputDecoration(
                                     filled: true,
                                     fillColor: Colors.transparent,
                                   ),
-                                  onChanged: (value) {},
+                                  onChanged: (value) {
+                                    controller.namaKategori = value;
+                                  },
                                 ),
                               ),
                             ],
@@ -122,20 +118,20 @@ class KategoriRequestView extends StatefulWidget {
                           ),
                           SizedBox(height: 5),
                           QDropdownField(
-                            label: "",
-                            items: [
-                              {
-                                "label": "Pemasukan",
-                                "value": "Pemasukan",
-                              },
-                              {
-                                "label": "Pengeluaran",
-                                "value": "Pengeluaran",
-                              }
-                            ],
-                            onChanged: (value, label) =>
-                                value == "Pengeluaran" ? false : true,
-                          ),
+                              label: "",
+                              items: [
+                                {
+                                  "label": "Pemasukan",
+                                  "value": "pemasukan",
+                                },
+                                {
+                                  "label": "Pengeluaran",
+                                  "value": "pengeluaran",
+                                }
+                              ],
+                              onChanged: (value, label) {
+                                controller.categoryType = value;
+                              }),
                         ],
                       ),
                     ),
@@ -151,7 +147,7 @@ class KategoriRequestView extends StatefulWidget {
                                 BorderRadius.circular(30), // Border radius 30
                           ),
                         ),
-                        onPressed: () {},
+                        onPressed: () => controller.submit(),
                         child: Ink(
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(
@@ -170,6 +166,29 @@ class KategoriRequestView extends StatefulWidget {
                           ),
                         ),
                       ),
+                    ),
+                    SizedBox(
+                      height: 12.0,
+                    ),
+                    ListView.builder(
+                      itemCount: controller.items.length,
+                      shrinkWrap: true,
+                      physics: ScrollPhysics(),
+                      itemBuilder: (BuildContext context, int index) {
+                        var item = controller.items[index];
+                        return ListTile(
+                          contentPadding: EdgeInsets.all(0.0),
+                          title: Text(
+                            item["nama_kategori"],
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16.0,
+                            ),
+                          ),
+                          subtitle: Text(item["category_type"]),
+                          trailing: Text(item["status"]),
+                        );
+                      },
                     ),
                   ],
                 ),

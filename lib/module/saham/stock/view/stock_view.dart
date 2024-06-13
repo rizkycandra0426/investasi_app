@@ -53,24 +53,20 @@ class StockView extends StatefulWidget {
               child: ListView.builder(
                 padding: EdgeInsets.only(top: 10.0, left: 10, right: 10),
                 physics: ClampingScrollPhysics(),
-                itemCount: 2,
+                itemCount: controller.items.length,
                 itemBuilder: (context, index) {
-                  return Card(
-                    color: Colors.grey[50],
-                    margin: EdgeInsets.only(bottom: 10),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15),
-                    ),
-                    child: InkWell(
-                      splashColor: Colors.redAccent.withAlpha(30),
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => StockDetailView(),
-                          ),
-                        );
-                      },
+                  var item = controller.items[index];
+
+                  return InkWell(
+                    onTap: () => Get.to(StockDetailView(
+                      stock: item,
+                    )),
+                    child: Card(
+                      color: Colors.grey[50],
+                      margin: EdgeInsets.only(bottom: 10),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15),
+                      ),
                       child: Container(
                         padding: EdgeInsets.all(16),
                         width: MediaQuery.of(context).size.width,
@@ -84,7 +80,7 @@ class StockView extends StatefulWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    'Ticker $index',
+                                    '${item['symbol']}',
                                     style: TextStyle(
                                       fontWeight: FontWeight.w800,
                                       fontSize: 25,
@@ -96,7 +92,7 @@ class StockView extends StatefulWidget {
                                   ),
                                   Container(
                                     child: Text(
-                                      'Company Name $index',
+                                      '${item["name"]}',
                                       style: TextStyle(
                                         fontSize: 14,
                                         fontWeight: FontWeight.bold,
@@ -109,11 +105,12 @@ class StockView extends StatefulWidget {
                             SizedBox(
                               width: 20,
                             ),
-                            // Image.network(
-                            //   'https://example.com/logo_$index.png',
-                            //   width: 40,
-                            //   height: 40,
-                            // ),
+                            Image.network(
+                              item["logo"] ??
+                                  "https://res.cloudinary.com/dotz74j1p/image/upload/v1715660683/no-image.jpg",
+                              width: 40,
+                              height: 40,
+                            ),
                           ],
                         ),
                       ),

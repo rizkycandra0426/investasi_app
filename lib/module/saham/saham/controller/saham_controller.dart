@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hyper_ui/core.dart';
+import 'package:hyper_ui/service/stock_service.dart';
 import '../view/saham_view.dart';
 
 class SahamController extends State<SahamView> {

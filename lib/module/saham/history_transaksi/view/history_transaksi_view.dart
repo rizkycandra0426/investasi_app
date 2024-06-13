@@ -20,12 +20,12 @@ class HistoryTransaksiView extends StatefulWidget {
             iconSize: 30,
             icon: Icon(Icons.insert_chart), // Icon yang ingin ditambahkan
             onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => StockDetailView(),
-                ),
-              );
+              // Navigator.push(
+              //   context,
+              //   MaterialPageRoute(
+              //     builder: (context) => StockDetailView(),
+              //   ),
+              // );
             },
           ),
         ],

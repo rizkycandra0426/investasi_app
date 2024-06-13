@@ -1,4 +1,5 @@
 import 'package:animated_splash_screen/animated_splash_screen.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hyper_ui/core.dart';
 import 'package:lottie/lottie.dart';
@@ -9,6 +10,7 @@ class SplashScreenView extends StatefulWidget {
 
   Widget build(context, SplashScreenController controller) {
     controller.view = this;
+    bool isLoggedIn = token.isNotEmpty;
     return AnimatedSplashScreen(
       splash: SingleChildScrollView(
         child: Column(
@@ -22,8 +24,8 @@ class SplashScreenView extends StatefulWidget {
           ],
         ),
       ),
-      nextScreen: LoginView(),
-      duration: 3500,
+      nextScreen: isLoggedIn ? MainNavigationView() : LoginView(),
+      duration: kDebugMode ? 0 : 3500,
       splashIconSize: 250, // Ubah sesuai kebutuhan
       backgroundColor: Colors.white,
     );

@@ -41,7 +41,7 @@ class StatistikPengeluaranView extends StatefulWidget {
         int index2 = (i + 1) % primarySwatches.length;
 
         Color mixedColor = Color.lerp(
-            primarySwatches[index1][500]!, primarySwatches[index2][500]!, 0.5)!;
+            primarySwatches[index1][500]!, primarySwatches[index2][500]!, 1.0)!;
         pieChartColors.add(mixedColor);
       }
 

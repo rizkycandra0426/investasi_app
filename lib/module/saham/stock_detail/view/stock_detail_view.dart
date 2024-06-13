@@ -1,15 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:hyper_ui/core.dart';
+import 'package:hyper_ui/model/stock_detail_response.dart';
 import 'package:hyper_ui/module/saham/stock_detail/widget/widget_beli.dart';
 import 'package:hyper_ui/module/saham/stock_detail/widget/widget_jual.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import '../controller/stock_detail_controller.dart';
 
 class StockDetailView extends StatefulWidget {
-  const StockDetailView({Key? key}) : super(key: key);
+  StockDetailView({
+    Key? key,
+    required this.stock,
+  }) : super(key: key);
+  final Map<String, dynamic> stock;
 
   Widget build(context, StockDetailController controller) {
     controller.view = this;
+    var value = controller.data?.response?.data?.results?.first;
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -22,7 +28,7 @@ class StockDetailView extends StatefulWidget {
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.only(right: 15, left: 15, bottom: 15),
+          padding: EdgeInsets.only(right: 15, left: 15, bottom: 15),
           child: Column(
             children: [
               // Your existing card widget and other widgets here...
@@ -33,7 +39,7 @@ class StockDetailView extends StatefulWidget {
                   borderRadius: BorderRadius.circular(15),
                 ),
                 child: Padding(
-                  padding: const EdgeInsets.all(16.0),
+                  padding: EdgeInsets.all(16.0),
                   child: Column(
                     children: [
                       Row(
@@ -44,7 +50,7 @@ class StockDetailView extends StatefulWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                'bbca',
+                                stock["symbol"],
                                 style: TextStyle(
                                   fontSize: 25,
                                   fontWeight: FontWeight.bold,
@@ -53,7 +59,7 @@ class StockDetailView extends StatefulWidget {
                               ),
                               SizedBox(height: 10),
                               Text(
-                                'pt bca',
+                                stock["name"],
                                 style: TextStyle(color: Colors.black54),
                               ),
                             ],
@@ -62,7 +68,7 @@ class StockDetailView extends StatefulWidget {
                             width: 70,
                             height: 70,
                             child: Image.network(
-                              'logo',
+                              stock["logo"],
                               width: 70,
                               height: 70,
                             ),
@@ -82,7 +88,7 @@ class StockDetailView extends StatefulWidget {
                                 style: TextStyle(color: Colors.black38),
                               ),
                               Text(
-                                "145.52",
+                                "${value?.open}",
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   color: Colors.black87,
@@ -100,7 +106,7 @@ class StockDetailView extends StatefulWidget {
                                 style: TextStyle(color: Colors.black38),
                               ),
                               Text(
-                                "147.14",
+                                "${value?.high}",
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   color: Colors.black87,
@@ -118,7 +124,7 @@ class StockDetailView extends StatefulWidget {
                                 style: TextStyle(color: Colors.black38),
                               ),
                               Text(
-                                "145.24",
+                                "${value?.low}",
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   color: Colors.black87,
@@ -136,7 +142,7 @@ class StockDetailView extends StatefulWidget {
                                 style: TextStyle(color: Colors.black38),
                               ),
                               Text(
-                                "146.37",
+                                "${value?.close}",
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   color: Colors.black87,
@@ -154,7 +160,7 @@ class StockDetailView extends StatefulWidget {
                                 style: TextStyle(color: Colors.black38),
                               ),
                               Text(
-                                "5645678",
+                                "${value?.volume}",
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   color: Colors.black87,
@@ -171,8 +177,7 @@ class StockDetailView extends StatefulWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Container(
-                            width: 150,
+                          Expanded(
                             child: Beliwidget(),
                           ),
                           // showModalBottomSheet(
@@ -181,8 +186,10 @@ class StockDetailView extends StatefulWidget {
                           //     return SekuritasModalSheet();
                           //   },
                           // );
-                          Container(
-                            width: 150,
+                          const SizedBox(
+                            width: 12.0,
+                          ),
+                          Expanded(
                             child: Jualwidget(),
                           ),
                         ],
@@ -256,29 +263,40 @@ class StockDetailView extends StatefulWidget {
                     SizedBox(height: 10),
                     Builder(
                       builder: (context) {
-                        final List<Map<String, dynamic>> chartData = [
-                          {"year": 2018, "sales": 40},
-                          {"year": 2019, "sales": 90},
-                          {"year": 2020, "sales": 30},
-                          {"year": 2021, "sales": 80},
-                          {"year": 2022, "sales": 90},
-                        ];
+                        final List<Map<String, dynamic>> chartData = [];
+
+                        for (var rowItem
+                            in controller.data?.response?.data?.results ?? []) {
+                          var item = rowItem as Result;
+                          chartData.add({
+                            "date": item.date, // Parse date string to DateTime
+                            "sales": item.high,
+                          });
+
+                          // chartData.add({
+                          //   "date": item.date!.add(Duration(
+                          //       days: -1)), // Parse date string to DateTime
+                          //   "sales": item.low,
+                          // });
+                        }
 
                         return Container(
                           color: Theme.of(context).cardColor,
-                          padding: const EdgeInsets.all(12.0),
+                          padding: EdgeInsets.all(12.0),
                           child: SizedBox(
-                            width: 500, // Tentukan lebar chart sesuai kebutuhan
-                            height:
-                                300, // Tentukan tinggi chart sesuai kebutuhan
+                            width: 500, // Define chart width as needed
+                            height: 300, // Define chart height as needed
                             child: SfCartesianChart(
+                              primaryXAxis: DateTimeAxis(),
+                              primaryYAxis: NumericAxis(),
                               series: <CartesianSeries>[
                                 // Renders line chart
-                                LineSeries<Map<String, dynamic>, int>(
+                                LineSeries<Map<String, dynamic>, DateTime>(
+                                  // Notice the generic type `DateTime` for x-axis
                                   dataSource: chartData,
                                   xValueMapper:
                                       (Map<String, dynamic> data, _) =>
-                                          data["year"] as int,
+                                          data["date"],
                                   yValueMapper:
                                       (Map<String, dynamic> data, _) =>
                                           data["sales"] as int,

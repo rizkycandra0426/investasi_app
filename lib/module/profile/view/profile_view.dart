@@ -68,7 +68,7 @@ class ProfileView extends StatefulWidget {
                     ),
                     SizedBox(height: 10), // Spasi antara CircleAvatar dan teks
                     Text(
-                      "Rizky",
+                      "${currentUser!.name}",
                       style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.normal,
@@ -77,7 +77,7 @@ class ProfileView extends StatefulWidget {
                     ),
                     SizedBox(height: 5), // Spasi antara nama dan email
                     Text(
-                      "rizky@gmail.com",
+                      "${currentUser!.email}",
                       style: TextStyle(
                           fontSize: 16,
                           fontFamily: "Montserrat",

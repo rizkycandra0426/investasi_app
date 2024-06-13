@@ -27,6 +27,7 @@ class ProfileController extends State<ProfileView> {
   }
 
   logout() async {
-    Get.offAll((HargaDividenView()));
+    AuthService().logout();
+    Get.offAll(LoginView());
   }
 }
