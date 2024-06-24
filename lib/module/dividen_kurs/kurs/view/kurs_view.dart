@@ -43,6 +43,40 @@ class KursView extends StatefulWidget {
                   ],
                 ),
               ),
+              const SizedBox(
+                height: 12.0,
+              ),
+              for (var item in controller.items)
+                Container(
+                  height: 40,
+                  width: MediaQuery.of(context).size.width,
+                  decoration: BoxDecoration(
+                    color: Colors.grey[100],
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(10),
+                    ),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Expanded(
+                        child: Text(
+                          "${item["mata_uang"]}",
+                          style:
+                              TextStyle(fontSize: 16, color: Colors.green[900]),
+                        ),
+                      ),
+                      Expanded(
+                        child: Text(
+                          "${item["nilai_tukar"]}",
+                          textAlign: TextAlign.right,
+                          style:
+                              TextStyle(fontSize: 16, color: Colors.green[900]),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
               Divider(),
             ],
           ),

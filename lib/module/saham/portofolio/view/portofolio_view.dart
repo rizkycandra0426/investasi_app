@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hyper_ui/core.dart';
 import '../controller/portofolio_controller.dart';
+import '../widget/balance_widget.dart';
 
 class PortofolioView extends StatefulWidget {
   const PortofolioView({Key? key}) : super(key: key);
@@ -36,26 +37,7 @@ class PortofolioView extends StatefulWidget {
                         padding: const EdgeInsets.all(15.0),
                         child: Column(
                           children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Text(
-                                  'Saldo',
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 17,
-                                  ),
-                                ),
-                                SizedBox(width: 5),
-                                Text(
-                                  "Rp.$index",
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 15,
-                                  ),
-                                ),
-                              ],
-                            ),
+                            BalanceWidget(),
                             SizedBox(
                               height: 10,
                             ),

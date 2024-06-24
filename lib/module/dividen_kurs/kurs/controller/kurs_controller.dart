@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hyper_ui/core.dart';
+import 'package:hyper_ui/service/kurs_service.dart';
 import '../view/kurs_view.dart';
 
 class KursController extends State<KursView> {
@@ -11,6 +12,14 @@ class KursController extends State<KursView> {
     super.initState();
     instance = this;
     WidgetsBinding.instance.addPostFrameCallback((_) => onReady());
+    loadData();
+  }
+
+  List items = [];
+  loadData() async {
+    var response = await KursService().get();
+    items = response["data"];
+    setState(() {});
   }
 
   void onReady() {}

@@ -74,6 +74,14 @@ class TargetInvestasiController extends State<TargetInvestasiView> {
     return "${value![0]}-${value[1]}%";
   }
 
+  validateValue() {
+    if (persentaseBunga > 3) {
+      persentaseBunga = 3;
+    }
+    persentaseBunga = 100;
+    setState(() {});
+  }
+
   void hitungNilaiInvestasi() {
     double targetValue = investasiAwal;
     double persentase = persentaseBunga;
@@ -93,4 +101,8 @@ class TargetInvestasiController extends State<TargetInvestasiView> {
 
     hasil = monthlyContribution;
   }
+
+  GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  int get minPercentage => percentages[jenisPersentaseBunga]![0];
+  int get maxPercentage => percentages[jenisPersentaseBunga]![1];
 }

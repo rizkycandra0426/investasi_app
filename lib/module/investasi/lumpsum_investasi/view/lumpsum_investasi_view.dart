@@ -140,7 +140,6 @@ class LumpsumInvestasiView extends StatefulWidget {
               SizedBox(height: 20),
               Container(
                 padding: EdgeInsets.only(top: 5, left: 10, right: 10),
-                height: 185,
                 width: MediaQuery.of(context).size.width,
                 decoration: BoxDecoration(
                   color: Colors.white70,
@@ -197,22 +196,42 @@ class LumpsumInvestasiView extends StatefulWidget {
                     Row(
                       children: [
                         Expanded(
-                          child: TextField(
-                            key: Key("key_${controller.jenisPersentaseBunga}"),
-                            textAlign: TextAlign.center,
-                            showCursor: true,
-                            cursorColor: Colors.transparent,
-                            style: TextStyle(color: Colors.black, fontSize: 15),
-                            keyboardType: TextInputType.number,
-                            decoration: InputDecoration(
-                              filled: true,
-                              fillColor: Colors.transparent,
-                              hintText: controller.percentageHint,
+                          child: Form(
+                            key: controller.formKey,
+                            child: TextFormField(
+                              key:
+                                  Key("key_${controller.jenisPersentaseBunga}"),
+                              validator: (value) {
+                                if ((double.tryParse(value!.toString()) ?? 0) >
+                                    controller.maxPercentage) {
+                                  // Set your maximum value here
+                                  return 'Maximum number is ${controller.maxPercentage}';
+                                }
+                                return null; // Valid
+                              },
+                              textAlign: TextAlign.center,
+                              showCursor: true,
+                              cursorColor: Colors.transparent,
+                              style:
+                                  TextStyle(color: Colors.black, fontSize: 15),
+                              keyboardType: TextInputType.number,
+                              decoration: InputDecoration(
+                                filled: true,
+                                fillColor: Colors.transparent,
+                                hintText: controller.percentageHint,
+                              ),
+                              onChanged: (value) {
+                                controller.persentaseBunga =
+                                    double.tryParse(value) ?? 0;
+                                bool isNotValid = controller
+                                        .formKey.currentState!
+                                        .validate() ==
+                                    false;
+                                if (isNotValid) {
+                                  return;
+                                }
+                              },
                             ),
-                            onChanged: (value) {
-                              controller.persentaseBunga =
-                                  double.tryParse(value) ?? 0;
-                            },
                           ),
                         ),
                         SizedBox(width: 5),
@@ -245,6 +264,12 @@ class LumpsumInvestasiView extends StatefulWidget {
                           ),
                         ),
                         onPressed: () {
+                          bool isNotValid =
+                              controller.formKey.currentState!.validate() ==
+                                  false;
+                          if (isNotValid) {
+                            return;
+                          }
                           print("HITUNG?");
                           controller.hitung();
                         },

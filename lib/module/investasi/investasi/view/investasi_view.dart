@@ -13,19 +13,12 @@ class InvestasiView extends StatefulWidget {
       appBar: AppBar(
         elevation: 0.0,
         backgroundColor: Colors.transparent,
-        title: Row(
-          children: [
-            Expanded(
-              child: Center(
-                child: Text(
-                  "Rancangan Investasi",
-                  style: TextStyle(
-                    fontSize: 18.0,
-                  ),
-                ),
-              ),
-            ),
-          ],
+        centerTitle: true,
+        title: Text(
+          "Rancangan Investasi",
+          style: TextStyle(
+            fontSize: 18.0,
+          ),
         ),
       ),
       body: SizedBox(

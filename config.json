@@ -1,7 +1,6 @@
 {
     "modules": [
-        "dividen",
-        "kurs"
+        "saham/topup"
     ],
     "module_directory_name": "module/dividen_kurs",
     "experimental_mode": false,

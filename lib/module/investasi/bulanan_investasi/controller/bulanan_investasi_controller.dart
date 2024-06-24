@@ -90,4 +90,8 @@ class BulananInvestasiController extends State<BulananInvestasiView> {
 
     hasil = futureValue;
   }
+
+  GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  int get minPercentage => percentages[jenisPersentaseBunga]![0];
+  int get maxPercentage => percentages[jenisPersentaseBunga]![1];
 }
