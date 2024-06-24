@@ -98,6 +98,9 @@ class ProfileView extends StatefulWidget {
                         ),
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.white,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15),
+                          ),
                         ),
                       ),
                     ),
@@ -177,7 +180,7 @@ class ProfileView extends StatefulWidget {
                     child: ListTile(
                       contentPadding: EdgeInsets.only(left: 20),
                       visualDensity: VisualDensity.compact,
-                      leading: Icon(Icons.info),
+                      leading: Icon(Icons.mode_edit),
                       minLeadingWidth: 0.0,
                       title: Text("Kategori Request"),
                       trailing: Icon(
@@ -197,7 +200,7 @@ class ProfileView extends StatefulWidget {
                     child: ListTile(
                       contentPadding: EdgeInsets.only(left: 20),
                       visualDensity: VisualDensity.compact,
-                      leading: Icon(Icons.logout),
+                      leading: Icon(Icons.attach_money),
                       minLeadingWidth: 0.0,
                       title: Text("Harga Dividen & Kurs"),
                       trailing: Icon(

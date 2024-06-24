@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hyper_ui/core.dart';
+import 'package:hyper_ui/module/notifikasi/widget/notifikasi_clippath.dart';
 import '../controller/notifikasi_controller.dart';
 import 'package:numberpicker/numberpicker.dart';
 
@@ -9,20 +10,33 @@ class NotifikasiView extends StatefulWidget {
   Widget build(context, NotifikasiController controller) {
     controller.view = this;
     return Scaffold(
+      extendBodyBehindAppBar: true,
       appBar: AppBar(
-        title: Center(
-          child: Padding(
-            padding: EdgeInsets.only(right: 35),
-            child: Text(
+        elevation: 0.0,
+        backgroundColor: Colors.transparent,
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            SizedBox(width: 90),
+            Text(
               "Notifikasi",
-              style: TextStyle(fontSize: 16),
+              style: TextStyle(
+                fontSize: 18.0,
+              ),
             ),
-          ),
+          ],
         ),
-        actions: [],
       ),
       body: Column(
         children: [
+          ClipPath(
+            clipper: NotifikasiClipPathClass(),
+            child: Container(
+              height: 170,
+              width: MediaQuery.of(context).size.width,
+              color: Colors.blue,
+            ),
+          ),
           SizedBox(
               height: AppBar()
                   .preferredSize

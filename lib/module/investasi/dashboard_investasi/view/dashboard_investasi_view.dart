@@ -206,14 +206,14 @@ class DashboardInvestasiView extends StatefulWidget {
                       ],
                     ),
                     Container(
-                      width: 120,
+                      width: 95,
                       height: 130,
                       decoration: BoxDecoration(
                         color: Colors.transparent,
                         borderRadius: BorderRadius.circular(15),
                         image: DecorationImage(
                           image: AssetImage('assets/images/Pinjaman.png'),
-                          fit: BoxFit.contain,
+                          fit: BoxFit.cover,
                         ),
                       ),
                     ),

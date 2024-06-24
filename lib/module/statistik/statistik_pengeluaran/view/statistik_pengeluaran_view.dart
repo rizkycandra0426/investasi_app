@@ -64,7 +64,7 @@ class StatistikPengeluaranView extends StatefulWidget {
               children: [
                 Text(
                   "Total Pengeluaran",
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                 ),
                 Builder(
                   builder: (context) {

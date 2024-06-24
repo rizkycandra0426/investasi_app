@@ -19,7 +19,7 @@ class PortofolioView extends StatefulWidget {
           child: Column(
             children: <Widget>[
               Container(
-                height: screenHeight * 0.15,
+                height: screenHeight * 0.18,
                 padding: EdgeInsets.symmetric(vertical: 10.0),
                 color: Colors.white,
                 child: ListView.builder(
@@ -79,17 +79,53 @@ class PortofolioView extends StatefulWidget {
                             ),
                             SizedBox(height: 3),
                             Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
-                                Text('floating return'),
-                                Text(
-                                  "($index%)",
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 14,
-                                  ),
+                                Column(
+                                  children: [
+                                    Text(
+                                      'floating return',
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 14,
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: 3,
+                                    ),
+                                    Text("($index)")
+                                  ],
                                 ),
-                                Text('total equity'),
+                                Column(
+                                  children: [
+                                    Text(
+                                      "Yield",
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 14,
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: 3,
+                                    ),
+                                    Text("($index)")
+                                  ],
+                                ),
+                                Column(
+                                  children: [
+                                    Text(
+                                      "IHSG",
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 14,
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: 3,
+                                    ),
+                                    Text("($index)")
+                                  ],
+                                ),
                               ],
                             )
                           ],

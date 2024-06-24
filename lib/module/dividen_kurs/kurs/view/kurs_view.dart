@@ -13,6 +13,13 @@ class KursView extends StatefulWidget {
           padding: const EdgeInsets.all(10.0),
           child: Column(
             children: [
+              SizedBox(height: 10),
+              Text(
+                textAlign: TextAlign.center,
+                "Nilai Tukar Rupiah (Rp.) Terhadapat Mata Uang Asing",
+                style: TextStyle(fontSize: 20, color: Colors.black),
+              ),
+              SizedBox(height: 10),
               Container(
                 height: 40,
                 width: MediaQuery.of(context).size.width,

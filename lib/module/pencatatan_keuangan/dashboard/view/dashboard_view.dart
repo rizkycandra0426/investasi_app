@@ -56,7 +56,7 @@ class DashboardView extends StatefulWidget {
             ClipPath(
               clipper: DashboardCardClipPath(),
               child: Container(
-                height: 380,
+                height: 390,
                 width: MediaQuery.of(context).size.width,
                 color: primaryColor,
               ),
@@ -73,58 +73,61 @@ class DashboardView extends StatefulWidget {
                       height: 20,
                     ),
                     Expanded(
-                      child: Container(
-                        child: DefaultTabController(
-                          length: 3,
-                          initialIndex: controller.selectedIndex,
-                          child: Container(
-                            child: Column(
-                              children: [
-                                Container(
-                                  height: 50,
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.all(
-                                      Radius.circular(
-                                        24.0,
+                      child: Padding(
+                        padding: const EdgeInsets.only(right: 5, left: 5),
+                        child: Container(
+                          child: DefaultTabController(
+                            length: 3,
+                            initialIndex: controller.selectedIndex,
+                            child: Container(
+                              child: Column(
+                                children: [
+                                  Container(
+                                    height: 50,
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.all(
+                                        Radius.circular(
+                                          24.0,
+                                        ),
                                       ),
                                     ),
+                                    child: TabBar(
+                                      indicator: BoxDecoration(
+                                          color: Colors.blue,
+                                          borderRadius:
+                                              BorderRadius.circular(25.0)),
+                                      labelColor: Colors.white,
+                                      unselectedLabelColor: Colors.blue,
+                                      onTap: (index) =>
+                                          controller.updateSelectedIndex(index),
+                                      tabs: [
+                                        Tab(
+                                          text: "Harian",
+                                        ),
+                                        Tab(
+                                          text: "Kalender",
+                                        ),
+                                        Tab(
+                                          text: "Bulanan",
+                                        ),
+                                      ],
+                                    ),
                                   ),
-                                  child: TabBar(
-                                    indicator: BoxDecoration(
-                                        color: Colors.blue,
-                                        borderRadius:
-                                            BorderRadius.circular(25.0)),
-                                    labelColor: Colors.white,
-                                    unselectedLabelColor: Colors.blue,
-                                    onTap: (index) =>
-                                        controller.updateSelectedIndex(index),
-                                    tabs: [
-                                      Tab(
-                                        text: "Harian",
-                                      ),
-                                      Tab(
-                                        text: "Kalender",
-                                      ),
-                                      Tab(
-                                        text: "Bulanan",
-                                      ),
-                                    ],
+                                  SizedBox(
+                                    height: 60,
                                   ),
-                                ),
-                                SizedBox(
-                                  height: 60,
-                                ),
-                                Expanded(
-                                  child: TabBarView(
-                                    children: [
-                                      LaporanKeuanganHarianView(),
-                                      LaporanKeuanganKalenderView(),
-                                      LaporanKeuanganBulananView(),
-                                    ],
-                                  ),
-                                )
-                              ],
+                                  Expanded(
+                                    child: TabBarView(
+                                      children: [
+                                        LaporanKeuanganHarianView(),
+                                        LaporanKeuanganKalenderView(),
+                                        LaporanKeuanganBulananView(),
+                                      ],
+                                    ),
+                                  )
+                                ],
+                              ),
                             ),
                           ),
                         ),

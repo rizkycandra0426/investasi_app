@@ -22,7 +22,7 @@ class ProfileController extends State<ProfileView> {
     Get.offAll((BeritaView()));
   }
 
-  aboutus() async {
+  request() async {
     Get.offAll((KategoriRequestView()));
   }
 
