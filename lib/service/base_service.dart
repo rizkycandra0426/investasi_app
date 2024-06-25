@@ -6,7 +6,7 @@ class BaseService<T> {
   // String baseUrl = "http://192.168.18.189:8000/api";
   // String baseUrl = "http://192.168.1.12:8000/api";
   // String baseUrl = "http://10.5.50.139:8000/api";
-  String baseUrl = "http://192.168.107.168:8000/api";
+  String baseUrl = "http://10.5.50.109:8000/api";
   String endpoint = "kategori_pemasukans";
 
   Future<T> get() async {

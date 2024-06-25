@@ -14,17 +14,12 @@ class NotifikasiView extends StatefulWidget {
       appBar: AppBar(
         elevation: 0.0,
         backgroundColor: Colors.transparent,
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            SizedBox(width: 90),
-            Text(
-              "Notifikasi",
-              style: TextStyle(
-                fontSize: 18.0,
-              ),
-            ),
-          ],
+        centerTitle: true,
+        title: Text(
+          "Notifikasi",
+          style: TextStyle(
+            fontSize: 18.0,
+          ),
         ),
       ),
       body: Column(

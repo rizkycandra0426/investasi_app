@@ -45,57 +45,60 @@ class InvestasiView extends StatefulWidget {
                       height: 10,
                     ),
                     Expanded(
-                      child: Container(
-                        child: DefaultTabController(
-                          length: 3,
-                          child: Container(
-                            child: Column(
-                              children: [
-                                Container(
-                                  height: 50,
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.all(
-                                      Radius.circular(
-                                        24.0,
+                      child: Padding(
+                        padding: const EdgeInsets.only(right: 5, left: 5),
+                        child: Container(
+                          child: DefaultTabController(
+                            length: 3,
+                            child: Container(
+                              child: Column(
+                                children: [
+                                  Container(
+                                    height: 50,
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.all(
+                                        Radius.circular(
+                                          24.0,
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                  child: TabBar(
-                                    indicator: BoxDecoration(
-                                        color: Colors.blue,
-                                        borderRadius:
-                                            BorderRadius.circular(25.0)),
-                                    labelColor: Colors.white,
-                                    unselectedLabelColor: Colors.blue,
-                                    tabs: [
-                                      Tab(
-                                        text: "Lumpsum",
-                                      ),
-                                      Tab(
-                                        text: "Bulanan",
-                                      ),
-                                      Tab(
-                                        text: "Target",
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: 70,
-                                ),
-                                Expanded(
-                                  child: Container(
-                                    child: TabBarView(
-                                      children: [
-                                        LumpsumInvestasiView(),
-                                        BulananInvestasiView(),
-                                        TargetInvestasiView(),
+                                    child: TabBar(
+                                      indicator: BoxDecoration(
+                                          color: Colors.blue,
+                                          borderRadius:
+                                              BorderRadius.circular(25.0)),
+                                      labelColor: Colors.white,
+                                      unselectedLabelColor: Colors.blue,
+                                      tabs: [
+                                        Tab(
+                                          text: "Lumpsum",
+                                        ),
+                                        Tab(
+                                          text: "Bulanan",
+                                        ),
+                                        Tab(
+                                          text: "Target",
+                                        ),
                                       ],
                                     ),
                                   ),
-                                )
-                              ],
+                                  SizedBox(
+                                    height: 70,
+                                  ),
+                                  Expanded(
+                                    child: Container(
+                                      child: TabBarView(
+                                        children: [
+                                          LumpsumInvestasiView(),
+                                          BulananInvestasiView(),
+                                          TargetInvestasiView(),
+                                        ],
+                                      ),
+                                    ),
+                                  )
+                                ],
+                              ),
                             ),
                           ),
                         ),

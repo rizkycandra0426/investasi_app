@@ -207,7 +207,7 @@ class TargetInvestasiView extends StatefulWidget {
                                 if ((double.tryParse(value!.toString()) ?? 0) >
                                     controller.maxPercentage) {
                                   // Set your maximum value here
-                                  return 'Maximum number is ${controller.maxPercentage}';
+                                  return 'Persentase Melebihi Batas ${controller.maxPercentage}';
                                 }
                                 return null; // Valid
                               },

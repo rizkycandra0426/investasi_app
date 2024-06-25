@@ -37,7 +37,7 @@ class KursView extends StatefulWidget {
                       style: TextStyle(fontSize: 20, color: Colors.white),
                     ),
                     Text(
-                      "Total",
+                      "Nilai Tukar",
                       style: TextStyle(fontSize: 20, color: Colors.white),
                     ),
                   ],
