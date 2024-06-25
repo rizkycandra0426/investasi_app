@@ -14,17 +14,12 @@ class PinjamanView extends StatefulWidget {
       appBar: AppBar(
         elevation: 0.0,
         backgroundColor: Colors.transparent,
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            SizedBox(width: 50),
-            Text(
-              "Rancangan Pinjaman",
-              style: TextStyle(
-                fontSize: 18.0,
-              ),
-            ),
-          ],
+        centerTitle: true,
+        title: Text(
+          "Rancangan Pinjaman",
+          style: TextStyle(
+            fontSize: 18.0,
+          ),
         ),
       ),
       body: SingleChildScrollView(

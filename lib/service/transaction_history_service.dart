@@ -8,7 +8,7 @@ class TransactionHistoryService extends BaseService {
     required int month,
     required int year,
   }) async {
-    var response = await Dio().get(
+    var response = await dio.get(
       "$baseUrl/transaction-histories/$month/$year",
       options: Options(
         headers: {
@@ -22,7 +22,7 @@ class TransactionHistoryService extends BaseService {
   Future<TransactionByYearResponse> byYear({
     required int year,
   }) async {
-    var response = await Dio().get(
+    var response = await dio.get(
       "$baseUrl/transaction-histories/$year",
       options: Options(
         headers: {
@@ -37,7 +37,7 @@ class TransactionHistoryService extends BaseService {
     required int month,
     required int year,
   }) async {
-    var response = await Dio().get(
+    var response = await dio.get(
       "$baseUrl/transaction-histories/categories/$month/$year",
       options: Options(
         headers: {

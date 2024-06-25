@@ -6,6 +6,7 @@ import 'package:hyper_ui/service/db_service.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await DBService.init();
+  Diointerceptors.init();
   await AuthService().loadCurrentUserData();
   runMainApp();
 }

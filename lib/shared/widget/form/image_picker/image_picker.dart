@@ -3,6 +3,7 @@ import 'package:dio/dio.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:hyper_ui/shared/util/dio_interceptors/dio_interceptors.dart';
 import 'package:image_picker/image_picker.dart';
 
 class QImagePicker extends StatefulWidget {
@@ -82,7 +83,7 @@ class _QImagePickerState extends State<QImagePicker> {
       ),
     });
 
-    var res = await Dio().post(
+    var res = await dio.post(
       'https://api.imgbb.com/1/upload?key=b55ef3fd02b80ab180f284e479acd7c4',
       data: formData,
     );
@@ -106,7 +107,7 @@ class _QImagePickerState extends State<QImagePicker> {
       'api_key': apiKey,
     });
 
-    var res = await Dio().post(
+    var res = await dio.post(
       'https://api.cloudinary.com/v1_1/$cloudName/image/upload',
       data: formData,
     );

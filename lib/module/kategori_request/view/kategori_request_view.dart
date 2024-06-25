@@ -13,17 +13,12 @@ class KategoriRequestView extends StatefulWidget {
       appBar: AppBar(
         elevation: 0.0,
         backgroundColor: Colors.transparent,
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            SizedBox(width: 60),
-            Text(
-              "Kategori Request",
-              style: TextStyle(
-                fontSize: 18.0,
-              ),
-            ),
-          ],
+        centerTitle: true,
+        title: Text(
+          "Kategori Request",
+          style: TextStyle(
+            fontSize: 18.0,
+          ),
         ),
       ),
       body: SingleChildScrollView(

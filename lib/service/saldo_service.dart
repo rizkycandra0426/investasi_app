@@ -15,7 +15,7 @@ class SaldoService extends BaseService<Map<String, dynamic>> {
 
   Future<double> getSaldoUser() async {
     var url = "$baseUrl/$endpoint/user";
-    var response = await Dio().post(
+    var response = await dio.post(
       url,
       options: Options(
         headers: {

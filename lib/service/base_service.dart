@@ -1,17 +1,18 @@
 import 'package:dio/dio.dart';
+import 'package:hyper_ui/env.dart';
 import 'package:hyper_ui/model/kategori_pemasukan_response.dart';
 import 'package:hyper_ui/service/auth_service.dart';
+import 'package:hyper_ui/shared/util/dio_interceptors/dio_interceptors.dart';
 
 class BaseService<T> {
   // String baseUrl = "http://192.168.18.189:8000/api";
   // String baseUrl = "http://192.168.1.12:8000/api";
   // String baseUrl = "http://10.5.50.139:8000/api";
-  String baseUrl = "http://192.168.84.168:8000/api";
   String endpoint = "kategori_pemasukans";
 
   Future<T> get() async {
     var url = "$baseUrl/$endpoint";
-    var response = await Dio().get(
+    var response = await dio.get(
       url,
       options: Options(
         headers: {
@@ -30,7 +31,7 @@ class BaseService<T> {
   Future create(Map data) async {
     var url = "$baseUrl/$endpoint";
     print("DATA: TOKEN: ${token}");
-    var response = await Dio().post(
+    var response = await dio.post(
       url,
       options: Options(
         headers: {
@@ -51,7 +52,7 @@ class BaseService<T> {
     print("data: $data");
     print("-------------");
 
-    var response = await Dio().post(
+    var response = await dio.post(
       url,
       options: Options(
         headers: {
@@ -65,7 +66,7 @@ class BaseService<T> {
 
   Future delete(int id) async {
     var url = "$baseUrl/$endpoint/$id";
-    var response = await Dio().delete(
+    var response = await dio.delete(
       url,
       options: Options(
         headers: {

@@ -1,9 +1,11 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
+import 'package:hyper_ui/env.dart';
 import 'package:hyper_ui/model/current_user.dart';
 import 'package:hyper_ui/service/base_service.dart';
 import 'package:hyper_ui/service/db_service.dart';
+import 'package:hyper_ui/shared/util/dio_interceptors/dio_interceptors.dart';
 
 String token = "";
 CurrentUser? currentUser;
@@ -22,7 +24,7 @@ class AuthService extends BaseService {
     required String password,
   }) async {
     try {
-      var response = await Dio().post(
+      var response = await dio.post(
         "$baseUrl/login",
         options: Options(
           headers: {
@@ -53,7 +55,7 @@ class AuthService extends BaseService {
     required String password,
   }) async {
     try {
-      await Dio().post(
+      await dio.post(
         "$baseUrl/register",
         options: Options(
           headers: {

@@ -43,7 +43,6 @@ class RegisterController extends State<RegisterView> {
       snackbarDanger(message: "Daftar akun gagal");
       return;
     }
-
     Get.back();
     snackbarSuccess(message: "Berhasil mendaftarkan akun!");
   }

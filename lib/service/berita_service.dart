@@ -6,24 +6,12 @@ import 'package:hyper_ui/service/base_service.dart';
 import 'package:hyper_ui/shared/util/dio_interceptors/dio_interceptors.dart';
 
 //TODO: Update model-nya
-class StockService extends BaseService<Map<String, dynamic>> {
+class BeritaService extends BaseService<Map<String, dynamic>> {
   @override
-  String get endpoint => "stock";
+  String get endpoint => "berita";
 
   @override
   Map<String, dynamic> decode(data) {
     return Map<String, dynamic>.from(data);
-  }
-
-  Future<StockDetailResponse> getDetail(String symbol) async {
-    var response = await dio.get(
-      "$baseUrl/stock/$symbol",
-      options: Options(
-        headers: {
-          "Content-Type": "application/json",
-        },
-      ),
-    );
-    return StockDetailResponse.fromJson(response.data);
   }
 }

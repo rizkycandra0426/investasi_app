@@ -3,7 +3,7 @@ We believe, the class name must be unique.
 If there is a conflicting class name in this file,
 it means you have to rename it to something more unique.
 */
-export 'package:hyper_ui/config.dart';
+export 'package:hyper_ui/env.dart';
 export 'package:hyper_ui/core_package.dart';
 export 'package:hyper_ui/demo.dart';
 export 'package:hyper_ui/module/auth/login/controller/login_controller.dart';
@@ -68,6 +68,7 @@ export 'package:hyper_ui/module/saham/history_transaksi/controller/history_trans
 export 'package:hyper_ui/module/saham/history_transaksi/view/history_transaksi_view.dart';
 export 'package:hyper_ui/module/saham/portofolio/controller/portofolio_controller.dart';
 export 'package:hyper_ui/module/saham/portofolio/view/portofolio_view.dart';
+export 'package:hyper_ui/module/saham/portofolio/widget/balance_widget.dart';
 export 'package:hyper_ui/module/saham/saham/controller/saham_controller.dart';
 export 'package:hyper_ui/module/saham/saham/view/saham_view.dart';
 export 'package:hyper_ui/module/saham/saham/widget/saham_clippath.dart';
@@ -104,8 +105,10 @@ export 'package:hyper_ui/service/category_request_service.dart';
 export 'package:hyper_ui/service/db_service.dart';
 export 'package:hyper_ui/service/kategori_pemasukan_service.dart';
 export 'package:hyper_ui/service/kategori_pengeluaran_service.dart';
+export 'package:hyper_ui/service/kurs_service.dart';
 export 'package:hyper_ui/service/pemasukan_service.dart';
 export 'package:hyper_ui/service/pengeluaran_service.dart';
+export 'package:hyper_ui/service/saldo_service.dart';
 export 'package:hyper_ui/service/stock_service.dart';
 export 'package:hyper_ui/service/transaction_history_service.dart';
 export 'package:hyper_ui/setup.dart';
@@ -122,8 +125,10 @@ export 'package:hyper_ui/shared/util/dialog/confirmation_dialog.dart';
 export 'package:hyper_ui/shared/util/dialog/show_bottom_sheet.dart';
 export 'package:hyper_ui/shared/util/dialog/show_custom_dialog.dart';
 export 'package:hyper_ui/shared/util/dialog/show_info_dialog.dart';
+export 'package:hyper_ui/shared/util/dio_interceptors/dio_interceptors.dart';
 export 'package:hyper_ui/shared/util/focus_helper/focus_helper.dart';
 export 'package:hyper_ui/shared/util/input/input.dart';
+export 'package:hyper_ui/shared/util/log/log.dart';
 export 'package:hyper_ui/shared/util/platform_extension/platform_extension.dart';
 export 'package:hyper_ui/shared/util/random_image/random_image.dart';
 export 'package:hyper_ui/shared/util/responsive/responsive.dart';

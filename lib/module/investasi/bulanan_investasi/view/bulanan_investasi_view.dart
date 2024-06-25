@@ -36,7 +36,7 @@ class BulananInvestasiView extends StatefulWidget {
                 child: Column(
                   children: [
                     Text(
-                      "Dana Investasi Awal",
+                      "Dana Investasi Bulanan",
                       style: TextStyle(
                         fontSize: 16,
                         color: Colors.black,
@@ -205,7 +205,7 @@ class BulananInvestasiView extends StatefulWidget {
                                 if ((double.tryParse(value!.toString()) ?? 0) >
                                     controller.maxPercentage) {
                                   // Set your maximum value here
-                                  return 'Maximum number is ${controller.maxPercentage}';
+                                  return 'Persentase Melebihi Batas ${controller.maxPercentage}';
                                 }
                                 return null; // Valid
                               },
