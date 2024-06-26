@@ -137,7 +137,7 @@ class Beliwidget extends StatelessWidget {
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            Text('Volume Beli'),
+                            Text('Total Pembelian'),
                             Container(
                               width: 200,
                               padding: EdgeInsets.all(10.0),
@@ -163,7 +163,7 @@ class Beliwidget extends StatelessWidget {
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            Text('Jumlah Pembelian'),
+                            Text('Volume Lot Beli'),
                             Container(
                               width: 200,
                               height: 40,

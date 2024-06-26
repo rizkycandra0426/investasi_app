@@ -133,7 +133,7 @@ class Jualwidget extends StatelessWidget {
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            Text('Volume Jual'),
+                            Text('Total Penjualan'),
                             Container(
                               width: 200,
                               padding: EdgeInsets.all(10.0),
@@ -159,7 +159,7 @@ class Jualwidget extends StatelessWidget {
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            Text('Jumlah Penjualan'),
+                            Text('Volume Lot Jual'),
                             Container(
                               height:
                                   100, // Atur tinggi container sesuai kebutuhan
