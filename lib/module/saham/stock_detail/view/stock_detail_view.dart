@@ -212,7 +212,7 @@ class StockDetailView extends StatefulWidget {
                       onPressed: () {
                         // Panggil metode pada controller
                       },
-                      child: Text("30 Days",
+                      child: Text("3 Bulan",
                           style: TextStyle(color: Colors.white)),
                     ),
                     SizedBox(width: 10),
@@ -224,7 +224,7 @@ class StockDetailView extends StatefulWidget {
                       onPressed: () {
                         // Panggil metode pada controller
                       },
-                      child: Text("60 Days",
+                      child: Text("6 Bulan",
                           style: TextStyle(color: Colors.white)),
                     ),
                     SizedBox(width: 10),
@@ -236,7 +236,7 @@ class StockDetailView extends StatefulWidget {
                       onPressed: () {
                         // Panggil metode pada controller
                       },
-                      child: Text("90 Days",
+                      child: Text("9 Bulan",
                           style: TextStyle(color: Colors.white)),
                     ),
                     SizedBox(width: 10),
@@ -248,7 +248,7 @@ class StockDetailView extends StatefulWidget {
                       onPressed: () {
                         // Panggil metode pada controller
                       },
-                      child: Text("120 Days",
+                      child: Text("1 Tahun",
                           style: TextStyle(color: Colors.white)),
                     ),
                   ],
