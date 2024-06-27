@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hyper_ui/core.dart';
 import '../controller/login_controller.dart';
@@ -106,6 +107,41 @@ class LoginView extends StatefulWidget {
                     ),
                   ],
                 ),
+                if (kDebugMode)
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      InkWell(
+                        onTap: () {
+                          controller.email = "admin@demo.com";
+                          controller.password = "123456";
+                          controller.login();
+                        },
+                        child: Text(
+                          "Admin",
+                          style: TextStyle(
+                            fontSize: 12.0,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 12.0,
+                      ),
+                      InkWell(
+                        onTap: () {
+                          controller.email = "andra@demo.com";
+                          controller.password = "123456";
+                          controller.login();
+                        },
+                        child: Text(
+                          "Andra",
+                          style: TextStyle(
+                            fontSize: 12.0,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
               ],
             ),
           ),

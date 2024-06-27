@@ -108,7 +108,6 @@ class TransaksiKeuanganController extends State<TransaksiKeuanganView> {
     showLoading();
     if (isPemasukan) {
       await PemasukanService().create({
-        "user_id": 1,
         "tanggal": date.yMd,
         "jumlah": amount,
         "catatan": memo,
@@ -116,7 +115,6 @@ class TransaksiKeuanganController extends State<TransaksiKeuanganView> {
       });
     } else {
       await PengeluaranService().create({
-        "user_id": 1,
         "tanggal": date.yMd,
         "jumlah": amount,
         "catatan": memo,
@@ -133,7 +131,6 @@ class TransaksiKeuanganController extends State<TransaksiKeuanganView> {
     showLoading();
     if (isPemasukan) {
       await PemasukanService().update(widget.item!.id!, {
-        "user_id": 1,
         "tanggal": date.yMd,
         "jumlah": amount,
         "catatan": memo,
@@ -142,7 +139,6 @@ class TransaksiKeuanganController extends State<TransaksiKeuanganView> {
       });
     } else {
       await PengeluaranService().update(widget.item!.id!, {
-        "user_id": 1,
         "tanggal": date.yMd,
         "jumlah": amount,
         "catatan": memo,

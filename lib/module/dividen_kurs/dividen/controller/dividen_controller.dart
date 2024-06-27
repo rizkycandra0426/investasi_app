@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hyper_ui/core.dart';
+import 'package:hyper_ui/service/dividen_service.dart';
 import '../view/dividen_view.dart';
 
 class DividenController extends State<DividenView> {
@@ -11,6 +12,14 @@ class DividenController extends State<DividenView> {
     super.initState();
     instance = this;
     WidgetsBinding.instance.addPostFrameCallback((_) => onReady());
+    loadData();
+  }
+
+  List items = [];
+  loadData() async {
+    var response = await DividenService().get();
+    items = response["data"];
+    setState(() {});
   }
 
   void onReady() {}

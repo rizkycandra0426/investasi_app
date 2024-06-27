@@ -1,0 +1,10 @@
+{
+  "dio_detail": {
+    "prefix": "dio_detail",
+    "body": "QDetailView(\nendpoint: \"articles\",\nid: \"1\",\nitemBuilder: (detail) {\n// Your detail here\n}\n),"
+  },
+  "dio_list": {
+    "prefix": "dio_list",
+    "body": "QListView(\nendpoint: \"articles\",\nitemBuilder: (item, index) {\n// Your list item here\n}\n),"
+  }
+}

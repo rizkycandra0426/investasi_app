@@ -36,7 +36,6 @@ class TopupController extends State<TopupView> {
     }
     showLoading();
     await SaldoService().create({
-      "user_id": currentUser?.userId,
       "saldo": amount,
     });
 

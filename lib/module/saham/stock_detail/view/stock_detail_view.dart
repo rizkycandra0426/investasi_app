@@ -15,6 +15,7 @@ class StockDetailView extends StatefulWidget {
 
   Widget build(context, StockDetailController controller) {
     controller.view = this;
+    if (controller.loading) return LoadingScaffold();
     var value = controller.data?.response?.data?.results?.first;
     return Scaffold(
       backgroundColor: Colors.white,
@@ -50,7 +51,7 @@ class StockDetailView extends StatefulWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                stock["symbol"],
+                                stock["nama_saham"],
                                 style: TextStyle(
                                   fontSize: 25,
                                   fontWeight: FontWeight.bold,
@@ -59,7 +60,7 @@ class StockDetailView extends StatefulWidget {
                               ),
                               SizedBox(height: 10),
                               Text(
-                                stock["name"],
+                                stock["nama_perusahaan"],
                                 style: TextStyle(color: Colors.black54),
                               ),
                             ],
@@ -68,9 +69,16 @@ class StockDetailView extends StatefulWidget {
                             width: 70,
                             height: 70,
                             child: Image.network(
-                              stock["logo"],
+                              stock["pic"],
                               width: 70,
                               height: 70,
+                              errorBuilder: (context, error, stackTrace) {
+                                return Image.network(
+                                  "https://res.cloudinary.com/dotz74j1p/image/upload/v1715660683/no-image.jpg",
+                                  width: 70,
+                                  height: 70,
+                                );
+                              },
                             ),
                           )
                         ],
@@ -199,116 +207,104 @@ class StockDetailView extends StatefulWidget {
                 ),
               ),
               SizedBox(height: 30),
-              SingleChildScrollView(
-                controller: ScrollController(),
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  children: [
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        fixedSize: Size(150, 20),
-                        backgroundColor: Colors.green,
-                      ),
-                      onPressed: () {
-                        // Panggil metode pada controller
-                      },
-                      child: Text("3 Bulan",
-                          style: TextStyle(color: Colors.white)),
-                    ),
-                    SizedBox(width: 10),
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        fixedSize: Size(150, 20),
-                        backgroundColor: Colors.green,
-                      ),
-                      onPressed: () {
-                        // Panggil metode pada controller
-                      },
-                      child: Text("6 Bulan",
-                          style: TextStyle(color: Colors.white)),
-                    ),
-                    SizedBox(width: 10),
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        fixedSize: Size(150, 20),
-                        backgroundColor: Colors.green,
-                      ),
-                      onPressed: () {
-                        // Panggil metode pada controller
-                      },
-                      child: Text("9 Bulan",
-                          style: TextStyle(color: Colors.white)),
-                    ),
-                    SizedBox(width: 10),
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        fixedSize: Size(150, 20),
-                        backgroundColor: Colors.green,
-                      ),
-                      onPressed: () {
-                        // Panggil metode pada controller
-                      },
-                      child: Text("1 Tahun",
-                          style: TextStyle(color: Colors.white)),
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(height: 30),
-              SingleChildScrollView(
-                controller: ScrollController(),
-                scrollDirection: Axis.horizontal,
-                child: Column(
-                  children: [
-                    SizedBox(height: 10),
-                    Builder(
-                      builder: (context) {
-                        final List<Map<String, dynamic>> chartData = [];
+              Builder(
+                builder: (context) {
+                  List filters = [
+                    "3 Bulan",
+                    "6 Bulan",
+                    "9 Bulan",
+                    "1 Tahun",
+                  ];
 
-                        for (var rowItem
-                            in controller.data?.response?.data?.results ?? []) {
-                          var item = rowItem as Result;
-                          chartData.add({
-                            "date": item.date, // Parse date string to DateTime
-                            "sales": item.high,
-                          });
+                  var selectedFilter = filters[controller.dateFilterIndex];
 
-                          // chartData.add({
-                          //   "date": item.date!.add(Duration(
-                          //       days: -1)), // Parse date string to DateTime
-                          //   "sales": item.low,
-                          // });
-                        }
-
+                  return Container(
+                    height: 40.0,
+                    child: ListView.builder(
+                      itemCount: filters.length,
+                      scrollDirection: Axis.horizontal,
+                      physics: const ScrollPhysics(),
+                      itemBuilder: (BuildContext context, int index) {
+                        bool selected = controller.dateFilterIndex == index;
                         return Container(
-                          color: Theme.of(context).cardColor,
-                          padding: EdgeInsets.all(12.0),
-                          child: SizedBox(
-                            width: 500, // Define chart width as needed
-                            height: 300, // Define chart height as needed
-                            child: SfCartesianChart(
-                              primaryXAxis: DateTimeAxis(),
-                              primaryYAxis: NumericAxis(),
-                              series: <CartesianSeries>[
-                                // Renders line chart
-                                LineSeries<Map<String, dynamic>, DateTime>(
-                                  // Notice the generic type `DateTime` for x-axis
-                                  dataSource: chartData,
-                                  xValueMapper:
-                                      (Map<String, dynamic> data, _) =>
-                                          data["date"],
-                                  yValueMapper:
-                                      (Map<String, dynamic> data, _) =>
-                                          data["sales"] as int,
-                                ),
-                              ],
+                          margin: const EdgeInsets.only(
+                            right: 6.0,
+                          ),
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor:
+                                  selected ? Colors.green : Colors.grey[600],
+                            ),
+                            onPressed: () {
+                              controller.updateDateFilterIndex(index);
+                            },
+                            child: Text(
+                              filters[index],
+                              style: TextStyle(color: Colors.white),
                             ),
                           ),
                         );
                       },
                     ),
-                  ],
-                ),
+                  );
+                },
+              ),
+              SizedBox(height: 30),
+              Builder(
+                builder: (context) {
+                  if (controller.chartLoading) {
+                    return Container(
+                      width: 500, // Define chart width as needed
+                      height: 300, // Define chart height as needed
+                      decoration: BoxDecoration(
+                        color: Colors.grey[200],
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(
+                            8.0,
+                          ),
+                        ),
+                      ),
+                      child: Center(
+                        child: Text(
+                          "Loading...",
+                          style: TextStyle(
+                            fontSize: 12.0,
+                          ),
+                        ),
+                      ),
+                    );
+                  }
+                  return Container(
+                    color: Theme.of(context).cardColor,
+                    padding: EdgeInsets.all(12.0),
+                    child: SizedBox(
+                      width: 500, // Define chart width as needed
+                      height: 300, // Define chart height as needed
+                      child: SfCartesianChart(
+                        primaryXAxis: DateTimeAxis(
+                          dateFormat: DateFormat.MMMd(),
+                        ),
+                        primaryYAxis: NumericAxis(),
+                        zoomPanBehavior: ZoomPanBehavior(
+                          enablePinching: true,
+                          enablePanning: true,
+                          zoomMode: ZoomMode.x,
+                        ),
+                        series: <CartesianSeries>[
+                          // Renders line chart
+                          LineSeries<Map<String, dynamic>, DateTime>(
+                            // Notice the generic type `DateTime` for x-axis
+                            dataSource: controller.chartValues,
+                            xValueMapper: (Map<String, dynamic> data, _) =>
+                                data["date"],
+                            yValueMapper: (Map<String, dynamic> data, _) =>
+                                data["value"] as int,
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
+                },
               ),
             ],
           ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hyper_ui/core.dart';
+import 'package:hyper_ui/shared/widget/dio_list/list_view.dart';
 import '../controller/stock_controller.dart';
 
 class StockView extends StatefulWidget {
@@ -17,7 +18,8 @@ class StockView extends StatefulWidget {
           children: [
             Container(
               padding: EdgeInsets.all(15),
-              child: TextField(
+              child: TextFormField(
+                initialValue: controller.search,
                 textInputAction: TextInputAction.search,
                 decoration: InputDecoration(
                   filled: true,
@@ -44,22 +46,21 @@ class StockView extends StatefulWidget {
                   contentPadding: EdgeInsets.all(15.0),
                   hintText: 'Search',
                 ),
-                // onChanged: (value) {
-                //   _controller.updateSearchQuery(value);
-                // },
+                onChanged: (value) {},
+                onFieldSubmitted: (value) {
+                  controller.updateSearch(value);
+                },
               ),
             ),
             Expanded(
-              child: ListView.builder(
-                padding: EdgeInsets.only(top: 10.0, left: 10, right: 10),
-                physics: ClampingScrollPhysics(),
-                itemCount: controller.items.length,
-                itemBuilder: (context, index) {
-                  var item = controller.items[index];
-
+              child: QListView(
+                key: Key("st0ck_${controller.search}"),
+                endpoint: "stock",
+                search: controller.search,
+                itemBuilder: (item, index) {
                   return InkWell(
                     onTap: () => Get.to(StockDetailView(
-                      stock: item,
+                      stock: Map<String, dynamic>.from(item),
                     )),
                     child: Card(
                       color: Colors.grey[50],
@@ -80,7 +81,7 @@ class StockView extends StatefulWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    '${item['symbol']}',
+                                    '${item['nama_saham']}',
                                     style: TextStyle(
                                       fontWeight: FontWeight.w800,
                                       fontSize: 25,
@@ -92,7 +93,7 @@ class StockView extends StatefulWidget {
                                   ),
                                   Container(
                                     child: Text(
-                                      '${item["name"]}',
+                                      '${item["nama_perusahaan"]}',
                                       style: TextStyle(
                                         fontSize: 14,
                                         fontWeight: FontWeight.bold,
@@ -106,10 +107,17 @@ class StockView extends StatefulWidget {
                               width: 20,
                             ),
                             Image.network(
-                              item["logo"] ??
+                              item["pic"] ??
                                   "https://res.cloudinary.com/dotz74j1p/image/upload/v1715660683/no-image.jpg",
                               width: 40,
                               height: 40,
+                              errorBuilder: (context, error, stackTrace) {
+                                return Image.network(
+                                  "https://res.cloudinary.com/dotz74j1p/image/upload/v1715660683/no-image.jpg",
+                                  width: 40,
+                                  height: 40,
+                                );
+                              },
                             ),
                           ],
                         ),
@@ -118,7 +126,7 @@ class StockView extends StatefulWidget {
                   );
                 },
               ),
-            )
+            ),
           ],
         ),
       ),

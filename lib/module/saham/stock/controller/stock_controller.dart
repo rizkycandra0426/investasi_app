@@ -12,7 +12,6 @@ class StockController extends State<StockView> {
   void initState() {
     instance = this;
     super.initState();
-    getData();
   }
 
   @override
@@ -25,12 +24,9 @@ class StockController extends State<StockView> {
   //   searchQuery.value = query;
   // }
 
-  bool loading = false;
-  List items = [];
-  getData() async {
-    Map<String, dynamic> response = await StockService().get();
-    print(response);
-    items = response["data"];
+  String search = "";
+  updateSearch(String value) {
+    search = value;
     setState(() {});
   }
 }

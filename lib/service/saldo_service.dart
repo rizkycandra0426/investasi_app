@@ -22,9 +22,6 @@ class SaldoService extends BaseService<Map<String, dynamic>> {
           "Content-Type": "application/json",
         },
       ),
-      data: {
-        "user_id": currentUser?.userId,
-      },
     );
     currentUserSaldo = double.tryParse("${response.data["saldo"]}") ?? 0.0;
     print("SALDO: $currentUserSaldo");

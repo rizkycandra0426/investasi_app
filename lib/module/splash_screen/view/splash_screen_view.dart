@@ -10,7 +10,7 @@ class SplashScreenView extends StatefulWidget {
 
   Widget build(context, SplashScreenController controller) {
     controller.view = this;
-    bool isLoggedIn = token.isNotEmpty;
+    bool isLoggedIn = token != null;
     return AnimatedSplashScreen(
       splash: SingleChildScrollView(
         child: Column(

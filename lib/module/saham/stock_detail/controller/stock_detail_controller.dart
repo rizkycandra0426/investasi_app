@@ -13,6 +13,7 @@ class StockDetailController extends State<StockDetailView> {
     instance = this;
     super.initState();
     getData();
+    getChartData();
   }
 
   @override
@@ -24,9 +25,51 @@ class StockDetailController extends State<StockDetailView> {
   bool loading = false;
   StockDetailResponse? data;
   getData() async {
+    loading = true;
+    setState(() {});
     data = await StockService().getDetail(
-      widget.stock["symbol"],
+      widget.stock["nama_saham"],
     );
+    setState(() {});
+
+    loading = false;
+    setState(() {});
+  }
+
+  List<Map<String, dynamic>> chartValues = [];
+  int dateFilterIndex = 0;
+  updateDateFilterIndex(int newIndex) {
+    dateFilterIndex = newIndex;
+    getChartData();
+  }
+
+  bool chartLoading = true;
+
+  getChartData() async {
+    chartLoading = true;
+    setState(() {});
+
+    List endpoints = [
+      "histori_30hari",
+      "histori_60hari",
+      "histori_90hari",
+      "histori_1tahun",
+    ];
+    var endpoint = endpoints[dateFilterIndex];
+    var response = await dio.get(
+      "$baseUrl/$endpoint/${widget.stock["nama_saham"]}",
+    );
+    print(response.data);
+    var items = response.data["data"];
+    for (var item in items) {
+      chartValues.add({
+        "date": DateTime.parse(item["date"]),
+        "value": item["close"],
+      });
+    }
+
+    print(chartValues);
+    chartLoading = false;
     setState(() {});
   }
 }

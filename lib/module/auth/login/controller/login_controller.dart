@@ -11,6 +11,7 @@ class LoginController extends State<LoginView> {
   void initState() {
     instance = this;
     super.initState();
+    refreshUserDataViewer();
   }
 
   @override

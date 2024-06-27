@@ -1,15 +1,27 @@
 import 'package:dio/dio.dart';
+import 'package:hyper_ui/env.dart';
+import 'package:hyper_ui/service/auth_service.dart';
 import 'package:hyper_ui/shared/util/log/log.dart';
 
 Dio dio = Dio();
 
 class Diointerceptors {
-  static init() {
+  static setOptions() {
     dio.options = BaseOptions(
-      // baseUrl: baseUrl,
+      baseUrl: baseUrl,
       headers: {
         'Content-Type': 'application/json',
-        // 'Authorization': 'Bearer 123123asfasfz1231',
+        'Authorization': 'Bearer $token',
+      },
+    );
+  }
+
+  static init() {
+    dio.options = BaseOptions(
+      baseUrl: baseUrl,
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token',
       },
     );
 

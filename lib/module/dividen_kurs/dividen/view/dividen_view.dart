@@ -7,12 +7,14 @@ class DividenView extends StatefulWidget {
 
   Widget build(context, DividenController controller) {
     controller.view = this;
+
     return Scaffold(
       body: SingleChildScrollView(
         child: Container(
           padding: const EdgeInsets.all(10.0),
           child: Column(
             children: [
+              SizedBox(height: 10),
               Container(
                 height: 40,
                 width: MediaQuery.of(context).size.width,
@@ -36,6 +38,40 @@ class DividenView extends StatefulWidget {
                   ],
                 ),
               ),
+              const SizedBox(
+                height: 12.0,
+              ),
+              for (var item in controller.items)
+                Container(
+                  height: 40,
+                  width: MediaQuery.of(context).size.width,
+                  decoration: BoxDecoration(
+                    color: Colors.grey[100],
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(10),
+                    ),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Expanded(
+                        child: Text(
+                          "${item["emiten"]}",
+                          style:
+                              TextStyle(fontSize: 16, color: Colors.green[900]),
+                        ),
+                      ),
+                      Expanded(
+                        child: Text(
+                          "${item["dividen"]}",
+                          textAlign: TextAlign.right,
+                          style:
+                              TextStyle(fontSize: 16, color: Colors.green[900]),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
               Divider(),
             ],
           ),

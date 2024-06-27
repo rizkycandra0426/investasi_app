@@ -74,7 +74,6 @@ class HistoryHarian {
 
   Map<String, dynamic> toJson() => {
         "id": id,
-        "user_id": userId,
         "tanggal":
             "${tanggal!.year.toString().padLeft(4, '0')}-${tanggal!.month.toString().padLeft(2, '0')}-${tanggal!.day.toString().padLeft(2, '0')}",
         "jumlah": jumlah,

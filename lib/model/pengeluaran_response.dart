@@ -121,7 +121,6 @@ class Datum {
 
   Map<String, dynamic> toJson() => {
         "id_pengeluaran": idPengeluaran,
-        "user_id": userId,
         "tanggal":
             "${tanggal!.year.toString().padLeft(4, '0')}-${tanggal!.month.toString().padLeft(2, '0')}-${tanggal!.day.toString().padLeft(2, '0')}",
         "jumlah": jumlah,
