@@ -3,8 +3,10 @@ import 'package:hyper_ui/core.dart';
 import 'package:hyper_ui/service/saldo_service.dart';
 
 class BalanceWidget extends StatefulWidget {
+  final bool enableTopup;
   const BalanceWidget({
     super.key,
+    this.enableTopup = true,
   });
 
   @override
@@ -29,7 +31,9 @@ class _BalanceWidgetState extends State<BalanceWidget> {
     double balance = DashboardController.instance.balance;
     double saldo = 0;
     return Row(
-      mainAxisAlignment: MainAxisAlignment.start,
+      mainAxisAlignment: widget.enableTopup
+          ? MainAxisAlignment.start
+          : MainAxisAlignment.center,
       children: [
         Text(
           "Saldo: ${currentUserSaldo.currency}",
@@ -38,23 +42,25 @@ class _BalanceWidgetState extends State<BalanceWidget> {
             fontSize: 15,
           ),
         ),
-        const SizedBox(
-          width: 5.0,
-        ),
-        InkWell(
-          onTap: () async {
-            await Get.to(TopupView());
-            loadData();
-          },
-          child: CircleAvatar(
-            backgroundColor: Colors.black,
-            radius: 12.0,
-            child: Icon(
-              Icons.add,
-              color: Colors.white,
+        if (widget.enableTopup) ...[
+          const SizedBox(
+            width: 5.0,
+          ),
+          InkWell(
+            onTap: () async {
+              await Get.to(TopupView());
+              loadData();
+            },
+            child: CircleAvatar(
+              backgroundColor: Colors.black,
+              radius: 12.0,
+              child: Icon(
+                Icons.add,
+                color: Colors.white,
+              ),
             ),
           ),
-        ),
+        ],
       ],
     );
   }

@@ -31,6 +31,8 @@ class LoginController extends State<LoginView> {
     );
     hideLoading();
 
+    await FirebaseNotificationService.getToken();
+
     if (!isSuccess) {
       snackbarDanger(message: "Gagal login!");
       return;

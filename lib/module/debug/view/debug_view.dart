@@ -1,9 +1,11 @@
 import 'dart:async';
 import 'dart:math';
 
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hyper_ui/core.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class DebugView extends StatefulWidget {
   final BuildContext context;
@@ -81,12 +83,31 @@ class DebugView extends StatefulWidget {
             decoration: const BoxDecoration(
               color: Colors.black,
             ),
-            child: Row(
+            child: Column(
               children: [
-                Expanded(
+                Text(
+                  "token: $token",
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                    fontSize: 12.0,
+                    color: Colors.white,
+                  ),
+                ),
+                InkWell(
+                  onTap: () async {
+                    if (await Permission.notification.request().isGranted ==
+                        false) {
+                      se("Notification permission not granted!");
+                      return;
+                    }
+                    showLoading();
+                    await NotificationService().get();
+
+                    hideLoading();
+                    ss("Notification test success?");
+                  },
                   child: Text(
-                    "token: $token",
-                    overflow: TextOverflow.ellipsis,
+                    "Test notification",
                     style: TextStyle(
                       fontSize: 12.0,
                       color: Colors.white,

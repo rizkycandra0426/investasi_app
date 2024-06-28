@@ -61,6 +61,7 @@ class StockDetailController extends State<StockDetailView> {
     );
     print(response.data);
     var items = response.data["data"];
+    chartValues.clear();
     for (var item in items) {
       chartValues.add({
         "date": DateTime.parse(item["date"]),

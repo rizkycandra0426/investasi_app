@@ -10,6 +10,8 @@ class MainNavigationController extends State<MainNavigationView> {
   void initState() {
     instance = this;
     super.initState();
+
+    BeritaService().checkBeritaBaru();
   }
 
   @override

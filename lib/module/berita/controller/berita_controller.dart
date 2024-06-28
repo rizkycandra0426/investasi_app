@@ -3,6 +3,9 @@ import 'package:hyper_ui/core.dart';
 import 'package:hyper_ui/service/berita_service.dart';
 import '../view/berita_view.dart';
 
+int? lastIdBerita;
+bool adaBeritaBaru = false;
+
 class BeritaController extends State<BeritaView> {
   static late BeritaController instance;
   late BeritaView view;
@@ -21,9 +24,12 @@ class BeritaController extends State<BeritaView> {
   Widget build(BuildContext context) => widget.build(context, this);
 
   List items = [];
+
   getData() async {
     var response = await BeritaService().get();
     items = response["data"];
+    lastIdBerita = items.first["id_berita"];
+    DBService.set("id_berita", lastIdBerita.toString());
     setState(() {});
   }
 
