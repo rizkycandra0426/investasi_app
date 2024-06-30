@@ -9,6 +9,9 @@ class DashboardController extends State<DashboardView> {
   static late DashboardController instance;
   late DashboardView view;
 
+  var floatingReturn;
+
+  var portoYield;
   @override
   void initState() {
     instance = this;

@@ -3,13 +3,15 @@
 import 'package:flutter/material.dart';
 import 'package:hyper_ui/core.dart';
 import 'package:hyper_ui/module/pencatatan_keuangan/dashboard/controller/dashboard_controller.dart';
+import 'package:hyper_ui/module/saham/portofolio/controller/portofolio_controller.dart';
 
 class ProfileCard extends StatelessWidget {
   const ProfileCard({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    var controller = DashboardController.instance;
+    var dashboardcontroller = DashboardController();
+    var portofoliocontroller = PortofolioController();
     return Container(
       width: MediaQuery.of(context).size.width,
       margin: EdgeInsets.only(
@@ -67,7 +69,7 @@ class ProfileCard extends StatelessWidget {
                         ),
                         SizedBox(height: 10),
                         Text(
-                          "${NumberFormat().format(controller.balance)}",
+                          "${NumberFormat().format(dashboardcontroller.balance)}",
                           style: TextStyle(
                               color: Colors.white,
                               fontSize: 18,
@@ -88,7 +90,7 @@ class ProfileCard extends StatelessWidget {
                         Row(
                           children: [
                             Text(
-                              "200.000",
+                              "${portofoliocontroller.floatingReturn}",
                               style: TextStyle(
                                 fontSize: 18,
                                 color: Colors.white,
@@ -97,9 +99,9 @@ class ProfileCard extends StatelessWidget {
                             ),
                             SizedBox(width: 5),
                             Text(
-                              "(+18%)",
+                              "(${portofoliocontroller.portoYield})",
                               style: TextStyle(
-                                color: Colors.green[300],
+                                color: Colors.white,
                                 fontSize: 18,
                                 fontWeight: FontWeight.w700,
                               ),

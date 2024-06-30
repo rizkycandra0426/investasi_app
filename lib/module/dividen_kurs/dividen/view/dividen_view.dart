@@ -57,16 +57,14 @@ class DividenView extends StatefulWidget {
                       Expanded(
                         child: Text(
                           "${item["emiten"]}",
-                          style:
-                              TextStyle(fontSize: 16, color: Colors.green[900]),
+                          style: TextStyle(fontSize: 16, color: Colors.black),
                         ),
                       ),
                       Expanded(
                         child: Text(
                           "${item["dividen"]}",
                           textAlign: TextAlign.right,
-                          style:
-                              TextStyle(fontSize: 16, color: Colors.green[900]),
+                          style: TextStyle(fontSize: 16, color: Colors.black),
                         ),
                       ),
                     ],

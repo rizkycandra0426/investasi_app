@@ -62,16 +62,14 @@ class KursView extends StatefulWidget {
                       Expanded(
                         child: Text(
                           "${item["mata_uang"]}",
-                          style:
-                              TextStyle(fontSize: 16, color: Colors.green[900]),
+                          style: TextStyle(fontSize: 16, color: Colors.black),
                         ),
                       ),
                       Expanded(
                         child: Text(
                           "${item["nilai_tukar"]}",
                           textAlign: TextAlign.right,
-                          style:
-                              TextStyle(fontSize: 16, color: Colors.green[900]),
+                          style: TextStyle(fontSize: 16, color: Colors.black),
                         ),
                       ),
                     ],
