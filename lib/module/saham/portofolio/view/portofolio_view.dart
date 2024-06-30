@@ -10,6 +10,7 @@ class PortofolioView extends StatefulWidget {
     controller.view = this;
     final screenHeight = MediaQuery.of(context).size.height;
     final formatter = NumberFormat('#,###');
+
     return RefreshIndicator(
       onRefresh: () async {
         await Future.delayed(Duration(seconds: 2));
@@ -39,30 +40,9 @@ class PortofolioView extends StatefulWidget {
                           child: Column(
                             children: [
                               BalanceWidget(),
-                              SizedBox(
-                                height: 10,
+                              const SizedBox(
+                                height: 20.0,
                               ),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Column(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        'Rp. $index',
-                                        style: TextStyle(
-                                          fontSize: 15,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                              SizedBox(height: 3),
                               Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceAround,
@@ -79,7 +59,7 @@ class PortofolioView extends StatefulWidget {
                                       SizedBox(
                                         height: 3,
                                       ),
-                                      Text("($index)")
+                                      Text("${controller.floatingReturn}")
                                     ],
                                   ),
                                   Column(
@@ -94,7 +74,7 @@ class PortofolioView extends StatefulWidget {
                                       SizedBox(
                                         height: 3,
                                       ),
-                                      Text("($index)")
+                                      Text("${controller.portoYield}")
                                     ],
                                   ),
                                   Column(
@@ -109,7 +89,7 @@ class PortofolioView extends StatefulWidget {
                                       SizedBox(
                                         height: 3,
                                       ),
-                                      Text("($index)")
+                                      Text("${controller.ihsg}"),
                                     ],
                                   ),
                                 ],
@@ -127,8 +107,9 @@ class PortofolioView extends StatefulWidget {
                   child: ListView.builder(
                     padding: EdgeInsets.zero,
                     physics: AlwaysScrollableScrollPhysics(),
-                    itemCount: 3,
+                    itemCount: controller.results.length,
                     itemBuilder: (context, index) {
+                      var item = controller.results[index];
                       return Card(
                         color: Colors.grey[50],
                         shape: RoundedRectangleBorder(
@@ -140,7 +121,9 @@ class PortofolioView extends StatefulWidget {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => HistoryTransaksiView(),
+                                builder: (context) => HistoryTransaksiView(
+                                  emiten: item["emiten"],
+                                ),
                               ),
                             );
                           },
@@ -155,7 +138,7 @@ class PortofolioView extends StatefulWidget {
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
-                                      'Nama Saham $index',
+                                      '${item["emiten"]}',
                                       style: TextStyle(
                                         color: Colors.black87,
                                         fontSize: 20,
@@ -168,7 +151,7 @@ class PortofolioView extends StatefulWidget {
                                       children: [
                                         Text('floating return'),
                                         Text(
-                                          "Rp ${formatter.format(1000 * index)}",
+                                          "${item["return"]}",
                                           style: TextStyle(
                                             fontWeight: FontWeight.w600,
                                             fontSize: 14,
@@ -182,7 +165,7 @@ class PortofolioView extends StatefulWidget {
                                       children: [
                                         Text('equity'),
                                         Text(
-                                          "Rp ${formatter.format(500 * index)}",
+                                          "${item["equity"]}",
                                           style: TextStyle(
                                             fontWeight: FontWeight.w600,
                                             fontSize: 14,
@@ -201,9 +184,9 @@ class PortofolioView extends StatefulWidget {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        Text('lot total'),
+                                        Text('Vol total'),
                                         Text(
-                                          formatter.format(100 * index),
+                                          '${item["vol_total"]}',
                                           style: TextStyle(
                                             fontWeight: FontWeight.w600,
                                             fontSize: 13,
@@ -215,9 +198,9 @@ class PortofolioView extends StatefulWidget {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        Text('lot beli'),
+                                        Text('Vol beli'),
                                         Text(
-                                          formatter.format(80 * index),
+                                          '${item["vol_beli"]}',
                                           style: TextStyle(
                                             fontWeight: FontWeight.w600,
                                             fontSize: 13,
@@ -229,9 +212,9 @@ class PortofolioView extends StatefulWidget {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        Text('lot jual'),
+                                        Text('Vol jual'),
                                         Text(
-                                          formatter.format(20 * index),
+                                          '${item["vol_jual"]}',
                                           style: TextStyle(
                                             fontWeight: FontWeight.w600,
                                             fontSize: 13,
@@ -243,9 +226,9 @@ class PortofolioView extends StatefulWidget {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        Text('avg beli'),
+                                        Text('Avg beli'),
                                         Text(
-                                          formatter.format(200 * index),
+                                          '${item["avg_beli"]}',
                                           style: TextStyle(
                                             fontWeight: FontWeight.w600,
                                             fontSize: 13,
@@ -257,9 +240,9 @@ class PortofolioView extends StatefulWidget {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        Text('avg jual'),
+                                        Text('Avg jual'),
                                         Text(
-                                          formatter.format(250 * index),
+                                          '${item["avg_jual"]}',
                                           style: TextStyle(
                                             fontWeight: FontWeight.w600,
                                             fontSize: 13,
@@ -271,9 +254,9 @@ class PortofolioView extends StatefulWidget {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        Text('close'),
+                                        Text('Close'),
                                         Text(
-                                          formatter.format(300 * index),
+                                          '${item["close"]}',
                                           style: TextStyle(
                                             fontWeight: FontWeight.w600,
                                             fontSize: 13,

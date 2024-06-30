@@ -1,9 +1,53 @@
 import 'package:intl/intl.dart';
 
-extension CurrencyFormatExtension on num {
+extension DoubleExtension on double? {
+  String get format {
+    if ((this ?? 0).toString().endsWith('.0')) {
+      return (this ?? 0).floor().toString();
+    }
+    return (this ?? 0).toString();
+  }
+
   String get currency {
-    NumberFormat numberFormat =
-        NumberFormat.currency(locale: 'en_US', decimalDigits: 2, symbol: '');
-    return "" + numberFormat.format(this);
+    return 'Rp${NumberFormat().format((this ?? 0).floor())}';
+  }
+
+  String get percentage {
+    return '${NumberFormat().format((this ?? 0).floor())}%';
+  }
+
+  String get number {
+    return '${NumberFormat().format((this ?? 0).floor())}';
+  }
+}
+
+extension IntExtension on int? {
+  String get format {
+    if ((this ?? 0).toString().endsWith('.0')) {
+      return (this ?? 0).floor().toString();
+    }
+    return (this ?? 0).toString();
+  }
+
+  String get currency {
+    return 'Rp${NumberFormat().format((this ?? 0).floor())}';
+  }
+
+  String get percentage {
+    return '${NumberFormat().format((this ?? 0).floor())}%';
+  }
+
+  String get number {
+    return '${NumberFormat().format((this ?? 0).floor())}';
+  }
+}
+
+extension CurrencyStringExtension on String? {
+  String get currency {
+    return 'Rp${NumberFormat().format((double.tryParse(this.toString()) ?? 0).floor())}';
+  }
+
+  String get number {
+    return '${NumberFormat().format((double.tryParse(this.toString()) ?? 0).floor())}';
   }
 }

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hyper_ui/core.dart';
+import 'package:hyper_ui/service/ihsg_service.dart';
+import 'package:hyper_ui/service/porto_service.dart';
 import '../view/portofolio_view.dart';
 
 class PortofolioController extends State<PortofolioView> {
@@ -10,6 +12,29 @@ class PortofolioController extends State<PortofolioView> {
   void initState() {
     instance = this;
     super.initState();
+    getData();
+  }
+
+  List results = [];
+  String ihsg = "";
+  String portoYield = "";
+  getData() async {
+    var response1 = await IhsgService().get();
+    ihsg = response1["data"]["ihsg"];
+
+    var response2 = await PortoService().get();
+    results = response2["result"];
+    portoYield = response2["porto"]["yield"];
+    print("---");
+    setState(() {});
+  }
+
+  double get floatingReturn {
+    var total = 0.0;
+    for (var item in results) {
+      total += item["return"];
+    }
+    return total;
   }
 
   @override
