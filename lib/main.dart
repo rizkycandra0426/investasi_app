@@ -31,11 +31,11 @@ class MainApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: getDefaultTheme(),
       home: SplashScreenView(),
-      builder: (context, child) => DebugView(
-        context: context,
-        child: child,
-        visible: true,
-      ),
+      // builder: (context, child) => DebugView(
+      //   context: context,
+      //   child: child,
+      //   visible: true,
+      // ),
     );
   }
 }

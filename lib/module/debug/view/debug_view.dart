@@ -78,45 +78,6 @@ class DebugView extends StatefulWidget {
               ],
             ),
           ),
-          Container(
-            padding: const EdgeInsets.all(12.0),
-            decoration: const BoxDecoration(
-              color: Colors.black,
-            ),
-            child: Column(
-              children: [
-                Text(
-                  "token: $token",
-                  overflow: TextOverflow.ellipsis,
-                  style: TextStyle(
-                    fontSize: 12.0,
-                    color: Colors.white,
-                  ),
-                ),
-                InkWell(
-                  onTap: () async {
-                    if (await Permission.notification.request().isGranted ==
-                        false) {
-                      se("Notification permission not granted!");
-                      return;
-                    }
-                    showLoading();
-                    await NotificationService().get();
-
-                    hideLoading();
-                    ss("Notification test success?");
-                  },
-                  child: Text(
-                    "Test notification",
-                    style: TextStyle(
-                      fontSize: 12.0,
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
         ],
       ),
     );
