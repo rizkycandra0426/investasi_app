@@ -71,6 +71,7 @@ class FirebaseNotificationService {
     final notification = message.notification;
     final android = message.notification?.android;
     if (notification != null && android != null && !kIsWeb) {
+      print("flutterLocalNotificationsPlugin.show called!");
       flutterLocalNotificationsPlugin.show(
         notification.hashCode,
         notification.title,
@@ -84,6 +85,8 @@ class FirebaseNotificationService {
           ),
         ),
       );
+    } else {
+      print("flutterLocalNotificationsPlugin.show not called!");
     }
   }
 

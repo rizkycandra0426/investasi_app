@@ -1,3 +1,5 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hyper_ui/core.dart';
 import 'package:hyper_ui/module/notifikasi/widget/notifikasi_clippath.dart';
@@ -42,9 +44,10 @@ class NotifikasiView extends StatefulWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                    "Atur Waktu Pengingat! ${controller.hour.toString().padLeft(2, '0')}:${controller.minute.toString().padLeft(2, "0")} ${controller.timeFormat}",
-                    style: const TextStyle(
-                        fontWeight: FontWeight.bold, fontSize: 18)),
+                  "Atur Waktu Pengingat!",
+                  style: const TextStyle(
+                      fontWeight: FontWeight.bold, fontSize: 18),
+                ),
                 const SizedBox(
                   height: 20,
                 ),
@@ -58,6 +61,7 @@ class NotifikasiView extends StatefulWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       NumberPicker(
+                        key: UniqueKey(),
                         minValue: 0,
                         maxValue: 23,
                         value: controller.hour,
@@ -66,8 +70,9 @@ class NotifikasiView extends StatefulWidget {
                         itemWidth: 80,
                         itemHeight: 60,
                         onChanged: (value) {
-                          controller.updateTime(
-                              value, controller.minute, controller.timeFormat);
+                          print("Changed to $value");
+                          controller.hour = value;
+                          controller.setState(() {});
                         },
                         textStyle:
                             const TextStyle(color: Colors.white, fontSize: 20),
@@ -82,6 +87,7 @@ class NotifikasiView extends StatefulWidget {
                         ),
                       ),
                       NumberPicker(
+                        key: UniqueKey(),
                         minValue: 0,
                         maxValue: 59,
                         value: controller.minute,
@@ -90,8 +96,9 @@ class NotifikasiView extends StatefulWidget {
                         itemWidth: 80,
                         itemHeight: 60,
                         onChanged: (value) {
-                          controller.updateTime(
-                              controller.hour, value, controller.timeFormat);
+                          print("Changed to $value");
+                          controller.minute = value;
+                          controller.setState(() {});
                         },
                         textStyle:
                             const TextStyle(color: Colors.white, fontSize: 20),
@@ -112,13 +119,12 @@ class NotifikasiView extends StatefulWidget {
                     height: 20), // Menambahkan jarak antara konten dan tombol
                 ElevatedButton(
                   onPressed: () {
-                    controller.saveData(controller.hour, controller.minute,
-                        controller.timeFormat);
+                    controller.save();
                   },
                   style: ButtonStyle(
-                    minimumSize: MaterialStateProperty.all(Size(200, 50)),
-                    backgroundColor: MaterialStateProperty.all(Colors.blue),
-                    foregroundColor: MaterialStateProperty.all(Colors.white),
+                    minimumSize: WidgetStateProperty.all(Size(200, 50)),
+                    backgroundColor: WidgetStateProperty.all(Colors.blue),
+                    foregroundColor: WidgetStateProperty.all(Colors.white),
                   ),
                   child: Text(
                     'Save',
@@ -126,6 +132,9 @@ class NotifikasiView extends StatefulWidget {
                       fontSize: 18,
                     ),
                   ),
+                ),
+                const SizedBox(
+                  height: 12.0,
                 ),
               ],
             ),
