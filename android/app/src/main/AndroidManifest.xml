@@ -2,7 +2,7 @@
     <application
         android:label="Smart Finance"
         android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/logo_new"
         android:enableOnBackInvokedCallback="true">
         <activity
             android:name=".MainActivity"

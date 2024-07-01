@@ -29,7 +29,7 @@ class InvestasiView extends StatefulWidget {
             ClipPath(
               clipper: InvestasiClipPathClass(),
               child: Container(
-                height: 250,
+                height: 230,
                 width: MediaQuery.of(context).size.width,
                 color: Colors.blue,
               ),

@@ -8,8 +8,8 @@ class ProfileCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var dashboardcontroller = DashboardController();
-    var portofoliocontroller = PortofolioController();
+    var dashboardcontroller = DashboardController.instance;
+    var portofoliocontroller = PortofolioController.instance;
     return Container(
       width: MediaQuery.of(context).size.width,
       margin: EdgeInsets.only(
