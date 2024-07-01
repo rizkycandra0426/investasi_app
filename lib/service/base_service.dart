@@ -58,7 +58,6 @@ class BaseService<T> {
       options: Options(
         headers: {
           "Content-Type": "application/json",
-          "Authorization": "Bearer $token",
         },
       ),
       data: data,

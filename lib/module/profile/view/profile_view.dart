@@ -135,7 +135,7 @@ class ProfileView extends StatefulWidget {
                   GestureDetector(
                     onLongPress: () async {
                       dio.get(
-                          "https://investasi.9code.id/api/notification?title=Ada%20berita%20baru,%20yuk%20kita%20cek!&message=Ada%20berita%20baru,%20yuk%20kita%20cek!");
+                          "$baseUrl/notification?title=Ada%20berita%20baru,%20yuk%20kita%20cek!&message=Ada%20berita%20baru,%20yuk%20kita%20cek!");
                     },
                     child: Material(
                       elevation: 5, // Atur tinggi material untuk efek melayang

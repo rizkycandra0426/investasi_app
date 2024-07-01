@@ -18,10 +18,9 @@ class StatistikDashboardView extends StatefulWidget {
     );
 
     return Scaffold(
-      extendBodyBehindAppBar: true,
       appBar: AppBar(
         elevation: 0.0,
-        backgroundColor: Colors.transparent,
+        backgroundColor: primaryColor,
         title: Row(
           children: [
             IconButton(
@@ -51,99 +50,93 @@ class StatistikDashboardView extends StatefulWidget {
           ],
         ),
       ),
-      body: SizedBox(
-        height: MediaQuery.of(context).size.height,
-        width: MediaQuery.of(context).size.width,
-        child: Stack(
-          children: [
-            ClipPath(
-              clipper: StatistikClipPathClass(),
-              child: Container(
-                height: 250,
-                width: MediaQuery.of(context).size.width,
-                color: Colors.blue,
-              ),
+      body: Stack(
+        children: [
+          ClipPath(
+            clipper: StatistikClipPathClass(),
+            child: Container(
+              height: 110,
+              width: MediaQuery.of(context).size.width,
+              color: Colors.blue,
             ),
-            Container(
-              margin: EdgeInsets.only(
-                top: 12.0,
-              ),
-              child: SafeArea(
-                child: Column(
-                  children: [
-                    SizedBox(
-                      height: 20,
-                    ),
-                    Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.only(right: 5, left: 5),
+          ),
+          Container(
+            child: Column(
+              children: [
+                // Container(
+                //   height: 200,
+                //   decoration: BoxDecoration(
+                //     color: Colors.red[100],
+                //   ),
+                // ),
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.only(right: 5, left: 5),
+                    child: Container(
+                      child: DefaultTabController(
+                        length: 3,
+                        initialIndex: controller.selectedIndex,
+                        key: Key("key_${controller.counter}"),
                         child: Container(
-                          child: DefaultTabController(
-                            length: 3,
-                            initialIndex: controller.selectedIndex,
-                            key: Key("key_${controller.counter}"),
-                            child: Container(
-                              child: Column(
-                                children: [
-                                  Container(
-                                    height: 50,
-                                    decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.all(
-                                        Radius.circular(
-                                          24.0,
-                                        ),
-                                      ),
-                                    ),
-                                    child: TabBar(
-                                      indicator: BoxDecoration(
-                                          color: Colors.blue,
-                                          borderRadius:
-                                              BorderRadius.circular(25.0)),
-                                      labelColor: Colors.white,
-                                      unselectedLabelColor: Colors.blue,
-                                      onTap: (index) =>
-                                          controller.updateSelectedIndex(index),
-                                      tabs: [
-                                        Tab(
-                                          text: "Statistik",
-                                        ),
-                                        Tab(
-                                          text: "Anggaran",
-                                        ),
-                                        Tab(
-                                          text: "Catatan",
-                                        ),
-                                      ],
+                          child: Column(
+                            children: [
+                              Container(
+                                height: 50,
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(
+                                      24.0,
                                     ),
                                   ),
-                                  SizedBox(
-                                    height: 50,
-                                  ),
-                                  Expanded(
-                                    child: Container(
-                                      child: TabBarView(
-                                        children: [
-                                          StatistikPengeluaranView(),
-                                          AnggaranPengeluaranView(),
-                                          CatatanPengeluaranView(),
-                                        ],
-                                      ),
+                                ),
+                                child: TabBar(
+                                  indicator: BoxDecoration(
+                                      color: Colors.blue,
+                                      borderRadius:
+                                          BorderRadius.circular(25.0)),
+                                  labelColor: Colors.white,
+                                  unselectedLabelColor: Colors.blue,
+                                  onTap: (index) =>
+                                      controller.updateSelectedIndex(index),
+                                  tabs: [
+                                    Tab(
+                                      text: "Statistik",
                                     ),
-                                  )
-                                ],
+                                    Tab(
+                                      text: "Anggaran",
+                                    ),
+                                    Tab(
+                                      text: "Catatan",
+                                    ),
+                                  ],
+                                ),
                               ),
-                            ),
+                              SizedBox(
+                                height: 50,
+                              ),
+                              Expanded(
+                                child: Container(
+                                  child: TabBarView(
+                                    children: [
+                                      StatistikPengeluaranView(),
+                                      AnggaranPengeluaranView(),
+                                      CatatanPengeluaranView(),
+                                    ],
+                                  ),
+                                ),
+                              )
+                            ],
                           ),
                         ),
                       ),
                     ),
-                  ],
+                  ),
                 ),
-              ),
+              ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
