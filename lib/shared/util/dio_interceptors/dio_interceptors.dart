@@ -38,6 +38,8 @@ class Diointerceptors {
         onResponse: (Response response, ResponseInterceptorHandler handler) {
           print('----------------------');
           printg("No Exception");
+          printo(
+              "URL: ${response.requestOptions.method} ${response.requestOptions.uri}");
           printg("Response Data: ${response.data}");
           printg("Response Status Code: ${response.statusCode}");
           print('----------------------');
@@ -47,6 +49,7 @@ class Diointerceptors {
         onError: (DioException e, ErrorInterceptorHandler handler) {
           print('----------------------');
           printr("DioException");
+          printr("URL: ${e.requestOptions.method} ${e.requestOptions.uri}");
           printr("Response data: ${e.response?.data}");
           printr("Response Status Code: ${e.response?.statusCode}");
           print('----------------------');

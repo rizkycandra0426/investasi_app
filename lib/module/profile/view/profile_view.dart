@@ -132,23 +132,29 @@ class ProfileView extends StatefulWidget {
               right: 20,
               child: Column(
                 children: [
-                  Material(
-                    elevation: 5, // Atur tinggi material untuk efek melayang
-                    borderRadius:
-                        BorderRadius.circular(12), // Atur radius sudut material
-                    child: ListTile(
-                      contentPadding: EdgeInsets.only(left: 20),
-                      visualDensity: VisualDensity.compact,
-                      leading: Icon(Icons.new_releases),
-                      minLeadingWidth: 0.0,
-                      title: Text("Berita"),
-                      trailing: Icon(
-                        Icons.chevron_right,
-                        size: 24.0,
+                  GestureDetector(
+                    onLongPress: () async {
+                      dio.get(
+                          "https://investasi.9code.id/api/notification?title=Ada%20berita%20baru,%20yuk%20kita%20cek!&message=Ada%20berita%20baru,%20yuk%20kita%20cek!");
+                    },
+                    child: Material(
+                      elevation: 5, // Atur tinggi material untuk efek melayang
+                      borderRadius: BorderRadius.circular(
+                          12), // Atur radius sudut material
+                      child: ListTile(
+                        contentPadding: EdgeInsets.only(left: 20),
+                        visualDensity: VisualDensity.compact,
+                        leading: Icon(Icons.new_releases),
+                        minLeadingWidth: 0.0,
+                        title: Text("Berita"),
+                        trailing: Icon(
+                          Icons.chevron_right,
+                          size: 24.0,
+                        ),
+                        onTap: () => Get.to(BeritaView()),
+                        tileColor: Colors.white70
+                            .withOpacity(0.3), // Warna untuk ListTile
                       ),
-                      onTap: () => Get.to(BeritaView()),
-                      tileColor: Colors.white70
-                          .withOpacity(0.3), // Warna untuk ListTile
                     ),
                   ),
                   SizedBox(height: 5), // Spasi antara ListTile

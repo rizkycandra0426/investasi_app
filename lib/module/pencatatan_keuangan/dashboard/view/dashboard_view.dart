@@ -14,10 +14,9 @@ class DashboardView extends StatefulWidget {
     controller.view = this;
 
     return Scaffold(
-      extendBodyBehindAppBar: true,
       appBar: AppBar(
         elevation: 0.0,
-        backgroundColor: Colors.transparent,
+        backgroundColor: primaryColor,
         title: Row(
           children: [
             IconButton(
@@ -47,98 +46,91 @@ class DashboardView extends StatefulWidget {
           ],
         ),
       ),
-      body: SizedBox(
-        key: Key("key_${controller.counter}"),
-        height: MediaQuery.of(context).size.height,
-        width: MediaQuery.of(context).size.width,
-        child: Stack(
-          children: [
-            ClipPath(
-              clipper: DashboardCardClipPath(),
-              child: Container(
-                height: 390,
-                width: MediaQuery.of(context).size.width,
-                color: primaryColor,
-              ),
+      body: Stack(
+        children: [
+          ClipPath(
+            clipper: DashboardCardClipPath(),
+            child: Container(
+              height: 290,
+              width: MediaQuery.of(context).size.width,
+              color: primaryColor,
             ),
-            Container(
-              margin: EdgeInsets.only(
-                top: 12.0,
-              ),
-              child: SafeArea(
-                child: Column(
-                  children: [
-                    DashboardCard(),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.only(right: 5, left: 5),
+          ),
+          Container(
+            child: Column(
+              children: [
+                const SizedBox(
+                  height: 20.0,
+                ),
+                DashboardCard(),
+                SizedBox(
+                  height: 20,
+                ),
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.only(right: 5, left: 5),
+                    child: Container(
+                      child: DefaultTabController(
+                        length: 3,
+                        initialIndex: controller.selectedIndex,
                         child: Container(
-                          child: DefaultTabController(
-                            length: 3,
-                            initialIndex: controller.selectedIndex,
-                            child: Container(
-                              child: Column(
-                                children: [
-                                  Container(
-                                    height: 50,
-                                    decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.all(
-                                        Radius.circular(
-                                          24.0,
-                                        ),
-                                      ),
-                                    ),
-                                    child: TabBar(
-                                      indicator: BoxDecoration(
-                                          color: Colors.blue,
-                                          borderRadius:
-                                              BorderRadius.circular(25.0)),
-                                      labelColor: Colors.white,
-                                      unselectedLabelColor: Colors.blue,
-                                      onTap: (index) =>
-                                          controller.updateSelectedIndex(index),
-                                      tabs: [
-                                        Tab(
-                                          text: "Harian",
-                                        ),
-                                        Tab(
-                                          text: "Kalender",
-                                        ),
-                                        Tab(
-                                          text: "Bulanan",
-                                        ),
-                                      ],
+                          child: Column(
+                            children: [
+                              Container(
+                                height: 50,
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(
+                                      24.0,
                                     ),
                                   ),
-                                  SizedBox(
-                                    height: 60,
-                                  ),
-                                  Expanded(
-                                    child: TabBarView(
-                                      children: [
-                                        LaporanKeuanganHarianView(),
-                                        LaporanKeuanganKalenderView(),
-                                        LaporanKeuanganBulananView(),
-                                      ],
+                                ),
+                                child: TabBar(
+                                  indicator: BoxDecoration(
+                                      color: Colors.blue,
+                                      borderRadius:
+                                          BorderRadius.circular(25.0)),
+                                  labelColor: Colors.white,
+                                  unselectedLabelColor: Colors.blue,
+                                  onTap: (index) =>
+                                      controller.updateSelectedIndex(index),
+                                  tabs: [
+                                    Tab(
+                                      text: "Harian",
                                     ),
-                                  )
-                                ],
+                                    Tab(
+                                      text: "Kalender",
+                                    ),
+                                    Tab(
+                                      text: "Bulanan",
+                                    ),
+                                  ],
+                                ),
                               ),
-                            ),
+                              SizedBox(
+                                height: 60,
+                              ),
+                              Expanded(
+                                child: TabBarView(
+                                  children: [
+                                    LaporanKeuanganHarianView(),
+                                    LaporanKeuanganKalenderView(),
+                                    LaporanKeuanganBulananView(),
+                                  ],
+                                ),
+                              )
+                            ],
                           ),
                         ),
                       ),
                     ),
-                  ],
-                ).amx,
-              ),
-            ),
-          ],
-        ),
+                  ),
+                ),
+              ],
+            ).amx,
+          ),
+        ],
       ),
     );
   }
