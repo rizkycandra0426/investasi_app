@@ -81,7 +81,8 @@ class PinjamanView extends StatefulWidget {
                                 child: TextFormField(
                                   initialValue:
                                       controller.pinjamanAwal.currency,
-                                  key: Key("${controller.pinjamanAwal}"),
+                                  key: Key(
+                                      "pinjaman_awal_${controller.pinjamanAwal}"),
                                   textAlign: TextAlign.center,
                                   showCursor: true,
                                   cursorColor: Colors.transparent,
