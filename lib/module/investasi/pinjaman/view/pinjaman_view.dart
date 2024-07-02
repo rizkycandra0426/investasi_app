@@ -81,8 +81,7 @@ class PinjamanView extends StatefulWidget {
                                 child: TextFormField(
                                   initialValue:
                                       controller.pinjamanAwal.currency,
-                                  key: Key(
-                                      "pinjaman_awal_${controller.pinjamanAwal}"),
+                                  key: Key("${controller.pinjamanAwal}"),
                                   textAlign: TextAlign.center,
                                   showCursor: true,
                                   cursorColor: Colors.transparent,
@@ -134,10 +133,10 @@ class PinjamanView extends StatefulWidget {
                             children: [
                               Expanded(
                                 child: TextFormField(
-                                  initialValue: controller.jangkaWaktuDalamTahun
+                                  initialValue: controller.jangkaWaktuDalamBulan
                                       .toStringAsFixed(0),
                                   key: Key(
-                                      "jangka_waktu_${controller.jangkaWaktuDalamTahun}"),
+                                      "jangka_waktu_${controller.jangkaWaktuDalamBulan}"),
                                   textAlign: TextAlign.center,
                                   showCursor: true,
                                   cursorColor: Colors.transparent,
@@ -149,7 +148,7 @@ class PinjamanView extends StatefulWidget {
                                     fillColor: Colors.transparent,
                                   ),
                                   onChanged: (value) {
-                                    controller.jangkaWaktuDalamTahun =
+                                    controller.jangkaWaktuDalamBulan =
                                         int.tryParse(value) ?? 0;
                                   },
                                 ),
@@ -212,7 +211,7 @@ class PinjamanView extends StatefulWidget {
                                   ),
                                   onChanged: (value) {
                                     controller.persentaseBunga =
-                                        int.tryParse(value) ?? 0;
+                                        double.tryParse(value) ?? 0;
                                   },
                                 ),
                               ),

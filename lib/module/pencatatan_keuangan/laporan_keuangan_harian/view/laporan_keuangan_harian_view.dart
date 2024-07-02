@@ -176,7 +176,7 @@ class LaporanKeuanganHarianView extends StatefulWidget {
                                 "${amount}",
                                 textAlign: TextAlign.right,
                                 style: TextStyle(
-                                  fontSize: isPemasukan ? 16.0 : 0,
+                                  fontSize: isPemasukan ? 14.0 : 0,
                                   fontWeight: FontWeight.bold,
                                   color: isPemasukan ? infoColor : warningColor,
                                 ),
@@ -188,7 +188,7 @@ class LaporanKeuanganHarianView extends StatefulWidget {
                                 "${amount}",
                                 textAlign: TextAlign.right,
                                 style: TextStyle(
-                                  fontSize: isPengeluaran ? 16.0 : 0,
+                                  fontSize: isPengeluaran ? 14.0 : 0,
                                   fontWeight: FontWeight.bold,
                                   color:
                                       isPengeluaran ? dangerColor : infoColor,
