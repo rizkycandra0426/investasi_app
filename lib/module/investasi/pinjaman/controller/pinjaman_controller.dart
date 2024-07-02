@@ -78,4 +78,16 @@ class PinjamanController extends State<PinjamanView> {
 
     hasil = futureValue;
   }
+
+  TextEditingController pinjamanAwalController = TextEditingController(
+    text: "0",
+  );
+
+  TextEditingController jangkaWaktuController = TextEditingController(
+    text: "0",
+  );
+
+  TextEditingController persentaseBungaController = TextEditingController(
+    text: "0",
+  );
 }

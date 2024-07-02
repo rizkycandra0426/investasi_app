@@ -155,7 +155,9 @@ class LaporanKeuanganHarianView extends StatefulWidget {
                                     style: TextStyle(
                                       fontSize: 16.0,
                                       fontWeight: FontWeight.bold,
-                                      color: infoColor,
+                                      color: isPengeluaran
+                                          ? dangerColor
+                                          : infoColor,
                                     ),
                                   ),
                                   SizedBox(
@@ -178,7 +180,8 @@ class LaporanKeuanganHarianView extends StatefulWidget {
                                 style: TextStyle(
                                   fontSize: isPemasukan ? 14.0 : 0,
                                   fontWeight: FontWeight.bold,
-                                  color: isPemasukan ? infoColor : warningColor,
+                                  color:
+                                      isPengeluaran ? dangerColor : infoColor,
                                 ),
                               ),
                             ),

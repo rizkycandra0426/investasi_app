@@ -105,6 +105,11 @@ class TransaksiKeuanganController extends State<TransaksiKeuanganView> {
       return;
     }
 
+    if (amount <= 0) {
+      snackbarDanger(message: "Jumlah tidak boleh 0!");
+      return;
+    }
+
     showLoading();
     if (isPemasukan) {
       await PemasukanService().create({

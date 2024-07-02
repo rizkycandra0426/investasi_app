@@ -18,7 +18,11 @@ class PortofolioController extends State<PortofolioView> {
   List results = [];
   String ihsg = "";
   String portoYield = "";
+  bool loading = true;
   getData() async {
+    loading = true;
+    setState(() {});
+
     var response1 = await IhsgService().get();
     ihsg = response1["data"]["ihsg"];
 
@@ -26,7 +30,10 @@ class PortofolioController extends State<PortofolioView> {
     results = response2["result"];
     portoYield = response2["porto"]["yield"];
     print("---");
+
+    loading = false;
     setState(() {});
+    ProfileController.instance.refresh();
   }
 
   double get floatingReturn {

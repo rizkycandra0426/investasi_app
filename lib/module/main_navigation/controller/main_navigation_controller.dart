@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hyper_ui/core.dart';
+import 'package:permission_handler/permission_handler.dart';
 import '../view/main_navigation_view.dart';
 
 class MainNavigationController extends State<MainNavigationView> {
@@ -12,6 +13,13 @@ class MainNavigationController extends State<MainNavigationView> {
     super.initState();
 
     BeritaService().checkBeritaBaru();
+    getPermission();
+  }
+
+  getPermission() async {
+    if (await Permission.notification.request().isGranted == false) {
+      openAppSettings();
+    }
   }
 
   @override

@@ -30,4 +30,8 @@ class ProfileController extends State<ProfileView> {
     AuthService().logout();
     Get.offAll(LoginView());
   }
+
+  refresh() {
+    setState(() {});
+  }
 }

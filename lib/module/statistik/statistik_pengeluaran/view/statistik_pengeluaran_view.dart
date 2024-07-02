@@ -14,6 +14,13 @@ class StatistikPengeluaranView extends StatefulWidget {
     controller.view = this;
     if (controller.loading) return LoadingScaffold();
 
+    List categories = [];
+    for (var item in controller.items) {
+      categories.add(item["label"]);
+    }
+
+    print(categories);
+
     List<Color> generatePieChartColors() {
       // List of colors from Flutter's primary swatches
       List<MaterialColor> primarySwatches = [
@@ -105,7 +112,10 @@ class StatistikPengeluaranView extends StatefulWidget {
                                   "%";
                             },
                             pointColorMapper: (datum, index) {
-                              return colorSets[index];
+                              var categoryindex =
+                                  categories.indexOf(datum["label"]);
+                              print(datum);
+                              return colorSets[categoryindex];
                             },
                           )
                         ],

@@ -3,6 +3,7 @@ import 'package:hyper_ui/state_util.dart';
 import 'package:hyper_ui/core.dart';
 import 'package:flutter/material.dart';
 import 'package:hyper_ui/service/db_service.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -13,6 +14,7 @@ void main() async {
   await DBService.init();
   Diointerceptors.init();
   await AuthService().loadCurrentUserData();
+
   runMainApp();
 }
 

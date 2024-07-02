@@ -24,20 +24,25 @@ class LoginController extends State<LoginView> {
   String? password = kDebugMode ? "123456" : null;
 
   login() async {
-    showLoading();
-    bool isSuccess = await AuthService().login(
-      email: email!,
-      password: password!,
-    );
-    hideLoading();
+    try {
+      showLoading();
+      bool isSuccess = await AuthService().login(
+        email: email!,
+        password: password!,
+      );
+      hideLoading();
 
-    await FirebaseNotificationService.getToken();
+      await FirebaseNotificationService.getToken();
 
-    if (!isSuccess) {
-      snackbarDanger(message: "Gagal login!");
-      return;
+      if (!isSuccess) {
+        snackbarDanger(
+            message: "Password salah atau akun belum terverifikasi!");
+        return;
+      }
+
+      Get.offAll(MainNavigationView());
+    } on Exception catch (err) {
+      snackbarDanger(message: "Password salah atau akun belum terverifikasi!");
     }
-
-    Get.offAll(MainNavigationView());
   }
 }

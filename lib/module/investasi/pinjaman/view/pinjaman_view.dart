@@ -79,8 +79,7 @@ class PinjamanView extends StatefulWidget {
                               SizedBox(width: 5),
                               Expanded(
                                 child: TextFormField(
-                                  initialValue:
-                                      controller.pinjamanAwal.currency,
+                                  controller: controller.pinjamanAwalController,
                                   key: Key(
                                       "pinjaman_awal_${controller.pinjamanAwal}"),
                                   textAlign: TextAlign.center,
@@ -93,9 +92,22 @@ class PinjamanView extends StatefulWidget {
                                     filled: true,
                                     fillColor: Colors.transparent,
                                   ),
-                                  onChanged: (value) {
+                                  onTap: () {
+                                    controller.pinjamanAwalController
+                                        .selection = TextSelection(
+                                      baseOffset: 0,
+                                      extentOffset: controller
+                                          .pinjamanAwalController
+                                          .value
+                                          .text
+                                          .length,
+                                    );
+                                  },
+                                  onFieldSubmitted: (value) {
                                     controller.pinjamanAwal =
-                                        double.tryParse(value) ?? 0;
+                                        (double.tryParse(value) ?? 0);
+                                    controller.pinjamanAwalController.text =
+                                        controller.pinjamanAwal.number;
                                   },
                                 ),
                               ),
@@ -134,8 +146,7 @@ class PinjamanView extends StatefulWidget {
                             children: [
                               Expanded(
                                 child: TextFormField(
-                                  initialValue: controller.jangkaWaktuDalamBulan
-                                      .toStringAsFixed(0),
+                                  controller: controller.jangkaWaktuController,
                                   key: Key(
                                       "jangka_waktu_${controller.jangkaWaktuDalamBulan}"),
                                   textAlign: TextAlign.center,
@@ -148,6 +159,17 @@ class PinjamanView extends StatefulWidget {
                                     filled: true,
                                     fillColor: Colors.transparent,
                                   ),
+                                  onTap: () {
+                                    controller.jangkaWaktuController.selection =
+                                        TextSelection(
+                                      baseOffset: 0,
+                                      extentOffset: controller
+                                          .jangkaWaktuController
+                                          .value
+                                          .text
+                                          .length,
+                                    );
+                                  },
                                   onChanged: (value) {
                                     controller.jangkaWaktuDalamBulan =
                                         int.tryParse(value) ?? 0;
@@ -156,7 +178,7 @@ class PinjamanView extends StatefulWidget {
                               ),
                               SizedBox(width: 5),
                               Text(
-                                "/Tahun",
+                                "/Bulan",
                                 style: TextStyle(
                                   fontSize: 14,
                                 ),
@@ -197,8 +219,8 @@ class PinjamanView extends StatefulWidget {
                             children: [
                               Expanded(
                                 child: TextFormField(
-                                  initialValue: controller.persentaseBunga
-                                      .toStringAsFixed(0),
+                                  controller:
+                                      controller.persentaseBungaController,
                                   key: Key("key_${controller.persentaseBunga}"),
                                   textAlign: TextAlign.center,
                                   showCursor: true,
@@ -210,6 +232,17 @@ class PinjamanView extends StatefulWidget {
                                     filled: true,
                                     fillColor: Colors.transparent,
                                   ),
+                                  onTap: () {
+                                    controller.persentaseBungaController
+                                        .selection = TextSelection(
+                                      baseOffset: 0,
+                                      extentOffset: controller
+                                          .persentaseBungaController
+                                          .value
+                                          .text
+                                          .length,
+                                    );
+                                  },
                                   onChanged: (value) {
                                     controller.persentaseBunga =
                                         double.tryParse(value) ?? 0;
@@ -307,7 +340,6 @@ class PinjamanView extends StatefulWidget {
                         ? Container(
                             padding:
                                 EdgeInsets.only(top: 5, left: 10, right: 10),
-                            height: 90,
                             width: MediaQuery.of(context).size.width,
                             decoration: BoxDecoration(
                               color: Colors.white70,
@@ -333,28 +365,31 @@ class PinjamanView extends StatefulWidget {
                                 Row(
                                   children: [
                                     Text(
-                                      "Rp.",
+                                      "Per-bulan: Rp.",
                                       style: TextStyle(fontSize: 14),
                                     ),
                                     SizedBox(width: 5),
                                     Text(
                                       // "Rp. ${NumberFormat('###,###.0#', 'en_US').format(controller.hasil)}",
-                                      "${controller.hasil.currency}",
+                                      "${controller.hasil.number}",
+                                      style: TextStyle(fontSize: 14),
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(
+                                  height: 12.0,
+                                ),
+                                Row(
+                                  children: [
+                                    Text(
+                                      "Total: Rp.",
                                       style: TextStyle(fontSize: 14),
                                     ),
                                     SizedBox(width: 5),
-                                    Expanded(
-                                      child: TextField(
-                                        textAlign: TextAlign.center,
-                                        showCursor: true,
-                                        cursorColor: Colors.transparent,
-                                        style: TextStyle(
-                                            color: Colors.black, fontSize: 15),
-                                        decoration: InputDecoration(
-                                          filled: true,
-                                          fillColor: Colors.transparent,
-                                        ),
-                                      ),
+                                    Text(
+                                      // "Rp. ${NumberFormat('###,###.0#', 'en_US').format(controller.hasil)}",
+                                      "${(controller.hasil * controller.jangkaWaktuDalamBulan).number}",
+                                      style: TextStyle(fontSize: 14),
                                     ),
                                   ],
                                 )
