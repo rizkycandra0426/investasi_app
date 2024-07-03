@@ -149,7 +149,7 @@ class TargetInvestasiView extends StatefulWidget {
                         ),
                         SizedBox(width: 5),
                         Text(
-                          "/Tahun",
+                          "Tahun",
                           style: TextStyle(
                             fontSize: 14,
                           ),

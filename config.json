@@ -1,8 +1,9 @@
 {
     "modules": [
-        "saham/topup"
+        "histori_tahunan",
+        "histori_detail"
     ],
-    "module_directory_name": "module/dividen_kurs",
+    "module_directory_name": "module/saham",
     "experimental_mode": false,
     "learning_mode": false,
     "unfreezed": true,

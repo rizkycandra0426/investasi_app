@@ -16,7 +16,7 @@ class DividenView extends StatefulWidget {
             children: [
               SizedBox(height: 10),
               Container(
-                height: 40,
+                height: 50,
                 width: MediaQuery.of(context).size.width,
                 decoration: BoxDecoration(
                   color: Colors.blue,
@@ -27,13 +27,33 @@ class DividenView extends StatefulWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    Text(
-                      "Emiten",
-                      style: TextStyle(fontSize: 20, color: Colors.white),
+                    Expanded(
+                      child: Text(
+                        "Emiten",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(fontSize: 18, color: Colors.white),
+                      ),
                     ),
-                    Text(
-                      "Dividen",
-                      style: TextStyle(fontSize: 20, color: Colors.white),
+                    Expanded(
+                      child: Text(
+                        "Tanggal Dividen",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(fontSize: 18, color: Colors.white),
+                      ),
+                    ),
+                    Expanded(
+                      child: Text(
+                        "Dividen",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(fontSize: 18, color: Colors.white),
+                      ),
+                    ),
+                    Expanded(
+                      child: Text(
+                        "Dividen YIELD",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(fontSize: 18, color: Colors.white),
+                      ),
                     ),
                   ],
                 ),
@@ -62,9 +82,22 @@ class DividenView extends StatefulWidget {
                       ),
                       Expanded(
                         child: Text(
+                          "${item[""]}",
+                          style: TextStyle(fontSize: 16, color: Colors.black),
+                        ),
+                      ),
+                      Expanded(
+                        child: Text(
                           "${item["dividen"]}",
                           textAlign: TextAlign.right,
-                          style: TextStyle(fontSize: 16, color: Colors.black  ),
+                          style: TextStyle(fontSize: 16, color: Colors.black),
+                        ),
+                      ),
+                      Expanded(
+                        child: Text(
+                          "${item[""]}",
+                          textAlign: TextAlign.right,
+                          style: TextStyle(fontSize: 16, color: Colors.black),
                         ),
                       ),
                     ],
