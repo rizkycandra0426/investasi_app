@@ -54,7 +54,15 @@ class TargetInvestasiView extends StatefulWidget {
                         SizedBox(width: 5),
                         Expanded(
                           child: TextFormField(
-                            initialValue: controller.investasiAwal.currency,
+                            controller: controller.investasiAwalController,
+                            onTap: () {
+                              controller.investasiAwalController.selection =
+                                  TextSelection(
+                                baseOffset: 0,
+                                extentOffset: controller
+                                    .investasiAwalController.value.text.length,
+                              );
+                            },
                             key: Key(
                                 "investasi_awal_${controller.investasiAwal}"),
                             textAlign: TextAlign.center,
@@ -69,6 +77,12 @@ class TargetInvestasiView extends StatefulWidget {
                             onChanged: (value) {
                               controller.investasiAwal =
                                   double.tryParse(value) ?? 0;
+                            },
+                            onFieldSubmitted: (value) {
+                              controller.investasiAwal =
+                                  double.tryParse(value) ?? 0;
+                              controller.investasiAwalController.text =
+                                  controller.investasiAwal.number;
                             },
                           ),
                         ),
@@ -107,8 +121,15 @@ class TargetInvestasiView extends StatefulWidget {
                       children: [
                         Expanded(
                           child: TextFormField(
-                            initialValue: controller.jangkaWaktuDalamTahun
-                                .toStringAsFixed(0),
+                            controller: controller.jangkaWaktuController,
+                            onTap: () {
+                              controller.jangkaWaktuController.selection =
+                                  TextSelection(
+                                baseOffset: 0,
+                                extentOffset: controller
+                                    .jangkaWaktuController.value.text.length,
+                              );
+                            },
                             key: Key(
                                 "jangka_waktu_${controller.jangkaWaktuDalamTahun}"),
                             textAlign: TextAlign.center,
@@ -368,7 +389,7 @@ class TargetInvestasiView extends StatefulWidget {
                               SizedBox(width: 5),
                               Text(
                                 // "Rp. ${NumberFormat('###,###.0#', 'en_US').format(controller.hasil)}",
-                                "${controller.hasil.currency}",
+                                "${controller.hasil.number}",
                                 style: TextStyle(fontSize: 14),
                               ),
                               SizedBox(width: 5),

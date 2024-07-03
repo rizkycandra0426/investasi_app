@@ -222,18 +222,6 @@ class LumpsumInvestasiView extends StatefulWidget {
                             child: TextFormField(
                               key:
                                   Key("key_${controller.jenisPersentaseBunga}"),
-                              controller: controller.persentaseBungaController,
-                              onTap: () {
-                                controller.persentaseBungaController.selection =
-                                    TextSelection(
-                                  baseOffset: 0,
-                                  extentOffset: controller
-                                      .persentaseBungaController
-                                      .value
-                                      .text
-                                      .length,
-                                );
-                              },
                               validator: (value) {
                                 if ((double.tryParse(value!.toString()) ?? 0) >
                                     controller.maxPercentage) {
