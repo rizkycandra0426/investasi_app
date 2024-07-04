@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hyper_ui/core.dart';
-import 'package:hyper_ui/shared/util/date_util/date_util.dart';
+import 'package:hyper_ui/module/transaksi_keuangan/widget/category_selector.dart';
 import '../view/transaksi_keuangan_view.dart';
 
 class TransaksiKeuanganController extends State<TransaksiKeuanganView> {
@@ -77,8 +77,8 @@ class TransaksiKeuanganController extends State<TransaksiKeuanganView> {
     kategoriPengeluaranList = items;
   }
 
-  showBottomSheet() {
-    isBottomSheetVisible = true;
+  showBottomSheet() async {
+    await Get.to(CategorySelectorView());
     setState(() {});
   }
 

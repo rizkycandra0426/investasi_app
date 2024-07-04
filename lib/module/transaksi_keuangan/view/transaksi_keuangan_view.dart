@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:hyper_ui/core.dart';
 import 'package:hyper_ui/model/transaction_by_month_and_year_response.dart';
 import 'package:hyper_ui/module/transaksi_keuangan/widget/transaksi_clipath.dart';
-import 'package:hyper_ui/shared/util/date_util/date_util.dart';
 import '../controller/transaksi_keuangan_controller.dart';
 
 class TransaksiKeuanganView extends StatefulWidget {
@@ -26,28 +25,13 @@ class TransaksiKeuanganView extends StatefulWidget {
       appBar: AppBar(
         elevation: 0.0,
         backgroundColor: Colors.blue,
-        title: Row(
-          children: [
-            IconButton(
-              icon: Icon(
-                Icons.arrow_back,
-                size: 24.0,
-              ),
-              onPressed: () {
-                Get.offAll(MainNavigationView());
-              },
-            ),
-            Expanded(
-              child: Center(
-                child: Text(
-                  "Catat Transaksi",
-                  style: TextStyle(
-                    fontSize: 20.0,
-                  ),
-                ),
-              ),
-            ),
-          ],
+        centerTitle: true,
+        leading: BackButton(),
+        title: Text(
+          "Catat Transaksi",
+          style: TextStyle(
+            fontSize: 20.0,
+          ),
         ),
       ),
       body: SingleChildScrollView(
@@ -287,96 +271,17 @@ class TransaksiKeuanganView extends StatefulWidget {
                             width: 12.0,
                           ),
                           Expanded(
-                            child: AbsorbPointer(
-                              absorbing: true,
-                              child: QTextField(
-                                label: "",
-                                validator: Validator.required,
-                                suffixIcon: null,
-                                prefixIcon: null,
-                                value: "${DateTime.now().yMd}",
-                                onChanged: (value) {
-                                  controller.date = DateTime.now();
-                                },
-                              ),
+                            child: QDatePicker(
+                              label: "",
+                              validator: Validator.required,
+                              value: DateTime.now(),
+                              onChanged: (value) {
+                                controller.date = value;
+                              },
                             ),
                           ),
                         ],
                       ),
-                    ),
-                  ),
-                ),
-              if (controller.isBottomSheetVisible)
-                Positioned(
-                  bottom: 20,
-                  left: 20,
-                  right: 20,
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Colors.white60,
-                      boxShadow: [
-                        BoxShadow(
-                          color: Color(0x19000000),
-                          blurRadius: 24,
-                          offset: Offset(0, 11),
-                        ),
-                      ],
-                      border: Border.all(
-                        width: 1.0,
-                        color: Colors.white60,
-                      ),
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(12.0),
-                      ),
-                    ),
-                    height: 300.0,
-                    child: Column(
-                      children: [
-                        if (controller.isPemasukan)
-                          Expanded(
-                            child: ListView.builder(
-                              itemCount:
-                                  controller.kategoriPemasukanList.length,
-                              padding: EdgeInsets.all(12.0),
-                              physics: ScrollPhysics(),
-                              itemBuilder: (BuildContext context, int index) {
-                                var item =
-                                    controller.kategoriPemasukanList[index];
-                                return Card(
-                                  child: ListTile(
-                                    title: Text(item["label"]),
-                                    onTap: () => controller.setCategoryValue(
-                                      item["value"],
-                                      item["label"],
-                                    ),
-                                  ),
-                                );
-                              },
-                            ),
-                          ),
-                        if (controller.isPengeluaran)
-                          Expanded(
-                            child: ListView.builder(
-                              itemCount:
-                                  controller.kategoriPengeluaranList.length,
-                              padding: EdgeInsets.all(12.0),
-                              physics: ScrollPhysics(),
-                              itemBuilder: (BuildContext context, int index) {
-                                var item =
-                                    controller.kategoriPengeluaranList[index];
-                                return Card(
-                                  child: ListTile(
-                                    title: Text(item["label"]),
-                                    onTap: () => controller.setCategoryValue(
-                                      item["value"],
-                                      item["label"],
-                                    ),
-                                  ),
-                                );
-                              },
-                            ),
-                          ),
-                      ],
                     ),
                   ),
                 ),

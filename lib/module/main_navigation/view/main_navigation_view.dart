@@ -37,9 +37,18 @@ class MainNavigationView extends StatefulWidget {
       length: pages.length,
       initialIndex: controller.selectedIndex,
       child: Scaffold(
-        body: IndexedStack(
-          index: controller.selectedIndex,
-          children: pages,
+        body: Stack(
+          children: [
+            IndexedStack(
+              index: controller.selectedIndex,
+              children: pages,
+            ),
+            //Preload screens
+            Transform.scale(
+              scale: 0.0,
+              child: PortofolioView(),
+            ),
+          ],
         ),
         bottomNavigationBar: BottomAppBar(
           color: primaryColor,

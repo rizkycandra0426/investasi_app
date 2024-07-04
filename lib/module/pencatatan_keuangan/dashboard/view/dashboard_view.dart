@@ -93,8 +93,10 @@ class DashboardView extends StatefulWidget {
                                           BorderRadius.circular(25.0)),
                                   labelColor: Colors.white,
                                   unselectedLabelColor: Colors.blue,
-                                  onTap: (index) =>
-                                      controller.updateSelectedIndex(index),
+                                  onTap: (index) {
+                                    controller.updateSelectedIndex(index);
+                                    controller.refresh();
+                                  },
                                   tabs: [
                                     Tab(
                                       text: "Harian",
@@ -112,6 +114,7 @@ class DashboardView extends StatefulWidget {
                                 height: 60,
                               ),
                               Expanded(
+                                key: Key("data_${controller.counter}"),
                                 child: TabBarView(
                                   children: [
                                     LaporanKeuanganHarianView(),

@@ -133,7 +133,6 @@ export 'package:hyper_ui/shared/theme/theme_config.dart';
 export 'package:hyper_ui/shared/theme/theme_dark.dart';
 export 'package:hyper_ui/shared/theme/theme_size.dart';
 export 'package:hyper_ui/shared/util/animation/animation.dart';
-export 'package:hyper_ui/shared/util/date_util/date_util.dart';
 export 'package:hyper_ui/shared/util/dialog/confirmation_dialog.dart';
 export 'package:hyper_ui/shared/util/dialog/show_bottom_sheet.dart';
 export 'package:hyper_ui/shared/util/dialog/show_custom_dialog.dart';

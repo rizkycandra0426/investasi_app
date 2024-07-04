@@ -39,6 +39,10 @@ class LumpsumInvestasiController extends State<LumpsumInvestasiView> {
   String hintText = "";
 
   reset() {
+    investasiAwalController.text = "0";
+    jangkaWaktuController.text = "0";
+    persentaseBungaController.text = "0";
+
     investasiAwal = 0;
     jangkaWaktuDalamTahun = 0;
     jenisPersentaseBunga = "Sangat Konservatif";
@@ -48,6 +52,7 @@ class LumpsumInvestasiController extends State<LumpsumInvestasiView> {
     isButtonPressed = false;
     setState(() {});
     scrollController.jumpTo(0);
+    setState(() {});
   }
 
   Map<String, List<int>> percentages = {
@@ -98,7 +103,6 @@ class LumpsumInvestasiController extends State<LumpsumInvestasiView> {
   TextEditingController jangkaWaktuController = TextEditingController(
     text: "0",
   );
-
   TextEditingController persentaseBungaController = TextEditingController(
     text: "0",
   );

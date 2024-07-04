@@ -58,4 +58,8 @@ class DashboardController extends State<DashboardView> {
   updateSelectedIndex(int newIndex) {
     selectedIndex = newIndex;
   }
+
+  refresh() {
+    setState(() {});
+  }
 }

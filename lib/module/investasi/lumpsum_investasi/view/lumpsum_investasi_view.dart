@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:hyper_ui/core.dart';
+import 'package:hyper_ui/module/investasi/lumpsum_investasi/widget/detail_investasi.dart';
 import 'package:hyper_ui/shared/util/type_extension/num_extension.dart';
 import '../controller/lumpsum_investasi_controller.dart';
 
 class LumpsumInvestasiView extends StatefulWidget {
-  const LumpsumInvestasiView({Key? key}) : super(key: key);
+  LumpsumInvestasiView({Key? key}) : super(key: key);
 
   Widget build(context, LumpsumInvestasiController controller) {
     controller.view = this;
@@ -12,7 +13,7 @@ class LumpsumInvestasiView extends StatefulWidget {
       body: SingleChildScrollView(
         controller: controller.scrollController,
         child: Container(
-          padding: const EdgeInsets.only(
+          padding: EdgeInsets.only(
             left: 40,
             right: 40,
           ),
@@ -274,7 +275,7 @@ class LumpsumInvestasiView extends StatefulWidget {
                 children: [
                   Expanded(
                     child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                      padding: EdgeInsets.symmetric(horizontal: 10.0),
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
                           padding: EdgeInsets.zero,
@@ -284,7 +285,7 @@ class LumpsumInvestasiView extends StatefulWidget {
                                 BorderRadius.circular(30), // Border radius 30
                           ),
                         ),
-                        onPressed: () {
+                        onPressed: () async {
                           bool isNotValid =
                               controller.formKey.currentState!.validate() ==
                                   false;
@@ -293,6 +294,8 @@ class LumpsumInvestasiView extends StatefulWidget {
                           }
                           print("HITUNG?");
                           controller.hitung();
+
+                          Get.to(DetailInvestasi());
                         },
                         child: Ink(
                           decoration: BoxDecoration(
@@ -316,7 +319,7 @@ class LumpsumInvestasiView extends StatefulWidget {
                   ),
                   Expanded(
                     child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                      padding: EdgeInsets.symmetric(horizontal: 10.0),
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
                           padding: EdgeInsets.zero,
@@ -327,7 +330,8 @@ class LumpsumInvestasiView extends StatefulWidget {
                           ),
                         ),
                         onPressed: () {
-                          controller.toggleContainerVisibility();
+                          // controller.toggleContainerVisibility();
+                          controller.reset();
                         },
                         child: Ink(
                           decoration: BoxDecoration(
