@@ -376,23 +376,23 @@ class PinjamanView extends StatefulWidget {
                                     ),
                                   ],
                                 ),
-                                // const SizedBox(
-                                //   height: 12.0,
-                                // ),
-                                // Row(
-                                //   children: [
-                                //     Text(
-                                //       "Total: Rp.",
-                                //       style: TextStyle(fontSize: 14),
-                                //     ),
-                                //     SizedBox(width: 5),
-                                //     Text(
-                                //       // "Rp. ${NumberFormat('###,###.0#', 'en_US').format(controller.hasil)}",
-                                //       "${(controller.hasil * controller.jangkaWaktuDalamBulan).number}",
-                                //       style: TextStyle(fontSize: 14),
-                                //     ),
-                                //   ],
-                                // )
+                                const SizedBox(
+                                  height: 12.0,
+                                ),
+                                Row(
+                                  children: [
+                                    Text(
+                                      "Total: Rp.",
+                                      style: TextStyle(fontSize: 14),
+                                    ),
+                                    SizedBox(width: 5),
+                                    Text(
+                                      // "Rp. ${NumberFormat('###,###.0#', 'en_US').format(controller.hasil)}",
+                                      "${(controller.hasil * controller.jangkaWaktuDalamBulan).number}",
+                                      style: TextStyle(fontSize: 14),
+                                    ),
+                                  ],
+                                )
                               ],
                             ),
                           )

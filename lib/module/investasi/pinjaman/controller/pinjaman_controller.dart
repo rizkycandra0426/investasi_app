@@ -48,7 +48,7 @@ class PinjamanController extends State<PinjamanView> {
     scrollController.jumpTo(0);
   }
 
-  Future<void> hitung() async {
+  hitung() async {
     hitungNilaiPinjaman();
     setState(() {
       isButtonPressed = true;

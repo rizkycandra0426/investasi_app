@@ -39,6 +39,10 @@ class TargetInvestasiController extends State<TargetInvestasiView> {
   String hintText = "";
 
   reset() {
+    investasiAwalController.text = "0";
+    jangkaWaktuController.text = "0";
+    persentaseBungaController.text = "0";
+
     investasiAwal = 0;
     jangkaWaktuDalamTahun = 0;
     jenisPersentaseBunga = "Sangat Konservatif";
@@ -48,6 +52,7 @@ class TargetInvestasiController extends State<TargetInvestasiView> {
     isButtonPressed = false;
     setState(() {});
     scrollController.jumpTo(0);
+    setState(() {});
   }
 
   Map<String, List<int>> percentages = {

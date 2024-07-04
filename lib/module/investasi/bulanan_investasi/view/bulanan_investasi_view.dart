@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hyper_ui/core.dart';
+import 'package:hyper_ui/module/investasi/bulanan_investasi/widget/bulanan_detail.dart';
 import 'package:hyper_ui/shared/util/type_extension/num_extension.dart';
 import '../controller/bulanan_investasi_controller.dart';
 
@@ -293,6 +294,8 @@ class BulananInvestasiView extends StatefulWidget {
                           }
                           print("HITUNG?");
                           controller.hitung();
+
+                          Get.to(BulananDetail());
                         },
                         child: Ink(
                           decoration: BoxDecoration(
@@ -327,7 +330,7 @@ class BulananInvestasiView extends StatefulWidget {
                           ),
                         ),
                         onPressed: () {
-                          controller.toggleContainerVisibility();
+                          controller.reset();
                         },
                         child: Ink(
                           decoration: BoxDecoration(

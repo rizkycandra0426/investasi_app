@@ -3,12 +3,12 @@
 import 'package:flutter/material.dart';
 import 'package:hyper_ui/core.dart';
 
-class DetailInvestasi extends StatelessWidget {
-  const DetailInvestasi({Key? key}) : super(key: key);
+class PinjamanDetail extends StatelessWidget {
+  const PinjamanDetail({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    var controller = LumpsumInvestasiController.instance;
+    var controller = BulananInvestasiController.instance;
 
     return Scaffold(
       appBar: AppBar(
@@ -32,31 +32,33 @@ class DetailInvestasi extends StatelessWidget {
                 label: "Persentase Bunga",
                 value: "${controller.persentaseBunga.percentage}",
               ),
-              ValueItem(
-                label: "Total Dana",
-                value: "${controller.investasiAwal.currency}",
-              ),
               Builder(builder: (context) {
-                var profit =
-                    controller.investasiAwal * controller.persentaseBunga / 100;
-                var amount = controller.investasiAwal;
-
-                var nilaiInvestasi =
-                    amount + (profit * (controller.jangkaWaktuDalamTahun));
-
+                var totalDana = controller.investasiAwal *
+                    12 *
+                    controller.jangkaWaktuDalamTahun;
                 return ValueItem(
-                  label: "Nilai Investasi",
-                  value:
-                      "${(nilaiInvestasi - controller.investasiAwal).currency}",
+                  label: "Total Dana",
+                  value: "${totalDana.currency}",
                 );
               }),
               Builder(builder: (context) {
-                var profit =
-                    controller.investasiAwal * controller.persentaseBunga / 100;
-                var amount = controller.investasiAwal;
+                var totalDana = controller.investasiAwal *
+                    12 *
+                    controller.jangkaWaktuDalamTahun;
+                var profit = totalDana * controller.persentaseBunga / 100;
+                var nilaiInvestasi = totalDana + profit;
 
-                var nilaiInvestasi =
-                    amount + (profit * (controller.jangkaWaktuDalamTahun));
+                return ValueItem(
+                  label: "Nilai Investasi",
+                  value: "${(nilaiInvestasi - totalDana).currency}",
+                );
+              }),
+              Builder(builder: (context) {
+                var totalDana = controller.investasiAwal *
+                    12 *
+                    controller.jangkaWaktuDalamTahun;
+                var profit = totalDana * controller.persentaseBunga / 100;
+                var nilaiInvestasi = totalDana + profit;
 
                 return ValueItem(
                   label: "Total nilai",
@@ -68,30 +70,39 @@ class DetailInvestasi extends StatelessWidget {
                 padding: const EdgeInsets.all(6.0),
                 color: Colors.grey[400],
                 child: IndexedValueItem(
-                  number: "Tahun",
+                  number: "Bulan",
                   label: "Investasi",
                   value: "Nilai Investasi",
                 ),
               ),
               ListView.builder(
-                itemCount: controller.jangkaWaktuDalamTahun,
+                itemCount: controller.jangkaWaktuDalamTahun *
+                    12, // Jumlah bulan dalam periode jangka waktu
                 shrinkWrap: true,
                 physics: const ScrollPhysics(),
                 itemBuilder: (BuildContext context, int index) {
-                  var profit = controller.investasiAwal *
-                      controller.persentaseBunga /
-                      100;
-                  var amount = controller.investasiAwal;
+                  double totalDanaAkhir = 0; // Dana akhir yang akan dikumpulkan
+                  double danaInvestasiAwal =
+                      controller.investasiAwal; // Dana bulanan
+                  double bungaPerBulan =
+                      controller.persentaseBunga / 100 / 12; // Bunga per bulan
 
-                  var nilaiInvestasi = amount + (profit * (index + 1));
+                  // Menghitung nilai investasi dari awal hingga bulan saat ini
+                  for (int i = 0; i <= index; i++) {
+                    totalDanaAkhir = (totalDanaAkhir + danaInvestasiAwal) *
+                        (1 + bungaPerBulan);
+                  }
+
+                  // Menghitung total dana investasi yang telah diinvestasikan hingga bulan saat ini
+                  double totalInvestasiAwal = danaInvestasiAwal * (index + 1);
 
                   return Container(
                     padding: const EdgeInsets.all(6.0),
                     color: index % 2 == 0 ? Colors.grey[300] : Colors.grey[200],
                     child: IndexedValueItem(
                       number: index + 1,
-                      label: "${(controller.investasiAwal).currency}",
-                      value: "${nilaiInvestasi.currency}",
+                      label: " ${totalInvestasiAwal.currency}",
+                      value: "${totalDanaAkhir.currency}",
                     ),
                   );
                 },

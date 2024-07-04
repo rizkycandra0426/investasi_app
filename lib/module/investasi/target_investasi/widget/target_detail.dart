@@ -3,12 +3,12 @@
 import 'package:flutter/material.dart';
 import 'package:hyper_ui/core.dart';
 
-class DetailInvestasi extends StatelessWidget {
-  const DetailInvestasi({Key? key}) : super(key: key);
+class TargetDetail extends StatelessWidget {
+  const TargetDetail({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    var controller = LumpsumInvestasiController.instance;
+    var controller = TargetInvestasiController.instance;
 
     return Scaffold(
       appBar: AppBar(
@@ -21,7 +21,7 @@ class DetailInvestasi extends StatelessWidget {
           child: Column(
             children: [
               ValueItem(
-                label: "Dana bulanan",
+                label: "Target Dana",
                 value: "${controller.investasiAwal.currency}",
               ),
               ValueItem(
@@ -32,35 +32,86 @@ class DetailInvestasi extends StatelessWidget {
                 label: "Persentase Bunga",
                 value: "${controller.persentaseBunga.percentage}",
               ),
-              ValueItem(
-                label: "Total Dana",
-                value: "${controller.investasiAwal.currency}",
-              ),
               Builder(builder: (context) {
-                var profit =
-                    controller.investasiAwal * controller.persentaseBunga / 100;
-                var amount = controller.investasiAwal;
+                var targetValue = controller.investasiAwal;
+                var persentase = controller.persentaseBunga;
+                var years = controller.jangkaWaktuDalamTahun;
 
-                var nilaiInvestasi =
-                    amount + (profit * (controller.jangkaWaktuDalamTahun));
+                // Lakukan perhitungan investasi untuk mencapai target secara iteratif
+                double monthlyInterestRate = persentase / 100 / 12;
+                int months = years * 12;
+                double totalMultiplier = 1.0;
+                for (int i = 0; i < months; i++) {
+                  totalMultiplier *= (1 + monthlyInterestRate);
+                }
+                double monthlyContribution = targetValue /
+                    ((((totalMultiplier - 1) / monthlyInterestRate)) *
+                        (1 + monthlyInterestRate));
+
+                controller.hasil = monthlyContribution;
+
+                // Total Dana per bulan tanpa bunga
+                double totalDanaPerBulan = monthlyContribution;
 
                 return ValueItem(
-                  label: "Nilai Investasi",
-                  value:
-                      "${(nilaiInvestasi - controller.investasiAwal).currency}",
+                  label: "Total Dana per Bulan",
+                  value: "${totalDanaPerBulan.currency}",
                 );
               }),
               Builder(builder: (context) {
-                var profit =
-                    controller.investasiAwal * controller.persentaseBunga / 100;
-                var amount = controller.investasiAwal;
+                var targetValue = controller.investasiAwal;
+                var persentase = controller.persentaseBunga;
+                var years = controller.jangkaWaktuDalamTahun;
 
-                var nilaiInvestasi =
-                    amount + (profit * (controller.jangkaWaktuDalamTahun));
+                // Lakukan perhitungan investasi untuk mencapai target secara iteratif
+                double monthlyInterestRate = persentase / 100 / 12;
+                int months = years * 12;
+                double totalMultiplier = 1.0;
+                for (int i = 0; i < months; i++) {
+                  totalMultiplier *= (1 + monthlyInterestRate);
+                }
+                double monthlyContribution = targetValue /
+                    ((((totalMultiplier - 1) / monthlyInterestRate)) *
+                        (1 + monthlyInterestRate));
+
+                controller.hasil = monthlyContribution;
+
+                // Hitung nilai investasi setelah bunga
+                double nilaiInvestasi = 0.0;
+                double currentAmount = 0.0;
+                for (int i = 0; i < months; i++) {
+                  currentAmount += monthlyContribution;
+                  currentAmount += currentAmount * monthlyInterestRate;
+                  nilaiInvestasi += currentAmount * monthlyInterestRate;
+                }
 
                 return ValueItem(
-                  label: "Total nilai",
+                  label: "Nilai Investasi",
                   value: "${(nilaiInvestasi).currency}",
+                );
+              }),
+              Builder(builder: (context) {
+                var totalDanaPerBulan = controller.hasil;
+                var persentase = controller.persentaseBunga;
+                var years = controller.jangkaWaktuDalamTahun;
+
+                double monthlyInterestRate = persentase / 100 / 12;
+                int months = years * 12;
+
+                double nilaiInvestasi = 0.0;
+                double currentAmount = 0.0;
+
+                for (int i = 0; i < months; i++) {
+                  currentAmount += totalDanaPerBulan;
+                  currentAmount += currentAmount * monthlyInterestRate;
+                  nilaiInvestasi += currentAmount;
+                }
+
+                double totalNilai = currentAmount;
+
+                return ValueItem(
+                  label: "Total Nilai",
+                  value: "${totalNilai.currency}",
                 );
               }),
               Divider(),
@@ -78,12 +129,16 @@ class DetailInvestasi extends StatelessWidget {
                 shrinkWrap: true,
                 physics: const ScrollPhysics(),
                 itemBuilder: (BuildContext context, int index) {
-                  var profit = controller.investasiAwal *
-                      controller.persentaseBunga /
-                      100;
-                  var amount = controller.investasiAwal;
+                  var principal = controller.investasiAwal;
+                  var monthlyInterestRate =
+                      controller.persentaseBunga / 100 / 12;
+                  var months = (index + 1) * 12;
 
-                  var nilaiInvestasi = amount + (profit * (index + 1));
+                  var nilaiInvestasi = principal;
+                  for (int i = 0; i < months; i++) {
+                    var profit = nilaiInvestasi * monthlyInterestRate;
+                    nilaiInvestasi += profit;
+                  }
 
                   return Container(
                     padding: const EdgeInsets.all(6.0),
