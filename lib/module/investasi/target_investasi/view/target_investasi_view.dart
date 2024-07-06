@@ -295,6 +295,7 @@ class TargetInvestasiView extends StatefulWidget {
                             return;
                           }
                           print("HITUNG?");
+                          controller.hitung();
                           Get.to(TargetDetail());
                         },
                         child: Ink(

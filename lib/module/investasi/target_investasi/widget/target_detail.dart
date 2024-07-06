@@ -37,81 +37,29 @@ class TargetDetail extends StatelessWidget {
                 var persentase = controller.persentaseBunga;
                 var years = controller.jangkaWaktuDalamTahun;
 
-                // Lakukan perhitungan investasi untuk mencapai target secara iteratif
+                // Menghitung tingkat bunga bulanan
                 double monthlyInterestRate = persentase / 100 / 12;
                 int months = years * 12;
+
+                // Menghitung kontribusi bulanan menggunakan rumus anuitas secara iteratif
                 double totalMultiplier = 1.0;
                 for (int i = 0; i < months; i++) {
                   totalMultiplier *= (1 + monthlyInterestRate);
                 }
-                double monthlyContribution = targetValue /
-                    ((((totalMultiplier - 1) / monthlyInterestRate)) *
-                        (1 + monthlyInterestRate));
+
+                double monthlyContribution =
+                    (targetValue * monthlyInterestRate) /
+                        (1 - 1 / totalMultiplier);
 
                 controller.hasil = monthlyContribution;
 
-                // Total Dana per bulan tanpa bunga
+                // Total Dana per bulan dengan bunga sudah termasuk dalam monthlyContribution
                 double totalDanaPerBulan = monthlyContribution;
 
                 return ValueItem(
                   label: "Total Dana per Bulan",
-                  value: "${totalDanaPerBulan.currency}",
-                );
-              }),
-              Builder(builder: (context) {
-                var targetValue = controller.investasiAwal;
-                var persentase = controller.persentaseBunga;
-                var years = controller.jangkaWaktuDalamTahun;
-
-                // Lakukan perhitungan investasi untuk mencapai target secara iteratif
-                double monthlyInterestRate = persentase / 100 / 12;
-                int months = years * 12;
-                double totalMultiplier = 1.0;
-                for (int i = 0; i < months; i++) {
-                  totalMultiplier *= (1 + monthlyInterestRate);
-                }
-                double monthlyContribution = targetValue /
-                    ((((totalMultiplier - 1) / monthlyInterestRate)) *
-                        (1 + monthlyInterestRate));
-
-                controller.hasil = monthlyContribution;
-
-                // Hitung nilai investasi setelah bunga
-                double nilaiInvestasi = 0.0;
-                double currentAmount = 0.0;
-                for (int i = 0; i < months; i++) {
-                  currentAmount += monthlyContribution;
-                  currentAmount += currentAmount * monthlyInterestRate;
-                  nilaiInvestasi += currentAmount * monthlyInterestRate;
-                }
-
-                return ValueItem(
-                  label: "Nilai Investasi",
-                  value: "${(nilaiInvestasi).currency}",
-                );
-              }),
-              Builder(builder: (context) {
-                var totalDanaPerBulan = controller.hasil;
-                var persentase = controller.persentaseBunga;
-                var years = controller.jangkaWaktuDalamTahun;
-
-                double monthlyInterestRate = persentase / 100 / 12;
-                int months = years * 12;
-
-                double nilaiInvestasi = 0.0;
-                double currentAmount = 0.0;
-
-                for (int i = 0; i < months; i++) {
-                  currentAmount += totalDanaPerBulan;
-                  currentAmount += currentAmount * monthlyInterestRate;
-                  nilaiInvestasi += currentAmount;
-                }
-
-                double totalNilai = currentAmount;
-
-                return ValueItem(
-                  label: "Total Nilai",
-                  value: "${totalNilai.currency}",
+                  value:
+                      "${totalDanaPerBulan.currency}", // Format dengan dua desimal
                 );
               }),
               Divider(),
@@ -119,34 +67,43 @@ class TargetDetail extends StatelessWidget {
                 padding: const EdgeInsets.all(6.0),
                 color: Colors.grey[400],
                 child: IndexedValueItem(
-                  number: "Tahun",
-                  label: "Investasi",
+                  number: "Bulan",
+                  label: "Dana Per Bulan",
                   value: "Nilai Investasi",
                 ),
               ),
               ListView.builder(
-                itemCount: controller.jangkaWaktuDalamTahun,
+                itemCount:
+                    controller.jangkaWaktuDalamTahun * 12, // Menggunakan bulan
                 shrinkWrap: true,
                 physics: const ScrollPhysics(),
                 itemBuilder: (BuildContext context, int index) {
-                  var principal = controller.investasiAwal;
-                  var monthlyInterestRate =
-                      controller.persentaseBunga / 100 / 12;
-                  var months = (index + 1) * 12;
+                  // Nilai tetap untuk dana per bulan
+                  double monthlyContribution = controller.hasil;
 
-                  var nilaiInvestasi = principal;
-                  for (int i = 0; i < months; i++) {
-                    var profit = nilaiInvestasi * monthlyInterestRate;
-                    nilaiInvestasi += profit;
+                  // Menghitung nilai investasi bulanan secara iteratif
+                  double monthlyInterestRate =
+                      controller.persentaseBunga / 100 / 12;
+                  double nilaiInvestasi = 0.0;
+                  double currentAmount = 0.0;
+
+                  for (int i = 0; i <= index; i++) {
+                    currentAmount += monthlyContribution;
+                    currentAmount += currentAmount * monthlyInterestRate;
                   }
+                  nilaiInvestasi = currentAmount;
+
+                  // Menggunakan NumberFormat untuk format mata uang
+                  final formatCurrency =
+                      NumberFormat.currency(locale: 'id_ID', symbol: 'Rp');
 
                   return Container(
                     padding: const EdgeInsets.all(6.0),
                     color: index % 2 == 0 ? Colors.grey[300] : Colors.grey[200],
                     child: IndexedValueItem(
                       number: index + 1,
-                      label: "${(controller.investasiAwal).currency}",
-                      value: "${nilaiInvestasi.currency}",
+                      label: formatCurrency.format(monthlyContribution),
+                      value: formatCurrency.format(nilaiInvestasi),
                     ),
                   );
                 },

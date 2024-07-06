@@ -1,5 +1,7 @@
 // ignore_for_file: camel_case_types, prefer_typing_uninitialized_variables
 
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:hyper_ui/core.dart';
 
@@ -8,11 +10,11 @@ class PinjamanDetail extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var controller = BulananInvestasiController.instance;
+    var controller = PinjamanController.instance;
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Detail Investasi"),
+        title: const Text("Detail Pinjaman"),
         actions: const [],
       ),
       body: SingleChildScrollView(
@@ -21,48 +23,54 @@ class PinjamanDetail extends StatelessWidget {
           child: Column(
             children: [
               ValueItem(
-                label: "Dana bulanan",
-                value: "${controller.investasiAwal.currency}",
+                label: "Dana pinjaman",
+                value: "${controller.pinjamanAwal.currency}",
               ),
               ValueItem(
                 label: "Jangka Waktu",
-                value: "${controller.jangkaWaktuDalamTahun} tahun",
+                value: "${controller.jangkaWaktuDalamBulan} bulan",
               ),
               ValueItem(
                 label: "Persentase Bunga",
                 value: "${controller.persentaseBunga.percentage}",
               ),
               Builder(builder: (context) {
-                var totalDana = controller.investasiAwal *
-                    12 *
-                    controller.jangkaWaktuDalamTahun;
+                controller
+                    .hitungNilaiPinjaman(); // Memanggil fungsi hitungNilaiPinjaman dari controller
+
+                var totalBunga = 0.0;
+                var totalAngsuran = controller
+                    .hasil; // Total angsuran yang dibayarkan selama periode
+
+                double pinjamanAwal = controller.pinjamanAwal;
+                double persentaseBunga = controller.persentaseBunga / 100;
+                int jangkaWaktuDalamBulan = controller.jangkaWaktuDalamBulan;
+
+                for (int i = 0; i < jangkaWaktuDalamBulan; i++) {
+                  // Hitung bunga bulanan
+                  double bungaBulanan = pinjamanAwal * persentaseBunga / 12;
+
+                  // Akumulasikan total bunga
+                  totalBunga += bungaBulanan;
+
+                  // Kurangi pinjaman dengan angsuran bulanan
+                  pinjamanAwal -= totalAngsuran;
+                }
+
                 return ValueItem(
-                  label: "Total Dana",
-                  value: "${totalDana.currency}",
+                  label: "Total Bunga",
+                  value: "${totalBunga.currency}",
                 );
               }),
               Builder(builder: (context) {
-                var totalDana = controller.investasiAwal *
-                    12 *
-                    controller.jangkaWaktuDalamTahun;
-                var profit = totalDana * controller.persentaseBunga / 100;
-                var nilaiInvestasi = totalDana + profit;
+                controller
+                    .hitungNilaiPinjaman(); // Memanggil fungsi hitungNilaiPinjaman dari controller
+
+                var totalAngsuran = controller.hasil;
 
                 return ValueItem(
-                  label: "Nilai Investasi",
-                  value: "${(nilaiInvestasi - totalDana).currency}",
-                );
-              }),
-              Builder(builder: (context) {
-                var totalDana = controller.investasiAwal *
-                    12 *
-                    controller.jangkaWaktuDalamTahun;
-                var profit = totalDana * controller.persentaseBunga / 100;
-                var nilaiInvestasi = totalDana + profit;
-
-                return ValueItem(
-                  label: "Total nilai",
-                  value: "${(nilaiInvestasi).currency}",
+                  label: "Total Angsuran /Bulan",
+                  value: "${totalAngsuran.currency}",
                 );
               }),
               Divider(),
@@ -71,38 +79,40 @@ class PinjamanDetail extends StatelessWidget {
                 color: Colors.grey[400],
                 child: IndexedValueItem(
                   number: "Bulan",
-                  label: "Investasi",
-                  value: "Nilai Investasi",
+                  label: "Total Angsuran",
+                  value: "Sisa Pinjaman",
                 ),
               ),
               ListView.builder(
-                itemCount: controller.jangkaWaktuDalamTahun *
-                    12, // Jumlah bulan dalam periode jangka waktu
+                itemCount: controller
+                    .jangkaWaktuDalamBulan, // Jumlah bulan dalam periode jangka waktu
                 shrinkWrap: true,
                 physics: const ScrollPhysics(),
                 itemBuilder: (BuildContext context, int index) {
-                  double totalDanaAkhir = 0; // Dana akhir yang akan dikumpulkan
-                  double danaInvestasiAwal =
-                      controller.investasiAwal; // Dana bulanan
+                  double danaInvestasiAwal = controller.hasil; // Dana bulanan
                   double bungaPerBulan =
                       controller.persentaseBunga / 100 / 12; // Bunga per bulan
 
-                  // Menghitung nilai investasi dari awal hingga bulan saat ini
-                  for (int i = 0; i <= index; i++) {
-                    totalDanaAkhir = (totalDanaAkhir + danaInvestasiAwal) *
-                        (1 + bungaPerBulan);
-                  }
+                  // Menghitung total angsuran yang telah dibayarkan hingga bulan ini
+                  double totalAngsuran = danaInvestasiAwal * (index + 1);
 
-                  // Menghitung total dana investasi yang telah diinvestasikan hingga bulan saat ini
-                  double totalInvestasiAwal = danaInvestasiAwal * (index + 1);
+                  // Menghitung sisa pinjaman setelah angsuran bulan ini
+                  double sisaPinjaman = controller.pinjamanAwal - totalAngsuran;
+
+                  // Pastikan sisaPinjaman tidak menampilkan nilai negatif
+                  sisaPinjaman = max(sisaPinjaman, 0);
+
+                  // Menggunakan NumberFormat untuk format mata uang
+                  final formatCurrency =
+                      NumberFormat.currency(locale: 'id_ID', symbol: 'Rp');
 
                   return Container(
                     padding: const EdgeInsets.all(6.0),
                     color: index % 2 == 0 ? Colors.grey[300] : Colors.grey[200],
                     child: IndexedValueItem(
                       number: index + 1,
-                      label: " ${totalInvestasiAwal.currency}",
-                      value: "${totalDanaAkhir.currency}",
+                      label: formatCurrency.format(totalAngsuran),
+                      value: formatCurrency.format(sisaPinjaman),
                     ),
                   );
                 },
