@@ -44,16 +44,6 @@ class HistoriTahunanView extends StatefulWidget {
                             ),
                             child: InkWell(
                               splashColor: Colors.blue.withAlpha(30),
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => HistoriDetailView(
-                                        // emiten: item["emiten"],
-                                        ),
-                                  ),
-                                );
-                              },
                               child: Padding(
                                 padding: const EdgeInsets.all(15.0),
                                 child: Column(

@@ -1,7 +1,6 @@
 {
     "modules": [
-        "histori_tahunan",
-        "histori_detail"
+        "histori_dana"
     ],
     "module_directory_name": "module/saham",
     "experimental_mode": false,

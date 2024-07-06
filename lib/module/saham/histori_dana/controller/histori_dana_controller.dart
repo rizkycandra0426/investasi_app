@@ -1,11 +1,11 @@
 
 import 'package:flutter/material.dart';
 import 'package:hyper_ui/core.dart';
-import '../view/histori_detail_view.dart';
+import '../view/histori_dana_view.dart';
 
-class HistoriDetailController extends State<HistoriDetailView> {
-  static late HistoriDetailController instance;
-  late HistoriDetailView view;
+class HistoriDanaController extends State<HistoriDanaView> {
+  static late HistoriDanaController instance;
+  late HistoriDanaView view;
 
   @override
   void initState() {
