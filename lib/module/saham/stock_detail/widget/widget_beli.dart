@@ -251,7 +251,9 @@ class _BeliwidgetState extends State<Beliwidget> {
                                                     await PortofolioBeliService()
                                                         .create(
                                                   {
-                                                    "id_saham": value,
+                                                    "id_saham": controller
+                                                        .widget
+                                                        .stock["id_saham"],
                                                     "tanggal_beli":
                                                         DateTime.now().yMd,
                                                     "volume_beli": lot.value,
