@@ -27,4 +27,17 @@ class SaldoService extends BaseService<Map<String, dynamic>> {
     print("SALDO: $currentUserSaldo");
     return currentUserSaldo;
   }
+
+  Future getSaldoMasukHistory() async {
+    var url = "$baseUrl/$endpoint/saldo-masuk-history";
+    var response = await dio.get(
+      url,
+      options: Options(
+        headers: {
+          "Content-Type": "application/json",
+        },
+      ),
+    );
+    return response.data["data"];
+  }
 }

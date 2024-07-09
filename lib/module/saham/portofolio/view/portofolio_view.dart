@@ -22,10 +22,10 @@ class PortofolioView extends StatefulWidget {
             child: Column(
               children: <Widget>[
                 Container(
-                  height: screenHeight * 0.18,
                   padding: EdgeInsets.symmetric(vertical: 10.0),
                   color: Colors.white,
                   child: ListView.builder(
+                    shrinkWrap: true,
                     padding: EdgeInsets.zero,
                     physics: AlwaysScrollableScrollPhysics(),
                     itemCount: 1,
@@ -112,7 +112,8 @@ class PortofolioView extends StatefulWidget {
                                                 SizedBox(
                                                   height: 3,
                                                 ),
-                                                Text("${controller.portoYield}")
+                                                Text(
+                                                    "${controller.porto["harga_unit"]}")
                                               ],
                                             ),
                                             Column(

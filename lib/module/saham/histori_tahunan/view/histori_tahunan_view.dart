@@ -7,173 +7,94 @@ class HistoriTahunanView extends StatefulWidget {
 
   Widget build(context, HistoriTahunanController controller) {
     controller.view = this;
-    final screenHeight = MediaQuery.of(context).size.height;
-    return RefreshIndicator(
-      onRefresh: () async {
-        await Future.delayed(Duration(seconds: 2));
-      },
-      child: Scaffold(
-        appBar: AppBar(
-          title: const Text("Historitahunan"),
-          actions: const [],
-        ),
-        body: Container(
-          color: Colors.white,
-          child: SingleChildScrollView(
-            child: Column(
-              children: <Widget>[
-                Container(
-                  height: screenHeight * 0.18,
-                  padding: EdgeInsets.symmetric(vertical: 10.0),
-                  color: Colors.white,
-                  child: ListView.builder(
-                    padding: EdgeInsets.zero,
-                    physics: AlwaysScrollableScrollPhysics(),
-                    itemCount: 1,
-                    itemBuilder: (context, index) {
-                      return Column(
-                        children: [
-                          Container(
-                            margin: EdgeInsets.symmetric(
-                                horizontal: 15.0, vertical: 5.0),
+    if (controller.loading) return LoadingScaffold();
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Historitahunan"),
+        actions: const [],
+      ),
+      body: Container(
+        padding: const EdgeInsets.all(20.0),
+        color: Colors.grey[200],
+        child: ListView.builder(
+          padding: EdgeInsets.zero,
+          physics: AlwaysScrollableScrollPhysics(),
+          itemCount: controller.items.length,
+          itemBuilder: (context, index) {
+            var item = controller.items[index];
+
+            return Card(
+              child: Container(
+                padding: const EdgeInsets.all(12.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                      child: H5(title: item["year"].toString()),
+                    ),
+                    Divider(),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Expanded(
+                          child: VerticalRowItem(
+                            label: "Equity",
+                            value:
+                                double.parse(item["equity"].toString()).number,
                           ),
-                          Card(
-                            color: Colors.white,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(15),
-                            ),
-                            child: InkWell(
-                              splashColor: Colors.blue.withAlpha(30),
-                              child: Padding(
-                                padding: const EdgeInsets.all(15.0),
-                                child: Column(
-                                  children: [
-                                    const SizedBox(
-                                      height: 20.0,
-                                    ),
-                                    Column(
-                                      children: [
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceAround,
-                                          children: [
-                                            Column(
-                                              children: [
-                                                Text(
-                                                  'Equity',
-                                                  style: TextStyle(
-                                                    fontWeight: FontWeight.w600,
-                                                    fontSize: 14,
-                                                  ),
-                                                ),
-                                                SizedBox(
-                                                  height: 3,
-                                                ),
-                                                // Text(
-                                                //     "${controller.floatingReturn}")
-                                              ],
-                                            ),
-                                            Column(
-                                              children: [
-                                                Text(
-                                                  "Harga/Unit",
-                                                  style: TextStyle(
-                                                    fontWeight: FontWeight.w600,
-                                                    fontSize: 14,
-                                                  ),
-                                                ),
-                                                SizedBox(
-                                                  height: 3,
-                                                ),
-                                                // Text("${controller.portoYield}")
-                                              ],
-                                            ),
-                                            Column(
-                                              children: [
-                                                Text(
-                                                  "Jumlah/Unit",
-                                                  style: TextStyle(
-                                                    fontWeight: FontWeight.w600,
-                                                    fontSize: 14,
-                                                  ),
-                                                ),
-                                                SizedBox(
-                                                  height: 3,
-                                                ),
-                                                // Text("${controller.ihsg}"),
-                                              ],
-                                            ),
-                                          ],
-                                        ),
-                                        SizedBox(height: 15),
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceAround,
-                                          children: [
-                                            Column(
-                                              children: [
-                                                Text(
-                                                  'floating return',
-                                                  style: TextStyle(
-                                                    fontWeight: FontWeight.w600,
-                                                    fontSize: 14,
-                                                  ),
-                                                ),
-                                                SizedBox(
-                                                  height: 3,
-                                                ),
-                                                // Text(
-                                                //     "${controller.floatingReturn}"
-                                                //     ),
-                                              ],
-                                            ),
-                                            Column(
-                                              children: [
-                                                Text(
-                                                  "Yield",
-                                                  style: TextStyle(
-                                                    fontWeight: FontWeight.w600,
-                                                    fontSize: 14,
-                                                  ),
-                                                ),
-                                                SizedBox(
-                                                  height: 3,
-                                                ),
-                                                // Text("${controller.portoYield}")
-                                              ],
-                                            ),
-                                            Column(
-                                              children: [
-                                                Text(
-                                                  "IHSG",
-                                                  style: TextStyle(
-                                                    fontWeight: FontWeight.w600,
-                                                    fontSize: 14,
-                                                  ),
-                                                ),
-                                                SizedBox(
-                                                  height: 3,
-                                                ),
-                                                // Text("${controller.ihsg}"),
-                                              ],
-                                            ),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
+                        ),
+                        Expanded(
+                          child: VerticalRowItem(
+                            label: "Harga/unit",
+                            value:
+                                double.parse(item["harga_per_unit"].toString())
+                                    .number,
                           ),
-                        ],
-                      );
-                    },
-                  ),
+                        ),
+                        Expanded(
+                          child: VerticalRowItem(
+                            label: "Jumlah/unit",
+                            value:
+                                double.parse(item["jumlah_per_unit"].toString())
+                                    .number,
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 12.0,
+                    ),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Expanded(
+                          child: VerticalRowItem(
+                            label: "Floating return",
+                            value:
+                                double.parse(item["floating_return"].toString())
+                                    .number,
+                          ),
+                        ),
+                        Expanded(
+                          child: VerticalRowItem(
+                            label: "Yield",
+                            value: item["yield"],
+                          ),
+                        ),
+                        Expanded(
+                          child: VerticalRowItem(
+                            label: "IHSG",
+                            value: item["ihsg"],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
-              ],
-            ),
-          ),
+              ),
+            );
+          },
         ),
       ),
     );
@@ -181,4 +102,40 @@ class HistoriTahunanView extends StatefulWidget {
 
   @override
   State<HistoriTahunanView> createState() => HistoriTahunanController();
+}
+
+class VerticalRowItem extends StatelessWidget {
+  final String label;
+  final dynamic value;
+  const VerticalRowItem({
+    super.key,
+    required this.label,
+    required this.value,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Text(
+          "$label",
+          style: TextStyle(
+            fontSize: 14.0,
+            fontWeight: FontWeight.bold,
+            color: Colors.grey[800],
+          ),
+        ),
+        const SizedBox(
+          height: 4.0,
+        ),
+        Text(
+          "$value",
+          style: TextStyle(
+            fontSize: 16.0,
+            color: Colors.grey[600],
+          ),
+        ),
+      ],
+    );
+  }
 }

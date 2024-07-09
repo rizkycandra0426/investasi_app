@@ -77,27 +77,30 @@ class DividenView extends StatefulWidget {
                       Expanded(
                         child: Text(
                           "${item["emiten"]}",
-                          style: TextStyle(fontSize: 16, color: Colors.black),
+                          style: TextStyle(
+                              fontSize: 12,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black),
                         ),
                       ),
                       Expanded(
                         child: Text(
-                          "${item[""]}",
-                          style: TextStyle(fontSize: 16, color: Colors.black),
+                          "${DateTime.parse(item["tanggal"]).dMMMy}",
+                          style: TextStyle(fontSize: 12, color: Colors.black),
                         ),
                       ),
                       Expanded(
                         child: Text(
                           "${item["dividen"]}",
                           textAlign: TextAlign.right,
-                          style: TextStyle(fontSize: 16, color: Colors.black),
+                          style: TextStyle(fontSize: 12, color: Colors.black),
                         ),
                       ),
                       Expanded(
                         child: Text(
-                          "${item[""]}",
+                          "${item["dividen_yield"]}",
                           textAlign: TextAlign.right,
-                          style: TextStyle(fontSize: 16, color: Colors.black),
+                          style: TextStyle(fontSize: 12, color: Colors.black),
                         ),
                       ),
                     ],

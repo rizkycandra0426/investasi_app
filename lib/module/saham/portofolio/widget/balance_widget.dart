@@ -60,6 +60,21 @@ class _BalanceWidgetState extends State<BalanceWidget> {
               ),
             ),
           ),
+          Spacer(),
+          InkWell(
+            onTap: () async {
+              await Get.to(HistoriDanaView());
+              loadData();
+            },
+            child: CircleAvatar(
+              backgroundColor: Colors.black,
+              radius: 12.0,
+              child: Icon(
+                Icons.history,
+                color: Colors.white,
+              ),
+            ),
+          ),
         ],
       ],
     );

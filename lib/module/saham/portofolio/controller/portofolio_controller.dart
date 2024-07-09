@@ -19,6 +19,7 @@ class PortofolioController extends State<PortofolioView> {
   String ihsg = "";
   String portoYield = "";
   bool loading = true;
+  Map porto = {};
   getData() async {
     loading = true;
     setState(() {});
@@ -29,6 +30,7 @@ class PortofolioController extends State<PortofolioView> {
     var response2 = await PortoService().get();
     results = response2["result"];
     portoYield = response2["porto"]["yield"];
+    porto = response2["porto"];
     print("---");
 
     loading = false;
