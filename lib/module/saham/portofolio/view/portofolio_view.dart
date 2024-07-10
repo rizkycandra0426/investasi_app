@@ -96,8 +96,7 @@ class PortofolioView extends StatefulWidget {
                                                 SizedBox(
                                                   height: 3,
                                                 ),
-                                                Text(
-                                                    "${controller.floatingReturn}")
+                                                // Text("${controller.equity}")
                                               ],
                                             ),
                                             Column(
@@ -128,7 +127,8 @@ class PortofolioView extends StatefulWidget {
                                                 SizedBox(
                                                   height: 3,
                                                 ),
-                                                Text("${controller.ihsg}"),
+                                                Text(
+                                                    "${controller.porto["jumlah_unit_penyertaan"]}"),
                                               ],
                                             ),
                                           ],

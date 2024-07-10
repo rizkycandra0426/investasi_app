@@ -8,11 +8,13 @@ class PortofolioController extends State<PortofolioView> {
   static late PortofolioController instance;
   late PortofolioView view;
 
+  get equity => null;
+
   @override
   void initState() {
     instance = this;
     super.initState();
-    getData();
+    getData;
   }
 
   List results = [];
@@ -20,22 +22,40 @@ class PortofolioController extends State<PortofolioView> {
   String portoYield = "";
   bool loading = true;
   Map porto = {};
-  getData() async {
-    loading = true;
-    setState(() {});
-
-    var response1 = await IhsgService().get();
+  List items = [];
+  getData(int year) async {
+    //TODO: IHSG by YEAR?
+    var response1 = await IhsgService().get(param: {
+      "year": year,
+    });
     ihsg = response1["data"]["ihsg"];
 
-    var response2 = await PortoService().get();
+    var response2 = await PortoService().get(param: {
+      "year": year,
+    });
     results = response2["result"];
     portoYield = response2["porto"]["yield"];
     porto = response2["porto"];
     print("---");
 
-    loading = false;
-    setState(() {});
-    ProfileController.instance.refresh();
+    //----------------------
+    var equity = 0.0;
+    var floatingReturn = 0.0;
+    for (var item in results) {
+      equity += item["equity"];
+      floatingReturn += item["return"];
+    }
+    //----------------------
+
+    items.add({
+      "year": year,
+      "equity": equity,
+      "harga_per_unit": porto["harga_unit"],
+      "jumlah_per_unit": porto["jumlah_unit_penyertaan"],
+      "floating_return": floatingReturn,
+      "yield": portoYield,
+      "ihsg": ihsg,
+    });
   }
 
   double get floatingReturn {

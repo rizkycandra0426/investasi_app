@@ -76,8 +76,7 @@ class BulananDetail extends StatelessWidget {
                 ),
               ),
               ListView.builder(
-                itemCount: controller.jangkaWaktuDalamTahun *
-                    12, // Jumlah bulan dalam periode jangka waktu
+                itemCount: controller.jangkaWaktuDalamTahun * 12,
                 shrinkWrap: true,
                 physics: const ScrollPhysics(),
                 itemBuilder: (BuildContext context, int index) {
@@ -93,15 +92,12 @@ class BulananDetail extends StatelessWidget {
                         (1 + bungaPerBulan);
                   }
 
-                  // Menghitung total dana investasi yang telah diinvestasikan hingga bulan saat ini
-                  double totalInvestasiAwal = danaInvestasiAwal * (index + 1);
-
                   return Container(
                     padding: const EdgeInsets.all(6.0),
                     color: index % 2 == 0 ? Colors.grey[300] : Colors.grey[200],
                     child: IndexedValueItem(
                       number: index + 1,
-                      label: " ${totalInvestasiAwal.currency}",
+                      label: "${danaInvestasiAwal.currency}",
                       value: "${totalDanaAkhir.currency}",
                     ),
                   );
