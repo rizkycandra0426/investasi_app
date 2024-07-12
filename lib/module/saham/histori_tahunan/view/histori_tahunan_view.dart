@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hyper_ui/core.dart';
+import 'package:hyper_ui/service/histori_tahunan_service.dart';
 import '../controller/histori_tahunan_controller.dart';
 
 class HistoriTahunanView extends StatefulWidget {
@@ -22,6 +23,27 @@ class HistoriTahunanView extends StatefulWidget {
           itemCount: controller.items.length,
           itemBuilder: (context, index) {
             var item = controller.items[index];
+
+            if (item["year"] > now.year) {
+              item["equity"] = 0;
+              item["harga_per_unit"] = 0;
+              item["jumlah_per_unit"] = 0;
+              item["floating_return"] = 0;
+              item["yield"] = 0;
+              item["ihsg"] = 0;
+            } else if (item["year"] == now.year) {
+              HistoriTahunanService().create({
+                "year": item["year"],
+                "equity": item["equity"],
+                "harga_per_unit": item["harga_per_unit"],
+                "jumlah_per_unit": item["jumlah_per_unit"],
+                "floating_return": item["floating_return"],
+                "yield": item["yield"],
+                "ihsg": item["ihsg"],
+              });
+            }
+
+            //panggil api utk simpen data IHSG
 
             return Card(
               child: Container(
