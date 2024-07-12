@@ -46,11 +46,13 @@ class BulananDetail extends StatelessWidget {
                     12 *
                     controller.jangkaWaktuDalamTahun;
                 var profit = totalDana * controller.persentaseBunga / 100;
-                var nilaiInvestasi = totalDana + profit;
+                var totalNilai = totalDana + profit;
+
+                var nilaiInvestasi = totalNilai - totalDana;
 
                 return ValueItem(
                   label: "Nilai Investasi",
-                  value: "${(nilaiInvestasi - totalDana).currency}",
+                  value: "${(nilaiInvestasi).currency}",
                 );
               }),
               Builder(builder: (context) {
@@ -58,11 +60,11 @@ class BulananDetail extends StatelessWidget {
                     12 *
                     controller.jangkaWaktuDalamTahun;
                 var profit = totalDana * controller.persentaseBunga / 100;
-                var nilaiInvestasi = totalDana + profit;
+                var totalNilai = totalDana + profit;
 
                 return ValueItem(
                   label: "Total nilai",
-                  value: "${(nilaiInvestasi).currency}",
+                  value: "${(totalNilai).currency}",
                 );
               }),
               Divider(),

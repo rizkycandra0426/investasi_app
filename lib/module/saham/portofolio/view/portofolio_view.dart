@@ -96,7 +96,8 @@ class PortofolioView extends StatefulWidget {
                                                 SizedBox(
                                                   height: 3,
                                                 ),
-                                                // Text("${controller.equity}")
+                                                Text(
+                                                    "${controller.totalEquity}")
                                               ],
                                             ),
                                             Column(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:hyper_ui/core.dart';
 import 'package:hyper_ui/model/transaction_by_month_and_year_response.dart';
 import 'package:hyper_ui/module/transaksi_keuangan/widget/transaksi_clipath.dart';
@@ -26,7 +27,9 @@ class TransaksiKeuanganView extends StatefulWidget {
         elevation: 0.0,
         backgroundColor: Colors.blue,
         centerTitle: true,
-        leading: BackButton(),
+        leading: BackButton(
+          onPressed: () => Get.offAll(MainNavigationView()),
+        ),
         title: Text(
           "Catat Transaksi",
           style: TextStyle(
@@ -62,6 +65,22 @@ class TransaksiKeuanganView extends StatefulWidget {
                     onChanged: (value) {
                       controller.amount = double.tryParse(value) ?? 0;
                     },
+                    inputFormatters: [
+                      FilteringTextInputFormatter.digitsOnly,
+                      TextInputFormatter.withFunction((oldValue, newValue) {
+                        final numericValue = double.tryParse(newValue.text);
+                        if (numericValue != null) {
+                          final formatter = NumberFormat('#,##0', 'en_US');
+                          final newString = formatter.format(numericValue);
+                          return TextEditingValue(
+                            text: newString,
+                            selection: TextSelection.collapsed(
+                                offset: newString.length),
+                          );
+                        }
+                        return newValue;
+                      }),
+                    ],
                   ),
                 ),
               ),

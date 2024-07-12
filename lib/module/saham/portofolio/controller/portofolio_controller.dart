@@ -14,16 +14,18 @@ class PortofolioController extends State<PortofolioView> {
   void initState() {
     instance = this;
     super.initState();
-    getData;
+    getData(now.year);
   }
 
   List results = [];
   String ihsg = "";
   String portoYield = "";
+  double totalEquity = 0;
   bool loading = true;
   Map porto = {};
   List items = [];
   getData(int year) async {
+    print("get IHSG?");
     //TODO: IHSG by YEAR?
     var response1 = await IhsgService().get(param: {
       "year": year,
@@ -43,6 +45,7 @@ class PortofolioController extends State<PortofolioView> {
     var floatingReturn = 0.0;
     for (var item in results) {
       equity += item["equity"];
+      totalEquity += item["equity"];
       floatingReturn += item["return"];
     }
     //----------------------
@@ -56,6 +59,7 @@ class PortofolioController extends State<PortofolioView> {
       "yield": portoYield,
       "ihsg": ihsg,
     });
+    setState(() {});
   }
 
   double get floatingReturn {
