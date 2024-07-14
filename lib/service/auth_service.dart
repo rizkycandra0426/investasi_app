@@ -49,6 +49,29 @@ class AuthService extends BaseService {
     }
   }
 
+  Future checkLogin({
+    required String email,
+    required String password,
+  }) async {
+    try {
+      await dio.post(
+        "$baseUrl/login",
+        options: Options(
+          headers: {
+            "Content-Type": "application/json",
+          },
+        ),
+        data: {
+          "email": email,
+          "password": password,
+        },
+      );
+    } on Exception catch (err) {
+      print(err);
+      throw Exception("Failed");
+    }
+  }
+
   Future<bool> register({
     required String name,
     required String email,

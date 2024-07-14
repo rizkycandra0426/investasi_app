@@ -42,7 +42,13 @@ class BeritaController extends State<BeritaView> {
   }
 
   logout() async {
-    AuthService().logout();
-    Get.offAll(LoginView());
+    showLoading();
+    try {
+      AuthService().logout();
+      Get.offAll(LoginView());
+    } on Exception catch (err) {
+      print(err);
+    }
+    hideLoading();
   }
 }
