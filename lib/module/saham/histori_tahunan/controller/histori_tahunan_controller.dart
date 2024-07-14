@@ -32,9 +32,11 @@ class HistoriTahunanController extends State<HistoriTahunanView> {
     loading = true;
     setState(() {});
 
-    for (var i = 2024; i <= 2027; i++) {
+    for (var i = 2024; i <= now.year; i++) {
       await getData(i);
     }
+
+    items = items.reversed.toList();
 
     loading = false;
     setState(() {});

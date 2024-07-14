@@ -17,107 +17,109 @@ class HistoriTahunanView extends StatefulWidget {
       body: Container(
         padding: const EdgeInsets.all(20.0),
         color: Colors.grey[200],
-        child: ListView.builder(
-          padding: EdgeInsets.zero,
-          physics: AlwaysScrollableScrollPhysics(),
-          itemCount: controller.items.length,
-          itemBuilder: (context, index) {
-            var item = controller.items[index];
+        child: Builder(builder: (context) {
+          return ListView.builder(
+            padding: EdgeInsets.zero,
+            physics: AlwaysScrollableScrollPhysics(),
+            itemCount: controller.items.length,
+            itemBuilder: (context, index) {
+              var item = controller.items[index];
 
-            if (item["year"] > now.year) {
-              item["equity"] = 0;
-              item["harga_per_unit"] = 0;
-              item["jumlah_per_unit"] = 0;
-              item["floating_return"] = 0;
-              item["yield"] = 0;
-              item["ihsg"] = 0;
-            } else if (item["year"] == now.year) {
-              HistoriTahunanService().create({
-                "year": item["year"],
-                "equity": item["equity"],
-                "harga_per_unit": item["harga_per_unit"],
-                "jumlah_per_unit": item["jumlah_per_unit"],
-                "floating_return": item["floating_return"],
-                "yield": item["yield"],
-                "ihsg": item["ihsg"],
-              });
-            }
+              if (item["year"] > now.year) {
+                item["equity"] = 0;
+                item["harga_per_unit"] = 0;
+                item["jumlah_per_unit"] = 0;
+                item["floating_return"] = 0;
+                item["yield"] = 0;
+                item["ihsg"] = 0;
+              } else if (item["year"] == now.year) {
+                HistoriTahunanService().create({
+                  "year": item["year"],
+                  "equity": item["equity"],
+                  "harga_per_unit": item["harga_per_unit"],
+                  "jumlah_per_unit": item["jumlah_per_unit"],
+                  "floating_return": item["floating_return"],
+                  "yield": item["yield"],
+                  "ihsg": item["ihsg"],
+                });
+              }
 
-            //panggil api utk simpen data IHSG
+              //panggil api utk simpen data IHSG
 
-            return Card(
-              child: Container(
-                padding: const EdgeInsets.all(12.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                      child: H5(title: item["year"].toString()),
-                    ),
-                    Divider(),
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Expanded(
-                          child: VerticalRowItem(
-                            label: "Equity",
-                            value:
-                                double.parse(item["equity"].toString()).number,
+              return Card(
+                child: Container(
+                  padding: const EdgeInsets.all(12.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                        child: H5(title: item["year"].toString()),
+                      ),
+                      Divider(),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Expanded(
+                            child: VerticalRowItem(
+                              label: "Equity",
+                              value: double.parse(item["equity"].toString())
+                                  .number,
+                            ),
                           ),
-                        ),
-                        Expanded(
-                          child: VerticalRowItem(
-                            label: "Harga/unit",
-                            value:
-                                double.parse(item["harga_per_unit"].toString())
-                                    .number,
+                          Expanded(
+                            child: VerticalRowItem(
+                              label: "Harga/unit",
+                              value: double.parse(
+                                      item["harga_per_unit"].toString())
+                                  .number,
+                            ),
                           ),
-                        ),
-                        Expanded(
-                          child: VerticalRowItem(
-                            label: "Jumlah/unit",
-                            value:
-                                double.parse(item["jumlah_per_unit"].toString())
-                                    .number,
+                          Expanded(
+                            child: VerticalRowItem(
+                              label: "Jumlah/unit",
+                              value: double.parse(
+                                      item["jumlah_per_unit"].toString())
+                                  .number,
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 12.0,
-                    ),
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Expanded(
-                          child: VerticalRowItem(
-                            label: "Floating return",
-                            value:
-                                double.parse(item["floating_return"].toString())
-                                    .number,
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 12.0,
+                      ),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Expanded(
+                            child: VerticalRowItem(
+                              label: "Floating return",
+                              value: double.parse(
+                                      item["floating_return"].toString())
+                                  .number,
+                            ),
                           ),
-                        ),
-                        Expanded(
-                          child: VerticalRowItem(
-                            label: "Yield",
-                            value: item["yield"],
+                          Expanded(
+                            child: VerticalRowItem(
+                              label: "Yield",
+                              value: item["yield"],
+                            ),
                           ),
-                        ),
-                        Expanded(
-                          child: VerticalRowItem(
-                            label: "IHSG",
-                            value: item["ihsg"],
+                          Expanded(
+                            child: VerticalRowItem(
+                              label: "IHSG",
+                              value: item["ihsg"],
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
-                  ],
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-            );
-          },
-        ),
+              );
+            },
+          );
+        }),
       ),
     );
   }
