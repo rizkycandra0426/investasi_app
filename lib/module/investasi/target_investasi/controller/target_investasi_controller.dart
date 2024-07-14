@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:hyper_ui/core.dart';
 import '../view/target_investasi_view.dart';
@@ -15,7 +17,7 @@ class TargetInvestasiController extends State<TargetInvestasiView> {
   }
 
   @override
-  void dispose() => super.dispose();
+  void dispose() {}
 
   @override
   Widget build(BuildContext context) => widget.build(context, this);

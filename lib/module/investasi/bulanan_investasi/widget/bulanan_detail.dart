@@ -10,9 +10,21 @@ class BulananDetail extends StatelessWidget {
   Widget build(BuildContext context) {
     var controller = BulananInvestasiController.instance;
 
+    var totalDana =
+        controller.investasiAwal * 12 * controller.jangkaWaktuDalamTahun;
+    double totalNilai = 0; // Dana akhir yang akan dikumpulkan
+    double danaInvestasiAwal = controller.investasiAwal; // Dana bulanan
+    double bungaPerBulan =
+        controller.persentaseBunga / 100 / 12; // Bunga per bulan
+
+    // Menghitung nilai investasi dari awal hingga bulan saat ini
+    for (int i = 0; i <= ((controller.jangkaWaktuDalamTahun * 12) - 1); i++) {
+      totalNilai = (totalNilai + danaInvestasiAwal) * (1 + bungaPerBulan);
+    }
+
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Detail Investasi"),
+        title: const Text("Detail Investasi (Bulanan)"),
         actions: const [],
       ),
       body: SingleChildScrollView(
@@ -33,35 +45,18 @@ class BulananDetail extends StatelessWidget {
                 value: "${controller.persentaseBunga.percentage}",
               ),
               Builder(builder: (context) {
-                var totalDana = controller.investasiAwal *
-                    12 *
-                    controller.jangkaWaktuDalamTahun;
                 return ValueItem(
                   label: "Total Dana",
                   value: "${totalDana.currency}",
                 );
               }),
               Builder(builder: (context) {
-                var totalDana = controller.investasiAwal *
-                    12 *
-                    controller.jangkaWaktuDalamTahun;
-                var profit = totalDana * controller.persentaseBunga / 100;
-                var totalNilai = totalDana + profit;
-
-                var nilaiInvestasi = totalNilai - totalDana;
-
                 return ValueItem(
                   label: "Nilai Investasi",
-                  value: "${(nilaiInvestasi).currency}",
+                  value: "${(totalNilai - totalDana).currency}",
                 );
               }),
               Builder(builder: (context) {
-                var totalDana = controller.investasiAwal *
-                    12 *
-                    controller.jangkaWaktuDalamTahun;
-                var profit = totalDana * controller.persentaseBunga / 100;
-                var totalNilai = totalDana + profit;
-
                 return ValueItem(
                   label: "Total nilai",
                   value: "${(totalNilai).currency}",

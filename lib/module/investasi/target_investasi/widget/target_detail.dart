@@ -10,9 +10,23 @@ class TargetDetail extends StatelessWidget {
   Widget build(BuildContext context) {
     var controller = TargetInvestasiController.instance;
 
+    var targetDana = controller.investasiAwal;
+    var persentase = controller.persentaseBunga;
+    int months = controller.jangkaWaktuDalamTahun * 12;
+    double monthlyInterestRate = persentase / 100 / months;
+
+    // Menghitung kontribusi bulanan menggunakan rumus anuitas secara iteratif
+    double totalMultiplier = 1.0;
+    for (int i = 0; i < months; i++) {
+      totalMultiplier *= (1 + monthlyInterestRate);
+    }
+
+    double monthlyContribution =
+        (targetDana * monthlyInterestRate) / (1 - 1 / totalMultiplier);
+
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Detail Investasi"),
+        title: const Text("Detail Investasi (target)"),
         actions: const [],
       ),
       body: SingleChildScrollView(
@@ -30,36 +44,13 @@ class TargetDetail extends StatelessWidget {
               ),
               ValueItem(
                 label: "Persentase Bunga",
-                value: "${controller.persentaseBunga.percentage}",
+                value: "${controller.persentaseBunga}%",
               ),
               Builder(builder: (context) {
-                var targetValue = controller.investasiAwal;
-                var persentase = controller.persentaseBunga;
-                var years = controller.jangkaWaktuDalamTahun;
-
-                // Menghitung tingkat bunga bulanan
-                double monthlyInterestRate = persentase / 100 / 12;
-                int months = years * 12;
-
-                // Menghitung kontribusi bulanan menggunakan rumus anuitas secara iteratif
-                double totalMultiplier = 1.0;
-                for (int i = 0; i < months; i++) {
-                  totalMultiplier *= (1 + monthlyInterestRate);
-                }
-
-                double monthlyContribution =
-                    (targetValue * monthlyInterestRate) /
-                        (1 - 1 / totalMultiplier);
-
-                controller.hasil = monthlyContribution;
-
-                // Total Dana per bulan dengan bunga sudah termasuk dalam monthlyContribution
-                double totalDanaPerBulan = monthlyContribution;
-
                 return ValueItem(
                   label: "Total Dana per Bulan",
                   value:
-                      "${totalDanaPerBulan.currency}", // Format dengan dua desimal
+                      "${monthlyContribution.currency}", // Format dengan dua desimal
                 );
               }),
               Divider(),
@@ -78,32 +69,13 @@ class TargetDetail extends StatelessWidget {
                 shrinkWrap: true,
                 physics: const ScrollPhysics(),
                 itemBuilder: (BuildContext context, int index) {
-                  // Nilai tetap untuk dana per bulan
-                  double monthlyContribution = controller.hasil;
-
-                  // Menghitung nilai investasi bulanan secara iteratif
-                  double monthlyInterestRate =
-                      controller.persentaseBunga / 100 / 12;
-                  double nilaiInvestasi = 0.0;
-                  double currentAmount = 0.0;
-
-                  for (int i = 0; i <= index; i++) {
-                    currentAmount += monthlyContribution;
-                    currentAmount += currentAmount * monthlyInterestRate;
-                  }
-                  nilaiInvestasi = currentAmount;
-
-                  // Menggunakan NumberFormat untuk format mata uang
-                  final formatCurrency =
-                      NumberFormat.currency(locale: 'id_ID', symbol: 'Rp');
-
                   return Container(
                     padding: const EdgeInsets.all(6.0),
                     color: index % 2 == 0 ? Colors.grey[300] : Colors.grey[200],
                     child: IndexedValueItem(
                       number: index + 1,
-                      label: formatCurrency.format(monthlyContribution),
-                      value: formatCurrency.format(nilaiInvestasi),
+                      label: monthlyContribution.currency,
+                      value: (monthlyContribution * (index + 1)).currency,
                     ),
                   );
                 },
