@@ -21,6 +21,7 @@ class TransaksiKeuanganView extends StatefulWidget {
         ),
       );
     }
+
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
@@ -49,7 +50,7 @@ class TransaksiKeuanganView extends StatefulWidget {
                 child: Container(
                   margin: EdgeInsets.only(top: 225, left: 10, right: 10),
                   child: TextFormField(
-                    initialValue: item?.jumlah?.toString(),
+                    controller: controller.textEditingController,
                     showCursor: true,
                     cursorColor: Colors.transparent,
                     textAlign: TextAlign.center,
@@ -65,22 +66,10 @@ class TransaksiKeuanganView extends StatefulWidget {
                     onChanged: (value) {
                       controller.amount = double.tryParse(value) ?? 0;
                     },
-                    inputFormatters: [
-                      FilteringTextInputFormatter.digitsOnly,
-                      TextInputFormatter.withFunction((oldValue, newValue) {
-                        final numericValue = double.tryParse(newValue.text);
-                        if (numericValue != null) {
-                          final formatter = NumberFormat('#,##0', 'en_US');
-                          final newString = formatter.format(numericValue);
-                          return TextEditingValue(
-                            text: newString,
-                            selection: TextSelection.collapsed(
-                                offset: newString.length),
-                          );
-                        }
-                        return newValue;
-                      }),
-                    ],
+                    onFieldSubmitted: (value) {
+                      controller.textEditingController.text =
+                          controller.amount.number;
+                    },
                   ),
                 ),
               ),

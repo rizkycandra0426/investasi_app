@@ -165,4 +165,6 @@ class TransaksiKeuanganController extends State<TransaksiKeuanganView> {
     hideLoading();
     Get.offAll(MainNavigationView());
   }
+
+  TextEditingController textEditingController = TextEditingController();
 }

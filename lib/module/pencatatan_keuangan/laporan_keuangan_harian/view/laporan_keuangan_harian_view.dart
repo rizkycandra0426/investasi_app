@@ -27,192 +27,201 @@ class LaporanKeuanganHarianView extends StatefulWidget {
       body: Column(
         children: [
           Expanded(
-            child: ListView.builder(
-              itemCount: items.length,
-              physics: ScrollPhysics(),
-              itemBuilder: (BuildContext context, int index) {
-                var item = items[index];
+            child: Builder(builder: (context) {
+              items.sort((a, b) => b.tanggal!.compareTo(a.tanggal!));
+              return ListView.builder(
+                itemCount: items.length,
+                physics: ScrollPhysics(),
+                itemBuilder: (BuildContext context, int index) {
+                  var item = items[index];
 
-                if (date != null) {
-                  var filterDate = DateFormat("d MMM y").format(date!);
-                  var currentDate = DateFormat("d MMM y")
-                      .format(DateTime.parse(item.createdAt!));
+                  if (date != null) {
+                    var filterDate = DateFormat("d MMM y").format(date!);
+                    var currentDate =
+                        DateFormat("d MMM y").format(item.tanggal!);
 
-                  if (filterDate != currentDate) {
-                    return Container();
+                    if (filterDate != currentDate) {
+                      return Container();
+                    }
                   }
-                }
 
-                var day =
-                    DateFormat("d").format(DateTime.parse(item.createdAt!));
-                var dayName =
-                    DateFormat("EEEE").format(DateTime.parse(item.createdAt!));
-                var monthName =
-                    DateFormat("MMMM").format(DateTime.parse(item.createdAt!));
+                  var day = DateFormat("d").format(item.tanggal!);
+                  var dayName = DateFormat("EEEE").format(item.tanggal!);
+                  var monthName = DateFormat("MMMM").format(item.tanggal!);
 
-                bool visible = false;
-                bool dividerVisible = false;
+                  bool visible = false;
+                  bool dividerVisible = false;
 
-                if (index == 0) {
-                  visible = true;
-                }
-
-                if (index > 0) {
-                  var beforeItem = items[index - 1];
-                  var dateBefore = DateFormat("d MMM y")
-                      .format(DateTime.parse(beforeItem.createdAt!));
-                  var currentDate = DateFormat("d MMM y")
-                      .format(DateTime.parse(item.createdAt!));
-
-                  if (dateBefore != currentDate) {
+                  if (index == 0) {
                     visible = true;
                   }
-                }
 
-                if (index < items.length - 1) {
-                  var afterItem = items[index + 1];
-                  var dateBefore = DateFormat("d MMM y")
-                      .format(DateTime.parse(item.createdAt!));
-                  var currentDate = DateFormat("d MMM y")
-                      .format(DateTime.parse(item.createdAt!));
+                  if (index > 0) {
+                    var beforeItem = items[index - 1];
+                    var dateBefore =
+                        DateFormat("d MMM y").format(item.tanggal!);
+                    var currentDate =
+                        DateFormat("d MMM y").format(item.tanggal!);
 
-                  if (dateBefore != currentDate) {
-                    dividerVisible = true;
+                    if (dateBefore != currentDate) {
+                      visible = true;
+                    }
                   }
-                }
 
-                var amount = "Rp " + NumberFormat().format(item.jumlah);
-                bool isPemasukan = item.type == "Pemasukan";
-                bool isPengeluaran = item.type == "Pengeluaran";
+                  if (index < items.length - 1) {
+                    var afterItem = items[index + 1];
+                    var dateBefore =
+                        DateFormat("d MMM y").format(item.tanggal!);
+                    var currentDate =
+                        DateFormat("d MMM y").format(item.tanggal!);
 
-                return InkWell(
-                  onTap: () {
-                    Get.offAll(TransaksiKeuanganView(
-                      item: item,
-                    ));
-                  },
-                  child: Column(
-                    children: [
-                      if (visible && index > 0)
-                        Container(
-                          height: 12,
-                          decoration: BoxDecoration(
-                            color: Colors.grey[100],
+                    if (dateBefore != currentDate) {
+                      dividerVisible = true;
+                    }
+                  }
+
+                  visible = true;
+                  if (index > 0) {
+                    if (items[index - 1]
+                        .tanggal!
+                        .isSame(items[index].tanggal!)) {
+                      visible = false;
+                    }
+                  }
+
+                  var amount = "Rp " + NumberFormat().format(item.jumlah);
+                  bool isPemasukan = item.type == "Pemasukan";
+                  bool isPengeluaran = item.type == "Pengeluaran";
+
+                  return InkWell(
+                    onTap: () {
+                      Get.offAll(TransaksiKeuanganView(
+                        item: item,
+                      ));
+                    },
+                    child: Column(
+                      children: [
+                        if (visible && index > 0)
+                          Container(
+                            height: 12,
+                            decoration: BoxDecoration(
+                              color: Colors.grey[100],
+                            ),
                           ),
-                        ),
-                      if (visible)
+                        if (visible)
+                          Padding(
+                            padding: EdgeInsets.symmetric(
+                              horizontal: 12.0,
+                              vertical: 4.0,
+                            ),
+                            child: Row(
+                              children: [
+                                Text(
+                                  "$day",
+                                  style: TextStyle(
+                                    fontSize: 18.0,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 4.0,
+                                ),
+                                Container(
+                                  padding: EdgeInsets.all(2.0),
+                                  decoration: BoxDecoration(
+                                    color: dangerColor,
+                                    borderRadius: BorderRadius.all(
+                                      Radius.circular(4.0),
+                                    ),
+                                  ),
+                                  child: Text(
+                                    "$monthName",
+                                    style: TextStyle(
+                                      fontSize: 16.0,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        Divider(),
                         Padding(
                           padding: EdgeInsets.symmetric(
-                            horizontal: 12.0,
+                            horizontal: 20.0,
                             vertical: 4.0,
                           ),
                           child: Row(
                             children: [
-                              Text(
-                                "$day",
-                                style: TextStyle(
-                                  fontSize: 18.0,
-                                  fontWeight: FontWeight.bold,
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      "${item.namaKategori}",
+                                      textAlign: TextAlign.start,
+                                      style: TextStyle(
+                                        fontSize: 16.0,
+                                        fontWeight: FontWeight.bold,
+                                        color: isPengeluaran
+                                            ? dangerColor
+                                            : infoColor,
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: 4.0,
+                                    ),
+                                    Text(
+                                      "${item.catatan}",
+                                      style: TextStyle(
+                                        fontSize: 16.0,
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                              ),
-                              SizedBox(
-                                width: 4.0,
                               ),
                               Container(
-                                padding: EdgeInsets.all(2.0),
-                                decoration: BoxDecoration(
-                                  color: dangerColor,
-                                  borderRadius: BorderRadius.all(
-                                    Radius.circular(4.0),
+                                width: 80.0,
+                                child: Text(
+                                  "${amount}",
+                                  textAlign: TextAlign.right,
+                                  style: TextStyle(
+                                    fontSize: isPemasukan ? 14.0 : 0,
+                                    fontWeight: FontWeight.bold,
+                                    color:
+                                        isPengeluaran ? dangerColor : infoColor,
                                   ),
                                 ),
+                              ),
+                              Container(
+                                width: 80.0,
                                 child: Text(
-                                  "$monthName",
+                                  "${amount}",
+                                  textAlign: TextAlign.right,
                                   style: TextStyle(
-                                    fontSize: 16.0,
-                                    color: Colors.white,
+                                    fontSize: isPengeluaran ? 14.0 : 0,
+                                    fontWeight: FontWeight.bold,
+                                    color:
+                                        isPengeluaran ? dangerColor : infoColor,
                                   ),
                                 ),
                               ),
                             ],
                           ),
                         ),
-                      Divider(),
-                      Padding(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: 20.0,
-                          vertical: 4.0,
-                        ),
-                        child: Row(
-                          children: [
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    "${item.namaKategori}",
-                                    textAlign: TextAlign.start,
-                                    style: TextStyle(
-                                      fontSize: 16.0,
-                                      fontWeight: FontWeight.bold,
-                                      color: isPengeluaran
-                                          ? dangerColor
-                                          : infoColor,
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 4.0,
-                                  ),
-                                  Text(
-                                    "${item.catatan}",
-                                    style: TextStyle(
-                                      fontSize: 16.0,
-                                    ),
-                                  ),
-                                ],
-                              ),
+                        if (dividerVisible)
+                          Container(
+                            height: 10,
+                            decoration: BoxDecoration(
+                              color: Colors.grey[300],
                             ),
-                            Container(
-                              width: 80.0,
-                              child: Text(
-                                "${amount}",
-                                textAlign: TextAlign.right,
-                                style: TextStyle(
-                                  fontSize: isPemasukan ? 14.0 : 0,
-                                  fontWeight: FontWeight.bold,
-                                  color:
-                                      isPengeluaran ? dangerColor : infoColor,
-                                ),
-                              ),
-                            ),
-                            Container(
-                              width: 80.0,
-                              child: Text(
-                                "${amount}",
-                                textAlign: TextAlign.right,
-                                style: TextStyle(
-                                  fontSize: isPengeluaran ? 14.0 : 0,
-                                  fontWeight: FontWeight.bold,
-                                  color:
-                                      isPengeluaran ? dangerColor : infoColor,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      if (dividerVisible)
-                        Container(
-                          height: 10,
-                          decoration: BoxDecoration(
-                            color: Colors.grey[300],
                           ),
-                        ),
-                    ],
-                  ).amx,
-                );
-              },
-            ),
+                      ],
+                    ).amx,
+                  );
+                },
+              );
+            }),
           ),
         ],
       ),
