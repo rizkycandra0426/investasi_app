@@ -30,7 +30,7 @@ class DetailInvestasi extends StatelessWidget {
               ),
               ValueItem(
                 label: "Persentase Bunga",
-                value: "${controller.persentaseBunga.percentage}",
+                value: "${controller.persentaseBunga}%",
               ),
               ValueItem(
                 label: "Total Dana",

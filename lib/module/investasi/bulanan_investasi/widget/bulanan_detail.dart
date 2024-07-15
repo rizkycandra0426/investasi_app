@@ -42,7 +42,7 @@ class BulananDetail extends StatelessWidget {
               ),
               ValueItem(
                 label: "Persentase Bunga",
-                value: "${controller.persentaseBunga.percentage}",
+                value: "${controller.persentaseBunga}%",
               ),
               Builder(builder: (context) {
                 return ValueItem(
