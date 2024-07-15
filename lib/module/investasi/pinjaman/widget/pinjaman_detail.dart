@@ -32,7 +32,7 @@ class PinjamanDetail extends StatelessWidget {
               ),
               ValueItem(
                 label: "Persentase Bunga",
-                value: "${controller.persentaseBunga}%",
+                value: "${controller.persentaseBunga.percentage}",
               ),
               Builder(builder: (context) {
                 controller

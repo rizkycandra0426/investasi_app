@@ -65,22 +65,22 @@ class TransaksiKeuanganView extends StatefulWidget {
                     onChanged: (value) {
                       controller.amount = double.tryParse(value) ?? 0;
                     },
-                    inputFormatters: [
-                      FilteringTextInputFormatter.digitsOnly,
-                      TextInputFormatter.withFunction((oldValue, newValue) {
-                        final numericValue = double.tryParse(newValue.text);
-                        if (numericValue != null) {
-                          final formatter = NumberFormat('#,##0', 'en_US');
-                          final newString = formatter.format(numericValue);
-                          return TextEditingValue(
-                            text: newString,
-                            selection: TextSelection.collapsed(
-                                offset: newString.length),
-                          );
-                        }
-                        return newValue;
-                      }),
-                    ],
+                    // inputFormatters: [
+                    //   FilteringTextInputFormatter.digitsOnly,
+                    //   TextInputFormatter.withFunction((oldValue, newValue) {
+                    //     final numericValue = double.tryParse(newValue.text);
+                    //     if (numericValue != null) {
+                    //       final formatter = NumberFormat('#,##0', 'en_US');
+                    //       final newString = formatter.format(numericValue);
+                    //       return TextEditingValue(
+                    //         text: newString,
+                    //         selection: TextSelection.collapsed(
+                    //             offset: newString.length),
+                    //       );
+                    //     }
+                    //     return newValue;
+                    //   }),
+                    // ],
                   ),
                 ),
               ),
