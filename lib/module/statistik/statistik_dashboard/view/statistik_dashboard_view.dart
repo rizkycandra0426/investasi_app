@@ -71,7 +71,7 @@ class StatistikDashboardView extends StatefulWidget {
                 // ),
                 Expanded(
                   child: Padding(
-                    padding: const EdgeInsets.only(top: 10, right: 5, left: 5),
+                    padding: const EdgeInsets.only(top: 5, right: 5, left: 5),
                     child: Container(
                       child: DefaultTabController(
                         length: 3,

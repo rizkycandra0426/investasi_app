@@ -60,8 +60,8 @@ class TransaksiKeuanganView extends StatefulWidget {
                       border: InputBorder.none,
                       filled: true,
                       fillColor: Colors.transparent,
-                      hintText: 'Rp',
-                      hintStyle: TextStyle(color: Colors.white70, fontSize: 26),
+                      hintText: 'Rp.',
+                      hintStyle: TextStyle(color: Colors.white, fontSize: 26),
                     ),
                     onChanged: (value) {
                       controller.amount = double.tryParse(value) ?? 0;
