@@ -59,7 +59,7 @@ class ProfileView extends StatefulWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    SizedBox(height: 40),
+                    SizedBox(height: 60),
                     CircleAvatar(
                       radius: 50,
                       backgroundImage: AssetImage(
@@ -108,13 +108,13 @@ class ProfileView extends StatefulWidget {
               ),
             ),
             Positioned(
-              top: 290,
+              top: 300,
               left: 0,
               right: 0,
               child: ProfileCard(),
             ),
             Positioned(
-              top: 400,
+              top: 420,
               left: 20,
               child: Text(
                 "Settings",
@@ -127,7 +127,7 @@ class ProfileView extends StatefulWidget {
               ),
             ),
             Positioned(
-              top: 430,
+              top: 450,
               left: 20,
               right: 20,
               child: Column(

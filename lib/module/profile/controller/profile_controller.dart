@@ -58,7 +58,7 @@ class ProfileController extends State<ProfileView> {
               onPressed: () {
                 Navigator.pop(context);
               },
-              child: const Text("Ubah password"),
+              child: const Text("Logout"),
             ),
           ],
         );
