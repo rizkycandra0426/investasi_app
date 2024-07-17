@@ -38,7 +38,6 @@ class ProfileCard extends StatelessWidget {
           ),
         ),
         child: Container(
-          height: 100,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.all(
               Radius.circular(
@@ -47,67 +46,76 @@ class ProfileCard extends StatelessWidget {
             ),
           ),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(
-                height: 15,
-              ),
               Padding(
                 padding:
                     EdgeInsets.only(top: 10, left: 20, right: 20, bottom: 15),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Column(
-                      children: [
-                        Text(
-                          "Keuangan",
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 16,
-                              fontWeight: FontWeight.w700),
-                        ),
-                        SizedBox(height: 10),
-                        Text(
-                          "${NumberFormat().format(dashboardcontroller.balance)}",
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 18,
-                              fontWeight: FontWeight.w700),
-                        ),
-                      ],
+                    Expanded(
+                      child: Column(
+                        children: [
+                          Text(
+                            "Keuangan",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 16,
+                                fontWeight: FontWeight.w700),
+                          ),
+                          SizedBox(height: 10),
+                          Text(
+                            "${dashboardcontroller.balance.currency}",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 16,
+                                fontWeight: FontWeight.w700),
+                          ),
+                          Text(
+                            "",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 16,
+                                fontWeight: FontWeight.w700),
+                          ),
+                        ],
+                      ),
                     ),
-                    Column(
-                      children: [
-                        Text(
-                          "Portofolio",
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 16,
-                              fontWeight: FontWeight.w700),
-                        ),
-                        SizedBox(height: 10),
-                        Row(
-                          children: [
-                            Text(
-                              "${portofoliocontroller.floatingReturn}",
-                              style: TextStyle(
-                                fontSize: 18,
+                    Expanded(
+                      child: Column(
+                        children: [
+                          Text(
+                            "Portofolio",
+                            style: TextStyle(
                                 color: Colors.white,
-                                fontWeight: FontWeight.w700,
+                                fontSize: 16,
+                                fontWeight: FontWeight.w700),
+                          ),
+                          SizedBox(height: 10),
+                          Column(
+                            children: [
+                              Text(
+                                "${portofoliocontroller.floatingReturn.currency}",
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w700,
+                                ),
                               ),
-                            ),
-                            SizedBox(width: 5),
-                            Text(
-                              "(${portofoliocontroller.portoYield})",
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 18,
-                                fontWeight: FontWeight.w700,
+                              Text(
+                                "(${portofoliocontroller.portoYield.percentage})",
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w700,
+                                ),
                               ),
-                            ),
-                          ],
-                        ),
-                      ],
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
                   ],
                 ),
