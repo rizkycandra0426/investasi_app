@@ -5,12 +5,25 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:hyper_ui/core.dart';
 
+import 'pinjaman_indexed_value_item.dart';
+
 class PinjamanDetail extends StatelessWidget {
   const PinjamanDetail({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     var controller = PinjamanController.instance;
+
+    var pinjamanAwal = controller.pinjamanAwal;
+    var jangkaWaktuDalamBulan = controller.jangkaWaktuDalamBulan;
+    var persentaseBunga = controller.persentaseBunga;
+
+    controller
+        .hitungNilaiPinjaman(); // Memanggil fungsi hitungNilaiPinjaman dari controller
+    var totalAngsuranPerBulan = controller.hasil;
+
+    var totalBunga =
+        (totalAngsuranPerBulan * jangkaWaktuDalamBulan) - pinjamanAwal;
 
     return Scaffold(
       appBar: AppBar(
@@ -24,61 +37,35 @@ class PinjamanDetail extends StatelessWidget {
             children: [
               ValueItem(
                 label: "Dana pinjaman",
-                value: "${controller.pinjamanAwal.currency}",
+                value: "${pinjamanAwal.currency}",
               ),
               ValueItem(
                 label: "Jangka Waktu",
-                value: "${controller.jangkaWaktuDalamBulan} bulan",
+                value: "${jangkaWaktuDalamBulan} bulan",
               ),
               ValueItem(
                 label: "Persentase Bunga",
-                value: "${controller.persentaseBunga.percentage}",
+                value: "${persentaseBunga.percentage}",
               ),
               Builder(builder: (context) {
-                controller
-                    .hitungNilaiPinjaman(); // Memanggil fungsi hitungNilaiPinjaman dari controller
-
-                var totalBunga = 0.0;
-                var totalAngsuran = controller
-                    .hasil; // Total angsuran yang dibayarkan selama periode
-
-                double pinjamanAwal = controller.pinjamanAwal;
-                double persentaseBunga = controller.persentaseBunga / 100;
-                int jangkaWaktuDalamBulan = controller.jangkaWaktuDalamBulan;
-
-                for (int i = 0; i < jangkaWaktuDalamBulan; i++) {
-                  // Hitung bunga bulanan
-                  double bungaBulanan = pinjamanAwal * persentaseBunga / 12;
-
-                  // Akumulasikan total bunga
-                  totalBunga += bungaBulanan;
-
-                  // Kurangi pinjaman dengan angsuran bulanan
-                  pinjamanAwal -= totalAngsuran;
-                }
-
                 return ValueItem(
                   label: "Total Bunga",
                   value: "${totalBunga.currency}",
                 );
               }),
               Builder(builder: (context) {
-                controller
-                    .hitungNilaiPinjaman(); // Memanggil fungsi hitungNilaiPinjaman dari controller
-
-                var totalAngsuran = controller.hasil;
-
                 return ValueItem(
                   label: "Total Angsuran /Bulan",
-                  value: "${totalAngsuran.currency}",
+                  value: "${totalAngsuranPerBulan.currency}",
                 );
               }),
               Divider(),
               Container(
                 padding: const EdgeInsets.all(6.0),
                 color: Colors.grey[400],
-                child: IndexedValueItem(
+                child: PinjamanIndexedValueItem(
                   number: "Bulan",
+                  col1: "Angsuran",
                   label: "Total Angsuran",
                   value: "Sisa Pinjaman",
                 ),
@@ -109,8 +96,9 @@ class PinjamanDetail extends StatelessWidget {
                   return Container(
                     padding: const EdgeInsets.all(6.0),
                     color: index % 2 == 0 ? Colors.grey[300] : Colors.grey[200],
-                    child: IndexedValueItem(
+                    child: PinjamanIndexedValueItem(
                       number: index + 1,
+                      col1: totalAngsuranPerBulan.currency,
                       label: formatCurrency.format(totalAngsuran),
                       value: formatCurrency.format(sisaPinjaman),
                     ),
@@ -156,60 +144,6 @@ class ValueItem extends StatelessWidget {
             style: TextStyle(
               fontSize: 14.0,
               fontWeight: FontWeight.bold,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class IndexedValueItem extends StatelessWidget {
-  final dynamic number;
-  final String label;
-  final dynamic value;
-
-  const IndexedValueItem({
-    super.key,
-    required this.number,
-    required this.label,
-    required this.value,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.symmetric(
-        vertical: 6.0,
-      ),
-      child: Row(
-        children: [
-          Container(
-            width: 40.0,
-            child: Text(
-              "$number",
-              style: TextStyle(
-                fontSize: 12.0,
-              ),
-            ),
-          ),
-          Expanded(
-            child: Text(
-              "$label",
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: 12.0,
-              ),
-            ),
-          ),
-          Expanded(
-            child: Text(
-              "$value",
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: 12.0,
-                fontWeight: FontWeight.bold,
-              ),
             ),
           ),
         ],

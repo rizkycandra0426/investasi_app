@@ -11,6 +11,7 @@ class PortofolioView extends StatefulWidget {
     final screenHeight = MediaQuery.of(context).size.height;
     final formatter = NumberFormat('#,###');
 
+    if (controller.loading) return LoadingScaffold();
     return RefreshIndicator(
       onRefresh: () async {
         await Future.delayed(Duration(seconds: 2));
@@ -97,7 +98,7 @@ class PortofolioView extends StatefulWidget {
                                                   height: 3,
                                                 ),
                                                 Text(
-                                                    "${controller.totalEquity}")
+                                                    "${(controller.totalEquity).number}")
                                               ],
                                             ),
                                             Column(
@@ -113,7 +114,7 @@ class PortofolioView extends StatefulWidget {
                                                   height: 3,
                                                 ),
                                                 Text(
-                                                    "${controller.porto["harga_unit"]}")
+                                                    "${((controller.porto["harga_unit"] * 1.0) as double).number}")
                                               ],
                                             ),
                                             Column(
@@ -129,7 +130,7 @@ class PortofolioView extends StatefulWidget {
                                                   height: 3,
                                                 ),
                                                 Text(
-                                                    "${controller.porto["jumlah_unit_penyertaan"]}"),
+                                                    "${(controller.porto["jumlah_unit_penyertaan"] as double).number}"),
                                               ],
                                             ),
                                           ],
@@ -152,7 +153,7 @@ class PortofolioView extends StatefulWidget {
                                                   height: 3,
                                                 ),
                                                 Text(
-                                                    "${controller.floatingReturn}")
+                                                    "${(controller.floatingReturn).number}")
                                               ],
                                             ),
                                             Column(
@@ -167,7 +168,8 @@ class PortofolioView extends StatefulWidget {
                                                 SizedBox(
                                                   height: 3,
                                                 ),
-                                                Text("${controller.portoYield}")
+                                                Text(
+                                                    "${controller.portoYield.percentage}")
                                               ],
                                             ),
                                             Column(
@@ -249,7 +251,7 @@ class PortofolioView extends StatefulWidget {
                                       children: [
                                         Text('floating return'),
                                         Text(
-                                          "${item["return"]}",
+                                          "${(item["return"] * 1.0 as double).number}",
                                           style: TextStyle(
                                             fontWeight: FontWeight.w600,
                                             fontSize: 14,
@@ -263,7 +265,7 @@ class PortofolioView extends StatefulWidget {
                                       children: [
                                         Text('equity'),
                                         Text(
-                                          "${item["equity"]}",
+                                          "${(item["equity"] * 1.0 as double).number}",
                                           style: TextStyle(
                                             fontWeight: FontWeight.w600,
                                             fontSize: 14,
@@ -363,7 +365,48 @@ class PortofolioView extends StatefulWidget {
                                       ],
                                     ),
                                   ],
-                                )
+                                ),
+                                const SizedBox(
+                                  height: 8.0,
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Expanded(
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text('Harga Beli'),
+                                          Text(
+                                            '${(item["harga_beli"] * 1.0 as double).number}',
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.w600,
+                                              fontSize: 13,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    Expanded(
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text('Harga Saat Ini'),
+                                          Text(
+                                            '${(item["harga_saat_ini"] * 1.0 as double).number}',
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.w600,
+                                              fontSize: 13,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ],
                             ),
                           ),

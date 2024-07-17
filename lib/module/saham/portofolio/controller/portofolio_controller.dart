@@ -19,12 +19,15 @@ class PortofolioController extends State<PortofolioView> {
 
   List results = [];
   String ihsg = "";
-  String portoYield = "";
+  double portoYield = 0.0;
   double totalEquity = 0;
   bool loading = true;
   Map porto = {};
   List items = [];
   getData(int year) async {
+    loading = true;
+    setState(() {});
+
     print("get IHSG?");
     //TODO: IHSG by YEAR?
     var response1 = await IhsgService().get(param: {
@@ -59,6 +62,8 @@ class PortofolioController extends State<PortofolioView> {
       "yield": portoYield,
       "ihsg": ihsg,
     });
+
+    loading = false;
     setState(() {});
   }
 

@@ -11,8 +11,8 @@ class Beliwidget extends StatefulWidget {
 }
 
 class _BeliwidgetState extends State<Beliwidget> {
-  ValueNotifier<int> lot = ValueNotifier(1);
-  ValueNotifier<int> total = ValueNotifier(1);
+  ValueNotifier<int> lot = ValueNotifier(0);
+  ValueNotifier<int> total = ValueNotifier(0);
   ValueNotifier<bool> saldoCukup = ValueNotifier(false);
 
   @override

@@ -102,7 +102,7 @@ class HistoriTahunanView extends StatefulWidget {
                           Expanded(
                             child: VerticalRowItem(
                               label: "Yield",
-                              value: item["yield"],
+                              value: (item["yield"] * 1.0 as double).percentage,
                             ),
                           ),
                           Expanded(

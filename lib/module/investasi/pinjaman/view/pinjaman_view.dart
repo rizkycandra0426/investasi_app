@@ -104,9 +104,11 @@ class PinjamanView extends StatefulWidget {
                                           .length,
                                     );
                                   },
-                                  onFieldSubmitted: (value) {
+                                  onChanged: (value) {
                                     controller.pinjamanAwal =
                                         (double.tryParse(value) ?? 0);
+                                  },
+                                  onFieldSubmitted: (value) {
                                     controller.pinjamanAwalController.text =
                                         controller.pinjamanAwal.number;
                                   },

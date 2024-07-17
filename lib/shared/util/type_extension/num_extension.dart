@@ -13,11 +13,19 @@ extension DoubleExtension on double? {
   }
 
   String get percentage {
-    return '${NumberFormat().format((this ?? 0).floor())}%';
+    var value = double.parse(double.parse(this.toString()).toStringAsFixed(2));
+    return '${NumberFormat().format(value)}%';
   }
 
   String get number {
-    return '${NumberFormat().format((this ?? 0).floor())}';
+    if (this == null) return '0';
+    var value = (this! * 1.0);
+    return '${NumberFormat().format((value ?? 0).floor())}';
+  }
+
+  String get number2 {
+    var value = double.parse(double.parse(this.toString()).toStringAsFixed(2));
+    return '${NumberFormat().format(value)}';
   }
 }
 

@@ -27,13 +27,14 @@ class LaporanKeuanganKalenderView extends StatefulWidget {
                   monthCellBuilder: (context, details) {
                     bool displayMarker = false;
                     if (controller.response != null) {
-                      var find = controller.response!.data!.indexWhere((e) =>
-                          DateTime.parse(e.createdAt!).day ==
-                              details.date.day &&
-                          DateTime.parse(e.createdAt!).month ==
-                              details.date.month &&
-                          DateTime.parse(e.createdAt!).year ==
-                              details.date.year);
+                      var find = controller.response!.data!.indexWhere(
+                        (e) {
+                          var date = e.tanggal!;
+                          return date.day == details.date.day &&
+                              date.month == details.date.month &&
+                              date.year == details.date.year;
+                        },
+                      );
                       if (find > -1) {
                         displayMarker = true;
                       }

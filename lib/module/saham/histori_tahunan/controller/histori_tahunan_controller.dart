@@ -23,7 +23,7 @@ class HistoriTahunanController extends State<HistoriTahunanView> {
 
   List results = [];
   String ihsg = "";
-  String portoYield = "";
+  double portoYield = 0.0;
   bool loading = true;
   Map porto = {};
   List items = [];
