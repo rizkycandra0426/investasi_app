@@ -39,7 +39,7 @@ class PortofolioController extends State<PortofolioView> {
       "year": year,
     });
     results = response2["result"];
-    portoYield = response2["porto"]["yield"];
+    portoYield = double.tryParse(response2["porto"]["yield"].toString()) ?? 0.0;
     porto = response2["porto"];
     print("---");
 
@@ -47,7 +47,7 @@ class PortofolioController extends State<PortofolioView> {
     var equity = 0.0;
     var floatingReturn = 0.0;
     for (var item in results) {
-      equity += item["equity"];
+      equity += item["equity"]; 
       totalEquity += item["equity"];
       floatingReturn += item["return"];
     }

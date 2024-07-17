@@ -130,7 +130,7 @@ class PortofolioView extends StatefulWidget {
                                                   height: 3,
                                                 ),
                                                 Text(
-                                                    "${(controller.porto["jumlah_unit_penyertaan"] as double).number}"),
+                                                    "${((controller.porto["jumlah_unit_penyertaan"] * 1.0) as double).number}"),
                                               ],
                                             ),
                                           ],
