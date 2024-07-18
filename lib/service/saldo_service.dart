@@ -20,11 +20,12 @@ class SaldoService extends BaseService<Map<String, dynamic>> {
       options: Options(
         headers: {
           "Content-Type": "application/json",
+          'ngrok-skip-browser-warning': true,
         },
       ),
     );
     currentUserSaldo = double.tryParse("${response.data["saldo"]}") ?? 0.0;
-    print("SALDO: $currentUserSaldo");
+    print("SALDO: $currentUserSaldo"); 
     return currentUserSaldo;
   }
 
@@ -35,6 +36,7 @@ class SaldoService extends BaseService<Map<String, dynamic>> {
       options: Options(
         headers: {
           "Content-Type": "application/json",
+          'ngrok-skip-browser-warning': true,
         },
       ),
     );

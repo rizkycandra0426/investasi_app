@@ -29,6 +29,7 @@ class AuthService extends BaseService {
         options: Options(
           headers: {
             "Content-Type": "application/json",
+            'ngrok-skip-browser-warning': true,
           },
         ),
         data: {
@@ -59,6 +60,7 @@ class AuthService extends BaseService {
         options: Options(
           headers: {
             "Content-Type": "application/json",
+            'ngrok-skip-browser-warning': true,
           },
         ),
         data: {
@@ -83,6 +85,7 @@ class AuthService extends BaseService {
         options: Options(
           headers: {
             "Content-Type": "application/json",
+            'ngrok-skip-browser-warning': true,
           },
         ),
         data: {

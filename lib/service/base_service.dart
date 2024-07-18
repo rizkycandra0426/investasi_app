@@ -39,6 +39,7 @@ class BaseService<T> {
       options: Options(
         headers: {
           "Content-Type": "application/json",
+          'ngrok-skip-browser-warning': true,
         },
       ),
     );
@@ -58,6 +59,7 @@ class BaseService<T> {
       options: Options(
         headers: {
           "Content-Type": "application/json",
+          'ngrok-skip-browser-warning': true,
         },
       ),
       data: data,
@@ -78,6 +80,7 @@ class BaseService<T> {
       options: Options(
         headers: {
           "Content-Type": "application/json",
+          'ngrok-skip-browser-warning': true,
         },
       ),
       data: data,
@@ -92,6 +95,7 @@ class BaseService<T> {
       options: Options(
         headers: {
           "Content-Type": "application/json",
+          'ngrok-skip-browser-warning': true,
         },
       ),
     );

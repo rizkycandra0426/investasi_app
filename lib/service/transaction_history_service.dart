@@ -13,6 +13,7 @@ class TransactionHistoryService extends BaseService {
       options: Options(
         headers: {
           "Content-Type": "application/json",
+          'ngrok-skip-browser-warning': true,
         },
       ),
     );
@@ -27,6 +28,7 @@ class TransactionHistoryService extends BaseService {
       options: Options(
         headers: {
           "Content-Type": "application/json",
+          'ngrok-skip-browser-warning': true,
         },
       ),
     );
@@ -42,6 +44,7 @@ class TransactionHistoryService extends BaseService {
       options: Options(
         headers: {
           "Content-Type": "application/json",
+          'ngrok-skip-browser-warning': true,
         },
       ),
     );

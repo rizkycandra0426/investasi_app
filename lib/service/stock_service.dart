@@ -21,6 +21,7 @@ class StockService extends BaseService<Map<String, dynamic>> {
       options: Options(
         headers: {
           "Content-Type": "application/json",
+          'ngrok-skip-browser-warning': true,
         },
       ),
     );
