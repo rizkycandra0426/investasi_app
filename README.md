@@ -1,13 +1,22 @@
-[v] Untuk bagian investasi setelsh hitung berikan informasi kayak table begitu biar pas dihitung muncul selama 2 tahun
+- Harga unit belum benar
+- Update kolom tambahkaan di portofolio
+  > Buang harga close, avg_jual, vol_beli, vol_jual
+- Update 2 kolom di Historidanamasuk
+- Grafik yield dan ihsg %
 
-[v] Dibagian catat transaksi lebih dibagusin fiturnya seperti ketika memilih pemasukan atau pengeluaran jadi nanti langsung mengeluarkan kategorinya 
-
-- Tanggal bisa di pilih sesuai kehendak user untuk dicatat transaksinya
-
-- Makeij casing di aplikasinya
-
-[v] Dibagain dashboard bulanya gk bisa sesuai sama isi datanya
+-----
 
 
-[Tidak ada di versi mobile]
-- Untuk di kategori request semisal di tidak diterima berikan alasan
+VPS + SetupVPS      100k
+Update fitur        300k
+-------------------------
+Total               400k
+
+
+Detail Update:
+- Harga unit belum benar
+- Update kolom tambahkaan di portofolio
+  > Buang harga close, avg_jual, vol_beli, vol_jual
+- Update 2 kolom di Historidanamasuk
+- Grafik yield dan ihsg %
+
