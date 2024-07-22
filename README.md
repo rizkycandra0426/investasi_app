@@ -14,9 +14,14 @@ Total               400k
 
 
 Detail Update:
-- Harga unit belum benar
+v Harga unit belum benar
 - Update kolom tambahkaan di portofolio
-  > Buang harga close, avg_jual, vol_beli, vol_jual
-- Update 2 kolom di Historidanamasuk
+  v Buang harga close, avg_jual, vol_beli, vol_jual
+  v tambah kolom valuation, p/l(%)
+
+v Update 2 kolom di Historidanamasuk
+  v Harga unit / penyertaan
+  v jumlah unit
+  
 - Grafik yield dan ihsg %
 

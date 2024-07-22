@@ -25,7 +25,7 @@ class SaldoService extends BaseService<Map<String, dynamic>> {
       ),
     );
     currentUserSaldo = double.tryParse("${response.data["saldo"]}") ?? 0.0;
-    print("SALDO: $currentUserSaldo"); 
+    print("SALDO: $currentUserSaldo");
     return currentUserSaldo;
   }
 

@@ -8,6 +8,8 @@ class HistoriDanaController extends State<HistoriDanaView> {
 
   List items = [];
   double total = 0;
+  Map porto = {};
+
   @override
   void initState() {
     super.initState();
@@ -16,7 +18,16 @@ class HistoriDanaController extends State<HistoriDanaView> {
     getData();
   }
 
+  double hargaUnit = 0;
   getData() async {
+    var response2 = await PortoService().get(param: {
+      "year": 2024,
+    });
+    porto = response2["porto"];
+    hargaUnit = porto["harga_unit"];
+    //---------------------------
+    //---------------------------
+
     items = await SaldoService().getSaldoMasukHistory();
     total = 0;
     for (var item in items) {

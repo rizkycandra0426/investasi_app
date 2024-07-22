@@ -1,6 +1,6 @@
 {
     "modules": [
-        "histori_dana"
+        "histori_ihsg"
     ],
     "module_directory_name": "module/saham",
     "experimental_mode": false,

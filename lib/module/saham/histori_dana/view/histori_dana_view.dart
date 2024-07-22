@@ -19,31 +19,87 @@ class HistoriDanaView extends StatefulWidget {
           Expanded(
             child: ListView.builder(
               itemCount: controller.items.length,
-              physics: const ScrollPhysics(),
+              physics: ScrollPhysics(),
               itemBuilder: (BuildContext context, int index) {
                 var item = controller.items[index];
                 return Container(
                   color: index % 2 == 0 ? Colors.grey[200] : Colors.grey[300],
-                  padding: const EdgeInsets.all(8.0),
-                  child: Row(
+                  padding: EdgeInsets.all(8.0),
+                  child: Column(
                     children: [
-                      Expanded(
-                        child: Text(
-                          "${item["bulan"]}",
-                          style: TextStyle(
-                            fontSize: 16.0,
-                            fontWeight: FontWeight.bold,
+                      Row(
+                        children: [
+                          Expanded(
+                            child: Text(
+                              "${item["bulan"]}",
+                              style: TextStyle(
+                                fontSize: 16.0,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
                           ),
-                        ),
+                          Expanded(
+                            child: Text(
+                              "${double.tryParse(item["saldo"].toString()).currency}",
+                              textAlign: TextAlign.right,
+                              style: TextStyle(
+                                fontSize: 16.0,
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
-                      Expanded(
-                        child: Text(
-                          "${double.tryParse(item["saldo"].toString()).currency}",
-                          textAlign: TextAlign.right,
-                          style: TextStyle(
-                            fontSize: 16.0,
+                      SizedBox(
+                        height: 8.0,
+                      ),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: Text(
+                              "Harga Unit",
+                              style: TextStyle(
+                                fontSize: 14.0,
+                              ),
+                            ),
                           ),
-                        ),
+                          Expanded(
+                            child: Text(
+                              item["saldo"] == 0
+                                  ? "0".currency
+                                  : "${controller.hargaUnit.currency}",
+                              textAlign: TextAlign.right,
+                              style: TextStyle(
+                                fontSize: 14.0,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 8.0,
+                      ),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: Text(
+                              "Jumlah Unit",
+                              style: TextStyle(
+                                fontSize: 14.0,
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                            child: Text(
+                              item["saldo"] == 0
+                                  ? "0".currency
+                                  : "${(double.tryParse(item["saldo"].toString())! / controller.hargaUnit).currency}",
+                              textAlign: TextAlign.right,
+                              style: TextStyle(
+                                fontSize: 14.0,
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                     ],
                   ),
@@ -53,7 +109,7 @@ class HistoriDanaView extends StatefulWidget {
           ),
           Container(
             color: Colors.grey[900],
-            padding: const EdgeInsets.all(8.0),
+            padding: EdgeInsets.all(8.0),
             child: Row(
               children: [
                 Expanded(

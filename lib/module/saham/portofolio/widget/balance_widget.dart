@@ -35,12 +35,26 @@ class _BalanceWidgetState extends State<BalanceWidget> {
           ? MainAxisAlignment.start
           : MainAxisAlignment.center,
       children: [
-        Text(
-          "Saldo: ${currentUserSaldo.currency}",
-          style: TextStyle(
-            fontWeight: FontWeight.w600,
-            fontSize: 15,
-          ),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              "Saldo:",
+              style: TextStyle(
+                fontSize: 12,
+              ),
+            ),
+            const SizedBox(
+              height: 4.0,
+            ),
+            Text(
+              "${currentUserSaldo.currency}",
+              style: TextStyle(
+                fontWeight: FontWeight.w600,
+                fontSize: 14,
+              ),
+            ),
+          ],
         ),
         if (widget.enableTopup) ...[
           const SizedBox(
@@ -57,6 +71,7 @@ class _BalanceWidgetState extends State<BalanceWidget> {
               child: Icon(
                 Icons.add,
                 color: Colors.white,
+                size: 12.0,
               ),
             ),
           ),
@@ -67,11 +82,29 @@ class _BalanceWidgetState extends State<BalanceWidget> {
               loadData();
             },
             child: CircleAvatar(
-              backgroundColor: Colors.black,
+              backgroundColor: Colors.orange,
               radius: 12.0,
               child: Icon(
                 Icons.history,
                 color: Colors.white,
+                size: 12.0,
+              ),
+            ),
+          ),
+          const SizedBox(
+            width: 6.0,
+          ),
+          InkWell(
+            onTap: () async {
+              await Get.to(HistoriIhsgView());
+            },
+            child: CircleAvatar(
+              backgroundColor: Colors.blue,
+              radius: 12.0,
+              child: Icon(
+                Icons.stacked_line_chart,
+                color: Colors.white,
+                size: 12.0,
               ),
             ),
           ),

@@ -47,7 +47,7 @@ class PortofolioController extends State<PortofolioView> {
     var equity = 0.0;
     var floatingReturn = 0.0;
     for (var item in results) {
-      equity += item["equity"]; 
+      equity += item["equity"];
       totalEquity += item["equity"];
       floatingReturn += item["return"];
     }
