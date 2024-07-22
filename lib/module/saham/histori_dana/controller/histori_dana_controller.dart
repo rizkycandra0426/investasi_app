@@ -19,7 +19,32 @@ class HistoriDanaController extends State<HistoriDanaView> {
   }
 
   double hargaUnit = 0;
+  List hargaUnits = [];
+
+  double getHargaUnit(String month) {
+    for (var element in hargaUnits) {
+      var mmm = DateFormat("MMMM").format(DateTime.parse(element["date"]));
+      print("$mmm == $month");
+      if (DateFormat("MMMM")
+              .format(DateTime.parse(element["date"]))
+              .toString() ==
+          month.toString()) {
+        return element["harga_unit"] * 1.0;
+      }
+    }
+
+    return 0;
+  }
+
   getData() async {
+    var responseHargaUnit = await Dio().get(
+      "$baseUrl/v2/harga-unit",
+    );
+    hargaUnits = responseHargaUnit.data;
+
+    //---------------
+    //---------------
+
     var response2 = await PortoService().get(param: {
       "year": 2024,
     });

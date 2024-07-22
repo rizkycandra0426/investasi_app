@@ -16,12 +16,68 @@ class HistoriDanaView extends StatefulWidget {
       ),
       body: Column(
         children: [
+          Container(
+            color: Colors.grey[600],
+            padding: EdgeInsets.all(8.0),
+            child: Column(
+              children: [
+                Row(
+                  children: [
+                    Expanded(
+                      child: Text(
+                        "Bulan",
+                        style: TextStyle(
+                          fontSize: 12.0,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      child: Text(
+                        "Jumlah",
+                        textAlign: TextAlign.right,
+                        style: TextStyle(
+                          fontSize: 12.0,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      child: Text(
+                        "Harga unit",
+                        textAlign: TextAlign.right,
+                        style: TextStyle(
+                          fontSize: 12.0,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      child: Text(
+                        "Jumlah unit",
+                        textAlign: TextAlign.right,
+                        style: TextStyle(
+                          fontSize: 12.0,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
           Expanded(
             child: ListView.builder(
               itemCount: controller.items.length,
               physics: ScrollPhysics(),
               itemBuilder: (BuildContext context, int index) {
                 var item = controller.items[index];
+                double hargaUnit = controller.getHargaUnit(item["bulan"]);
+                if (item["saldo"] == 0) {
+                  hargaUnit = 0;
+                }
                 return Container(
                   color: index % 2 == 0 ? Colors.grey[200] : Colors.grey[300],
                   padding: EdgeInsets.all(8.0),
@@ -33,69 +89,37 @@ class HistoriDanaView extends StatefulWidget {
                             child: Text(
                               "${item["bulan"]}",
                               style: TextStyle(
-                                fontSize: 16.0,
+                                fontSize: 12.0,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
                           ),
                           Expanded(
                             child: Text(
-                              "${double.tryParse(item["saldo"].toString()).currency}",
+                              "${double.tryParse(item["saldo"].toString()).number}",
                               textAlign: TextAlign.right,
                               style: TextStyle(
-                                fontSize: 16.0,
+                                fontSize: 12.0,
                               ),
                             ),
                           ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 8.0,
-                      ),
-                      Row(
-                        children: [
                           Expanded(
                             child: Text(
-                              "Harga Unit",
+                              "${hargaUnit.number}",
+                              textAlign: TextAlign.right,
                               style: TextStyle(
-                                fontSize: 14.0,
+                                fontSize: 12.0,
                               ),
                             ),
                           ),
                           Expanded(
                             child: Text(
                               item["saldo"] == 0
-                                  ? "0".currency
-                                  : "${controller.hargaUnit.currency}",
+                                  ? "0".number
+                                  : "${(double.tryParse(item["saldo"].toString())! / hargaUnit).number}",
                               textAlign: TextAlign.right,
                               style: TextStyle(
-                                fontSize: 14.0,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 8.0,
-                      ),
-                      Row(
-                        children: [
-                          Expanded(
-                            child: Text(
-                              "Jumlah Unit",
-                              style: TextStyle(
-                                fontSize: 14.0,
-                              ),
-                            ),
-                          ),
-                          Expanded(
-                            child: Text(
-                              item["saldo"] == 0
-                                  ? "0".currency
-                                  : "${(double.tryParse(item["saldo"].toString())! / controller.hargaUnit).currency}",
-                              textAlign: TextAlign.right,
-                              style: TextStyle(
-                                fontSize: 14.0,
+                                fontSize: 12.0,
                               ),
                             ),
                           ),
@@ -124,7 +148,7 @@ class HistoriDanaView extends StatefulWidget {
                 ),
                 Expanded(
                   child: Text(
-                    "${controller.total.currency}",
+                    "${controller.total.number}",
                     textAlign: TextAlign.right,
                     style: TextStyle(
                       fontSize: 20.0,

@@ -15,54 +15,57 @@ class HistoriIhsgView extends StatefulWidget {
       ),
       body: Column(
         children: [
-          Builder(
-            builder: (context) {
-              final List<Map> chartData = [
-                // {
-                //   "year": 2018,
-                //   "sales": 40,
-                // },
-              ];
+          if (controller.year != null)
+            Builder(
+              builder: (context) {
+                final List<Map> chartData = [
+                  // {
+                  //   "year": 2018,
+                  //   "sales": 40,
+                  // },
+                ];
 
-              var reversedItems = controller.items;
-              reversedItems = reversedItems.reversed.toList();
+                var reversedItems = controller.items;
+                reversedItems = reversedItems.reversed.toList();
 
-              for (var item in reversedItems) {
-                var date = DateTime.parse(item["date"]);
-                var month = DateFormat("MMM").format(date);
+                for (var item in reversedItems) {
+                  var date = DateTime.parse(item["date"]);
+                  var month = DateFormat("MMM").format(date);
 
-                chartData.add({
-                  "year": "$month\n${date.year}",
-                  "ihsg": item["yield_ihsg"],
-                  "yield": item["yield_ihsg"] + 0.6,
-                });
-              }
+                  if (date.year != controller.year) continue;
 
-              return Container(
-                color: Theme.of(context).cardColor,
-                height: MediaQuery.of(context).size.height * 0.3,
-                padding: const EdgeInsets.all(12.0),
-                child: SfCartesianChart(
-                  primaryXAxis: CategoryAxis(),
-                  series: <CartesianSeries>[
-                    // Renders line chart
-                    LineSeries<Map, String>(
-                      color: Colors.red,
-                      dataSource: chartData,
-                      xValueMapper: (Map data, _) => data["year"],
-                      yValueMapper: (Map data, _) => data["ihsg"],
-                    ),
-                    LineSeries<Map, String>(
-                      color: Colors.green,
-                      dataSource: chartData,
-                      xValueMapper: (Map data, _) => data["year"],
-                      yValueMapper: (Map data, _) => data["yield"],
-                    )
-                  ],
-                ),
-              );
-            },
-          ),
+                  chartData.add({
+                    "year": "$month",
+                    "ihsg": item["yield_ihsg"],
+                    "yield": item["yield_ihsg"] + 0.6,
+                  });
+                }
+
+                return Container(
+                  color: Theme.of(context).cardColor,
+                  height: MediaQuery.of(context).size.height * 0.3,
+                  padding: const EdgeInsets.all(12.0),
+                  child: SfCartesianChart(
+                    primaryXAxis: CategoryAxis(),
+                    series: <CartesianSeries>[
+                      // Renders line chart
+                      LineSeries<Map, String>(
+                        color: Colors.red,
+                        dataSource: chartData,
+                        xValueMapper: (Map data, _) => data["year"],
+                        yValueMapper: (Map data, _) => data["ihsg"],
+                      ),
+                      LineSeries<Map, String>(
+                        color: Colors.green,
+                        dataSource: chartData,
+                        xValueMapper: (Map data, _) => data["year"],
+                        yValueMapper: (Map data, _) => data["yield"],
+                      )
+                    ],
+                  ),
+                );
+              },
+            ),
           Expanded(
             child: ListView.builder(
               itemCount: controller.items.length,
@@ -70,7 +73,9 @@ class HistoriIhsgView extends StatefulWidget {
               itemBuilder: (BuildContext context, int index) {
                 var item = controller.items[index];
                 var date = DateTime.parse(item["date"]);
-                var month = DateFormat("MMM").format(date);
+                var month = DateFormat("MMMM").format(date);
+                double monthYield =
+                    controller.getYieldByMonth(month, date.year);
 
                 bool visibleYear = false;
                 if (index == 0) {
@@ -87,89 +92,110 @@ class HistoriIhsgView extends StatefulWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     if (visibleYear)
-                      Container(
-                        padding: const EdgeInsets.all(8.0),
-                        width: MediaQuery.of(context).size.width,
-                        decoration: BoxDecoration(
-                          color: Colors.grey[900],
+                      InkWell(
+                        onTap: () {
+                          controller.updateYear(date.year);
+                        },
+                        child: Container(
+                          padding: const EdgeInsets.all(8.0),
+                          width: MediaQuery.of(context).size.width,
+                          decoration: BoxDecoration(
+                            color: Colors.blue,
+                          ),
+                          child: Builder(builder: (context) {
+                            var yield = controller.getYield(date.year);
+                            var ihsg = controller.getIhsg(date.year);
+                            return Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Expanded(
+                                  child: Row(
+                                    children: [
+                                      if (controller.year == date.year) ...[
+                                        const Icon(
+                                          Icons.check_circle,
+                                          size: 24.0,
+                                          color: Colors.orange,
+                                        ),
+                                        const SizedBox(
+                                          width: 8.0,
+                                        ),
+                                      ],
+                                      Text(
+                                        "Year\n${date.year}",
+                                        style: TextStyle(
+                                          fontSize: 14.0,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Expanded(
+                                  child: Text(
+                                    "Yield\n${yield.percentage}",
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      fontSize: 14.0,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                ),
+                                Expanded(
+                                  child: Text(
+                                    "IHSG\n${ihsg.percentage}",
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      fontSize: 14.0,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                )
+                              ],
+                            );
+                          }),
                         ),
-                        child: Builder(builder: (context) {
-                          var yield = controller.getYield(date.year);
-                          var ihsg = controller.getIhsg(date.year);
-                          return Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Expanded(
-                                child: Text(
-                                  "Year\n${date.year}",
-                                  style: TextStyle(
-                                    fontSize: 14.0,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                              ),
-                              Expanded(
-                                child: Text(
-                                  "Yield\n${yield.percentage}",
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    fontSize: 14.0,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                              ),
-                              Expanded(
-                                child: Text(
-                                  "IHSG\n${ihsg.percentage}",
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    fontSize: 14.0,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                              )
-                            ],
-                          );
-                        }),
                       ),
-                    Container(
-                      color:
-                          index % 2 == 0 ? Colors.grey[200] : Colors.grey[300],
-                      padding: const EdgeInsets.all(12.0),
-                      child: Row(
-                        children: [
-                          Expanded(
-                            child: Text(
-                              "${month}",
-                              style: TextStyle(
-                                fontSize: 14.0,
-                                fontWeight: FontWeight.bold,
+                    if (controller.year == date.year)
+                      Container(
+                        color: index % 2 == 0
+                            ? Colors.grey[200]
+                            : Colors.grey[300],
+                        padding: const EdgeInsets.all(12.0),
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: Text(
+                                "${month}",
+                                style: TextStyle(
+                                  fontSize: 14.0,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
                             ),
-                          ),
-                          Expanded(
-                            child: Text(
-                              "${(item["yield_ihsg"] * 1.0 as double).percentage}",
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                fontSize: 14.0,
-                                fontWeight: FontWeight.bold,
+                            Expanded(
+                              child: Text(
+                                "${(monthYield * 1.0).percentage}",
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontSize: 14.0,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
                             ),
-                          ),
-                          Expanded(
-                            child: Text(
-                              "${(item["yield_ihsg"] * 1.0 as double).percentage}",
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                fontSize: 14.0,
-                                fontWeight: FontWeight.bold,
+                            Expanded(
+                              child: Text(
+                                "${(item["yield_ihsg"] * 1.0 as double).percentage}",
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontSize: 14.0,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
-                    ),
                   ],
                 );
               },
