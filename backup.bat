@@ -1,1 +1,0 @@
-mysqldump -u root investasi_db > backup2.sql
