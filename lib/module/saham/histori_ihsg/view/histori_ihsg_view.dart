@@ -82,6 +82,7 @@ class HistoriIhsgView extends StatefulWidget {
                     visibleYear = true;
                   }
                 }
+
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -92,40 +93,44 @@ class HistoriIhsgView extends StatefulWidget {
                         decoration: BoxDecoration(
                           color: Colors.grey[900],
                         ),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Expanded(
-                              child: Text(
-                                "${date.year}",
-                                style: TextStyle(
-                                  fontSize: 14.0,
-                                  color: Colors.white,
+                        child: Builder(builder: (context) {
+                          var yield = controller.getYield(date.year);
+                          var ihsg = controller.getIhsg(date.year);
+                          return Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Expanded(
+                                child: Text(
+                                  "Year\n${date.year}",
+                                  style: TextStyle(
+                                    fontSize: 14.0,
+                                    color: Colors.white,
+                                  ),
                                 ),
                               ),
-                            ),
-                            Expanded(
-                              child: Text(
-                                "Yield",
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  fontSize: 14.0,
-                                  color: Colors.white,
+                              Expanded(
+                                child: Text(
+                                  "Yield\n${yield.percentage}",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    fontSize: 14.0,
+                                    color: Colors.white,
+                                  ),
                                 ),
                               ),
-                            ),
-                            Expanded(
-                              child: Text(
-                                "IHSG",
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  fontSize: 14.0,
-                                  color: Colors.white,
+                              Expanded(
+                                child: Text(
+                                  "IHSG\n${ihsg.percentage}",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    fontSize: 14.0,
+                                    color: Colors.white,
+                                  ),
                                 ),
-                              ),
-                            )
-                          ],
-                        ),
+                              )
+                            ],
+                          );
+                        }),
                       ),
                     Container(
                       color:

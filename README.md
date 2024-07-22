@@ -22,6 +22,6 @@ v Harga unit belum benar
 v Update 2 kolom di Historidanamasuk
   v Harga unit / penyertaan
   v jumlah unit
-  
-- Grafik yield dan ihsg %
+
+v Grafik yield dan ihsg %
 

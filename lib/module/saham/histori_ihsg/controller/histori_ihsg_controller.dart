@@ -32,4 +32,36 @@ class HistoriIhsgController extends State<HistoriIhsgView> {
 
   @override
   Widget build(BuildContext context) => widget.build(context, this);
+
+  double getIhsg(int year) {
+    var current =
+        items.where((i) => DateTime.parse(i["date"]).year == year).toList();
+
+    var total = 0.0;
+    var count = 0;
+
+    for (var item in current) {
+      total += item["yield_ihsg"] ?? 0.0;
+      count++;
+    }
+
+    var average = total / count;
+    return average;
+  }
+
+  double getYield(int year) {
+    var current =
+        items.where((i) => DateTime.parse(i["date"]).year == year).toList();
+
+    var total = 0.0;
+    var count = 0;
+
+    for (var item in current) {
+      total += item["yield_ihsg"] ?? 0.0;
+      count++;
+    }
+
+    var average = total / count;
+    return average;
+  }
 }
