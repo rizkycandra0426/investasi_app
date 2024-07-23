@@ -69,6 +69,7 @@ class _JualwidgetState extends State<Jualwidget> {
               valueListenable: total,
               builder: (context, _, __) {
                 return Container(
+                  constraints: BoxConstraints(maxHeight: 400),
                   child: Padding(
                     padding: const EdgeInsets.all(12.0),
                     child: Wrap(

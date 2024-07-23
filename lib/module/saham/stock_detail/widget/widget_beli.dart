@@ -46,7 +46,7 @@ class _BeliwidgetState extends State<Beliwidget> {
               valueListenable: total,
               builder: (context, _, __) {
                 return Container(
-                  constraints: BoxConstraints(maxHeight: 380),
+                  constraints: BoxConstraints(maxHeight: 400),
                   child: Padding(
                     padding: const EdgeInsets.all(12.0),
                     child: Column(
