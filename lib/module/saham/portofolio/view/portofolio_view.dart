@@ -55,14 +55,14 @@ class PortofolioView extends StatefulWidget {
                             child: InkWell(
                               splashColor: Colors.blue.withAlpha(30),
                               onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => HistoriTahunanView(
-                                        // emiten: item["emiten"],
-                                        ),
-                                  ),
-                                );
+                                // Navigator.push(
+                                //   context,
+                                //   MaterialPageRoute(
+                                //     builder: (context) => HistoriTahunanView(
+                                //         // emiten: item["emiten"],
+                                //         ),
+                                //   ),
+                                // );
                               },
                               child: Padding(
                                 padding: const EdgeInsets.all(15.0),
