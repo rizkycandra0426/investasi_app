@@ -25,7 +25,12 @@ class HistoriIhsgController extends State<HistoriIhsgView> {
   double getYieldByMonth(String month, int year) {
     for (var element in yields) {
       var mmm = DateFormat("MMMM").format(DateTime.parse(element["date"]));
-      print("$mmm == $month");
+
+      var date = DateTime.parse(element["date"]);
+      if (!(date.year == now.year && date.month == now.month)) {
+        element["yield"] = 0.0;
+      }
+
       if (DateFormat("MMMM")
                   .format(DateTime.parse(element["date"]))
                   .toString() ==

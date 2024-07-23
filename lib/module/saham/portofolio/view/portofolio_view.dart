@@ -346,7 +346,7 @@ class PortofolioView extends StatefulWidget {
                                         children: [
                                           Text('Valuation'),
                                           Text(
-                                            '${(item["vol_total"] * item["harga_saat_ini"] * 1.0 as double).number}',
+                                            '${(item["vol_total"] * 100 * item["harga_saat_ini"] * 1.0 as double).number}',
                                             style: TextStyle(
                                               fontWeight: FontWeight.w600,
                                               fontSize: 13,
@@ -358,12 +358,16 @@ class PortofolioView extends StatefulWidget {
                                     Expanded(
                                       child: Builder(builder: (context) {
                                         var valuation = (item["vol_total"] *
-                                            item["harga_saat_ini"] *
-                                            1.0 as double);
+                                                item["harga_saat_ini"] *
+                                                1.0 as double) *
+                                            100;
+
                                         var pl = valuation - item["equity"];
-                                        var plInPercent = pl / item["equity"];
+
+                                        var plInPercent =
+                                            (pl / item["equity"]) * 100;
                                         if (item["vol_total"] == 0) {
-                                          plInPercent = 0;
+                                          plInPercent = 0.0;
                                         }
                                         return Column(
                                           crossAxisAlignment:
@@ -372,6 +376,61 @@ class PortofolioView extends StatefulWidget {
                                             Text('P/L (%)'),
                                             Text(
                                               '${(plInPercent * 1.0).percentage}',
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.w600,
+                                                fontSize: 13,
+                                              ),
+                                            ),
+                                          ],
+                                        );
+                                      }),
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(
+                                  height: 8.0,
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Expanded(
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text('Fund Alloc'),
+                                          Text(
+                                            '${(item["fund_alloc"] * 1.0 as double).percentage}',
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.w600,
+                                              fontSize: 13,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    Expanded(
+                                      child: Builder(builder: (context) {
+                                        var valuation = (item["vol_total"] *
+                                                item["harga_saat_ini"] *
+                                                1.0 as double) *
+                                            100;
+
+                                        var pl = valuation - item["equity"];
+
+                                        var plInPercent =
+                                            (pl / item["equity"]) * 100;
+                                        if (item["vol_total"] == 0) {
+                                          plInPercent = 0.0;
+                                        }
+                                        return Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text('Value effect'),
+                                            Text(
+                                              '${(item["value_effect"] * 1.0 as double).percentage}',
                                               style: TextStyle(
                                                 fontWeight: FontWeight.w600,
                                                 fontSize: 13,

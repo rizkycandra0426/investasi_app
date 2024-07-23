@@ -49,7 +49,7 @@ class HistoriDanaController extends State<HistoriDanaView> {
       "year": 2024,
     });
     porto = response2["porto"];
-    hargaUnit = porto["harga_unit"];
+    hargaUnit = ((porto["harga_unit"] ?? 0) * 1.0) as double;
     //---------------------------
     //---------------------------
 

@@ -34,10 +34,18 @@ class HistoriIhsgView extends StatefulWidget {
 
                   if (date.year != controller.year) continue;
 
+                  var yield = 0.0;
+                  if (date.year == now.year && date.month == now.month) {
+                    yield = double.tryParse(PortofolioController
+                            .instance.portoYield
+                            .toString()) ??
+                        0.0;
+                  }
+
                   chartData.add({
                     "year": "$month",
                     "ihsg": item["yield_ihsg"],
-                    "yield": item["yield_ihsg"] + 0.6,
+                    "yield": yield,
                   });
                 }
 
@@ -88,6 +96,13 @@ class HistoriIhsgView extends StatefulWidget {
                   }
                 }
 
+                if (date.year == now.year && date.month == now.month) {
+                  monthYield = double.tryParse(PortofolioController
+                          .instance.portoYield
+                          .toString()) ??
+                      0.0;
+                }
+
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -105,6 +120,14 @@ class HistoriIhsgView extends StatefulWidget {
                           child: Builder(builder: (context) {
                             var yield = controller.getYield(date.year);
                             var ihsg = controller.getIhsg(date.year);
+
+                            if (date.year == now.year &&
+                                date.month == now.month) {
+                              yield = double.tryParse(PortofolioController
+                                      .instance.portoYield
+                                      .toString()) ??
+                                  0.0;
+                            }
                             return Row(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [

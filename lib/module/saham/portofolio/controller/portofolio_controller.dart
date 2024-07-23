@@ -34,6 +34,7 @@ class PortofolioController extends State<PortofolioView> {
       "year": year,
     });
     ihsg = response1["data"]["ihsg"];
+    // ihsg = "2.41%";
 
     var response2 = await PortoService().get(param: {
       "year": year,
@@ -43,6 +44,23 @@ class PortofolioController extends State<PortofolioView> {
     porto = response2["porto"];
     print("---");
 
+    //----------------------
+    double ihsgDouble = double.tryParse(ihsg.replaceAll("%", "")) ?? 0.0;
+    double portoYieldDouble = double.tryParse(portoYield.toString()) ?? 0.0;
+
+    await dio.post(
+      "$baseUrl/v2/ihsg",
+      data: {
+        "id": DateTime(now.year, now.month, 1).yMd,
+        "date": DateTime(now.year, now.month, 1).yMd,
+        "change": ihsgDouble,
+        "last": 0.0,
+        "open": 0.0,
+        "high": 0.0,
+        "low": 0.0,
+        "vol": 0.0,
+      },
+    );
     //----------------------
     var equity = 0.0;
     var floatingReturn = 0.0;
