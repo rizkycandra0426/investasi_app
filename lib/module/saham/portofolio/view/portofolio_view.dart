@@ -28,7 +28,7 @@ class PortofolioView extends StatefulWidget {
                   child: ListView.builder(
                     shrinkWrap: true,
                     padding: EdgeInsets.zero,
-                    physics: AlwaysScrollableScrollPhysics(),
+                    physics: NeverScrollableScrollPhysics(),
                     itemCount: 1,
                     itemBuilder: (context, index) {
                       return Column(
@@ -206,7 +206,7 @@ class PortofolioView extends StatefulWidget {
                   color: Colors.white,
                   child: ListView.builder(
                     padding: EdgeInsets.zero,
-                    physics: AlwaysScrollableScrollPhysics(),
+                    physics: NeverScrollableScrollPhysics(),
                     itemCount: controller.results.length,
                     itemBuilder: (context, index) {
                       var item = controller.results[index];
@@ -249,12 +249,12 @@ class PortofolioView extends StatefulWidget {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        Text('floating return'),
+                                        Text('Valuation'),
                                         Text(
-                                          "${(item["return"] * 1.0 as double).number}",
+                                          '${(item["vol_total"] * 100 * item["harga_saat_ini"] * 1.0 as double).number}',
                                           style: TextStyle(
                                             fontWeight: FontWeight.w600,
-                                            fontSize: 14,
+                                            fontSize: 13,
                                           ),
                                         ),
                                       ],
@@ -344,12 +344,12 @@ class PortofolioView extends StatefulWidget {
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
-                                          Text('Valuation'),
+                                          Text('floating return'),
                                           Text(
-                                            '${(item["vol_total"] * 100 * item["harga_saat_ini"] * 1.0 as double).number}',
+                                            "${(item["return"] * 1.0 as double).number}",
                                             style: TextStyle(
                                               fontWeight: FontWeight.w600,
-                                              fontSize: 13,
+                                              fontSize: 14,
                                             ),
                                           ),
                                         ],

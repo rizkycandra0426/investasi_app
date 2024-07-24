@@ -12,7 +12,7 @@ class DetailInvestasi extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Detail Investasi"),
+        title: const Text("Detail Investasi (Lumpsum)"),
         actions: const [],
       ),
       body: SingleChildScrollView(
@@ -21,7 +21,7 @@ class DetailInvestasi extends StatelessWidget {
           child: Column(
             children: [
               ValueItem(
-                label: "Dana bulanan",
+                label: "Dana awal",
                 value: "${controller.investasiAwal.currency}",
               ),
               ValueItem(

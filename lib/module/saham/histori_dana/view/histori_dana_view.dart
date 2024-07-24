@@ -74,10 +74,18 @@ class HistoriDanaView extends StatefulWidget {
               physics: ScrollPhysics(),
               itemBuilder: (BuildContext context, int index) {
                 var item = controller.items[index];
+                var month = item["bulan"];
                 double hargaUnit = controller.getHargaUnit(item["bulan"]);
                 if (item["saldo"] == 0) {
                   hargaUnit = 0;
                 }
+
+                if (DateFormat("MMMM").format(now) == month) {
+                  month = "NOW";
+                  hargaUnit =
+                      PortofolioController.instance.porto["harga_unit"] * 1.0;
+                }
+
                 return Container(
                   color: index % 2 == 0 ? Colors.grey[200] : Colors.grey[300],
                   padding: EdgeInsets.all(8.0),
@@ -87,7 +95,7 @@ class HistoriDanaView extends StatefulWidget {
                         children: [
                           Expanded(
                             child: Text(
-                              "${item["bulan"]}",
+                              "${month}",
                               style: TextStyle(
                                 fontSize: 12.0,
                                 fontWeight: FontWeight.bold,
@@ -105,7 +113,7 @@ class HistoriDanaView extends StatefulWidget {
                           ),
                           Expanded(
                             child: Text(
-                              "${hargaUnit.number}",
+                              "${hargaUnit == 0 ? 0 : hargaUnit.number}",
                               textAlign: TextAlign.right,
                               style: TextStyle(
                                 fontSize: 12.0,
@@ -114,7 +122,7 @@ class HistoriDanaView extends StatefulWidget {
                           ),
                           Expanded(
                             child: Text(
-                              item["saldo"] == 0
+                              hargaUnit == 0 || item["saldo"] == 0
                                   ? "0".number
                                   : "${(double.tryParse(item["saldo"].toString())! / hargaUnit).number}",
                               textAlign: TextAlign.right,
