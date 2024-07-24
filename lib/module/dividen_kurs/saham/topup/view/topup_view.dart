@@ -17,6 +17,14 @@ class TopupView extends StatefulWidget {
           padding: const EdgeInsets.all(20.0),
           child: Column(
             children: [
+              AbsorbPointer(
+                child: QTextField(
+                  label: "Saldo saat ini",
+                  validator: Validator.required,
+                  value: currentUserSaldo.currency,
+                  onChanged: (value) {},
+                ),
+              ),
               QNumberField(
                 label: "Amount",
                 validator: Validator.required,

@@ -67,6 +67,7 @@ class TransaksiKeuanganView extends StatefulWidget {
                       controller.amount = double.tryParse(value) ?? 0;
                     },
                     onFieldSubmitted: (value) {
+                      controller.amount = double.tryParse(value) ?? 0;
                       controller.textEditingController.text =
                           controller.amount.number;
                     },
