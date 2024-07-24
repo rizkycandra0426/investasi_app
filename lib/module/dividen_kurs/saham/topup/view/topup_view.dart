@@ -7,6 +7,7 @@ class TopupView extends StatefulWidget {
 
   Widget build(context, TopupController controller) {
     controller.view = this;
+    var dashboardController = DashboardController.instance;
     return Scaffold(
       appBar: AppBar(
         title: const Text("Topup"),
@@ -19,9 +20,10 @@ class TopupView extends StatefulWidget {
             children: [
               AbsorbPointer(
                 child: QTextField(
-                  label: "Saldo saat ini",
+                  label: "Total Balance",
                   validator: Validator.required,
-                  value: currentUserSaldo.currency,
+                  value:
+                      "${dashboardController.balance.currency} (Maximal Topup)",
                   onChanged: (value) {},
                 ),
               ),
