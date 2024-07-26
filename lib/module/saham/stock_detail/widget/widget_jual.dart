@@ -185,46 +185,7 @@ class _JualwidgetState extends State<Jualwidget> {
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
-                                    Text('Total Penjualan'),
-                                    if (volumeCukup.value == false) ...[
-                                      const SizedBox(
-                                        height: 6.0,
-                                      ),
-                                      Text(
-                                        "Lot melebihi volume yang dimiliki",
-                                        style: TextStyle(
-                                          fontSize: 12.0,
-                                          color: Colors.red,
-                                        ),
-                                      ),
-                                      const SizedBox(
-                                        height: 6.0,
-                                      ),
-                                    ],
-                                    Container(
-                                      width: 200,
-                                      padding: EdgeInsets.all(10.0),
-                                      decoration: BoxDecoration(
-                                        border: Border.all(color: Colors.black),
-                                        borderRadius:
-                                            BorderRadius.circular(8.0),
-                                      ),
-                                      child: Center(
-                                        child: Text(
-                                          '${total.value.currency}',
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                SizedBox(height: 10),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Text('Volume Lot Jual'),
+                                    Text('Volume Lembar Jual'),
                                     Container(
                                       child: Column(
                                         crossAxisAlignment:
@@ -305,6 +266,45 @@ class _JualwidgetState extends State<Jualwidget> {
                                             ),
                                           ),
                                         ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                SizedBox(height: 10),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Text('Total Penjualan'),
+                                    if (volumeCukup.value == false) ...[
+                                      const SizedBox(
+                                        height: 6.0,
+                                      ),
+                                      Text(
+                                        "Lot melebihi volume yang dimiliki",
+                                        style: TextStyle(
+                                          fontSize: 12.0,
+                                          color: Colors.red,
+                                        ),
+                                      ),
+                                      const SizedBox(
+                                        height: 6.0,
+                                      ),
+                                    ],
+                                    Container(
+                                      width: 200,
+                                      padding: EdgeInsets.all(10.0),
+                                      decoration: BoxDecoration(
+                                        border: Border.all(color: Colors.black),
+                                        borderRadius:
+                                            BorderRadius.circular(8.0),
+                                      ),
+                                      child: Center(
+                                        child: Text(
+                                          '${total.value.currency}',
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
                                       ),
                                     ),
                                   ],

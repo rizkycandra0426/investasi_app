@@ -167,46 +167,7 @@ class _BeliwidgetState extends State<Beliwidget> {
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
-                                  Text('Total Pembelian'),
-                                  if (saldoCukup.value == false) ...[
-                                    const SizedBox(
-                                      height: 6.0,
-                                    ),
-                                    Text(
-                                      "Saldo tidak mecukupi",
-                                      style: TextStyle(
-                                        fontSize: 12.0,
-                                        color: Colors.red,
-                                      ),
-                                    ),
-                                    const SizedBox(
-                                      height: 6.0,
-                                    ),
-                                  ],
-                                  Container(
-                                    width: 200,
-                                    padding: EdgeInsets.all(10.0),
-                                    decoration: BoxDecoration(
-                                      border: Border.all(color: Colors.black),
-                                      borderRadius: BorderRadius.circular(8.0),
-                                    ),
-                                    child: Center(
-                                      child: Text(
-                                        '${total.value.currency}',
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              SizedBox(height: 10),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Text('Volume Lot Beli : ${lot.value}'),
+                                  Text('Volume Lembar Beli : ${lot.value}'),
                                   Container(
                                     width: 200,
                                     height: 40,
@@ -215,6 +176,7 @@ class _BeliwidgetState extends State<Beliwidget> {
                                       border: Border.all(color: Colors.black),
                                       borderRadius: BorderRadius.circular(8.0),
                                     ),
+
                                     child: Column(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
@@ -283,6 +245,45 @@ class _BeliwidgetState extends State<Beliwidget> {
                                           ),
                                         ),
                                       ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(height: 10),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Text('Total Pembelian'),
+                                  if (saldoCukup.value == false) ...[
+                                    const SizedBox(
+                                      height: 6.0,
+                                    ),
+                                    Text(
+                                      "Saldo tidak mecukupi",
+                                      style: TextStyle(
+                                        fontSize: 12.0,
+                                        color: Colors.red,
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      height: 6.0,
+                                    ),
+                                  ],
+                                  Container(
+                                    width: 200,
+                                    padding: EdgeInsets.all(10.0),
+                                    decoration: BoxDecoration(
+                                      border: Border.all(color: Colors.black),
+                                      borderRadius: BorderRadius.circular(8.0),
+                                    ),
+                                    child: Center(
+                                      child: Text(
+                                        '${total.value.currency}',
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
                                     ),
                                   ),
                                 ],

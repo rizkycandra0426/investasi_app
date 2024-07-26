@@ -196,62 +196,62 @@ class HistoryTransaksiView extends StatefulWidget {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Expanded(
-                                child: Container(
-                                  margin: EdgeInsets.symmetric(horizontal: 10),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        "Pembelian",
-                                        style: TextStyle(
-                                          color: Colors.black87,
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w900,
-                                        ),
-                                      ),
-                                      SizedBox(height: 3),
-                                      Text(
-                                        "${penjualanOrPembelian}",
-                                        style: TextStyle(
-                                          color: Colors.grey[800],
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.w700,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              Expanded(
-                                child: Container(
-                                  margin: EdgeInsets.symmetric(horizontal: 10),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        "Fee",
-                                        style: TextStyle(
-                                          color: Colors.black87,
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w900,
-                                        ),
-                                      ),
-                                      SizedBox(height: 3),
-                                      Text(
-                                        "0,25%",
-                                        style: TextStyle(
-                                          color: Colors.grey[800],
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.w700,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
+                              // Expanded(
+                              //   child: Container(
+                              //     margin: EdgeInsets.symmetric(horizontal: 10),
+                              //     child: Column(
+                              //       crossAxisAlignment:
+                              //           CrossAxisAlignment.center,
+                              //       children: [
+                              //         Text(
+                              //           "Pembelian",
+                              //           style: TextStyle(
+                              //             color: Colors.black87,
+                              //             fontSize: 14,
+                              //             fontWeight: FontWeight.w900,
+                              //           ),
+                              //         ),
+                              //         SizedBox(height: 3),
+                              //         Text(
+                              //           "${penjualanOrPembelian}",
+                              //           style: TextStyle(
+                              //             color: Colors.grey[800],
+                              //             fontSize: 12,
+                              //             fontWeight: FontWeight.w700,
+                              //           ),
+                              //         ),
+                              //       ],
+                              //     ),
+                              //   ),
+                              // ),
+                              // Expanded(
+                              //   child: Container(
+                              //     margin: EdgeInsets.symmetric(horizontal: 10),
+                              //     child: Column(
+                              //       crossAxisAlignment:
+                              //           CrossAxisAlignment.center,
+                              //       children: [
+                              //         Text(
+                              //           "Fee",
+                              //           style: TextStyle(
+                              //             color: Colors.black87,
+                              //             fontSize: 14,
+                              //             fontWeight: FontWeight.w900,
+                              //           ),
+                              //         ),
+                              //         SizedBox(height: 3),
+                              //         Text(
+                              //           "0,25%",
+                              //           style: TextStyle(
+                              //             color: Colors.grey[800],
+                              //             fontSize: 12,
+                              //             fontWeight: FontWeight.w700,
+                              //           ),
+                              //         ),
+                              //       ],
+                              //     ),
+                              //   ),
+                              // ),
                               Expanded(
                                 child: Container(
                                   margin: EdgeInsets.symmetric(horizontal: 10),
