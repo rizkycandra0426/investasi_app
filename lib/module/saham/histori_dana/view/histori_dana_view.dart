@@ -10,9 +10,21 @@ class HistoriDanaView extends StatefulWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Histori Dana ${now.year}",
+          "Histori Dana",
         ),
-        actions: [],
+        actions: [
+          IconButton(
+            onPressed: () {
+              UserBalanceService.topupHistories = [];
+              StockNewService.initialize();
+              controller.reload();
+            },
+            icon: const Icon(
+              Icons.delete_forever,
+              size: 24.0,
+            ),
+          ),
+        ],
       ),
       body: Column(
         children: [
@@ -25,7 +37,7 @@ class HistoriDanaView extends StatefulWidget {
                   children: [
                     Expanded(
                       child: Text(
-                        "Bulan",
+                        "Tanggal",
                         style: TextStyle(
                           fontSize: 12.0,
                           fontWeight: FontWeight.bold,
@@ -70,21 +82,11 @@ class HistoriDanaView extends StatefulWidget {
           ),
           Expanded(
             child: ListView.builder(
-              itemCount: controller.items.length,
+              itemCount: UserBalanceService.topupHistories.length,
               physics: ScrollPhysics(),
               itemBuilder: (BuildContext context, int index) {
-                var item = controller.items[index];
-                var month = item["bulan"];
-                double hargaUnit = controller.getHargaUnit(item["bulan"]);
-                if (item["saldo"] == 0) {
-                  hargaUnit = 0;
-                }
-
-                if (DateFormat("MMMM").format(now) == month) {
-                  month = "NOW";
-                  hargaUnit =
-                      PortofolioController.instance.porto["harga_unit"] * 1.0;
-                }
+                var item = UserBalanceService.topupHistories[index];
+                var date = DateTime.parse(item["date"]).dMMMy;
 
                 return Container(
                   color: index % 2 == 0 ? Colors.grey[200] : Colors.grey[300],
@@ -95,7 +97,7 @@ class HistoriDanaView extends StatefulWidget {
                         children: [
                           Expanded(
                             child: Text(
-                              "${month}",
+                              "${date}",
                               style: TextStyle(
                                 fontSize: 12.0,
                                 fontWeight: FontWeight.bold,
@@ -104,7 +106,7 @@ class HistoriDanaView extends StatefulWidget {
                           ),
                           Expanded(
                             child: Text(
-                              "${double.tryParse(item["saldo"].toString()).number}",
+                              "${double.tryParse(item["amount"].toString()).number}",
                               textAlign: TextAlign.right,
                               style: TextStyle(
                                 fontSize: 12.0,
@@ -113,7 +115,7 @@ class HistoriDanaView extends StatefulWidget {
                           ),
                           Expanded(
                             child: Text(
-                              "${hargaUnit == 0 ? 0 : hargaUnit.number}",
+                              "${(item["harga_unit"] * 1.0 as double).number}",
                               textAlign: TextAlign.right,
                               style: TextStyle(
                                 fontSize: 12.0,
@@ -122,9 +124,7 @@ class HistoriDanaView extends StatefulWidget {
                           ),
                           Expanded(
                             child: Text(
-                              hargaUnit == 0 || item["saldo"] == 0
-                                  ? "0".number
-                                  : "${(double.tryParse(item["saldo"].toString())! / hargaUnit).number}",
+                              "${(item["jumlah_unit"] * 1.0 as double).number}",
                               textAlign: TextAlign.right,
                               style: TextStyle(
                                 fontSize: 12.0,
@@ -156,7 +156,7 @@ class HistoriDanaView extends StatefulWidget {
                 ),
                 Expanded(
                   child: Text(
-                    "${controller.total.number}",
+                    "${UserBalanceService.saldo.number}",
                     textAlign: TextAlign.right,
                     style: TextStyle(
                       fontSize: 20.0,

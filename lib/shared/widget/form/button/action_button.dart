@@ -4,8 +4,10 @@ import 'package:hyper_ui/core.dart';
 class QActionButton extends StatelessWidget {
   final String label;
   final Function onPressed;
+  final Color? color;
   const QActionButton({
     Key? key,
+    this.color,
     required this.label,
     required this.onPressed,
   }) : super(key: key);
@@ -22,7 +24,7 @@ class QActionButton extends StatelessWidget {
       height: height + (padding * 2),
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-          backgroundColor: primaryColor,
+          backgroundColor: color ?? primaryColor,
         ),
         onPressed: () => onPressed(),
         child: Text(

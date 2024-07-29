@@ -18,18 +18,10 @@ class _BalanceWidgetState extends State<BalanceWidget> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    loadData();
-  }
-
-  loadData() async {
-    await SaldoService().getSaldoUser();
-    setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
-    double balance = DashboardController.instance.balance;
-    double saldo = 0;
     return Row(
       mainAxisAlignment: widget.enableTopup
           ? MainAxisAlignment.start
@@ -48,10 +40,10 @@ class _BalanceWidgetState extends State<BalanceWidget> {
               height: 4.0,
             ),
             Text(
-              "${currentUserSaldo.currency}",
+              "${UserBalanceService.sisaSaldoPlusSellValuation.currency}",
               style: TextStyle(
                 fontWeight: FontWeight.w600,
-                fontSize: 14,
+                fontSize: 12,
               ),
             ),
           ],
@@ -60,18 +52,48 @@ class _BalanceWidgetState extends State<BalanceWidget> {
           const SizedBox(
             width: 5.0,
           ),
-          InkWell(
-            onTap: () async {
-              await Get.to(TopupView());
-              loadData();
-            },
-            child: CircleAvatar(
-              backgroundColor: Colors.black,
-              radius: 12.0,
-              child: Icon(
-                Icons.add,
-                color: Colors.white,
-                size: 12.0,
+          Container(
+            height: 24.0,
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.blue,
+                foregroundColor: Colors.white,
+              ),
+              onPressed: () async {
+                await Get.to(TopupView());
+                PortofolioNewController.instance.reload();
+                setState(() {});
+              },
+              child: const Text(
+                "Topup",
+                style: TextStyle(
+                  fontSize: 8.0,
+                ),
+              ),
+            ),
+          ),
+          const SizedBox(
+            width: 4.0,
+          ),
+          Container(
+            height: 24.0,
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.red,
+                foregroundColor: Colors.white,
+              ),
+              onPressed: () async {
+                await Get.to(TopupView(
+                  topupMode: false,
+                ));
+                PortofolioNewController.instance.reload();
+                setState(() {});
+              },
+              child: const Text(
+                "Withdraw",
+                style: TextStyle(
+                  fontSize: 8.0,
+                ),
               ),
             ),
           ),
@@ -79,7 +101,8 @@ class _BalanceWidgetState extends State<BalanceWidget> {
           InkWell(
             onTap: () async {
               await Get.to(HistoriDanaView());
-              loadData();
+              PortofolioNewController.instance.reload();
+              setState(() {});
             },
             child: CircleAvatar(
               backgroundColor: Colors.orange,

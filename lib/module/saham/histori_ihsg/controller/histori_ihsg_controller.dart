@@ -11,52 +11,6 @@ class HistoriIhsgController extends State<HistoriIhsgView> {
     super.initState();
     instance = this;
     WidgetsBinding.instance.addPostFrameCallback((_) => onReady());
-    getData();
-  }
-
-  List items = [];
-  int? year = null;
-  updateYear(int value) {
-    year = value;
-    setState(() {});
-  }
-
-  List yields = [];
-  double getYieldByMonth(String month, int year) {
-    for (var element in yields) {
-      var mmm = DateFormat("MMMM").format(DateTime.parse(element["date"]));
-
-      var date = DateTime.parse(element["date"]);
-      if (!(date.year == now.year && date.month == now.month)) {
-        element["yield"] = 0.0;
-      }
-
-      if (DateFormat("MMMM")
-                  .format(DateTime.parse(element["date"]))
-                  .toString() ==
-              month.toString() &&
-          DateTime.parse(element["date"]).year == year) {
-        return element["yield"] * 1.0;
-      }
-    }
-
-    return 0;
-  }
-
-  getData() async {
-    var responseYield = await Dio().get(
-      "$baseUrl/v2/yield",
-    );
-    yields = responseYield.data;
-
-    //---------------
-    //---------------
-
-    var response = await dio.get(
-      "$baseUrl/v2/ihsg",
-    );
-    items = response.data;
-    setState(() {});
   }
 
   void onReady() {}
@@ -68,29 +22,13 @@ class HistoriIhsgController extends State<HistoriIhsgView> {
 
   @override
   Widget build(BuildContext context) => widget.build(context, this);
-
-  double getIhsg(int year) {
-    var current =
-        items.where((i) => DateTime.parse(i["date"]).year == year).toList();
-
-    return current.first["yield_ihsg"] ?? 0;
-
-    var total = 0.0;
-    var count = 0;
-
-    for (var item in current) {
-      total += item["yield_ihsg"] ?? 0.0;
-      count++;
-    }
-
-    var average = total / count;
-    return average;
+  reload() {
+    setState(() {});
   }
 
-  double getYield(int year) {
-    var current =
-        yields.where((i) => DateTime.parse(i["date"]).year == year).toList();
-
-    return current.last["yield"] ?? 0;
+  int selectedYear = now.year;
+  updateSelectedYear(int value) {
+    selectedYear = value;
+    setState(() {});
   }
 }

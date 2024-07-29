@@ -35,26 +35,26 @@ class PinjamanDetail extends StatelessWidget {
           padding: const EdgeInsets.all(20.0),
           child: Column(
             children: [
-              ValueItem(
+              DetailPinjamanValueItem(
                 label: "Dana pinjaman",
                 value: "${pinjamanAwal.currency}",
               ),
-              ValueItem(
+              DetailPinjamanValueItem(
                 label: "Jangka Waktu",
                 value: "${jangkaWaktuDalamBulan} bulan",
               ),
-              ValueItem(
+              DetailPinjamanValueItem(
                 label: "Persentase Bunga",
                 value: "${persentaseBunga.percentage}",
               ),
               Builder(builder: (context) {
-                return ValueItem(
+                return DetailPinjamanValueItem(
                   label: "Total Bunga",
                   value: "${totalBunga.currency}",
                 );
               }),
               Builder(builder: (context) {
-                return ValueItem(
+                return DetailPinjamanValueItem(
                   label: "Total Angsuran /Bulan",
                   value: "${totalAngsuranPerBulan.currency}",
                 );
@@ -113,10 +113,10 @@ class PinjamanDetail extends StatelessWidget {
   }
 }
 
-class ValueItem extends StatelessWidget {
+class DetailPinjamanValueItem extends StatelessWidget {
   final String label;
   final dynamic value;
-  const ValueItem({
+  const DetailPinjamanValueItem({
     super.key,
     required this.label,
     required this.value,

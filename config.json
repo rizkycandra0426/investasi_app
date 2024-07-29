@@ -1,6 +1,8 @@
 {
     "modules": [
-        "histori_ihsg"
+        "trade_histoy",
+        "stock_list",
+        "histori_tahunan_detail"
     ],
     "module_directory_name": "module/saham",
     "experimental_mode": false,

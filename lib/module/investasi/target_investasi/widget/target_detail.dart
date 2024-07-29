@@ -34,20 +34,20 @@ class TargetDetail extends StatelessWidget {
           padding: const EdgeInsets.all(20.0),
           child: Column(
             children: [
-              ValueItem(
+              TargetDetailValueItem(
                 label: "Target Dana",
                 value: "${controller.investasiAwal.currency}",
               ),
-              ValueItem(
+              TargetDetailValueItem(
                 label: "Jangka Waktu",
                 value: "${controller.jangkaWaktuDalamTahun} tahun",
               ),
-              ValueItem(
+              TargetDetailValueItem(
                 label: "Persentase Bunga",
                 value: "${controller.persentaseBunga}%",
               ),
               Builder(builder: (context) {
-                return ValueItem(
+                return TargetDetailValueItem(
                   label: "Total Dana per Bulan",
                   value:
                       "${monthlyContribution.currency}", // Format dengan dua desimal
@@ -57,7 +57,7 @@ class TargetDetail extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.all(6.0),
                 color: Colors.grey[400],
-                child: IndexedValueItem(
+                child: TargetDetailIndexedValueItem(
                   number: "Bulan",
                   label: "Dana Per Bulan",
                   value: "Nilai Investasi",
@@ -72,7 +72,7 @@ class TargetDetail extends StatelessWidget {
                   return Container(
                     padding: const EdgeInsets.all(6.0),
                     color: index % 2 == 0 ? Colors.grey[300] : Colors.grey[200],
-                    child: IndexedValueItem(
+                    child: TargetDetailIndexedValueItem(
                       number: index + 1,
                       label: monthlyContribution.currency,
                       value: (monthlyContribution * (index + 1)).currency,
@@ -88,10 +88,10 @@ class TargetDetail extends StatelessWidget {
   }
 }
 
-class ValueItem extends StatelessWidget {
+class TargetDetailValueItem extends StatelessWidget {
   final String label;
   final dynamic value;
-  const ValueItem({
+  const TargetDetailValueItem({
     super.key,
     required this.label,
     required this.value,
@@ -127,12 +127,12 @@ class ValueItem extends StatelessWidget {
   }
 }
 
-class IndexedValueItem extends StatelessWidget {
+class TargetDetailIndexedValueItem extends StatelessWidget {
   final dynamic number;
   final String label;
   final dynamic value;
 
-  const IndexedValueItem({
+  const TargetDetailIndexedValueItem({
     super.key,
     required this.number,
     required this.label,

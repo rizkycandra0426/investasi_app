@@ -46,7 +46,8 @@ class MainNavigationView extends StatefulWidget {
             //Preload screens
             Transform.scale(
               scale: 0.0,
-              child: PortofolioView(),
+              // child: PortofolioView(),
+              child: PortofolioNewView(),
             ),
           ],
         ),

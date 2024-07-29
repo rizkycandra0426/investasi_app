@@ -81,7 +81,7 @@ ThemeData getDefaultTheme() {
         ),
       ),
       filled: true,
-      fillColor: inputColor,
+      fillColor: Colors.grey[100],
     ),
   );
 }

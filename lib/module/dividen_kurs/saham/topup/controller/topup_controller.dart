@@ -7,11 +7,15 @@ class TopupController extends State<TopupView> {
   static late TopupController instance;
   late TopupView view;
 
+  bool isTopupMode = true;
+  bool get isWithdrawMode => !isTopupMode;
+
   @override
   void initState() {
     super.initState();
     instance = this;
     WidgetsBinding.instance.addPostFrameCallback((_) => onReady());
+    isTopupMode = widget.topupMode;
   }
 
   void onReady() {}
@@ -25,24 +29,22 @@ class TopupController extends State<TopupView> {
   Widget build(BuildContext context) => widget.build(context, this);
 
   double amount = 0;
-  String catatan = "SAHAM";
 
-  topup() async {
-    var balance = DashboardController.instance.balance;
-
-    if (amount > balance) {
-      snackbarDanger(message: "Saldo anda tidak mencukupi");
-      return;
-    }
+  process() async {
     showLoading();
-    await SaldoService().create({
-      "saldo": amount,
-    });
 
-    await SaldoService().getSaldoUser();
+    if (isTopupMode) {
+      await UserBalanceService.topup(amount);
+    } else {
+      await UserBalanceService.withdraw(amount);
+    }
 
     hideLoading();
     Get.back();
     snackbarSuccess(message: "Berhasil topup");
+  }
+
+  reload() {
+    setState(() {});
   }
 }

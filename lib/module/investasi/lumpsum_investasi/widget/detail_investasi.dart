@@ -20,19 +20,19 @@ class DetailInvestasi extends StatelessWidget {
           padding: const EdgeInsets.all(20.0),
           child: Column(
             children: [
-              ValueItem(
+              DetailInvestasiValueItem(
                 label: "Dana awal",
                 value: "${controller.investasiAwal.currency}",
               ),
-              ValueItem(
+              DetailInvestasiValueItem(
                 label: "Jangka Waktu",
                 value: "${controller.jangkaWaktuDalamTahun} tahun",
               ),
-              ValueItem(
+              DetailInvestasiValueItem(
                 label: "Persentase Bunga",
                 value: "${controller.persentaseBunga}%",
               ),
-              ValueItem(
+              DetailInvestasiValueItem(
                 label: "Total Dana",
                 value: "${controller.investasiAwal.currency}",
               ),
@@ -44,7 +44,7 @@ class DetailInvestasi extends StatelessWidget {
                 var nilaiInvestasi =
                     amount + (profit * (controller.jangkaWaktuDalamTahun));
 
-                return ValueItem(
+                return DetailInvestasiValueItem(
                   label: "Nilai Investasi",
                   value:
                       "${(nilaiInvestasi - controller.investasiAwal).currency}",
@@ -58,7 +58,7 @@ class DetailInvestasi extends StatelessWidget {
                 var nilaiInvestasi =
                     amount + (profit * (controller.jangkaWaktuDalamTahun));
 
-                return ValueItem(
+                return DetailInvestasiValueItem(
                   label: "Total nilai",
                   value: "${(nilaiInvestasi).currency}",
                 );
@@ -67,7 +67,7 @@ class DetailInvestasi extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.all(6.0),
                 color: Colors.grey[400],
-                child: IndexedValueItem(
+                child: DetailInvestasiIndexedValueItem(
                   number: "Tahun",
                   label: "Investasi",
                   value: "Nilai Investasi",
@@ -88,7 +88,7 @@ class DetailInvestasi extends StatelessWidget {
                   return Container(
                     padding: const EdgeInsets.all(6.0),
                     color: index % 2 == 0 ? Colors.grey[300] : Colors.grey[200],
-                    child: IndexedValueItem(
+                    child: DetailInvestasiIndexedValueItem(
                       number: index + 1,
                       label: "${(controller.investasiAwal).currency}",
                       value: "${nilaiInvestasi.currency}",
@@ -104,10 +104,10 @@ class DetailInvestasi extends StatelessWidget {
   }
 }
 
-class ValueItem extends StatelessWidget {
+class DetailInvestasiValueItem extends StatelessWidget {
   final String label;
   final dynamic value;
-  const ValueItem({
+  const DetailInvestasiValueItem({
     super.key,
     required this.label,
     required this.value,
@@ -143,12 +143,12 @@ class ValueItem extends StatelessWidget {
   }
 }
 
-class IndexedValueItem extends StatelessWidget {
+class DetailInvestasiIndexedValueItem extends StatelessWidget {
   final dynamic number;
   final String label;
   final dynamic value;
 
-  const IndexedValueItem({
+  const DetailInvestasiIndexedValueItem({
     super.key,
     required this.number,
     required this.label,

@@ -12,6 +12,7 @@ class PortofolioView extends StatefulWidget {
     final formatter = NumberFormat('#,###');
 
     if (controller.loading) return LoadingScaffold();
+
     return RefreshIndicator(
       onRefresh: () async {
         await Future.delayed(Duration(seconds: 2));

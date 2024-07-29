@@ -15,209 +15,81 @@ class HistoriIhsgView extends StatefulWidget {
       ),
       body: Column(
         children: [
-          if (controller.year != null)
-            Builder(
-              builder: (context) {
-                final List<Map> chartData = [
-                  // {
-                  //   "year": 2018,
-                  //   "sales": 40,
-                  // },
-                ];
-
-                var reversedItems = controller.items;
-                reversedItems = reversedItems.reversed.toList();
-
-                for (var item in reversedItems) {
-                  var date = DateTime.parse(item["date"]);
-                  var month = DateFormat("MMM").format(date);
-
-                  if (date.year != controller.year) continue;
-
-                  var yield = 0.0;
-                  if (date.year == now.year && date.month == now.month) {
-                    yield = double.tryParse(PortofolioController
-                            .instance.portoYield
-                            .toString()) ??
-                        0.0;
-                  }
-
-                  chartData.add({
-                    "year": "$month",
-                    "ihsg": item["yield_ihsg"],
-                    "yield": yield,
-                  });
-                }
-
-                return Container(
-                  color: Theme.of(context).cardColor,
-                  height: MediaQuery.of(context).size.height * 0.3,
-                  padding: const EdgeInsets.all(12.0),
-                  child: SfCartesianChart(
-                    primaryXAxis: CategoryAxis(),
-                    series: <CartesianSeries>[
-                      // Renders line chart
-                      LineSeries<Map, String>(
-                        color: Colors.red,
-                        dataSource: chartData,
-                        xValueMapper: (Map data, _) => data["year"],
-                        yValueMapper: (Map data, _) => data["ihsg"],
-                      ),
-                      LineSeries<Map, String>(
-                        color: Colors.green,
-                        dataSource: chartData,
-                        xValueMapper: (Map data, _) => data["year"],
-                        yValueMapper: (Map data, _) => data["yield"],
-                      )
-                    ],
-                  ),
-                );
-              },
-            ),
           Expanded(
             child: ListView.builder(
-              itemCount: controller.items.length,
+              itemCount: 2,
+              shrinkWrap: true,
               physics: const ScrollPhysics(),
               itemBuilder: (BuildContext context, int index) {
-                var item = controller.items[index];
-                var date = DateTime.parse(item["date"]);
-                var month = DateFormat("MMMM").format(date);
-                double monthYield =
-                    controller.getYieldByMonth(month, date.year);
+                var yearItems =
+                    LocalIHSGService.getLastValue(year: now.year - index);
 
-                bool visibleYear = false;
-                if (index == 0) {
-                  visibleYear = true;
-                } else {
-                  var prevDate =
-                      DateTime.parse(controller.items[index - 1]["date"]);
-                  if (prevDate.year != date.year) {
-                    visibleYear = true;
+                var yearYield = 0.0;
+                var yearIhsg = 0.0;
+
+                for (var item in yearItems) {
+                  if (item["yield"] != null && item["yield"] != 0) {
+                    yearYield = item["yield"];
+                    break;
                   }
                 }
 
-                if (date.year == now.year && date.month == now.month) {
-                  monthYield = double.tryParse(PortofolioController
-                          .instance.portoYield
-                          .toString()) ??
-                      0.0;
+                for (var item in yearItems) {
+                  if (item["ihsg"] != null && item["ihsg"] != 0) {
+                    yearIhsg = item["ihsg"];
+                    break;
+                  }
                 }
 
                 return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    if (visibleYear)
-                      InkWell(
-                        onTap: () {
-                          controller.updateYear(date.year);
-                        },
-                        child: Container(
-                          padding: const EdgeInsets.all(8.0),
-                          width: MediaQuery.of(context).size.width,
-                          decoration: BoxDecoration(
-                            color: Colors.blue,
-                          ),
-                          child: Builder(builder: (context) {
-                            var yield = controller.getYield(date.year);
-                            var ihsg = controller.getIhsg(date.year);
-
-                            if (date.year == now.year &&
-                                date.month == now.month) {
-                              yield = double.tryParse(PortofolioController
-                                      .instance.portoYield
-                                      .toString()) ??
-                                  0.0;
-                            }
-                            return Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Expanded(
-                                  child: Row(
-                                    children: [
-                                      if (controller.year == date.year) ...[
-                                        const Icon(
-                                          Icons.check_circle,
-                                          size: 24.0,
-                                          color: Colors.orange,
-                                        ),
-                                        const SizedBox(
-                                          width: 8.0,
-                                        ),
-                                      ],
-                                      Text(
-                                        "Year\n${date.year}",
-                                        style: TextStyle(
-                                          fontSize: 14.0,
-                                          color: Colors.white,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                Expanded(
-                                  child: Text(
-                                    "Yield\n${yield.percentage}",
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                      fontSize: 14.0,
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                ),
-                                Expanded(
-                                  child: Text(
-                                    "IHSG\n${ihsg.percentage}",
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                      fontSize: 14.0,
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                )
-                              ],
-                            );
-                          }),
-                        ),
-                      ),
-                    if (controller.year == date.year)
-                      Container(
-                        color: index % 2 == 0
-                            ? Colors.grey[200]
-                            : Colors.grey[300],
-                        padding: const EdgeInsets.all(12.0),
+                    InkWell(
+                      onTap: () {
+                        controller.updateSelectedYear(now.year - index);
+                      },
+                      child: Container(
+                        color: Colors.blue,
+                        padding: EdgeInsets.all(12.0),
                         child: Row(
                           children: [
                             Expanded(
                               child: Text(
-                                "${month}",
+                                "${now.year - index}",
+                                textAlign: TextAlign.start,
                                 style: TextStyle(
-                                  fontSize: 14.0,
+                                  fontSize: 16.0,
                                   fontWeight: FontWeight.bold,
+                                  color: Colors.white,
                                 ),
                               ),
                             ),
                             Expanded(
                               child: Text(
-                                "${(monthYield * 1.0).percentage}",
-                                textAlign: TextAlign.center,
+                                "$yearYield %",
+                                textAlign: TextAlign.right,
                                 style: TextStyle(
-                                  fontSize: 14.0,
-                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16.0,
+                                  color: Colors.white,
                                 ),
                               ),
                             ),
                             Expanded(
                               child: Text(
-                                "${(item["yield_ihsg"] * 1.0 as double).percentage}",
-                                textAlign: TextAlign.center,
+                                "$yearIhsg %",
+                                textAlign: TextAlign.right,
                                 style: TextStyle(
-                                  fontSize: 14.0,
-                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16.0,
+                                  color: Colors.white,
                                 ),
                               ),
                             ),
                           ],
                         ),
+                      ),
+                    ),
+                    if (controller.selectedYear == now.year - index)
+                      HistoriTahunanDetailView(
+                        year: now.year - index,
                       ),
                   ],
                 );

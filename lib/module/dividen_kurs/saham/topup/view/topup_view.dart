@@ -3,31 +3,28 @@ import 'package:hyper_ui/core.dart';
 import '../controller/topup_controller.dart';
 
 class TopupView extends StatefulWidget {
-  const TopupView({Key? key}) : super(key: key);
+  final bool topupMode;
+  const TopupView({
+    Key? key,
+    this.topupMode = true,
+  }) : super(key: key);
 
   Widget build(context, TopupController controller) {
     controller.view = this;
     var dashboardController = DashboardController.instance;
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Topup"),
-        actions: const [],
+        backgroundColor: controller.isTopupMode ? Colors.blue : Colors.red,
+        title: Text(controller.isTopupMode ? "Topup" : "Withdraw"),
+        actions: [],
       ),
       body: SingleChildScrollView(
         child: Container(
           padding: const EdgeInsets.all(20.0),
           child: Column(
             children: [
-              AbsorbPointer(
-                child: QTextField(
-                  label: "Total Balance",
-                  validator: Validator.required,
-                  value:
-                      "${dashboardController.balance.currency} (Maximal Topup)",
-                  onChanged: (value) {},
-                ),
-              ),
               QNumberField(
+                key: UniqueKey(),
                 label: "Amount",
                 validator: Validator.required,
                 value: controller.amount.toString(),
@@ -35,23 +32,28 @@ class TopupView extends StatefulWidget {
                   controller.amount = double.tryParse(value) ?? 0.0;
                 },
               ),
-              AbsorbPointer(
-                child: QTextField(
-                  label: "Catatan",
-                  validator: Validator.required,
-                  value: controller.catatan,
-                  onChanged: (value) {
-                    controller.catatan = value;
-                  },
-                ),
+              QCategoryPicker(
+                items: List.generate(5, (index) {
+                  var value = 100000000 * (index + 1);
+                  return {
+                    "label": "${value.currency}",
+                    "value": value,
+                  };
+                }),
+                validator: Validator.required,
+                onChanged: (index, label, value, item) {
+                  controller.amount = double.tryParse("$value") ?? 0;
+                  controller.reload();
+                },
               ),
             ],
           ),
         ),
       ),
       bottomNavigationBar: QActionButton(
-        label: "Topup",
-        onPressed: () => controller.topup(),
+        label: "Save",
+        color: controller.isTopupMode ? Colors.blue : Colors.red,
+        onPressed: () => controller.process(),
       ),
     );
   }

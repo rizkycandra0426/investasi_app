@@ -18,9 +18,16 @@ extension DoubleExtension on double? {
   }
 
   String get number {
-    if (this == null) return '0';
-    var value = (this! * 1.0);
-    return '${NumberFormat().format((value ?? 0).floor())}';
+    try {
+      if (this == null) return '0';
+      if (this != null && this!.isNaN) return '0';
+      if (this != null && this!.isInfinite) return '0';
+
+      var value = (this! * 1.0);
+      return '${NumberFormat().format((value ?? 0).floor())}';
+    } on Exception catch (err) {
+      return '0';
+    }
   }
 
   String get number2 {

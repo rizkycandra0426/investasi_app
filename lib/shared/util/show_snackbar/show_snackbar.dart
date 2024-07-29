@@ -12,6 +12,7 @@ snackbarPrimary({required String message, int duration = 4}) {
       ),
     ),
   );
+  ScaffoldMessenger.of(globalContext).hideCurrentSnackBar();
   ScaffoldMessenger.of(globalContext).showSnackBar(snackBar);
 }
 
@@ -26,6 +27,7 @@ snackbarSecondary({required String message, int duration = 4}) {
       ),
     ),
   );
+  ScaffoldMessenger.of(globalContext).hideCurrentSnackBar();
   ScaffoldMessenger.of(globalContext).showSnackBar(snackBar);
 }
 
@@ -40,6 +42,7 @@ snackbarDanger({required String message, int duration = 4}) {
       ),
     ),
   );
+  ScaffoldMessenger.of(globalContext).hideCurrentSnackBar();
   ScaffoldMessenger.of(globalContext).showSnackBar(snackBar);
 }
 
@@ -54,6 +57,7 @@ snackbarSuccess({required String message, int duration = 4}) {
       ),
     ),
   );
+  ScaffoldMessenger.of(globalContext).hideCurrentSnackBar();
   ScaffoldMessenger.of(globalContext).showSnackBar(snackBar);
 }
 
@@ -68,6 +72,7 @@ snackbarInfo({required String message, int duration = 4}) {
       ),
     ),
   );
+  ScaffoldMessenger.of(globalContext).hideCurrentSnackBar();
   ScaffoldMessenger.of(globalContext).showSnackBar(snackBar);
 }
 
@@ -82,6 +87,7 @@ snackbarWarning({required String message, int duration = 4}) {
       ),
     ),
   );
+  ScaffoldMessenger.of(globalContext).hideCurrentSnackBar();
   ScaffoldMessenger.of(globalContext).showSnackBar(snackBar);
 }
 
@@ -125,6 +131,7 @@ snackbarSoftPrimary({required String message, int duration = 4}) {
       ),
     ),
   );
+  ScaffoldMessenger.of(globalContext).hideCurrentSnackBar();
   ScaffoldMessenger.of(globalContext).showSnackBar(snackBar);
 }
 
@@ -168,6 +175,7 @@ snackbarSoftSecondary({required String message, int duration = 4}) {
       ),
     ),
   );
+  ScaffoldMessenger.of(globalContext).hideCurrentSnackBar();
   ScaffoldMessenger.of(globalContext).showSnackBar(snackBar);
 }
 
@@ -211,6 +219,7 @@ snackbarSoftDanger({required String message, int duration = 4}) {
       ),
     ),
   );
+  ScaffoldMessenger.of(globalContext).hideCurrentSnackBar();
   ScaffoldMessenger.of(globalContext).showSnackBar(snackBar);
 }
 
@@ -254,6 +263,7 @@ snackbarSoftSuccess({required String message, int duration = 4}) {
       ),
     ),
   );
+  ScaffoldMessenger.of(globalContext).hideCurrentSnackBar();
   ScaffoldMessenger.of(globalContext).showSnackBar(snackBar);
 }
 
@@ -297,6 +307,7 @@ snackbarSoftInfo({required String message, int duration = 4}) {
       ),
     ),
   );
+  ScaffoldMessenger.of(globalContext).hideCurrentSnackBar();
   ScaffoldMessenger.of(globalContext).showSnackBar(snackBar);
 }
 
@@ -340,6 +351,7 @@ snackbarSoftWarning({required String message, int duration = 4}) {
       ),
     ),
   );
+  ScaffoldMessenger.of(globalContext).hideCurrentSnackBar();
   ScaffoldMessenger.of(globalContext).showSnackBar(snackBar);
 }
 
@@ -394,6 +406,7 @@ snackbarIconSoftPrimary(
       ),
     ),
   );
+  ScaffoldMessenger.of(globalContext).hideCurrentSnackBar();
   ScaffoldMessenger.of(globalContext).showSnackBar(snackBar);
 }
 
@@ -448,6 +461,7 @@ snackbarIconSoftSecondary(
       ),
     ),
   );
+  ScaffoldMessenger.of(globalContext).hideCurrentSnackBar();
   ScaffoldMessenger.of(globalContext).showSnackBar(snackBar);
 }
 
@@ -502,6 +516,7 @@ snackbarIconSoftSuccess(
       ),
     ),
   );
+  ScaffoldMessenger.of(globalContext).hideCurrentSnackBar();
   ScaffoldMessenger.of(globalContext).showSnackBar(snackBar);
 }
 
@@ -556,6 +571,7 @@ snackbarIconSoftDanger(
       ),
     ),
   );
+  ScaffoldMessenger.of(globalContext).hideCurrentSnackBar();
   ScaffoldMessenger.of(globalContext).showSnackBar(snackBar);
 }
 
@@ -610,6 +626,7 @@ snackbarIconSoftInfo(
       ),
     ),
   );
+  ScaffoldMessenger.of(globalContext).hideCurrentSnackBar();
   ScaffoldMessenger.of(globalContext).showSnackBar(snackBar);
 }
 
@@ -664,6 +681,7 @@ snackbarIconSoftWarning(
       ),
     ),
   );
+  ScaffoldMessenger.of(globalContext).hideCurrentSnackBar();
   ScaffoldMessenger.of(globalContext).showSnackBar(snackBar);
 }
 
@@ -697,6 +715,7 @@ snackbarIconPrimary(
       ],
     ),
   );
+  ScaffoldMessenger.of(globalContext).hideCurrentSnackBar();
   ScaffoldMessenger.of(globalContext).showSnackBar(snackBar);
 }
 
@@ -730,6 +749,7 @@ snackbarIconSecondary(
       ],
     ),
   );
+  ScaffoldMessenger.of(globalContext).hideCurrentSnackBar();
   ScaffoldMessenger.of(globalContext).showSnackBar(snackBar);
 }
 
@@ -763,6 +783,7 @@ snackbarIconDanger(
       ],
     ),
   );
+  ScaffoldMessenger.of(globalContext).hideCurrentSnackBar();
   ScaffoldMessenger.of(globalContext).showSnackBar(snackBar);
 }
 
@@ -796,6 +817,7 @@ snackbarIconSuccess(
       ],
     ),
   );
+  ScaffoldMessenger.of(globalContext).hideCurrentSnackBar();
   ScaffoldMessenger.of(globalContext).showSnackBar(snackBar);
 }
 
@@ -829,6 +851,7 @@ snackbarIconInfo(
       ],
     ),
   );
+  ScaffoldMessenger.of(globalContext).hideCurrentSnackBar();
   ScaffoldMessenger.of(globalContext).showSnackBar(snackBar);
 }
 
@@ -859,5 +882,6 @@ snackbarIconWarning(
       ],
     ),
   );
+  ScaffoldMessenger.of(globalContext).hideCurrentSnackBar();
   ScaffoldMessenger.of(globalContext).showSnackBar(snackBar);
 }
