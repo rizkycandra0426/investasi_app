@@ -253,7 +253,7 @@ class DashboardInvestasiView extends StatefulWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            "Saham",
+                            "Portofolio",
                             style: TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.bold,
@@ -263,7 +263,7 @@ class DashboardInvestasiView extends StatefulWidget {
                           ),
                           SizedBox(height: 12),
                           Text(
-                            "Simulasi Saham untuk",
+                            "Portofolio Saham untuk",
                             style: TextStyle(
                               fontSize: 14,
                               fontWeight: FontWeight.w700,
@@ -272,7 +272,7 @@ class DashboardInvestasiView extends StatefulWidget {
                           ),
                           SizedBox(height: 8),
                           Text(
-                            "Belajar Saham pada pemula",
+                            "Mencatat Saham pada pengguna",
                             style: TextStyle(
                               fontSize: 14,
                               fontWeight: FontWeight.w700,
