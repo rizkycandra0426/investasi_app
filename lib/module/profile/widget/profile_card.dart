@@ -9,7 +9,6 @@ class ProfileCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var dashboardcontroller = DashboardController.instance;
-    var portofoliocontroller = PortofolioController.instance;
 
     return Container(
       width: MediaQuery.of(context).size.width,
@@ -97,7 +96,7 @@ class ProfileCard extends StatelessWidget {
                           Column(
                             children: [
                               Text(
-                                "${portofoliocontroller.floatingReturn.currency}",
+                                "",
                                 style: TextStyle(
                                   fontSize: 16,
                                   color: Colors.white,
@@ -105,7 +104,7 @@ class ProfileCard extends StatelessWidget {
                                 ),
                               ),
                               Text(
-                                "(${portofoliocontroller.portoYield.percentage})",
+                                "",
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 16,

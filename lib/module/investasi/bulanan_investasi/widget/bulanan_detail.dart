@@ -65,7 +65,7 @@ class BulananDetail extends StatelessWidget {
               Divider(),
               Container(
                 padding: const EdgeInsets.all(6.0),
-                color: Colors.grey[400],
+                color: Colors.white,
                 child: IndexedValueItem(
                   number: "Bulan",
                   label: "Investasi",
@@ -91,7 +91,7 @@ class BulananDetail extends StatelessWidget {
 
                   return Container(
                     padding: const EdgeInsets.all(6.0),
-                    color: index % 2 == 0 ? Colors.grey[300] : Colors.grey[200],
+                    color: index % 2 == 0 ? Colors.white : Colors.white,
                     child: IndexedValueItem(
                       number: index + 1,
                       label: "${danaInvestasiAwal.currency}",

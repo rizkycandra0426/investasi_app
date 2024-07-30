@@ -66,7 +66,7 @@ class DetailInvestasi extends StatelessWidget {
               Divider(),
               Container(
                 padding: const EdgeInsets.all(6.0),
-                color: Colors.grey[400],
+                color: Colors.white,
                 child: DetailInvestasiIndexedValueItem(
                   number: "Tahun",
                   label: "Investasi",
@@ -87,7 +87,7 @@ class DetailInvestasi extends StatelessWidget {
 
                   return Container(
                     padding: const EdgeInsets.all(6.0),
-                    color: index % 2 == 0 ? Colors.grey[300] : Colors.grey[200],
+                    color: index % 2 == 0 ? Colors.white : Colors.white,
                     child: DetailInvestasiIndexedValueItem(
                       number: index + 1,
                       label: "${(controller.investasiAwal).currency}",

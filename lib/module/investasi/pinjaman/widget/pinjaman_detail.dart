@@ -62,7 +62,7 @@ class PinjamanDetail extends StatelessWidget {
               Divider(),
               Container(
                 padding: const EdgeInsets.all(6.0),
-                color: Colors.grey[400],
+                color: Colors.white,
                 child: PinjamanIndexedValueItem(
                   number: "Bulan",
                   col1: "Angsuran",
@@ -95,7 +95,7 @@ class PinjamanDetail extends StatelessWidget {
 
                   return Container(
                     padding: const EdgeInsets.all(6.0),
-                    color: index % 2 == 0 ? Colors.grey[300] : Colors.grey[200],
+                    color: index % 2 == 0 ? Colors.white : Colors.white,
                     child: PinjamanIndexedValueItem(
                       number: index + 1,
                       col1: totalAngsuranPerBulan.currency,

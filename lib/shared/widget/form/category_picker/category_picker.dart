@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hyper_ui/core.dart';
 
 class QCategoryPicker extends StatefulWidget {
   final List<Map<String, dynamic>> items;
@@ -136,12 +137,14 @@ class _QCategoryPickerState extends State<QCategoryPicker> {
                             style: selected
                                 ? null
                                 : ElevatedButton.styleFrom(
-                                    backgroundColor:
-                                        Theme.of(context).disabledColor,
+                                    backgroundColor: Colors.grey[100],
                                     elevation: 0.0,
                                   ),
                             onPressed: () => updateIndex(index),
-                            child: Text(item["label"]),
+                            child: Text(
+                              item["label"],
+                              style: TextStyle(color: Colors.black54),
+                            ),
                           ),
                         );
                       }),

@@ -56,7 +56,7 @@ class TargetDetail extends StatelessWidget {
               Divider(),
               Container(
                 padding: const EdgeInsets.all(6.0),
-                color: Colors.grey[400],
+                color: Colors.white,
                 child: TargetDetailIndexedValueItem(
                   number: "Bulan",
                   label: "Dana Per Bulan",
@@ -71,7 +71,7 @@ class TargetDetail extends StatelessWidget {
                 itemBuilder: (BuildContext context, int index) {
                   return Container(
                     padding: const EdgeInsets.all(6.0),
-                    color: index % 2 == 0 ? Colors.grey[300] : Colors.grey[200],
+                    color: index % 2 == 0 ? Colors.white : Colors.white,
                     child: TargetDetailIndexedValueItem(
                       number: index + 1,
                       label: monthlyContribution.currency,

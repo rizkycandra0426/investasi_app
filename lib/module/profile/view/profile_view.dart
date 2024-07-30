@@ -62,8 +62,9 @@ class ProfileView extends StatefulWidget {
                     SizedBox(height: 60),
                     CircleAvatar(
                       radius: 50,
-                      backgroundImage: AssetImage(
-                          'assets/images/robot.png'), // Ganti dengan path gambar Anda
+                      backgroundImage: AssetImage('assets/images/robot.png'),
+                      backgroundColor:
+                          Colors.white, // Ganti dengan path gambar Anda
                     ),
                     SizedBox(height: 10), // Spasi antara CircleAvatar dan teks
                     Text(

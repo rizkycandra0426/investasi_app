@@ -16,13 +16,13 @@ class StockListView extends StatefulWidget {
         if (portofolioMode == false)
           Container(
             height: 64.0,
-            padding: EdgeInsets.all(8.0),
+            padding: EdgeInsets.only(top: 10, bottom: 10, right: 25, left: 25),
             child: TextField(
               decoration: InputDecoration(
                 hintText: 'Search',
                 fillColor: Colors.white,
                 enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8.0),
+                  borderRadius: BorderRadius.circular(20.0),
                   borderSide: BorderSide(
                     color: Colors.grey[300]!,
                   ),
@@ -57,9 +57,12 @@ class StockListView extends StatefulWidget {
                 }
               }
               return Card(
+                color: Colors.white,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15),
+                ),
                 child: Container(
                   padding: const EdgeInsets.all(12.0),
-                  color: Colors.white,
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [

@@ -7,8 +7,8 @@ class StockNewService {
   static double costTotal = 0.0;
   static double valuationTotal = 0.0;
   static double valuationTotalByBuyValue = 0.0;
-  static double ihsgStart = 5.0;
-  static double ihsgEnd = 12.0;
+  static double ihsgStart = 0.0;
+  static double ihsgEnd = 0.0;
   static double get ihsg {
     return (ihsgEnd - ihsgStart) / ihsgStart;
   }

@@ -12,7 +12,7 @@ class TradeHistoyView extends StatefulWidget {
   Widget build(context, TradeHistoyController controller) {
     controller.view = this;
     return Scaffold(
-      backgroundColor: Colors.grey[200],
+      backgroundColor: Colors.white,
       appBar: AppBar(
         title: Text("Trade History: ${stock["nama_saham"]}"),
         actions: const [],
@@ -24,9 +24,12 @@ class TradeHistoyView extends StatefulWidget {
         itemBuilder: (BuildContext context, int tradeIndex) {
           var tradeHistory = StockNewService.tradeHistories[tradeIndex];
           return Card(
+            color: Colors.white,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20),
+            ),
             child: Container(
               padding: const EdgeInsets.all(12.0),
-              color: Colors.white,
               child: Builder(builder: (context) {
                 List values = [
                   {

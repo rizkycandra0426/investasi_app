@@ -34,7 +34,7 @@ class TopupView extends StatefulWidget {
               ),
               QCategoryPicker(
                 items: List.generate(5, (index) {
-                  var value = 100000000 * (index + 1);
+                  var value = 100000 * (index + 1);
                   return {
                     "label": "${value.currency}",
                     "value": value,

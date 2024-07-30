@@ -13,7 +13,7 @@ class PortofolioEditPriceView extends StatefulWidget {
     controller.view = this;
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.orange,
+        backgroundColor: Colors.blue,
         title: const Text("Edit current price"),
         actions: const [],
       ),
@@ -35,7 +35,7 @@ class PortofolioEditPriceView extends StatefulWidget {
         ),
       ),
       bottomNavigationBar: QActionButton(
-        color: Colors.orange,
+        color: Colors.blue,
         label: "Save",
         onPressed: () => controller.save(),
       ),

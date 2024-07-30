@@ -25,7 +25,7 @@ class StockView extends StatefulWidget {
                   filled: true,
                   fillColor: Colors.white,
                   enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(25.0),
+                    borderRadius: BorderRadius.circular(20.0),
                     borderSide: BorderSide(
                       color: Colors.grey,
                     ),

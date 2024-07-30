@@ -66,7 +66,7 @@ class DividenView extends StatefulWidget {
                   height: 40,
                   width: MediaQuery.of(context).size.width,
                   decoration: BoxDecoration(
-                    color: Colors.grey[100],
+                    color: Colors.white,
                     borderRadius: BorderRadius.all(
                       Radius.circular(10),
                     ),

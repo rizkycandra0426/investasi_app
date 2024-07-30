@@ -89,7 +89,10 @@ class PortofolioNewView extends StatefulWidget {
                 },
               ];
               return Card(
-                color: Colors.grey[100],
+                color: Colors.white,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20),
+                ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
