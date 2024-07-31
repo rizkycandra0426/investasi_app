@@ -174,11 +174,10 @@ class StockListView extends StatefulWidget {
                                           fontSize: 12.0,
                                         ),
                                       ),
-                                      Text(
-                                        "(click to edit)",
-                                        style: TextStyle(
-                                          fontSize: 8.0,
-                                        ),
+                                      Icon(
+                                        Icons.arrow_downward,
+                                        size: 14.0,
+                                        color: Colors.black,
                                       ),
                                     ],
                                   ),

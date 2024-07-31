@@ -158,11 +158,10 @@ class PortofolioNewView extends StatefulWidget {
                                   ),
                                 ),
                                 if (editable)
-                                  Text(
-                                    "(click to edit)",
-                                    style: TextStyle(
-                                      fontSize: 8.0,
-                                    ),
+                                  Icon(
+                                    Icons.arrow_downward,
+                                    size: 14.0,
+                                    color: Colors.black,
                                   ),
                               ],
                             ),
