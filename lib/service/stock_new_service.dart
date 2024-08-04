@@ -10,7 +10,11 @@ class StockNewService {
   static double ihsgStart = 0.0;
   static double ihsgEnd = 0.0;
   static double get ihsg {
-    return (ihsgEnd - ihsgStart) / ihsgStart;
+    var newIhsg = (ihsgEnd - ihsgStart) / ihsgStart;
+    if (newIhsg.isNaN) {
+      return 0;
+    }
+    return newIhsg;
   }
 
   static double get jumlahPerUnit {
@@ -97,6 +101,18 @@ class StockNewService {
         "value_effect": valueEffect,
         "sekuritas": sekuritas,
       });
+    }
+  }
+
+  static Future<double> getRealtimePrice(symbol) async {
+    try {
+      var response = await dio.get(
+        "/price/$symbol",
+      );
+      return double.tryParse("${response.data["data"]["price"]}") ?? 0;
+    } on Exception catch (err) {
+      printr("GET PRICE ERROR: $err");
+      return 0;
     }
   }
 

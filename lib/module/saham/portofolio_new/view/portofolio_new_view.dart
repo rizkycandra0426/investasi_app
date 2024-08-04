@@ -147,6 +147,9 @@ class PortofolioNewView extends StatefulWidget {
                                   textAlign: TextAlign.right,
                                   style: TextStyle(
                                     fontSize: 10.0,
+                                    decoration: !editable
+                                        ? null
+                                        : TextDecoration.underline,
                                   ),
                                 ),
                                 Text(
@@ -157,12 +160,6 @@ class PortofolioNewView extends StatefulWidget {
                                     fontSize: 12.0,
                                   ),
                                 ),
-                                if (editable)
-                                  Icon(
-                                    Icons.arrow_downward,
-                                    size: 14.0,
-                                    color: Colors.black,
-                                  ),
                               ],
                             ),
                           );

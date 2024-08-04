@@ -93,4 +93,21 @@ class PortofolioTradeController extends State<PortofolioTradeView> {
     widget.item["current_price"] = price;
     StockNewService.calculate();
   }
+
+  bool loading = false;
+  useRealtimePrice() async {
+    try {
+      loading = true;
+      setState(() {});
+
+      var newPrice =
+          await StockNewService.getRealtimePrice(widget.item["nama_saham"]);
+      price = newPrice;
+      loading = false;
+      setState(() {});
+    } on Exception catch (_) {
+      loading = false;
+      setState(() {});
+    }
+  }
 }

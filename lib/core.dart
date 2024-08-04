@@ -71,6 +71,8 @@ export 'package:hyper_ui/module/profile/controller/profile_controller.dart';
 export 'package:hyper_ui/module/profile/view/profile_view.dart';
 export 'package:hyper_ui/module/profile/widget/profile_card.dart';
 export 'package:hyper_ui/module/profile/widget/profile_clippath.dart';
+export 'package:hyper_ui/module/saham/auth/lupa-password/controller/lupa-password_controller.dart';
+export 'package:hyper_ui/module/saham/auth/lupa-password/view/lupa-password_view.dart';
 export 'package:hyper_ui/module/saham/histori_dana/controller/histori_dana_controller.dart';
 export 'package:hyper_ui/module/saham/histori_dana/view/histori_dana_view.dart';
 export 'package:hyper_ui/module/saham/histori_ihsg/controller/histori_ihsg_controller.dart';

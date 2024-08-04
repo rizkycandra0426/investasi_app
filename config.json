@@ -1,8 +1,6 @@
 {
     "modules": [
-        "trade_histoy",
-        "stock_list",
-        "histori_tahunan_detail"
+        "auth/lupa-password"
     ],
     "module_directory_name": "module/saham",
     "experimental_mode": false,

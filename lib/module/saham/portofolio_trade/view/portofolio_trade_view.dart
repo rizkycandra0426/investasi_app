@@ -15,78 +15,93 @@ class PortofolioTradeView extends StatefulWidget {
     controller.view = this;
     bool buyMode = !sellMode;
 
+    var loadingWidget = Center(
+      child: Text("Load realtime data..."),
+    );
     return Scaffold(
       appBar: AppBar(
         backgroundColor: buyMode ? Colors.green : Colors.red,
-        title: const Text("PortofolioTrade"),
+        title: Text("Trade - ${buyMode ? "Buy" : "Sell"}"),
         actions: const [],
       ),
-      body: SingleChildScrollView(
-        child: Container(
-          padding: const EdgeInsets.all(20.0),
-          child: Column(
-            children: [
-              QNumberField(
-                label: "Price",
-                validator: Validator.required,
-                value: controller.price.toString(),
-                onChanged: (value) {
-                  controller.price = double.tryParse(value) ?? 0;
-                },
-              ),
-              QDatePicker(
-                label: "Date",
-                validator: Validator.required,
-                value: controller.date,
-                onChanged: (value) {
-                  print("value: $value");
-                },
-              ),
-              QNumberField(
-                label: "Volume",
-                validator: Validator.required,
-                value: controller.volume.toString(),
-                onChanged: (value) {
-                  controller.volume = int.tryParse(value) ?? 0;
-                  controller.reload();
-                },
-              ),
-              AbsorbPointer(
-                child: QNumberField(
-                  key: Key("${controller.volume}"),
-                  label: "Total",
-                  validator: Validator.required,
-                  value: controller.total.toString(),
-                  onChanged: (value) {},
+      body: controller.loading
+          ? loadingWidget
+          : SingleChildScrollView(
+              child: Container(
+                padding: const EdgeInsets.all(20.0),
+                child: Column(
+                  children: [
+                    QNumberField(
+                      label: "Price",
+                      validator: Validator.required,
+                      value: controller.price.toString(),
+                      onChanged: (value) {
+                        controller.price = double.tryParse(value) ?? 0;
+                      },
+                    ),
+                    QButton(
+                      label: "Use Realtime Price",
+                      color: Colors.grey,
+                      onPressed: () => controller.useRealtimePrice(),
+                    ),
+                    const SizedBox(
+                      height: 12.0,
+                    ),
+                    QDatePicker(
+                      label: "Date",
+                      validator: Validator.required,
+                      value: controller.date,
+                      onChanged: (value) {
+                        print("value: $value");
+                      },
+                    ),
+                    QNumberField(
+                      label: "Volume",
+                      validator: Validator.required,
+                      value: controller.volume.toString(),
+                      onChanged: (value) {
+                        controller.volume = int.tryParse(value) ?? 0;
+                        controller.reload();
+                      },
+                    ),
+                    AbsorbPointer(
+                      child: QNumberField(
+                        key: Key("${controller.volume}"),
+                        label: "Total",
+                        validator: Validator.required,
+                        value: controller.total.toString(),
+                        onChanged: (value) {},
+                      ),
+                    ),
+                    QDropdownField(
+                      label: "Sekuritas",
+                      validator: Validator.required,
+                      items: [
+                        {
+                          "label": "Ajaib",
+                          "value": "Ajaib",
+                        },
+                        {
+                          "label": "Bibit",
+                          "value": "Bibit",
+                        }
+                      ],
+                      value: controller.sekuritas,
+                      onChanged: (value, label) {
+                        controller.sekuritas = value;
+                      },
+                    ),
+                  ],
                 ),
               ),
-              QDropdownField(
-                label: "Sekuritas",
-                validator: Validator.required,
-                items: [
-                  {
-                    "label": "Ajaib",
-                    "value": "Ajaib",
-                  },
-                  {
-                    "label": "Bibit",
-                    "value": "Bibit",
-                  }
-                ],
-                value: controller.sekuritas,
-                onChanged: (value, label) {
-                  controller.sekuritas = value;
-                },
-              ),
-            ],
-          ),
-        ),
-      ),
-      bottomNavigationBar: QActionButton(
-        color: buyMode ? Colors.green : Colors.red,
-        label: buyMode ? "Buy" : "Sell",
-        onPressed: () => controller.trade(),
-      ),
+            ),
+      bottomNavigationBar: controller.loading
+          ? null
+          : QActionButton(
+              color: buyMode ? Colors.green : Colors.red,
+              label: buyMode ? "Buy" : "Sell",
+              onPressed: () => controller.trade(),
+            ),
     );
   }
 

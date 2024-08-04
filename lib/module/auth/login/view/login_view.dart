@@ -71,7 +71,22 @@ class LoginView extends StatefulWidget {
                   value: controller.password,
                 ),
                 const SizedBox(
-                  height: 41,
+                  height: 8.0,
+                ),
+                GestureDetector(
+                  onTap: () {
+                    Get.to(LupaPasswordView());
+                  },
+                  child: Text(
+                    ' Lupa password',
+                    style: whiteTextStyle.copyWith(
+                      fontWeight: FontWeight.w500,
+                      color: const Color(0xFF057798),
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  height: 8.0,
                 ),
                 SizedBox(
                   height: 45,

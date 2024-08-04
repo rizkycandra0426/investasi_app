@@ -1,13 +1,12 @@
-v notifikasi error pada saat di setting
+Untuk yang dikerjakan sekarang
+1 ⁠sama notifikasinya masih gk mau
+2 ⁠buatkan sinkronisasi offline gitu buat pencatatan keuangan
+3 reset password
+v 4 ⁠nyambungin API buat di current pricenya sama stocknya
 
-v pada saat topup bisa nampilkan total balance agar mengetahui berapa total balancenya
+--
+
+5 ⁠kalo berubah tahun itu dia ke reset mutasi dananya dan memakai dana valuation akhir, harga unit yang terakhir buat nentuin jumlah unitnya
 
 
-v gak bisa jual saham yang sudah dibeli sebelumnya
 
-
-v bug setelah edit pemasukan pengluaran gk muncul harganya
-
-- harga unit di Histori Dana 2024 sharusnya sama dengan yang di porto
-
-- yield dan harga unit di porto masih salah?

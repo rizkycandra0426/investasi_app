@@ -85,8 +85,8 @@ class _QTextFieldState extends State<QTextField> {
                 ),
           helperText: widget.helper,
           hintText: widget.hint,
-          filled: true, // Mengaktifkan latar belakang berwarna
-          fillColor: Colors.white,
+          // filled: true, // Mengaktifkan latar belakang berwarna
+          // fillColor: Colors.white,
         ),
         onChanged: (value) {
           widget.onChanged(value);
