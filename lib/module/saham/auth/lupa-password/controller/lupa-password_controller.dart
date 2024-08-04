@@ -38,6 +38,15 @@ class LupaPasswordController extends State<LupaPasswordView> {
 
     verificationCodeSent = true;
     setState(() {});
+
+    dio.post(
+      "/auth/send-verification-code",
+      data: {
+        "email": email,
+        "password": password,
+        "verification_code": verificationCode,
+      },
+    );
   }
 
   resetPassword() async {
