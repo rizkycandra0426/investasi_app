@@ -75,7 +75,7 @@ class BaseService<T> {
     print("data: $data");
     print("-------------");
 
-    var response = await dio.post(
+    var response = await dio.put(
       url,
       options: Options(
         headers: {

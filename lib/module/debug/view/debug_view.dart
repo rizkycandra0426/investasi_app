@@ -94,7 +94,8 @@ class DebugView extends StatefulWidget {
                           onTap: () async {
                             showLoading();
                             print("OfflineService.syncPemasukanDanPengeluaran");
-                            await OfflineService.syncPemasukanDanPengeluaran();
+                            await OfflineService
+                                .syncPemasukanDanPengeluaranToServer();
                             hideLoading();
                           },
                           child: const Icon(

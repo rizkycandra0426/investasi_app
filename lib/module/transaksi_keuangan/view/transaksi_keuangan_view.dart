@@ -28,9 +28,7 @@ class TransaksiKeuanganView extends StatefulWidget {
         elevation: 0.0,
         backgroundColor: Colors.blue,
         centerTitle: true,
-        leading: BackButton(
-          onPressed: () => Get.offAll(MainNavigationView()),
-        ),
+        leading: BackButton(),
         title: Text(
           "Catat Transaksi",
           style: TextStyle(
@@ -181,8 +179,9 @@ class TransaksiKeuanganView extends StatefulWidget {
                             backgroundColor: Colors.blue,
                           ),
                           onPressed: () async {
-                            await controller.save(false);
-                            Get.offAll(TransaksiKeuanganView());
+                            await controller.save();
+                            await Get.to(TransaksiKeuanganView());
+                            DashboardController.instance.reload();
                           },
                           child: Text(
                             "Tambah Lagi",
@@ -285,6 +284,7 @@ class TransaksiKeuanganView extends StatefulWidget {
                               validator: Validator.required,
                               value: DateTime.now(),
                               onChanged: (value) {
+                                print(value);
                                 controller.date = value;
                               },
                             ),

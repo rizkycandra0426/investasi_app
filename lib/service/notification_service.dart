@@ -32,10 +32,14 @@ class NotificationService extends BaseService<Map<String, dynamic>> {
   }
 
   sendNotification(String title, String message) async {
-    var url = "$baseUrl/$endpoint?title=$title&message=$message";
-    var response = await dio.get(
-      url,
-    );
+    try {
+      var url = "$baseUrl/$endpoint?title=$title&message=$message";
+      var response = await dio.get(
+        url,
+      );
+    } on Exception catch (err) {
+      print(err);
+    }
   }
 }
 

@@ -54,7 +54,7 @@ class TransactionHistoryService extends BaseService {
         "id": item['id_pengeluaran'],
         "user_id": item['user_id'],
         "tanggal": item['tanggal'],
-        "jumlah": int.parse(item['jumlah'].toString()),
+        "jumlah": int.tryParse(item['jumlah'].toString()) ?? 0,
         "catatan": item['catatan'],
         "id_kategori": item['id_kategori_pengeluaran'],
         "nama_kategori": item['kategori_pengeluaran']

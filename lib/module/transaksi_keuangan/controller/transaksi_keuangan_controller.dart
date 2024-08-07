@@ -44,6 +44,7 @@ class TransaksiKeuanganController extends State<TransaksiKeuanganView> {
       idCategory = widget.item!.idKategori!;
       amount = double.parse(widget.item!.jumlah!.toString());
       memo = widget.item!.catatan!;
+      textEditingController.text = double.parse("${amount}").floor().toString();
 
       if (widget.item!.type == "Pengeluaran") {
         isPemasukan = false;
@@ -99,7 +100,7 @@ class TransaksiKeuanganController extends State<TransaksiKeuanganView> {
     hideBottomSheet();
   }
 
-  save([bool navigate = true]) async {
+  save() async {
     bool isValid = formKey.currentState!.validate();
     if (!isValid || idCategory <= 0 || categoryName.isEmpty || memo.isEmpty) {
       snackbarDanger(message: "Data tidak lengkap!");
@@ -113,11 +114,12 @@ class TransaksiKeuanganController extends State<TransaksiKeuanganView> {
 
     showLoading();
 
-    var kategoriPemasukanList = OfflineService.get("kategori-pemasukan");
-    var kategoriPengeluaranList = OfflineService.get("kategori-pengeluaran");
+    var inputKategoriPemasukanList = OfflineService.get("kategori-pemasukan");
+    var inputKategoriPengeluaranList =
+        OfflineService.get("kategori-pengeluaran");
 
     if (isPemasukan) {
-      Map<String, dynamic> category = kategoriPemasukanList.firstWhere(
+      Map category = inputKategoriPemasukanList.firstWhere(
         (i) => i["id_kategori_pemasukan"] == idCategory,
         orElse: () => {},
       );
@@ -143,7 +145,8 @@ class TransaksiKeuanganController extends State<TransaksiKeuanganView> {
         "kategori_pemasukan": category,
         "nama_kategori": category["nama_kategori_pemasukan"],
         "nama_kategori_pemasukan": category["nama_kategori_pemasukan"],
-        "sync": false,
+        "synced": false,
+        "action": "create",
       });
 
       // await PemasukanService().create({
@@ -153,7 +156,7 @@ class TransaksiKeuanganController extends State<TransaksiKeuanganView> {
       //   "id_kategori_pemasukan": idCategory,
       // });
     } else {
-      Map<String, dynamic> category = kategoriPengeluaranList.firstWhere(
+      Map category = inputKategoriPengeluaranList.firstWhere(
         (i) => i["id_kategori_pengeluaran"] == idCategory,
         orElse: () => {},
       );
@@ -179,7 +182,8 @@ class TransaksiKeuanganController extends State<TransaksiKeuanganView> {
         "kategori_pengeluaran": category,
         "nama_kategori": category["nama_kategori_pengeluaran"],
         "nama_kategori_pengeluaran": category["nama_kategori_pengeluaran"],
-        "sync": false,
+        "synced": false,
+        "action": "create",
       });
 
       // await PengeluaranService().create({
@@ -189,45 +193,105 @@ class TransaksiKeuanganController extends State<TransaksiKeuanganView> {
       //   "id_kategori_pengeluaran": idCategory,
       // });
     }
+    OfflineService.syncPemasukanDanPengeluaranToServer();
+
     hideLoading();
 
-    if (navigate == true) {
-      Get.offAll(MainNavigationView());
-    }
+    Navigator.pop(context);
   }
 
   update() async {
+    var inputKategoriPemasukanList = OfflineService.get("kategori-pemasukan");
+    var inputKategoriPengeluaranList =
+        OfflineService.get("kategori-pengeluaran");
+
     showLoading();
+
     if (isPemasukan) {
-      await PemasukanService().update(widget.item!.id!, {
+      Map category = inputKategoriPemasukanList.firstWhere(
+        (i) => i["id_kategori_pemasukan"] == idCategory,
+        orElse: () => {},
+      );
+
+      var data = {
         "tanggal": date.yMd,
-        "jumlah": amount,
+        "jumlah": double.parse(amount.toString()).floor(),
         "catatan": memo,
         "id_kategori_pemasukan": idCategory,
-        "_method": "PUT",
-      });
+        "updated_at": DateTime.now().toString(),
+        "kategori_pemasukan": category,
+        "nama_kategori": category["nama_kategori_pemasukan"],
+        "nama_kategori_pemasukan": category["nama_kategori_pemasukan"],
+        "synced": false,
+        "action": "update",
+      };
+
+      printo(data.toString());
+
+      OfflineService.update(
+          "pemasukan", "id_pemasukan", widget.item!.id!, data);
+
+      // await PemasukanService().update(widget.item!.id!, {
+      //   "tanggal": date.yMd,
+      //   "jumlah": amount,
+      //   "catatan": memo,
+      //   "id_kategori_pemasukan": idCategory,
+      //   "_method": "PUT",
+      // });
     } else {
-      await PengeluaranService().update(widget.item!.id!, {
+      Map category = inputKategoriPengeluaranList.firstWhere(
+        (i) => i["id_kategori_pengeluaran"] == idCategory,
+        orElse: () => {},
+      );
+
+      printg(kategoriPengeluaranList);
+
+      var data = {
         "tanggal": date.yMd,
-        "jumlah": amount,
+        "jumlah": double.parse(amount.toString()).floor(),
         "catatan": memo,
         "id_kategori_pengeluaran": idCategory,
-        "_method": "PUT",
-      });
+        "updated_at": DateTime.now().toString(),
+        "kategori_pengeluaran": category,
+        "nama_kategori": category["nama_kategori_pengeluaran"],
+        "nama_kategori_pengeluaran": category["nama_kategori_pengeluaran"],
+        "synced": false,
+        "action": "update",
+      };
+
+      printo(data.toString());
+
+      OfflineService.update(
+          "pengeluaran", "id_pengeluaran", widget.item!.id!, data);
+
+      // await PengeluaranService().update(widget.item!.id!, {
+      //   "tanggal": date.yMd,
+      //   "jumlah": amount,
+      //   "catatan": memo,
+      //   "id_kategori_pengeluaran": idCategory,
+      //   "_method": "PUT",
+      // });
     }
+    OfflineService.syncPemasukanDanPengeluaranToServer();
+
     hideLoading();
-    Get.offAll(MainNavigationView());
+    printg("UPDATE SUCCESS?");
+    Get.back();
+    printg("UPDATE BACK SUCCESS?");
   }
 
   delete() async {
     showLoading();
     if (isPemasukan) {
-      await PemasukanService().delete(widget.item!.id!);
+      OfflineService.delete("pemasukan", "id_pemasukan", widget.item!.id!);
+      // await PemasukanService().delete(widget.item!.id!);
     } else {
-      await PengeluaranService().delete(widget.item!.id!);
+      OfflineService.delete("pengeluaran", "id_pengeluaran", widget.item!.id!);
+      // await PengeluaranService().delete(widget.item!.id!);
     }
+    OfflineService.syncPemasukanDanPengeluaranToServer();
     hideLoading();
-    Get.offAll(MainNavigationView());
+    Get.back();
   }
 
   TextEditingController textEditingController = TextEditingController();

@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hyper_ui/core.dart';
 import 'package:hyper_ui/service/offline_service.dart';
@@ -95,10 +96,11 @@ class LaporanKeuanganHarianView extends StatefulWidget {
                   bool isPengeluaran = item.type == "Pengeluaran";
 
                   return InkWell(
-                    onTap: () {
-                      Get.offAll(TransaksiKeuanganView(
+                    onTap: () async {
+                      await Get.to(TransaksiKeuanganView(
                         item: item,
                       ));
+                      DashboardController.instance.reload();
                     },
                     child: Column(
                       children: [
@@ -154,6 +156,17 @@ class LaporanKeuanganHarianView extends StatefulWidget {
                           ),
                           child: Row(
                             children: [
+                              if (kDebugMode) ...[
+                                Text(
+                                  "${item.id}",
+                                  style: TextStyle(
+                                    fontSize: 16.0,
+                                  ),
+                                ),
+                                const SizedBox(
+                                  width: 8.0,
+                                ),
+                              ],
                               Expanded(
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,

@@ -15,6 +15,7 @@ class DashboardView extends StatefulWidget {
     controller.view = this;
 
     return Scaffold(
+      key: Key("${controller.randomUid}"),
       appBar: AppBar(
         elevation: 0.0,
         backgroundColor: primaryColor,
@@ -96,7 +97,7 @@ class DashboardView extends StatefulWidget {
                                   unselectedLabelColor: Colors.blue,
                                   onTap: (index) {
                                     controller.updateSelectedIndex(index);
-                                    controller.refresh();
+                                    controller.reload();
                                   },
                                   tabs: [
                                     Tab(

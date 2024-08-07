@@ -86,8 +86,14 @@ class MainNavigationView extends StatefulWidget {
         floatingActionButton: Container(
           child: FloatingActionButton(
             backgroundColor: Colors.orange,
-            onPressed: () {
-              Get.offAll(TransaksiKeuanganView());
+            onPressed: () async {
+              // await Get.to(TransaksiKeuanganView());
+              await Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => TransaksiKeuanganView()),
+              );
+              DashboardController.instance.reload();
             },
             child: Icon(
               Icons.add,

@@ -16,6 +16,10 @@ class MainNavigationController extends State<MainNavigationView> {
     getPermission();
   }
 
+  reload() {
+    setState(() {});
+  }
+
   getPermission() async {
     if (await Permission.notification.request().isGranted == false) {
       openAppSettings();

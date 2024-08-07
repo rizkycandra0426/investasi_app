@@ -19,25 +19,29 @@ class BeritaService extends BaseService<Map<String, dynamic>> {
   }
 
   checkBeritaBaru() async {
-    var response = await BeritaService().get();
-    List items = response["data"];
-    int lastIdBerita = items.first["id_berita"];
+    try {
+      var response = await BeritaService().get();
+      List items = response["data"];
+      int lastIdBerita = items.first["id_berita"];
 
-    print("id berita db ${DBService.get("id_berita")}");
-    print("last id berita ${lastIdBerita}");
+      print("id berita db ${DBService.get("id_berita")}");
+      print("last id berita ${lastIdBerita}");
 
-    //Utk test jika tidak ada berita baru
-    // DBService.clear("id_berita");
+      //Utk test jika tidak ada berita baru
+      // DBService.clear("id_berita");
 
-    if (DBService.get("id_berita") == lastIdBerita.toString()) {
-      //Tidak ada berita baru
-      printr("Tidak ada berita baru");
-    } else {
-      //Ada berita baru
-      await NotificationService().sendNotification(
-        "Ada berita baru, yuk kita cek!",
-        "Ada berita baru, yuk kita cek!",
-      );
+      if (DBService.get("id_berita") == lastIdBerita.toString()) {
+        //Tidak ada berita baru
+        printr("Tidak ada berita baru");
+      } else {
+        //Ada berita baru
+        await NotificationService().sendNotification(
+          "Ada berita baru, yuk kita cek!",
+          "Ada berita baru, yuk kita cek!",
+        );
+      }
+    } on Exception catch (err) {
+      print(err);
     }
   }
 }
