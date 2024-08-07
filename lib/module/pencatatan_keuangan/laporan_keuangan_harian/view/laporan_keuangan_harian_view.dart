@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hyper_ui/core.dart';
+import 'package:hyper_ui/service/offline_service.dart';
 import 'package:hyper_ui/shared/util/animation/animation.dart';
 import 'package:hyper_ui/shared/widget/loading/loading_scaffold.dart';
 import '../controller/laporan_keuangan_harian_controller.dart';

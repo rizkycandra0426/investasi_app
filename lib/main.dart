@@ -1,4 +1,5 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:hyper_ui/service/offline_service.dart';
 import 'package:hyper_ui/service/stock_new_service.dart';
 import 'package:hyper_ui/state_util.dart';
 import 'package:hyper_ui/core.dart';
@@ -17,6 +18,7 @@ void main() async {
   // await DBService.clear("token");
   Diointerceptors.init();
   await AuthService().loadCurrentUserData();
+  await OfflineService.loadLocalValues();
 
   runMainApp();
 }
@@ -36,11 +38,11 @@ class MainApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: getDefaultTheme(),
       home: SplashScreenView(),
-      // builder: (context, child) => DebugView(
-      //   context: context,
-      //   child: child,
-      //   visible: true,
-      // ),
+      builder: (context, child) => DebugView(
+        context: context,
+        child: child,
+        visible: true,
+      ),
     );
   }
 }

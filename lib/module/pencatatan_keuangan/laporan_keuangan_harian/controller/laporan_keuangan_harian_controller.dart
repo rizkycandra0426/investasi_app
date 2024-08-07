@@ -40,6 +40,7 @@ class LaporanKeuanganHarianController extends State<LaporanKeuanganHarianView> {
 
   TransactionByMonthAndYearResponse? response;
   bool loading = true;
+
   getHistories({
     int? month,
     int? year,

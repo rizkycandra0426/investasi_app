@@ -5,6 +5,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hyper_ui/core.dart';
+import 'package:hyper_ui/service/offline_service.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 class DebugView extends StatefulWidget {
@@ -37,7 +38,7 @@ class DebugView extends StatefulWidget {
                       height: 0,
                     ),
                 Positioned(
-                  right: -8,
+                  right: 8,
                   bottom: 100,
                   child: Container(
                     width: 30.0,
@@ -57,7 +58,7 @@ class DebugView extends StatefulWidget {
                           child: const Icon(
                             Icons.arrow_back,
                             color: Colors.white,
-                            size: 12.0,
+                            size: 16.0,
                           ),
                         ),
                         const SizedBox(
@@ -68,7 +69,22 @@ class DebugView extends StatefulWidget {
                           child: const Icon(
                             Icons.widgets,
                             color: Colors.white,
-                            size: 12.0,
+                            size: 16.0,
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 12.0,
+                        ),
+                        InkWell(
+                          onTap: () async {
+                            showLoading();
+                            await OfflineService.loadLocalValues();
+                            hideLoading();
+                          },
+                          child: const Icon(
+                            Icons.sync,
+                            color: Colors.white,
+                            size: 16.0,
                           ),
                         ),
                       ],

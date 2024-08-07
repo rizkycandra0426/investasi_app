@@ -1,12 +1,19 @@
 Untuk yang dikerjakan sekarang
 1 ⁠sama notifikasinya masih gk mau
 2 ⁠buatkan sinkronisasi offline gitu buat pencatatan keuangan
-    pemasukan
-    pengeluaran
-    transaction-histories
-    transaction-histories/categories
     kategori-pemasukan
     kategori-pengeluaran
+    pemasukan
+    pengeluaran
+    berita
+
+    transaction-histories
+    transaction-histories/categories
+
+    /transaction-histories/{month}/{year}
+    /transaction-histories/{year}
+    /transaction-histories/categories/{month}/{year}
+
     filter by category dan date-nya
 
     jika digunakan, kode get pemasukan/pengeluaran/etc by xxx perlu di update, agar mengambil data local
@@ -18,7 +25,8 @@ Untuk yang dikerjakan sekarang
         -> check if there's create, update or delete
         -> sync to server (upload data to server)
 
-    Server Side Update:
+    Server Side Update\
+    
     - Get All Data
     - Sync Data
 
