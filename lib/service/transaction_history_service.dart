@@ -42,6 +42,7 @@ class TransactionHistoryService extends BaseService {
         "catatan": item['catatan'],
         "id_kategori": item['id_kategori_pemasukan'],
         "nama_kategori": item['kategori_pemasukan']['nama_kategori_pemasukan'],
+        "nama_kategori_pemasukan": item['nama_kategori_pemasukan'],
         "created_at": item['created_at'],
         "updated_at": item['updated_at'],
         "type": "Pemasukan"
@@ -58,6 +59,7 @@ class TransactionHistoryService extends BaseService {
         "id_kategori": item['id_kategori_pengeluaran'],
         "nama_kategori": item['kategori_pengeluaran']
             ['nama_kategori_pengeluaran'],
+        "nama_kategori_pemasukan": item['nama_kategori_pengeluaran'],
         "kategori_pengeluaran": item['kategori_pengeluaran'],
         "created_at": item['created_at'],
         "updated_at": item['updated_at'],

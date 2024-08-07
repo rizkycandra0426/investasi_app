@@ -19,6 +19,11 @@ class OfflineService {
     return OfflineService.localValues["$key"]!;
   }
 
+  static void add(String key, Map<String, dynamic> value) {
+    var currentValues = OfflineService.localValues["$key"]!;
+    currentValues.add(value);
+  }
+
   static Future loadLocalValues() async {
     if (token == null) return;
 
@@ -59,6 +64,47 @@ class OfflineService {
           "/offline/$key",
         );
       } on Exception catch (err) {
+        print(err);
+      }
+    }
+  }
+
+  //upload pemasukan dan pengeluaran
+  static Future syncPemasukanDanPengeluaran() async {
+    var pemasukan = OfflineService.get("pemasukan");
+    var unsyncedPemasukan = pemasukan.where((i) => i["sync"] == false).toList();
+
+    var pengeluaran = OfflineService.get("pengeluaran");
+    var unsyncedPengeluaran =
+        pengeluaran.where((i) => i["sync"] == false).toList();
+
+    for (var item in unsyncedPemasukan) {
+      try {
+        await PemasukanService().create({
+          "tanggal": DateTime.parse(item["tanggal"]).yMd,
+          "jumlah": item["jumlah"],
+          "catatan": item["catatan"],
+          "id_kategori_pemasukan": item["id_kategori_pemasukan"],
+        });
+        item["synced"] = true;
+      } on Exception catch (err) {
+        item["synced"] = false;
+        print(err);
+      }
+    }
+
+    for (var item in unsyncedPengeluaran) {
+      try {
+        await PengeluaranService().create({
+          "tanggal": DateTime.parse(item["tanggal"]).yMd,
+          "jumlah": item["jumlah"],
+          "catatan": item["catatan"],
+          "id_kategori_pengeluaran": item["id_kategori_pengeluaran"],
+        });
+
+        item["synced"] = true;
+      } on Exception catch (err) {
+        item["synced"] = false;
         print(err);
       }
     }

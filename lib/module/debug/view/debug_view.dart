@@ -87,6 +87,22 @@ class DebugView extends StatefulWidget {
                             size: 16.0,
                           ),
                         ),
+                        const SizedBox(
+                          height: 12.0,
+                        ),
+                        InkWell(
+                          onTap: () async {
+                            showLoading();
+                            print("OfflineService.syncPemasukanDanPengeluaran");
+                            await OfflineService.syncPemasukanDanPengeluaran();
+                            hideLoading();
+                          },
+                          child: const Icon(
+                            Icons.upload,
+                            color: Colors.white,
+                            size: 16.0,
+                          ),
+                        ),
                       ],
                     ),
                   ),
