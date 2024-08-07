@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dio/dio.dart';
 import 'package:hyper_ui/core.dart';
 import 'package:hyper_ui/env.dart';
@@ -12,7 +14,7 @@ class OfflineService {
     "kategori-pengeluaran",
     "pemasukan",
     "pengeluaran",
-    "berita"
+    "berita",
   ];
 
   static List get(String key) {
@@ -82,6 +84,13 @@ class OfflineService {
         print(err);
       }
     }
+
+    //### Independent sync
+    StockNewService.stocks = await DBService.loadList("stocks");
+    StockNewService.tradeHistories = await DBService.loadList("tradeHistories");
+    UserBalanceService.topupHistories =
+        await DBService.loadList("topupHistories");
+    //### END
   }
 
   static Future saveLocalValues() async {
@@ -90,6 +99,14 @@ class OfflineService {
     for (var key in keys) {
       await DBService.saveList("$key", localValues[key]!);
     }
+
+    //### Independent sync
+    //Clean values
+    await DBService.saveList("stocks", StockNewService.cleanStocks);
+    await DBService.saveList("tradeHistories", StockNewService.tradeHistories);
+    await DBService.saveList(
+        "topupHistories", UserBalanceService.topupHistories);
+    //### END
   }
 
   static Future saveLocalValuesAndUpdateToServer() async {
@@ -120,10 +137,12 @@ class OfflineService {
         )
         .toList();
 
+    bool thereIsDeletedItem = false;
     for (var item in unsyncedPemasukan) {
       try {
         print(item);
         if (item["action"] == "delete") {
+          thereIsDeletedItem = true;
           await PemasukanService().delete(item["id_pemasukan"]);
           OfflineService.deletePermanently(
               "pemasukan", "id_pemasukan", item["id_pemasukan"]);
@@ -159,6 +178,12 @@ class OfflineService {
 
     for (var item in unsyncedPengeluaran) {
       try {
+        if (item["action"] == "delete") {
+          thereIsDeletedItem = true;
+          await PengeluaranService().delete(item["id_pengeluaran"]);
+          OfflineService.deletePermanently(
+              "pengeluaran", "id_pengeluaran", item["id_pengeluaran"]);
+        }
         if (item["action"] == "create") {
           await PengeluaranService().create({
             "id_pengeluaran": item["id_pengeluaran"],
@@ -169,7 +194,8 @@ class OfflineService {
           });
           item["synced"] = true;
           item["action"] = null;
-        } else if (item["action"] == "update") {
+        }
+        if (item["action"] == "update") {
           await PengeluaranService().update(item["id_pengeluaran"], {
             "tanggal": DateTime.parse(item["tanggal"]).yMd,
             "jumlah": double.parse("${item["jumlah"]}").floor(),
@@ -178,15 +204,15 @@ class OfflineService {
           });
           item["synced"] = true;
           item["action"] = null;
-        } else if (item["action"] == "delete") {
-          await PengeluaranService().delete(item["id_pengeluaran"]);
-          OfflineService.deletePermanently(
-              "pengeluaran", "id_pengeluaran", item["id_pengeluaran"]);
         }
       } on Exception catch (err) {
         item["synced"] = false;
         print(err);
       }
+    }
+
+    if (thereIsDeletedItem) {
+      DashboardController.instance.reload();
     }
   }
 }

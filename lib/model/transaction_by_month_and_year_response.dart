@@ -39,6 +39,8 @@ class HistoryHarian {
   String? createdAt;
   String? updatedAt;
   String? type;
+  bool? synced;
+  String? action;
 
   HistoryHarian({
     this.id,
@@ -51,6 +53,8 @@ class HistoryHarian {
     this.createdAt,
     this.updatedAt,
     this.type,
+    this.synced,
+    this.action,
   });
 
   factory HistoryHarian.fromRawJson(String str) =>
@@ -70,6 +74,8 @@ class HistoryHarian {
         createdAt: json["created_at"],
         updatedAt: json["updated_at"],
         type: json["type"],
+        synced: json["synced"],
+        action: json["action"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -83,5 +89,7 @@ class HistoryHarian {
         "created_at": createdAt,
         "updated_at": updatedAt,
         "type": type,
+        "synced": synced,
+        "action": action,
       };
 }

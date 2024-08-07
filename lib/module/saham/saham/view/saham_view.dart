@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hyper_ui/core.dart';
 import 'package:hyper_ui/module/saham/stock_list/view/stock_list_view.dart';
+import 'package:hyper_ui/service/offline_service.dart';
 import '../controller/saham_controller.dart';
 
 class SahamView extends StatefulWidget {
@@ -12,38 +13,37 @@ class SahamView extends StatefulWidget {
       length: 2, // Jumlah tab
       child: Scaffold(
         backgroundColor: Colors.white,
+        appBar: AppBar(
+          backgroundColor: Colors.white,
+          titleTextStyle: TextStyle(
+            color: Colors.black,
+          ),
+          iconTheme: IconThemeData(
+            color: Colors.black,
+          ),
+          centerTitle: true,
+          title: Text(
+            "Portofolio Saham",
+            style: TextStyle(
+              fontSize: 16.0,
+            ),
+          ),
+          actions: [
+            IconButton(
+              icon: Icon(Icons.delete_forever_sharp),
+              onPressed: () async {
+                StockNewService.stocks = [];
+                StockNewService.tradeHistories = [];
+                UserBalanceService.topupHistories = [];
+                StockNewService.getStockFromDummies();
+                OfflineService.saveLocalValues();
+                Navigator.pop(context);
+              },
+            ),
+          ],
+        ),
         body: Column(
           children: [
-            SizedBox(height: 20),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: EdgeInsets.only(
-                      top: 34, left: 0), // Atur margin atas sesuai kebutuhan
-                  child: IconButton(
-                    icon: Icon(
-                      Icons.arrow_back,
-                      size: 28,
-                    ),
-                    onPressed: () => Get.back(),
-                  ),
-                ),
-                SizedBox(width: 40),
-                Container(
-                  margin: EdgeInsets.only(top: 33, left: 25),
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    "Portofolio Saham",
-                    style: TextStyle(
-                      fontWeight: FontWeight.w900,
-                      fontSize: 20,
-                      color: Colors.black87,
-                    ),
-                  ),
-                ),
-              ],
-            ),
             SizedBox(height: 20),
             TabBar(
               indicatorColor: Colors.blue,

@@ -1,9 +1,36 @@
+import 'dart:convert';
+
 import 'package:hyper_ui/core.dart';
+import 'package:hyper_ui/service/offline_service.dart';
 import 'package:hyper_ui/service/stock_data.dart';
 
 class StockNewService {
   static List stocks = [];
   static List tradeHistories = [];
+
+  static List get cleanStocks {
+    for (var index = 0; index < StockNewService.stocks.length; index++) {
+      var fundAlloc = StockNewService.stocks[index]["fund_alloc"];
+      var valueEffect = StockNewService.stocks[index]["value_effect"];
+      if (fundAlloc.isNaN) {
+        fundAlloc = 0;
+      }
+      if (valueEffect.isNaN) {
+        valueEffect = 0;
+      }
+
+      //if fund_alloc is Infinity, set to 0?
+
+      // StockNewService.stocks[index]["fund_alloc"] = fundAlloc;
+      // StockNewService.stocks[index]["value_effect"] = valueEffect;
+      StockNewService.stocks[index]["fund_alloc"] = 0;
+      StockNewService.stocks[index]["value_effect"] = 0;
+    }
+
+    stocks = jsonDecode(jsonEncode(stocks).replaceAll("Infinity", "0"));
+    return stocks;
+  }
+
   static double costTotal = 0.0;
   static double valuationTotal = 0.0;
   static double valuationTotalByBuyValue = 0.0;
@@ -15,6 +42,12 @@ class StockNewService {
       return 0;
     }
     return newIhsg;
+  }
+
+  static double get yieldInPercent {
+    var yield = (UserBalanceService.hargaUnitSaatIni - 1000) / 1000;
+    yield = double.parse("${double.parse("${yield}").toStringAsFixed(2)}");
+    return yield;
   }
 
   static double get jumlahPerUnit {
@@ -46,10 +79,20 @@ class StockNewService {
     for (var stock in stocks) {
       var currentVolume = (stock["buy_volume"] - stock["sell_volume"]);
       var buyTotal = currentVolume * stock["buy_price"];
-      stock["fund_alloc"] =
-          (buyTotal / (UserBalanceService.sisaSaldo + costTotal));
-      stock["value_effect"] = (stock["valuation"] /
-          (UserBalanceService.sisaSaldo + valuationTotal));
+
+      var div1 = (UserBalanceService.sisaSaldo + costTotal);
+      stock["fund_alloc"] = (buyTotal / div1);
+
+      var div2 = (UserBalanceService.sisaSaldo + valuationTotal);
+      stock["value_effect"] = (stock["valuation"] / div2);
+
+      if (div1 == 0) {
+        stock["fund_alloc"] = 0;
+      }
+
+      if (div2 == 0) {
+        stock["value_effect"] = 0;
+      }
 
       var buyValueValuation = stock["buy_volume"] * stock["current_price"];
       valuationTotalByBuyValue =
@@ -62,8 +105,12 @@ class StockNewService {
   }
 
   static initialize() async {
-    var lines = stockData.split("\n");
+    if (stocks.isNotEmpty) return;
+    getStockFromDummies();
+  }
 
+  static getStockFromDummies() async {
+    var lines = stockData.split("\n");
     for (var line in lines) {
       if (!line.contains(",")) continue;
       var values = line.split(",");
@@ -135,6 +182,8 @@ class StockNewService {
       "action": "BUY",
       "stock": stock,
     });
+
+    OfflineService.saveLocalValues();
   }
 
   static void sell({
@@ -157,6 +206,8 @@ class StockNewService {
       "action": "SELL",
       "stock": stock,
     });
+
+    OfflineService.saveLocalValues();
   }
 
   static double get sellTotalFromTradehistories {

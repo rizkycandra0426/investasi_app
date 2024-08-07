@@ -7,9 +7,11 @@ import 'package:flutter/material.dart';
 import 'package:hyper_ui/service/db_service.dart';
 import 'package:permission_handler/permission_handler.dart';
 
+// fund_alloc
+// value_effect
+// NaN
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await StockNewService.initialize();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
@@ -17,8 +19,11 @@ void main() async {
   await DBService.init();
   // await DBService.clear("token");
   Diointerceptors.init();
+
   await AuthService().loadCurrentUserData();
+
   await OfflineService.loadLocalValues();
+  await StockNewService.initialize();
 
   runMainApp();
 }

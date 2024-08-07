@@ -30,4 +30,21 @@ class PortofolioEditPriceController extends State<PortofolioEditPriceView> {
     StockNewService.calculate();
     Get.back();
   }
+
+  bool loading = false;
+  useRealtimePrice() async {
+    try {
+      loading = true;
+      setState(() {});
+
+      var newPrice =
+          await StockNewService.getRealtimePrice(widget.item["nama_saham"]);
+      price = newPrice;
+      loading = false;
+      setState(() {});
+    } on Exception catch (_) {
+      loading = false;
+      setState(() {});
+    }
+  }
 }

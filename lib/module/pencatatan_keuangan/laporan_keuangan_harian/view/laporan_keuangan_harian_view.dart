@@ -36,6 +36,7 @@ class LaporanKeuanganHarianView extends StatefulWidget {
                 physics: ScrollPhysics(),
                 itemBuilder: (BuildContext context, int index) {
                   var item = items[index];
+                  if (item.action == "delete") return Container();
 
                   if (date != null) {
                     var filterDate = DateFormat("d MMM y").format(date!);

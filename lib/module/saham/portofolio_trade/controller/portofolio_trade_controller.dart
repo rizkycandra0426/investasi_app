@@ -19,6 +19,10 @@ class PortofolioTradeController extends State<PortofolioTradeView> {
     if (widget.sellMode) {
       // volume = widget.item["volume"];
     }
+
+    if (!widget.sellMode) {
+      price = 0;
+    }
   }
 
   void onReady() {}

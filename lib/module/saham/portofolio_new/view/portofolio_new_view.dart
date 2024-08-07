@@ -44,7 +44,7 @@ class PortofolioNewView extends StatefulWidget {
                 },
                 {
                   "label": "Yield",
-                  "value": (UserBalanceService.hargaUnitSaatIni - 1000) / 1000,
+                  "value": StockNewService.yieldInPercent,
                   "suffix": "%",
                 },
                 {

@@ -156,6 +156,7 @@ class StockListView extends StatefulWidget {
                                       item: item,
                                     ));
                                     controller.reload();
+                                    PortofolioNewController.instance.reload();
                                   },
                                   child: Column(
                                     crossAxisAlignment:
@@ -336,11 +337,18 @@ class StockListView extends StatefulWidget {
                                 Container(
                                   height: 24.0,
                                   child: ElevatedButton(
-                                    style: ElevatedButton.styleFrom(
-                                      backgroundColor: Colors.green,
-                                      foregroundColor: Colors.white,
-                                    ),
+                                    style: UserBalanceService.sisaSaldo <= 0
+                                        ? ElevatedButton.styleFrom(
+                                            backgroundColor: Colors.grey,
+                                            foregroundColor: Colors.grey[600],
+                                          )
+                                        : ElevatedButton.styleFrom(
+                                            backgroundColor: Colors.green,
+                                            foregroundColor: Colors.white,
+                                          ),
                                     onPressed: () async {
+                                      if (UserBalanceService.sisaSaldo <= 0)
+                                        return;
                                       await Get.to(PortofolioTradeView(
                                         item: item,
                                       ));

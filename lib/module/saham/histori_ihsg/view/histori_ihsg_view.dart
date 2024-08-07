@@ -17,12 +17,12 @@ class HistoriIhsgView extends StatefulWidget {
         children: [
           Expanded(
             child: ListView.builder(
-              itemCount: 2,
+              itemCount: 3,
               shrinkWrap: true,
               physics: const ScrollPhysics(),
               itemBuilder: (BuildContext context, int index) {
-                var yearItems =
-                    LocalIHSGService.getLastValue(year: now.year - index);
+                var itemYear = (now.year + 1) - index;
+                var yearItems = LocalIHSGService.getLastValue(year: itemYear);
 
                 var yearYield = 0.0;
                 var yearIhsg = 0.0;
@@ -45,7 +45,7 @@ class HistoriIhsgView extends StatefulWidget {
                   children: [
                     InkWell(
                       onTap: () {
-                        controller.updateSelectedYear(now.year - index);
+                        controller.updateSelectedYear(itemYear);
                       },
                       child: Container(
                         color: Colors.blue,
@@ -54,7 +54,7 @@ class HistoriIhsgView extends StatefulWidget {
                           children: [
                             Expanded(
                               child: Text(
-                                "${now.year - index}",
+                                "${itemYear}",
                                 textAlign: TextAlign.start,
                                 style: TextStyle(
                                   fontSize: 16.0,
@@ -65,7 +65,7 @@ class HistoriIhsgView extends StatefulWidget {
                             ),
                             Expanded(
                               child: Text(
-                                "$yearYield %",
+                                "${yearYield.percentage}",
                                 textAlign: TextAlign.right,
                                 style: TextStyle(
                                   fontSize: 16.0,
@@ -75,7 +75,7 @@ class HistoriIhsgView extends StatefulWidget {
                             ),
                             Expanded(
                               child: Text(
-                                "$yearIhsg %",
+                                "${yearIhsg.percentage}",
                                 textAlign: TextAlign.right,
                                 style: TextStyle(
                                   fontSize: 16.0,
@@ -87,9 +87,9 @@ class HistoriIhsgView extends StatefulWidget {
                         ),
                       ),
                     ),
-                    if (controller.selectedYear == now.year - index)
+                    if (controller.selectedYear == itemYear)
                       HistoriTahunanDetailView(
-                        year: now.year - index,
+                        year: itemYear,
                       ),
                   ],
                 );

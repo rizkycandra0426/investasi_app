@@ -11,6 +11,11 @@ class HistoriTahunanDetailController extends State<HistoriTahunanDetailView> {
     super.initState();
     instance = this;
     WidgetsBinding.instance.addPostFrameCallback((_) => onReady());
+    LocalIHSGService.insertOrUpdate(
+      date: now,
+      yield: StockNewService.yieldInPercent,
+      ihsg: StockNewService.ihsg,
+    );
   }
 
   void onReady() {}
