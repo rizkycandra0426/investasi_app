@@ -1,13 +1,3 @@
-Untuk TODO yang sudah DONE, 
-Saya kenakan biaya di 500 ya mas
-Sudah boleh di transfer dulu.
-
----
-
-Untuk yang nomor 14 (yang Pending),
-Saya perlu cek lagi source code yang ada,
-Estimasi saya Mungkin akan perlu waktu 4-7 harian
-Biaya-nya di 400-600-an ya mas
 
 [PENDING]
 14. ⁠kalo berubah tahun itu dia ke reset mutasi dananya dan memakai dana valuation akhir, harga unit yang terakhir buat nentuin jumlah unitnya
