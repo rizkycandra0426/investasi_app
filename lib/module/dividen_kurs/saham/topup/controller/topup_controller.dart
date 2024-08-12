@@ -9,6 +9,7 @@ class TopupController extends State<TopupView> {
 
   bool isTopupMode = true;
   bool get isWithdrawMode => !isTopupMode;
+  String jenisTopup = "Topup Dana";
 
   @override
   void initState() {
@@ -30,11 +31,15 @@ class TopupController extends State<TopupView> {
 
   double amount = 0;
 
+  bool get isTopupDividen {
+    return jenisTopup == "Topup Dividen";
+  }
+
   process() async {
     showLoading();
 
     if (isTopupMode) {
-      await UserBalanceService.topup(amount);
+      await UserBalanceService.topup(amount, isTopupDividen);
     } else {
       await UserBalanceService.withdraw(amount);
     }

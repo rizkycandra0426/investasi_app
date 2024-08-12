@@ -23,6 +23,25 @@ class TopupView extends StatefulWidget {
           padding: const EdgeInsets.all(20.0),
           child: Column(
             children: [
+              if (controller.isTopupMode)
+                QRadioField(
+                  label: "Jenis Topup",
+                  validator: Validator.atLeastOneitem,
+                  items: [
+                    {
+                      "label": "Topup Dana",
+                      "value": "Topup Dana",
+                    },
+                    {
+                      "label": "Topup Dividen",
+                      "value": "Topup Dividen",
+                    }
+                  ],
+                  value: controller.jenisTopup,
+                  onChanged: (value, label) {
+                    controller.jenisTopup = value;
+                  },
+                ),
               QNumberField(
                 key: UniqueKey(),
                 label: "Amount",

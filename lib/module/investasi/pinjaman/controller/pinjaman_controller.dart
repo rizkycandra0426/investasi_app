@@ -24,6 +24,8 @@ class PinjamanController extends State<PinjamanView> {
   bool isButtonPressed = false;
   bool isContainerVisible = true;
 
+  String jenisPinjaman = "Bunga Menetap";
+
   void toggleContainerVisibility() {
     setState(() {
       isButtonPressed = !isButtonPressed; // Membalikkan status isButtonPressed
@@ -90,4 +92,8 @@ class PinjamanController extends State<PinjamanView> {
   TextEditingController persentaseBungaController = TextEditingController(
     text: "0",
   );
+
+  reload() {
+    setState(() {});
+  }
 }

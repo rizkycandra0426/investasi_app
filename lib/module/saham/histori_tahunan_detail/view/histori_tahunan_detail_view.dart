@@ -12,6 +12,7 @@ class HistoriTahunanDetailView extends StatefulWidget {
 
   Widget build(context, HistoriTahunanDetailController controller) {
     controller.view = this;
+
     return Column(
       children: [
         Builder(
@@ -161,6 +162,7 @@ class HistoriTahunanDetailView extends StatefulWidget {
                       children: [
                         Expanded(
                           child: TextFormField(
+                            readOnly: true,
                             initialValue: yield?.toString(),
                             textAlign: TextAlign.right,
                             keyboardType: TextInputType.number,
@@ -195,6 +197,7 @@ class HistoriTahunanDetailView extends StatefulWidget {
                       children: [
                         Expanded(
                           child: TextFormField(
+                            readOnly: true,
                             initialValue: ihsg?.toString(),
                             textAlign: TextAlign.right,
                             keyboardType: TextInputType.number,

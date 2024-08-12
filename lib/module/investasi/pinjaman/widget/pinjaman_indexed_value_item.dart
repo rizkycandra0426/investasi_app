@@ -4,16 +4,16 @@ import 'package:flutter/material.dart';
 
 class PinjamanIndexedValueItem extends StatelessWidget {
   final dynamic number;
-  final String col1;
-  final String label;
-  final dynamic value;
+  final String angsuran;
+  final String totalAngsuran;
+  final dynamic sisaPinjaman;
 
   const PinjamanIndexedValueItem({
     super.key,
     required this.number,
-    required this.col1,
-    required this.label,
-    required this.value,
+    required this.angsuran,
+    required this.totalAngsuran,
+    required this.sisaPinjaman,
   });
 
   @override
@@ -35,7 +35,7 @@ class PinjamanIndexedValueItem extends StatelessWidget {
           ),
           Expanded(
             child: Text(
-              "$col1",
+              "$angsuran",
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 10.0,
@@ -44,7 +44,7 @@ class PinjamanIndexedValueItem extends StatelessWidget {
           ),
           Expanded(
             child: Text(
-              "$label",
+              "$totalAngsuran",
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 10.0,
@@ -53,7 +53,7 @@ class PinjamanIndexedValueItem extends StatelessWidget {
           ),
           Expanded(
             child: Text(
-              "$value",
+              "$sisaPinjaman",
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 10.0,

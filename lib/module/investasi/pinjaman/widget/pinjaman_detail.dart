@@ -20,10 +20,9 @@ class PinjamanDetail extends StatelessWidget {
 
     controller
         .hitungNilaiPinjaman(); // Memanggil fungsi hitungNilaiPinjaman dari controller
-    var totalAngsuranPerBulan = controller.hasil;
+    var angsuranPerBulan = controller.hasil;
 
-    var totalBunga =
-        (totalAngsuranPerBulan * jangkaWaktuDalamBulan) - pinjamanAwal;
+    var totalBunga = (angsuranPerBulan * jangkaWaktuDalamBulan) - pinjamanAwal;
 
     return Scaffold(
       appBar: AppBar(
@@ -56,7 +55,7 @@ class PinjamanDetail extends StatelessWidget {
               Builder(builder: (context) {
                 return DetailPinjamanValueItem(
                   label: "Total Angsuran /Bulan",
-                  value: "${totalAngsuranPerBulan.currency}",
+                  value: "${angsuranPerBulan.currency}",
                 );
               }),
               Divider(),
@@ -65,9 +64,9 @@ class PinjamanDetail extends StatelessWidget {
                 color: Colors.white,
                 child: PinjamanIndexedValueItem(
                   number: "Bulan",
-                  col1: "Angsuran",
-                  label: "Total Angsuran",
-                  value: "Sisa Pinjaman",
+                  angsuran: "Angsuran",
+                  totalAngsuran: "Total Angsuran",
+                  sisaPinjaman: "Sisa Pinjaman",
                 ),
               ),
               ListView.builder(
@@ -81,10 +80,82 @@ class PinjamanDetail extends StatelessWidget {
                       controller.persentaseBunga / 100 / 12; // Bunga per bulan
 
                   // Menghitung total angsuran yang telah dibayarkan hingga bulan ini
-                  double totalAngsuran = danaInvestasiAwal * (index + 1);
 
-                  // Menghitung sisa pinjaman setelah angsuran bulan ini
-                  double sisaPinjaman = controller.pinjamanAwal - totalAngsuran;
+                  bool isBungaMenetap =
+                      PinjamanController.instance.jenisPinjaman ==
+                          "Bunga Menetap";
+                  bool isBungaMenurun = !isBungaMenetap;
+
+                  double totalAngsuran = 0;
+                  double sisaPinjaman = 0;
+
+                  if (isBungaMenetap) {
+                    totalAngsuran = danaInvestasiAwal * (index + 1);
+                    sisaPinjaman = controller.pinjamanAwal - totalAngsuran;
+                  } else if (isBungaMenurun) {
+                    /*
+                    Contoh kode di JAVASCRIPT
+                    function calculateNilai() {
+        const pinjamandana = parseFloat(document.getElementById('pinjamandana').value);
+        const jmhtahun = parseFloat(document.getElementById('jmhtahun').value);
+        const persentasebunga = parseFloat(document.getElementById('persentasebunga').value);
+
+        if (!isNaN(pinjamandana) && !isNaN(jmhtahun) && !isNaN(persentasebunga)) {
+            const tingkatBungaPerBulan = persentasebunga / 100 / 12; // Tingkat bunga per bulan
+            let remainingLoan = pinjamandana;
+            const monthlyPayments = [];
+            let totalPayment = 0;
+
+            for (let i = 1; i <= jmhtahun; i++) {
+                const interestPayment = remainingLoan * tingkatBungaPerBulan;
+                const principalPayment = (pinjamandana / jmhtahun);
+                const monthlyPayment = interestPayment + principalPayment;
+                remainingLoan -= principalPayment;
+                totalPayment += monthlyPayment;
+
+                monthlyPayments.push({
+                    'month': i,
+                    'monthly_payment': monthlyPayment,
+                    'interest_payment': interestPayment,
+                    'principal_payment': principalPayment,
+                    'remaining_loan': remainingLoan,
+                });
+            }
+            return {
+                'monthly_payments': monthlyPayments,
+                'total_payment': totalPayment,
+            };
+        } else {
+            return 'Invalid input';
+        }
+    }
+                    */
+                    // Jika bunga menurunt, total angsuran di bulan pertama lebih besar dari bunga menetap, tapi setiap bulannya akan terus menurun tergantung bunga-nya?
+                    double bungaPerBulan =
+                        controller.persentaseBunga / 100 / 12;
+                    double remainingLoan = controller.pinjamanAwal;
+                    double totalPayment = 0;
+
+                    for (int i = 1; i <= index + 1; i++) {
+                      double interestPayment = remainingLoan * bungaPerBulan;
+                      double principalPayment =
+                          controller.pinjamanAwal / jangkaWaktuDalamBulan;
+                      double monthlyPayment =
+                          interestPayment + principalPayment;
+                      remainingLoan -= principalPayment;
+                      totalPayment += monthlyPayment;
+                    }
+
+                    totalAngsuran = totalPayment;
+                    sisaPinjaman = remainingLoan;
+                    angsuranPerBulan = totalAngsuran / (index + 1);
+
+                    // Format nilai pembayaran bulanan dengan dua desimal
+                    totalAngsuran =
+                        double.parse(totalAngsuran.toStringAsFixed(2));
+                    sisaPinjaman =
+                        double.parse(sisaPinjaman.toStringAsFixed(2));
+                  }
 
                   // Pastikan sisaPinjaman tidak menampilkan nilai negatif
                   sisaPinjaman = max(sisaPinjaman, 0);
@@ -98,9 +169,9 @@ class PinjamanDetail extends StatelessWidget {
                     color: index % 2 == 0 ? Colors.white : Colors.white,
                     child: PinjamanIndexedValueItem(
                       number: index + 1,
-                      col1: totalAngsuranPerBulan.currency,
-                      label: formatCurrency.format(totalAngsuran),
-                      value: formatCurrency.format(sisaPinjaman),
+                      angsuran: angsuranPerBulan.currency,
+                      totalAngsuran: formatCurrency.format(totalAngsuran),
+                      sisaPinjaman: formatCurrency.format(sisaPinjaman),
                     ),
                   );
                 },

@@ -44,7 +44,24 @@ class StockNewService {
     return newIhsg;
   }
 
+  static double ihsgStartNextYear = 0.0;
+  static double ihsgEndNextYear = 0.0;
+  static double get ihsgNextYear {
+    var newIhsg = (ihsgEndNextYear - ihsgStartNextYear) / ihsgStartNextYear;
+    if (newIhsg.isNaN) {
+      return 0;
+    }
+    return newIhsg;
+  }
+
   static double get yieldInPercent {
+    var yield = (UserBalanceService.hargaUnitSaatIni - 1000) / 1000;
+    yield = double.parse("${double.parse("${yield}").toStringAsFixed(2)}");
+    return yield;
+  }
+
+  static double get yieldNextYear {
+    // harga
     var yield = (UserBalanceService.hargaUnitSaatIni - 1000) / 1000;
     yield = double.parse("${double.parse("${yield}").toStringAsFixed(2)}");
     return yield;
@@ -263,7 +280,7 @@ class UserBalanceService {
     return amountTotal;
   }
 
-  static topup(double amount) {
+  static topup(double amount, bool isTopupDividen) {
     double hargaUnit = 0;
     double jumlahUnit = 0;
     if (topupHistories.isEmpty) {
@@ -276,12 +293,22 @@ class UserBalanceService {
       jumlahUnit = amount / hargaUnit;
     }
 
-    topupHistories.add({
-      "date": DateTime.now().toString(),
-      "amount": amount,
-      "harga_unit": hargaUnit,
-      "jumlah_unit": jumlahUnit,
-    });
+    if (isTopupDividen) {
+      topupHistories.add({
+        "date": DateTime.now().toString(),
+        "amount": amount,
+        "harga_unit": 0,
+        "jumlah_unit": 0,
+      });
+      return;
+    } else {
+      topupHistories.add({
+        "date": DateTime.now().toString(),
+        "amount": amount,
+        "harga_unit": hargaUnit,
+        "jumlah_unit": jumlahUnit,
+      });
+    }
   }
 
   static withdraw(double amount) {

@@ -62,6 +62,7 @@ class _QRadioFieldState extends State<QRadioField> {
               border: InputBorder.none,
               helperText: widget.helper,
               hintText: widget.hint,
+              fillColor: Colors.white,
             ),
             child: ListView.builder(
               shrinkWrap: true,

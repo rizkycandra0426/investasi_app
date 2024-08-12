@@ -96,18 +96,18 @@ class ProfileCard extends StatelessWidget {
                           Column(
                             children: [
                               Text(
-                                "",
+                                "${StockNewService.valuationTotal.currency}",
                                 style: TextStyle(
-                                  fontSize: 16,
                                   color: Colors.white,
+                                  fontSize: 16,
                                   fontWeight: FontWeight.w700,
                                 ),
                               ),
                               Text(
-                                "",
+                                "${StockNewService.yieldInPercent}%",
                                 style: TextStyle(
-                                  color: Colors.white,
                                   fontSize: 16,
+                                  color: Colors.white,
                                   fontWeight: FontWeight.w700,
                                 ),
                               ),

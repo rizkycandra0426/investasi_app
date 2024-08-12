@@ -2,6 +2,13 @@ Untuk yang baru estimasi saya sekitar 400-600k gan
 Tergantung kerumitannya di point nomor 12 - 14 mas.
 Sepertinya point 12-14 kita selesaikan di online meet saja.
 
+v Judul email Laravel ganti Smart Finance
+v Histori tahunan muncul otomatis, tidak perlu di edit
+v Portofolio di Profile
+    (Valuasi saat ini dan Yield ditampilkan)
+v Current Price kadang2 gak berubah, kadang2 berubah
+- Yield gak berubah setelah current price di edit
+
 [ONGOING]
 1. v Jual beli saham tidak terecord ketika hot reload
 2. v Update edit price realtime
@@ -22,11 +29,12 @@ v Setelah current price diubah, belum tersimpan kalo di restart
 11. ⁠buatkan sinkronisasi offline gitu buat pencatatan keuangan
 
 [Pending] - Menunggu Rumus
-12. Bagian Topup bisa milih
+[v] 12. Bagian Topup bisa milih
     > Topup Dana
     > Topup Dividen
         (Akan mempengaruhi harga_unit dan yield)
-13. Sharusnya trade jual mempengaruhi harga_unit dan yield
+[x] 13. Sharusnya trade jual mempengaruhi harga_unit dan yield
+[v] 13. Update di Pinjaman
 
 [ONLINE_MEET]
 14. ⁠kalo berubah tahun itu dia ke reset mutasi dananya dan memakai dana valuation akhir, harga unit yang terakhir buat nentuin jumlah unitnya

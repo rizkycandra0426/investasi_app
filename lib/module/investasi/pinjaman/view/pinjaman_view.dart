@@ -46,9 +46,27 @@ class PinjamanView extends StatefulWidget {
                     SizedBox(
                       height: 70,
                     ),
+                    QRadioField(
+                      label: "Jenis Pinjaman",
+                      validator: Validator.required,
+                      items: [
+                        {
+                          "label": "Bunga Menetap",
+                          "value": "Bunga Menetap",
+                        },
+                        {
+                          "label": "Bunga Menurun",
+                          "value": "Bunga Menurun",
+                        }
+                      ],
+                      value: controller.jenisPinjaman,
+                      onChanged: (value, label) {
+                        controller.jenisPinjaman = value;
+                        controller.reload();
+                      },
+                    ),
                     Container(
                       padding: EdgeInsets.only(top: 5, left: 10, right: 10),
-                      height: 90,
                       width: MediaQuery.of(context).size.width,
                       decoration: BoxDecoration(
                         color: Colors.white70,
