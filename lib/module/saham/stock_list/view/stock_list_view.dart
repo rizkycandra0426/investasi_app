@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hyper_ui/core.dart';
+import 'package:hyper_ui/service/offline_service.dart';
 import '../controller/stock_list_controller.dart';
 
 class StockListView extends StatefulWidget {
@@ -157,6 +158,7 @@ class StockListView extends StatefulWidget {
                                     ));
                                     controller.reload();
                                     PortofolioNewController.instance.reload();
+                                    OfflineService.saveLocalValues();
                                   },
                                   child: Column(
                                     crossAxisAlignment:
@@ -209,7 +211,8 @@ class StockListView extends StatefulWidget {
                                   // },
                                   {
                                     "label": "Buy price",
-                                    "value": item["buy_price"],
+                                    // "value": item["buy_price"],
+                                    "value": item["average"] ?? 0,
                                   },
                                   // {
                                   //   "label": "Sell price",
@@ -221,7 +224,8 @@ class StockListView extends StatefulWidget {
                                   // },
                                   {
                                     "label": "Buy total",
-                                    "value": currentVolume * item["buy_price"],
+                                    "value":
+                                        currentVolume * (item["average"] ?? 0),
                                   },
                                   {
                                     "label": "Valuation",
@@ -230,7 +234,8 @@ class StockListView extends StatefulWidget {
                                   {
                                     "label": "Floating return",
                                     "value": (item["valuation"] ?? 0) -
-                                        (currentVolume * item["buy_price"]),
+                                        (currentVolume *
+                                            (item["average"] ?? 0)),
                                   },
                                   {
                                     "label": "Fund alloc",

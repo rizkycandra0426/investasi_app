@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hyper_ui/core.dart';
 import 'package:hyper_ui/module/saham/portofolio_edit_price/view/portofolio_edit_price_view.dart';
 import 'package:hyper_ui/module/saham/stock_list/view/stock_list_view.dart';
+import 'package:hyper_ui/service/offline_service.dart';
 import 'package:hyper_ui/service/stock_new_service.dart';
 import 'package:hyper_ui/shared/widget/form/popfield/popfield.dart';
 import '../controller/portofolio_new_controller.dart';
@@ -68,6 +69,7 @@ class PortofolioNewView extends StatefulWidget {
                       ),
                     );
                     controller.reload();
+                    OfflineService.saveLocalValues();
                   },
                 },
                 {
@@ -85,6 +87,7 @@ class PortofolioNewView extends StatefulWidget {
                       ),
                     );
                     controller.reload();
+                    OfflineService.saveLocalValues();
                   },
                 },
               ];

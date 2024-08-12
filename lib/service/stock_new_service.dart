@@ -183,6 +183,27 @@ class StockNewService {
       "stock": stock,
     });
 
+    int count = 0;
+    double total = 0.0;
+
+    for (var item in StockNewService.tradeHistories) {
+      if (item["nama_saham"] == stock["nama_saham"]) {
+        count++;
+        total += item["price"];
+      }
+    }
+
+    double average = total / count;
+    var stockIndex = StockNewService.stocks
+        .indexWhere((element) => element["nama_saham"] == stock["nama_saham"]);
+    StockNewService.stocks[stockIndex]["average"] = average;
+
+    // for (var item in StockNewService.tradeHistories) {
+    //   if (item["nama_saham"] == stock["nama_saham"]) {
+    //     item["average"] = average;
+    //   }
+    // }
+
     OfflineService.saveLocalValues();
   }
 

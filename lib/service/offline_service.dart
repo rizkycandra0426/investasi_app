@@ -90,6 +90,10 @@ class OfflineService {
     StockNewService.tradeHistories = await DBService.loadList("tradeHistories");
     UserBalanceService.topupHistories =
         await DBService.loadList("topupHistories");
+    StockNewService.ihsgStart =
+        double.tryParse("${DBService.get("ihsg_start") ?? 0}") ?? 0;
+    StockNewService.ihsgEnd =
+        double.tryParse("${DBService.get("ihsg_end") ?? 0}") ?? 0;
     //### END
   }
 
@@ -106,6 +110,8 @@ class OfflineService {
     await DBService.saveList("tradeHistories", StockNewService.tradeHistories);
     await DBService.saveList(
         "topupHistories", UserBalanceService.topupHistories);
+    await DBService.set("ihsg_start", StockNewService.ihsgStart.toString());
+    await DBService.set("ihsg_end", StockNewService.ihsgEnd.toString());
     //### END
   }
 

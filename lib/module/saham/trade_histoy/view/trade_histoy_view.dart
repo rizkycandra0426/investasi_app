@@ -23,6 +23,10 @@ class TradeHistoyView extends StatefulWidget {
         physics: const ScrollPhysics(),
         itemBuilder: (BuildContext context, int tradeIndex) {
           var tradeHistory = StockNewService.tradeHistories[tradeIndex];
+          if (tradeHistory["nama_saham"] != stock["nama_saham"]) {
+            return const SizedBox.shrink();
+          }
+
           return Card(
             color: Colors.white,
             shape: RoundedRectangleBorder(
@@ -44,6 +48,10 @@ class TradeHistoyView extends StatefulWidget {
                     "label": "Price",
                     "value": tradeHistory["price"],
                   },
+                  // {
+                  //   "label": "Average",
+                  //   "value": tradeHistory["average"] ?? 0,
+                  // },
                   {
                     "label": "Total",
                     "value": tradeHistory["total"],
