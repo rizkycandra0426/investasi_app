@@ -84,6 +84,18 @@ class PortofolioTradeView extends StatefulWidget {
                         {
                           "label": "Bibit",
                           "value": "Bibit",
+                        },
+                        {
+                          "label": "Stockbit",
+                          "value": "Stockbit",
+                        },
+                        {
+                          "label": "IPOT",
+                          "value": "IPOT",
+                        },
+                        {
+                          "label": "RTI Business",
+                          "value": "RTI Business",
                         }
                       ],
                       value: controller.sekuritas,

@@ -31,7 +31,7 @@ class HistoriDanaView extends StatefulWidget {
         child: Column(
           children: [
             ListView.builder(
-              itemCount: 2,
+              itemCount: 1,
               shrinkWrap: true,
               padding: EdgeInsets.zero,
               clipBehavior: Clip.none,
