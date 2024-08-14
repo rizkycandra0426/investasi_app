@@ -58,6 +58,7 @@ class StatistikPengeluaranView extends StatefulWidget {
     List<Color> colorSets = generatePieChartColors();
 
     return Scaffold(
+      key: UniqueKey(),
       // appBar: AppBar(
       //   title: const Text("StatistikPengeluaran"),
       //   actions: const [],
@@ -70,7 +71,7 @@ class StatistikPengeluaranView extends StatefulWidget {
             child: Column(
               children: [
                 Text(
-                  "Total Pengeluaran",
+                  "Total Pengeluaran (${controller.items.length})",
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                 ),
                 Builder(
@@ -96,30 +97,34 @@ class StatistikPengeluaranView extends StatefulWidget {
                       height: 300,
                       color: Theme.of(context).cardColor,
                       // padding: const EdgeInsets.all(12.0),
-                      child: SfCircularChart(
-                        legend: Legend(isVisible: false),
-                        series: <CircularSeries>[
-                          PieSeries<Map, String>(
-                            dataSource: chartData,
-                            dataLabelSettings: const DataLabelSettings(
-                              isVisible: true,
+                      child: controller.items.isEmpty
+                          ? Center(
+                              child: Text("No Data"),
+                            )
+                          : SfCircularChart(
+                              legend: Legend(isVisible: false),
+                              series: <CircularSeries>[
+                                PieSeries<Map, String>(
+                                  dataSource: chartData,
+                                  dataLabelSettings: const DataLabelSettings(
+                                    isVisible: true,
+                                  ),
+                                  xValueMapper: (Map data, _) => data["label"],
+                                  yValueMapper: (Map data, _) => data["sales"],
+                                  dataLabelMapper: (datum, index) {
+                                    return (datum["sales"] as double)
+                                            .toStringAsFixed(2) +
+                                        "%";
+                                  },
+                                  pointColorMapper: (datum, index) {
+                                    var categoryindex =
+                                        categories.indexOf(datum["label"]);
+                                    print(datum);
+                                    return colorSets[categoryindex];
+                                  },
+                                )
+                              ],
                             ),
-                            xValueMapper: (Map data, _) => data["label"],
-                            yValueMapper: (Map data, _) => data["sales"],
-                            dataLabelMapper: (datum, index) {
-                              return (datum["sales"] as double)
-                                      .toStringAsFixed(2) +
-                                  "%";
-                            },
-                            pointColorMapper: (datum, index) {
-                              var categoryindex =
-                                  categories.indexOf(datum["label"]);
-                              print(datum);
-                              return colorSets[categoryindex];
-                            },
-                          )
-                        ],
-                      ),
                     );
                   },
                 ),

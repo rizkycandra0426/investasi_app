@@ -160,17 +160,7 @@ class StockListView extends StatefulWidget {
                                           await Get.to(PortofolioEditPriceView(
                                             item: item,
                                           ));
-                                          OfflineService.saveLocalValues();
-                                          await StockNewService.calculate();
-                                          await Future.delayed(
-                                              Duration(milliseconds: 300));
-
-                                          PortofolioNewController.instance
-                                              .reload();
-                                          await Future.delayed(
-                                              Duration(milliseconds: 300));
-
-                                          controller.reload();
+                                          await reloadPortofolio();
                                         },
                                         child: Column(
                                           crossAxisAlignment:

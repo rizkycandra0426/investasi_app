@@ -15,6 +15,7 @@ class AnggaranPengeluaranController extends State<AnggaranPengeluaranView> {
     super.initState();
 
     var dashboardController = StatistikDashboardController.instance;
+    printo("initState");
     getHistories(
       month: dashboardController.currentDate.month,
       year: dashboardController.currentDate.year,
@@ -35,7 +36,6 @@ class AnggaranPengeluaranController extends State<AnggaranPengeluaranView> {
     int? year,
   }) async {
     print("getHistories.... $month/$year");
-    if (!this.mounted) return;
     loading = true;
     setState(() {});
 
@@ -52,7 +52,7 @@ class AnggaranPengeluaranController extends State<AnggaranPengeluaranView> {
       });
     }
     loading = false;
-    setState(() {});
+    if (mounted) setState(() {});
   }
 
   double get total {

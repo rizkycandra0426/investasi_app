@@ -55,6 +55,18 @@ extension IntExtension on int? {
   String get number {
     return '${NumberFormat().format((this ?? 0).floor())}';
   }
+
+  String get numberk {
+    var amount = (this ?? 0).floor();
+    var res = '${NumberFormat().format(amount)}';
+
+    if (amount >= 1000000) {
+      res = res.replaceAll(",000,000", "Jt");
+    } else if (amount < 1000000) {
+      res = res.replaceAll(",000", "Rb");
+    }
+    return res;
+  }
 }
 
 extension CurrencyStringExtension on String? {

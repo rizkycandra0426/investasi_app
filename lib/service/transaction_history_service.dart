@@ -158,10 +158,15 @@ class TransactionHistoryService extends BaseService {
         DateTime.parse(i["created_at"]).year == year);
 
     List kategoriPengeluaran = OfflineService.get("kategori-pengeluaran");
+
+    printo(filteredPengeluaranList);
+
     for (var item in kategoriPengeluaran) {
       var namaKategoriPengeluaran = item["nama_kategori_pengeluaran"];
-      var pengeluaranListByCategoryId =
-          filteredPengeluaranList.where((i) => i["id_kategori"] == item["id"]);
+
+      /// Fixed
+      var pengeluaranListByCategoryId = filteredPengeluaranList.where((i) =>
+          i["id_kategori_pengeluaran"] == item["id_kategori_pengeluaran"]);
 
       var total = 0;
       for (var pengeluaran in pengeluaranListByCategoryId) {

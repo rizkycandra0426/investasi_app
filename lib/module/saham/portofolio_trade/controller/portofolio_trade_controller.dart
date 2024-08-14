@@ -47,7 +47,7 @@ class PortofolioTradeController extends State<PortofolioTradeView> {
     setState(() {});
   }
 
-  trade() {
+  trade() async {
     if (widget.sellMode) {
       //sell mode
       int newSellVolume = (widget.item["sell_volume"] ?? 0) + volume;
@@ -80,6 +80,8 @@ class PortofolioTradeController extends State<PortofolioTradeView> {
         stock: widget.item,
       );
     }
+
+    reloadPortofolio();
 
     Get.back();
     ss(widget.sellMode ? "Sell success" : "Buy success");

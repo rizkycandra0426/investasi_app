@@ -221,6 +221,7 @@ class StockNewService {
     //   }
     // }
 
+    calculate();
     OfflineService.saveLocalValues();
   }
 
@@ -245,6 +246,7 @@ class StockNewService {
       "stock": stock,
     });
 
+    calculate();
     OfflineService.saveLocalValues();
   }
 

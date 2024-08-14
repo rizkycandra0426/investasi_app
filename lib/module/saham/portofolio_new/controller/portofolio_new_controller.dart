@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hyper_ui/core.dart';
+import 'package:hyper_ui/service/offline_service.dart';
 import '../view/portofolio_new_view.dart';
 
 class PortofolioNewController extends State<PortofolioNewView> {
@@ -26,4 +27,15 @@ class PortofolioNewController extends State<PortofolioNewView> {
   reload() {
     setState(() {});
   }
+}
+
+reloadPortofolio() async {
+  OfflineService.saveLocalValues();
+  await StockNewService.calculate();
+  await Future.delayed(Duration(milliseconds: 300));
+
+  PortofolioNewController.instance.reload();
+  await Future.delayed(Duration(milliseconds: 300));
+
+  StockListController.instance.reload();
 }
