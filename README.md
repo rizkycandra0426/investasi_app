@@ -1,3 +1,12 @@
+[NEW TODO]
+1. Equity belum bener mas den ketika jual beli saham masih salam dia
+[v] 2. Dibagain valuation, fund alloc, sama value effect pas melakukan edit di current price gk berubah mas den harus kayak pindah page gitu baru dia berubah
+3. bagian berita belum memunculkan berita
+4. Notifikasi scheduler masih belum bisa menampilkan notifikasi
+5. Bagian porto setelah buy atau jual gitu belum ada delay jadi harus pindah page kalo mau liat perubahan
+6. Untuk fitur offline bagian statistik sama anggaran ngaco, dia men totalkan semua pengeluaran begitu
+7. Perbaikan Harga Unit, Jumlah Unit, Valuation agar Yearly Based.
+8. Update Fitur Jual (Cek video di Whatsapp)
 
 [PENDING]
 14. ⁠kalo berubah tahun itu dia ke reset mutasi dananya dan memakai dana valuation akhir, harga unit yang terakhir buat nentuin jumlah unitnya
