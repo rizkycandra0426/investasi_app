@@ -30,7 +30,7 @@ class PinjamanView extends StatefulWidget {
             ClipPath(
               clipper: PinjamanClipPathClass(),
               child: Container(
-                height: 170,
+                height: 140,
                 width: MediaQuery.of(context).size.width,
                 color: Colors.blue,
               ),
