@@ -96,6 +96,30 @@ class StockNewService {
       } else if (item["action"] == "SELL") {
         item["valuation"] = -1 * item["volume"] * item["current_price"];
         item["floating_return"] = -1 * (item["valuation"] - 0);
+        item["cost"] = 0;
+      }
+    }
+
+    for (var item in tradeHistories) {
+      //-----
+      if (item["action"] == "BUY") {
+        item["fund_alloc"] = item["cost"] / UserBalanceService.saldo;
+        double valuationTotal = 0;
+        for (var subItem in tradeHistories) {
+          valuationTotal += subItem["valuation"];
+        }
+
+        item["value_effect"] =
+            item["valuation"] / (UserBalanceService.saldo - valuationTotal);
+      } else if (item["action"] == "SELL") {
+        item["fund_alloc"] = item["cost"] / UserBalanceService.saldo;
+        double valuationTotal = 0;
+        for (var subItem in tradeHistories) {
+          valuationTotal += subItem["valuation"];
+        }
+
+        item["value_effect"] =
+            item["valuation"] / (UserBalanceService.saldo - valuationTotal);
       }
     }
 
@@ -253,6 +277,11 @@ class StockNewService {
     // tradeHistories[tradeHistories.length - 1]["cost"] = avgPrice;
     //#END
 
+    var lastItem = StockNewService.tradeHistories
+        .where((i) => i["id_saham"] == idSaham)
+        .toList();
+    lastItem.last["current_price"] = avgPrice;
+
     calculate();
     OfflineService.saveLocalValues();
   }
@@ -330,6 +359,46 @@ class StockNewService {
       }
     }
     return total;
+  }
+
+  static getSummary(String? idSaham) {
+    var items = [];
+
+    if (idSaham != null) {
+      items = tradeHistories.where((i) => i["id_saham"] == idSaham).toList();
+    } else {
+      items = tradeHistories;
+    }
+    var costTotal = 0.0;
+    var valuationTotal = 0.0;
+    var floatingReturnTotal = 0.0;
+    var fundAllocTotal = 0.0;
+    var valueEffectTotal = 0.0;
+
+    var volumeTotal = 0.0;
+
+    for (var item in items) {
+      if (item["action"] == "BUY") {
+        volumeTotal += item["volume"];
+      } else {
+        volumeTotal -= item["volume"];
+      }
+
+      costTotal += item["cost"];
+      valuationTotal += item["valuation"];
+      floatingReturnTotal += item["floating_return"];
+      fundAllocTotal += item["fund_alloc"];
+      valueEffectTotal += item["value_effect"];
+    }
+
+    return {
+      "volume": volumeTotal,
+      "cost": costTotal,
+      "valuation": valuationTotal,
+      "floating_return": floatingReturnTotal,
+      "fund_alloc": fundAllocTotal,
+      "value_effect": valueEffectTotal,
+    };
   }
 }
 
@@ -413,6 +482,7 @@ class UserBalanceService {
   }
 
   static double get sisaSaldoPlusSellValuation {
+    return UserBalanceService.saldo;
     return UserBalanceService.saldo -
         StockNewService.costTotal +
         StockNewService.sellTotalFromTradehistories;

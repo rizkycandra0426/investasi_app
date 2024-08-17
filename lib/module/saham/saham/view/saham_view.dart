@@ -83,6 +83,8 @@ class SahamView extends StatefulWidget {
                   stock: stock,
                 );
 
+                StockNewService.calculate();
+
                 hideLoading();
                 Navigator.pop(context);
                 Get.to(SahamView());

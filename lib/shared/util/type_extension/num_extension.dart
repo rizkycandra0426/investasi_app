@@ -17,6 +17,11 @@ extension DoubleExtension on double? {
     return '${NumberFormat().format(value)}%';
   }
 
+  String get percentage3 {
+    var value = double.parse(double.parse(this.toString()).toStringAsFixed(3));
+    return '${NumberFormat().format(value)}%';
+  }
+
   String get number {
     try {
       if (this == null) return '0';

@@ -230,6 +230,9 @@ class StockListView extends StatefulWidget {
                                     Builder(builder: (context) {
                                       var currentVolume = (item["buy_volume"] -
                                           item["sell_volume"]);
+
+                                      var summary = StockNewService.getSummary(
+                                          item["id_saham"]);
                                       List values = [
                                         // {
                                         //   "label": "Buy volume",
@@ -239,11 +242,11 @@ class StockListView extends StatefulWidget {
                                         //   "label": "Sell volume",
                                         //   "value": item["sell_volume"],
                                         // },
-                                        {
-                                          "label": "Buy price",
-                                          // "value": item["buy_price"],
-                                          "value": item["average"] ?? 0,
-                                        },
+                                        // {
+                                        //   "label": "Buy price",
+                                        //   // "value": item["buy_price"],
+                                        //   "value": item["average"] ?? 0,
+                                        // },
                                         // {
                                         //   "label": "Sell price",
                                         //   "value": item["sell_price"],
@@ -252,35 +255,39 @@ class StockListView extends StatefulWidget {
                                         //   "label": "Current price",
                                         //   "value": item["current_price"],
                                         // },
+                                        // {
+                                        //   "label": "Buy total",
+                                        //   "value": currentVolume *
+                                        //       (item["average"] ?? 0),
+                                        // },
                                         {
-                                          "label": "Buy total",
-                                          "value": currentVolume *
-                                              (item["average"] ?? 0),
+                                          "label": "Cost",
+                                          "value": (summary["cost"] as double)
+                                              .number,
                                         },
                                         {
                                           "label": "Valuation",
-                                          "value": item["valuation"] ?? 0,
+                                          "value":
+                                              (summary["valuation"] as double)
+                                                  .number,
                                         },
                                         {
                                           "label": "Floating return",
-                                          "value": (item["valuation"] ?? 0) -
-                                              (currentVolume *
-                                                  (item["average"] ?? 0)),
+                                          "value": (summary["floating_return"]
+                                                  as double)
+                                              .number,
                                         },
                                         {
-                                          "label": "Fund alloc",
-                                          "value": double.parse(
-                                                  item["fund_alloc"].toString())
-                                              .toStringAsFixed(2),
-                                          "suffix": "%",
+                                          "label": "Fund Alloc",
+                                          "value":
+                                              (summary["fund_alloc"] as double)
+                                                  .percentage,
                                         },
                                         {
-                                          "label": "Value effect",
-                                          "value": double.parse(
-                                                  item["value_effect"]
-                                                      .toString())
-                                              .toStringAsFixed(2),
-                                          "suffix": "%",
+                                          "label": "Value Effect",
+                                          "value": (summary["value_effect"]
+                                                  as double)
+                                              .percentage,
                                         },
                                         {
                                           "label": "Sekuritas",
@@ -301,23 +308,6 @@ class StockListView extends StatefulWidget {
                                         physics: ScrollPhysics(),
                                         itemBuilder:
                                             (BuildContext context, int index) {
-                                          var value = values[index]["label"] ==
-                                                      "Sekuritas" ||
-                                                  values[index]["label"] ==
-                                                      "Value effect" ||
-                                                  values[index]["label"] ==
-                                                      "Fund alloc"
-                                              ? "${values[index]["value"]}"
-                                              : "${double.parse("${values[index]["value"]}").number}";
-
-                                          if (values[index]["suffix"] == "%") {
-                                            value = double.parse(values[index]
-                                                        ["value"]
-                                                    .toString())
-                                                .toStringAsFixed(2);
-                                          }
-                                          value = value +
-                                              (values[index]["suffix"] ?? "");
                                           return Container(
                                             child: Column(
                                               children: [
@@ -331,7 +321,7 @@ class StockListView extends StatefulWidget {
                                                   ),
                                                 ),
                                                 Text(
-                                                  value,
+                                                  "${values[index]["value"]}",
                                                   textAlign: TextAlign.right,
                                                   overflow:
                                                       TextOverflow.ellipsis,

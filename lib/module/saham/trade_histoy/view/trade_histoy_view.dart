@@ -85,10 +85,10 @@ class TradeHistoyView extends StatefulWidget {
                   "label": "Total",
                   "value": tradeHistory["total"],
                 },
-                {
-                  "label": "Sekuritas",
-                  "value": tradeHistory["stock"]["sekuritas"],
-                },
+                // {
+                //   "label": "Sekuritas",
+                //   "value": tradeHistory["stock"]["sekuritas"],
+                // },
                 {
                   "label": "Action",
                   "value": tradeHistory["action"],
@@ -127,11 +127,13 @@ class TradeHistoyView extends StatefulWidget {
                 },
                 {
                   "label": "fund_alloc",
-                  "value": tradeHistory["fund_alloc"],
+                  "value":
+                      (tradeHistory["fund_alloc"] * 1.0 as double).percentage,
                 },
                 {
                   "label": "value_effect",
-                  "value": tradeHistory["value_effect"],
+                  "value":
+                      (tradeHistory["value_effect"] * 1.0 as double).percentage,
                 },
               ];
 
