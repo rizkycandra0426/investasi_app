@@ -11,7 +11,17 @@ class PortofolioEditPriceController extends State<PortofolioEditPriceView> {
     super.initState();
     instance = this;
     WidgetsBinding.instance.addPostFrameCallback((_) => onReady());
-    price = widget.item["current_price"];
+
+    var tradeHistories = StockNewService.tradeHistories
+        .where((i) => i["id_saham"] == widget.item["id_saham"])
+        .toList();
+
+    double currentPrice = 0;
+
+    if (tradeHistories.isNotEmpty) {
+      currentPrice = tradeHistories.last["current_price"];
+    }
+    price = currentPrice;
   }
 
   void onReady() {}

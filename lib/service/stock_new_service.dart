@@ -92,8 +92,10 @@ class StockNewService {
       //-----
       if (item["action"] == "BUY") {
         item["valuation"] = item["volume"] * item["current_price"];
-
         item["floating_return"] = item["valuation"] - item["cost"];
+      } else if (item["action"] == "SELL") {
+        item["valuation"] = -1 * item["volume"] * item["current_price"];
+        item["floating_return"] = -1 * (item["valuation"] - 0);
       }
     }
 
@@ -272,7 +274,7 @@ class StockNewService {
       "date": DateTime.now().toString(),
       "id_saham": idSaham,
       "nama_saham": namaSaham,
-      "volume": volume,
+      "volume": -1 * volume,
       "price": price,
       "total": volume * price,
       "action": "SELL",
@@ -289,6 +291,32 @@ class StockNewService {
       "fund_alloc": 0,
       "value_effect": 0,
     });
+
+    //GET AVERAGE PRICE
+    var currentStockHistories = tradeHistories
+        .where((element) => element["id_saham"] == idSaham)
+        .toList();
+
+    double buyingPriceTotal = 0;
+    double currentStockVolume = 0;
+    double currentTradeCount = 0;
+    for (var item in currentStockHistories) {
+      if (item["action"] == "SELL") continue;
+      // currentStockTotal += (item["volume"] * item["buying_price"]);
+      buyingPriceTotal += item["buying_price"];
+      currentStockVolume += item["volume"];
+      currentTradeCount++;
+    }
+    avgPrice = buyingPriceTotal / currentTradeCount;
+
+    printo("currentStockTotal: buyingPriceTotal ${buyingPriceTotal}");
+    printo("currentStockTotal: currentTradeCount ${currentTradeCount}");
+    printo("currentStockTotal: avgPrice ${avgPrice}");
+    tradeHistories[tradeHistories.length - 1]["avg_price"] = avgPrice;
+    tradeHistories[tradeHistories.length - 1]["current_price"] = avgPrice;
+    tradeHistories[tradeHistories.length - 1]["cost"] = volume * avgPrice;
+    // tradeHistories[tradeHistories.length - 1]["cost"] = avgPrice;
+    //#END
 
     calculate();
     OfflineService.saveLocalValues();

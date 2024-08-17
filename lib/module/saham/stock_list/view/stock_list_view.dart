@@ -185,14 +185,28 @@ class StockListView extends StatefulWidget {
                                                 fontSize: 10.0,
                                               ),
                                             ),
-                                            Text(
-                                              double.parse(
-                                                      "${item["current_price"]}")
-                                                  .number,
-                                              style: TextStyle(
-                                                fontSize: 12.0,
-                                              ),
-                                            ),
+                                            Builder(builder: (context) {
+                                              var tradeHistories =
+                                                  StockNewService.tradeHistories
+                                                      .where((i) =>
+                                                          i["id_saham"] ==
+                                                          item["id_saham"])
+                                                      .toList();
+
+                                              double currentPrice = 0;
+
+                                              if (tradeHistories.isNotEmpty) {
+                                                currentPrice = tradeHistories
+                                                    .last["current_price"];
+                                              }
+                                              return Text(
+                                                double.parse("${currentPrice}")
+                                                    .number,
+                                                style: TextStyle(
+                                                  fontSize: 12.0,
+                                                ),
+                                              );
+                                            }),
                                             Icon(
                                               Icons.arrow_downward,
                                               size: 14.0,

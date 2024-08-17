@@ -109,10 +109,10 @@ class TradeHistoyView extends StatefulWidget {
                   "label": "Current Price",
                   "value": tradeHistory["current_price"],
                 },
-                {
-                  "label": "Selling Price",
-                  "value": tradeHistory["selling_price"],
-                },
+                // {
+                //   "label": "Selling Price",
+                //   "value": tradeHistory["selling_price"],
+                // },
                 {
                   "label": "Cost",
                   "value": tradeHistory["cost"],
