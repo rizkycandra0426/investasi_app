@@ -5,6 +5,8 @@
 [v] 4. Notifikasi scheduler masih belum bisa menampilkan notifikasi
 [v] 5. Bagian porto setelah buy atau jual gitu belum ada delay jadi harus pindah page kalo mau liat perubahan
 [v] 6. Untuk fitur offline bagian statistik sama anggaran ngaco, dia men totalkan semua pengeluaran begitu
+
+
 7. Perbaikan Harga Unit, Jumlah Unit, Valuation agar Yearly Based.
     Tujuan: Mendapatkan harga unit, jumlah unit, valuation di tahun 2025
 

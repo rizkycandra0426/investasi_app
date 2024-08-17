@@ -30,6 +30,73 @@ class SahamView extends StatefulWidget {
           ),
           actions: [
             IconButton(
+              icon: Icon(Icons.data_array),
+              onPressed: () async {
+                showLoading();
+                StockNewService.stocks = [];
+                StockNewService.tradeHistories = [];
+                UserBalanceService.topupHistories = [];
+                StockNewService.getStockFromDummies();
+                OfflineService.saveLocalValues();
+
+                printg("currentStockTotal:::");
+                await UserBalanceService.topup(
+                  100000000,
+                  false,
+                );
+
+                var stockIndex = StockNewService.stocks
+                    .indexWhere((i) => i["id_saham"] == "2");
+                Map<String, dynamic> stock = StockNewService.stocks[stockIndex];
+
+                printo(stock);
+
+                StockNewService.stocks[stockIndex]["buy_volume"] += 1000;
+                StockNewService.buy(
+                  idSaham: "2",
+                  price: 1000,
+                  volume: 1000,
+                  stock: stock,
+                );
+
+                StockNewService.stocks[stockIndex]["sell_volume"] += 500;
+                StockNewService.sell(
+                  idSaham: "2",
+                  price: 1251,
+                  volume: 500,
+                  stock: stock,
+                );
+
+                StockNewService.stocks[stockIndex]["buy_volume"] += 1000;
+                StockNewService.buy(
+                  idSaham: "2",
+                  price: 2000,
+                  volume: 1000,
+                  stock: stock,
+                );
+
+                StockNewService.stocks[stockIndex]["buy_volume"] += 1000;
+                StockNewService.buy(
+                  idSaham: "2",
+                  price: 3000,
+                  volume: 1000,
+                  stock: stock,
+                );
+
+                hideLoading();
+                Navigator.pop(context);
+                Get.to(SahamView());
+              },
+            ),
+            IconButton(
+              icon: Icon(Icons.refresh),
+              onPressed: () async {
+                showLoading();
+                await reloadPortofolio();
+                hideLoading();
+              },
+            ),
+            IconButton(
               icon: Icon(Icons.delete_forever_sharp),
               onPressed: () async {
                 StockNewService.stocks = [];

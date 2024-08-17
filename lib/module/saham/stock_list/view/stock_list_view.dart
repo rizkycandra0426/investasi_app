@@ -95,7 +95,19 @@ class StockListView extends StatefulWidget {
                                       width: 12.0,
                                     ),
                                     Expanded(
-                                      child: Text(item["nama_saham"]),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text("${item["nama_saham"]}"),
+                                          Text(
+                                            "ID Saham: ${item["id_saham"]}",
+                                            style: TextStyle(
+                                              fontSize: 10.0,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -160,6 +172,7 @@ class StockListView extends StatefulWidget {
                                           await Get.to(PortofolioEditPriceView(
                                             item: item,
                                           ));
+
                                           await reloadPortofolio();
                                         },
                                         child: Column(

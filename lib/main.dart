@@ -12,12 +12,13 @@ import 'package:permission_handler/permission_handler.dart';
 // NaN
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
   await FirebaseNotificationService.initNotifications();
   await DBService.init();
-  // await DBService.clear("token");
+  await DBService.clear("token");
   Diointerceptors.init();
 
   await AuthService().loadCurrentUserData();

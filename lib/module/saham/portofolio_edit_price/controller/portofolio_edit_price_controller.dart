@@ -27,6 +27,12 @@ class PortofolioEditPriceController extends State<PortofolioEditPriceView> {
   double price = 0;
   save() {
     widget.item["current_price"] = price;
+
+    var histories = StockNewService.tradeHistories
+        .where((i) => i["id_saham"] == widget.item["id_saham"])
+        .toList();
+    histories.last["current_price"] = price;
+
     StockNewService.calculate();
     Get.back();
   }

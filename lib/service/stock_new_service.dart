@@ -88,6 +88,15 @@ class StockNewService {
       //---------------------------
     }
 
+    for (var item in tradeHistories) {
+      //-----
+      if (item["action"] == "BUY") {
+        item["valuation"] = item["volume"] * item["current_price"];
+
+        item["floating_return"] = item["valuation"] - item["cost"];
+      }
+    }
+
     // for (var stock in stocks) {
     //   costTotal = costTotal + (stock["buy_volume"] * stock["buy_price"]);
     //   valuationTotal = valuationTotal + (stock["valuation"] ?? 0);
@@ -186,9 +195,14 @@ class StockNewService {
     required double price,
     required Map stock,
   }) {
+    //get avg_price ?
+    double avgPrice = 0;
+    //###########################
+
     String namaSaham = stocks
         .where((element) => element["id_saham"] == idSaham)
         .first["nama_saham"];
+
     tradeHistories.add({
       "date": DateTime.now().toString(),
       "id_saham": idSaham,
@@ -198,28 +212,44 @@ class StockNewService {
       "total": volume * price,
       "action": "BUY",
       "stock": stock,
+      //------------------------
+      //------------------------
+      "buying_price": price,
+      "avg_price": avgPrice,
+      "current_price": avgPrice,
+      "selling_price": 0,
+      "cost": 0,
+      "valuation": 0,
+      "floating_return": 0,
+      "fund_alloc": 0,
+      "value_effect": 0,
     });
 
-    int count = 0;
-    double total = 0.0;
+    //GET AVERAGE PRICE
+    var currentStockHistories = tradeHistories
+        .where((element) => element["id_saham"] == idSaham)
+        .toList();
 
-    for (var item in StockNewService.tradeHistories) {
-      if (item["nama_saham"] == stock["nama_saham"]) {
-        count++;
-        total += item["price"];
-      }
+    double buyingPriceTotal = 0;
+    double currentStockVolume = 0;
+    double currentTradeCount = 0;
+    for (var item in currentStockHistories) {
+      if (item["action"] == "SELL") continue;
+      // currentStockTotal += (item["volume"] * item["buying_price"]);
+      buyingPriceTotal += item["buying_price"];
+      currentStockVolume += item["volume"];
+      currentTradeCount++;
     }
+    avgPrice = buyingPriceTotal / currentTradeCount;
 
-    double average = total / count;
-    var stockIndex = StockNewService.stocks
-        .indexWhere((element) => element["nama_saham"] == stock["nama_saham"]);
-    StockNewService.stocks[stockIndex]["average"] = average;
-
-    // for (var item in StockNewService.tradeHistories) {
-    //   if (item["nama_saham"] == stock["nama_saham"]) {
-    //     item["average"] = average;
-    //   }
-    // }
+    printo("currentStockTotal: buyingPriceTotal ${buyingPriceTotal}");
+    printo("currentStockTotal: currentTradeCount ${currentTradeCount}");
+    printo("currentStockTotal: avgPrice ${avgPrice}");
+    tradeHistories[tradeHistories.length - 1]["avg_price"] = avgPrice;
+    tradeHistories[tradeHistories.length - 1]["current_price"] = avgPrice;
+    tradeHistories[tradeHistories.length - 1]["cost"] = volume * avgPrice;
+    // tradeHistories[tradeHistories.length - 1]["cost"] = avgPrice;
+    //#END
 
     calculate();
     OfflineService.saveLocalValues();
@@ -231,6 +261,9 @@ class StockNewService {
     required double price,
     required Map stock,
   }) {
+    //Get avg_price?
+    double avgPrice = 0;
+
     //harga saat ini, valuation
     String namaSaham = stocks
         .where((element) => element["id_saham"] == idSaham)
@@ -244,6 +277,17 @@ class StockNewService {
       "total": volume * price,
       "action": "SELL",
       "stock": stock,
+      //------------------------
+      //------------------------
+      "buying_price": price,
+      "avg_price": avgPrice,
+      "current_price": avgPrice,
+      "selling_price": price,
+      "cost": avgPrice * volume,
+      "valuation": 0,
+      "floating_return": 0,
+      "fund_alloc": 0,
+      "value_effect": 0,
     });
 
     calculate();
