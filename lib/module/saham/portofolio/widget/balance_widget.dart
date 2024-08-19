@@ -40,7 +40,7 @@ class _BalanceWidgetState extends State<BalanceWidget> {
               height: 4.0,
             ),
             Text(
-              "${UserBalanceService.sisaSaldoPlusSellValuation.currency}",
+              "${UserBalanceService.sisaSaldo.currency}",
               style: TextStyle(
                 fontWeight: FontWeight.w600,
                 fontSize: 12,

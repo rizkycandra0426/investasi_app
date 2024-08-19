@@ -24,3 +24,7 @@
     Meskipun ada kenaikan atau penurunan valuasi.
 
 8. Update Fitur Jual (Cek video di Whatsapp)
+
+[v] 9. Saldo sharusnya adaalah sisa saldo + sum(tradeHistory["total"])
+
+[v] 10. Fund Alloc masih salah

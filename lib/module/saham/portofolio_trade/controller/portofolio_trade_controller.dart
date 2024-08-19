@@ -66,6 +66,7 @@ class PortofolioTradeController extends State<PortofolioTradeView> {
         volume: volume.toDouble(),
         price: price,
         stock: widget.item,
+        date: date,
       );
     } else {
       //buy mode
@@ -78,6 +79,7 @@ class PortofolioTradeController extends State<PortofolioTradeView> {
         volume: volume.toDouble(),
         price: price,
         stock: widget.item,
+        date: date,
       );
     }
 

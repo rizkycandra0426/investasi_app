@@ -57,6 +57,7 @@ class SahamView extends StatefulWidget {
                   price: 1000,
                   volume: 1000,
                   stock: stock,
+                  date: now,
                 );
 
                 StockNewService.stocks[stockIndex]["sell_volume"] += 500;
@@ -65,6 +66,7 @@ class SahamView extends StatefulWidget {
                   price: 1251,
                   volume: 500,
                   stock: stock,
+                  date: now,
                 );
 
                 StockNewService.stocks[stockIndex]["buy_volume"] += 1000;
@@ -73,6 +75,7 @@ class SahamView extends StatefulWidget {
                   price: 2000,
                   volume: 1000,
                   stock: stock,
+                  date: now,
                 );
 
                 StockNewService.stocks[stockIndex]["buy_volume"] += 1000;
@@ -81,6 +84,7 @@ class SahamView extends StatefulWidget {
                   price: 3000,
                   volume: 1000,
                   stock: stock,
+                  date: now,
                 );
 
                 StockNewService.calculate();

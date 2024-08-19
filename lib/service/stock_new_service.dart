@@ -41,7 +41,7 @@ class StockNewService {
     if (newIhsg.isNaN) {
       return 0;
     }
-    return newIhsg;
+    return newIhsg * 100;
   }
 
   static double ihsgStartNextYear = 0.0;
@@ -51,19 +51,17 @@ class StockNewService {
     if (newIhsg.isNaN) {
       return 0;
     }
-    return newIhsg;
+    return newIhsg * 100;
   }
 
   static double get yieldInPercent {
-    var yield = (UserBalanceService.hargaUnitSaatIni - 1000) / 1000;
-    yield = double.parse("${double.parse("${yield}").toStringAsFixed(2)}");
+    var yield = ((UserBalanceService.hargaUnitSaatIni - 1000) / 1000) * 100;
     return yield;
   }
 
   static double get yieldNextYear {
     // harga
     var yield = (UserBalanceService.hargaUnitSaatIni - 1000) / 1000;
-    yield = double.parse("${double.parse("${yield}").toStringAsFixed(2)}");
     return yield;
   }
 
@@ -91,7 +89,7 @@ class StockNewService {
     for (var item in tradeHistories) {
       //-----
       if (item["action"] == "BUY") {
-        item["valuation"] = item["volume"] * item["current_price"];
+        item["valuation"] = item["volume"] * item["buying_price"];
         item["floating_return"] = item["valuation"] - item["cost"];
       } else if (item["action"] == "SELL") {
         item["valuation"] = -1 * item["volume"] * item["current_price"];
@@ -220,6 +218,7 @@ class StockNewService {
     required double volume,
     required double price,
     required Map stock,
+    required DateTime date,
   }) {
     //get avg_price ?
     double avgPrice = 0;
@@ -230,7 +229,7 @@ class StockNewService {
         .first["nama_saham"];
 
     tradeHistories.add({
-      "date": DateTime.now().toString(),
+      "date": date.toString(),
       "id_saham": idSaham,
       "nama_saham": namaSaham,
       "volume": volume,
@@ -273,7 +272,8 @@ class StockNewService {
     printo("currentStockTotal: avgPrice ${avgPrice}");
     tradeHistories[tradeHistories.length - 1]["avg_price"] = avgPrice;
     tradeHistories[tradeHistories.length - 1]["current_price"] = avgPrice;
-    tradeHistories[tradeHistories.length - 1]["cost"] = volume * avgPrice;
+    tradeHistories[tradeHistories.length - 1]["cost"] =
+        volume * tradeHistories[tradeHistories.length - 1]["buying_price"];
     // tradeHistories[tradeHistories.length - 1]["cost"] = avgPrice;
     //#END
 
@@ -291,6 +291,7 @@ class StockNewService {
     required double volume,
     required double price,
     required Map stock,
+    required DateTime date,
   }) {
     //Get avg_price?
     double avgPrice = 0;
@@ -300,7 +301,7 @@ class StockNewService {
         .where((element) => element["id_saham"] == idSaham)
         .first["nama_saham"];
     tradeHistories.add({
-      "date": DateTime.now().toString(),
+      "date": date.toString(),
       "id_saham": idSaham,
       "nama_saham": namaSaham,
       "volume": -1 * volume,
@@ -377,28 +378,111 @@ class StockNewService {
 
     var volumeTotal = 0.0;
 
+    double sellTotal = 0.0;
+    double lastCurrentPrice = 0;
+    double lastAveragePrice = 0;
     for (var item in items) {
-      if (item["action"] == "BUY") {
-        volumeTotal += item["volume"];
-      } else {
-        volumeTotal -= item["volume"];
-      }
+      volumeTotal = volumeTotal + item["volume"];
 
       costTotal += item["cost"];
       valuationTotal += item["valuation"];
       floatingReturnTotal += item["floating_return"];
       fundAllocTotal += item["fund_alloc"];
       valueEffectTotal += item["value_effect"];
+      if (item["action"] == "SELL") {
+        sellTotal += item["total"];
+      }
+      lastCurrentPrice = item["current_price"];
+      lastAveragePrice = item["avg_price"];
     }
+
+    var summaryTotal = costTotal - sellTotal;
+    var summaryValuation = (volumeTotal * lastCurrentPrice);
+    var summaryFloatingReturn = summaryValuation - summaryTotal;
+
+    // var allStockValuation = 0.0;
+    // for (var stock in stocks) {
+    //   if (stock["buy_volume"] - stock["sell_volume"] <= 0) continue;
+    //   var item = getSummary(stock["id_saham"]);
+    //   allStockValuation += item["valuation"];
+    // }
+
+    // var valueEffect =
+    //     (summaryValuation / (UserBalanceService.sisaSaldo + allStockValuation));
 
     return {
       "volume": volumeTotal,
-      "cost": costTotal,
-      "valuation": valuationTotal,
-      "floating_return": floatingReturnTotal,
+      "avg_price": lastAveragePrice,
+      "cost": summaryTotal,
+      "valuation": summaryValuation,
+      "floating_return": summaryFloatingReturn,
       "fund_alloc": fundAllocTotal,
-      "value_effect": valueEffectTotal,
+      // "value_effect": valueEffectTotal,
+      "value_effect": 0.0,
     };
+  }
+
+  static double get getAllStockValuationsTotal {
+    var allStockValuationsTotal = 0.0;
+    var allStockBuyTotal = 0.0;
+    for (var stock in StockNewService.stocks) {
+      if (stock["buy_volume"] - stock["sell_volume"] <= 0) continue;
+
+      double volumeTotal = 0.0;
+      double lastCurrentPrice = 0;
+      double lastAveragePrice = 0;
+      for (var history in StockNewService.tradeHistories) {
+        // if (DateTime.parse(history["date"]).year != now.year) continue;
+        if (history["id_saham"] == stock["id_saham"]) {
+          volumeTotal = volumeTotal + history["volume"];
+          lastCurrentPrice = history["current_price"] ?? 0.0;
+          lastAveragePrice = history["avg_price"] ?? 0.0;
+
+          if (history["action"] == "BUY") {
+            allStockBuyTotal += (history["cost"] ?? 0);
+          } else {
+            allStockBuyTotal -= (history["total"] ?? 0);
+          }
+        }
+      }
+      print("volumeTotal: $volumeTotal");
+      print("lastCurrentPrice: $lastCurrentPrice");
+      print("lastAveragePrice: $lastAveragePrice");
+      var summaryValuation = (volumeTotal * lastCurrentPrice);
+      allStockValuationsTotal += summaryValuation;
+    }
+    return allStockValuationsTotal;
+  }
+
+  static double get getAllStockBuyTotal {
+    var allStockValuationsTotal = 0.0;
+    var allStockBuyTotal = 0.0;
+    for (var stock in StockNewService.stocks) {
+      if (stock["buy_volume"] - stock["sell_volume"] <= 0) continue;
+
+      double volumeTotal = 0.0;
+      double lastCurrentPrice = 0;
+      double lastAveragePrice = 0;
+      for (var history in StockNewService.tradeHistories) {
+        if (history["id_saham"] == stock["id_saham"]) {
+          volumeTotal = volumeTotal + history["volume"];
+          lastCurrentPrice = history["current_price"] ?? 0.0;
+          lastAveragePrice = history["avg_price"] ?? 0.0;
+
+          if (history["action"] == "BUY") {
+            allStockBuyTotal += (history["cost"] ?? 0);
+          } else {
+            allStockBuyTotal -= (history["total"] ?? 0);
+          }
+        }
+      }
+      print("volumeTotal: $volumeTotal");
+      print("lastCurrentPrice: $lastCurrentPrice");
+      print("lastAveragePrice: $lastAveragePrice");
+      var summaryValuation = (volumeTotal * lastCurrentPrice);
+      allStockValuationsTotal += summaryValuation;
+    }
+    return allStockBuyTotal;
   }
 }
 
@@ -478,7 +562,17 @@ class UserBalanceService {
   }
 
   static double get sisaSaldo {
-    return UserBalanceService.saldo - StockNewService.costTotal;
+    return UserBalanceService.saldo - StockNewService.costTotal + sellTotal;
+  }
+
+  static double get sellTotal {
+    double total = 0;
+    for (var history in StockNewService.tradeHistories) {
+      if (history["action"] == "SELL") {
+        total = total + history["total"];
+      }
+    }
+    return total;
   }
 
   static double get sisaSaldoPlusSellValuation {

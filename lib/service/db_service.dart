@@ -28,4 +28,8 @@ class DBService {
   static Future saveList(String key, List values) async {
     await DBService.set(key, jsonEncode(values));
   }
+
+  static Future deleteAll() async {
+    await prefs.clear();
+  }
 }

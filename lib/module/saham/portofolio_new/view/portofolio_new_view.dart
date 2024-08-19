@@ -30,16 +30,25 @@ class PortofolioNewView extends StatefulWidget {
                 controller: ScrollController(),
                 scrollDirection: Axis.horizontal,
                 child: Row(
-                  children: List.generate(1, (index) {
+                  children: List.generate(2, (index) {
                     var year = now.year + index;
+
+                    var jumlahUnit2025 = (StockNewService.valuationTotal +
+                            UserBalanceService.sisaSaldo) /
+                        UserBalanceService.hargaUnitSaatIni;
+
+                    var yield2025 = (UserBalanceService.hargaUnitSaatIni -
+                            UserBalanceService.hargaUnitSaatIni) /
+                        UserBalanceService.hargaUnitSaatIni;
+
                     List values = [
                       {
                         "label": "Valuation",
-                        "value": StockNewService.valuationTotal,
+                        "value": StockNewService.getAllStockValuationsTotal,
                       },
                       {
                         "label": "Equity",
-                        "value": StockNewService.costTotal,
+                        "value": StockNewService.getAllStockBuyTotal,
                       },
                       {
                         "label": "Harga/unit",
@@ -47,12 +56,14 @@ class PortofolioNewView extends StatefulWidget {
                       },
                       {
                         "label": "Jumlah/unit",
-                        "value": UserBalanceService.jumlahUnit,
+                        "value": index == 1
+                            ? jumlahUnit2025
+                            : UserBalanceService.jumlahUnit,
                       },
                       {
                         "label": "Yield",
                         "value": index == 1
-                            ? StockNewService.yieldNextYear
+                            ? yield2025
                             : StockNewService.yieldInPercent,
                         "suffix": "%",
                       },

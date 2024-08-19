@@ -53,6 +53,7 @@ class PortofolioTradeView extends StatefulWidget {
                       value: controller.date,
                       onChanged: (value) {
                         print("value: $value");
+                        controller.date = value;
                       },
                     ),
                     QNumberField(

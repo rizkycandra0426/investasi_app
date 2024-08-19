@@ -18,7 +18,8 @@ void main() async {
   );
   await FirebaseNotificationService.initNotifications();
   await DBService.init();
-  await DBService.clear("token");
+  // await DBService.clear("token");
+  // await DBService.deleteAll();
   Diointerceptors.init();
 
   await AuthService().loadCurrentUserData();

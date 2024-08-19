@@ -233,6 +233,18 @@ class StockListView extends StatefulWidget {
 
                                       var summary = StockNewService.getSummary(
                                           item["id_saham"]);
+
+                                      double v = summary["valuation"] ?? 0.0;
+                                      double n = UserBalanceService.sisaSaldo +
+                                          StockNewService
+                                              .getAllStockValuationsTotal;
+                                      double valueEffect = v / n * 100;
+
+                                      double x = summary["cost"] ?? 0;
+                                      double z = UserBalanceService.sisaSaldo +
+                                          StockNewService.getAllStockBuyTotal;
+                                      double fundAlloc = x / z * 100;
+
                                       List values = [
                                         // {
                                         //   "label": "Buy volume",
@@ -260,8 +272,15 @@ class StockListView extends StatefulWidget {
                                         //   "value": currentVolume *
                                         //       (item["average"] ?? 0),
                                         // },
+
                                         {
-                                          "label": "Cost",
+                                          "label": "Buying Price",
+                                          "value":
+                                              (summary["avg_price"] as double)
+                                                  .number,
+                                        },
+                                        {
+                                          "label": "Buy Total",
                                           "value": (summary["cost"] as double)
                                               .number,
                                         },
@@ -279,21 +298,18 @@ class StockListView extends StatefulWidget {
                                         },
                                         {
                                           "label": "Fund Alloc",
-                                          "value":
-                                              (summary["fund_alloc"] as double)
-                                                  .percentage,
+                                          "value": (fundAlloc).percentage,
                                         },
                                         {
                                           "label": "Value Effect",
-                                          "value": (summary["value_effect"]
-                                                  as double)
-                                              .percentage,
+                                          "value": (valueEffect).percentage,
                                         },
                                         {
                                           "label": "Sekuritas",
                                           "value": item["sekuritas"],
                                         },
                                       ];
+
                                       return GridView.builder(
                                         padding: EdgeInsets.zero,
                                         shrinkWrap: true,

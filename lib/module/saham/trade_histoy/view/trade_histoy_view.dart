@@ -12,7 +12,7 @@ class TradeHistoyView extends StatefulWidget {
   Widget build(context, TradeHistoyController controller) {
     controller.view = this;
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.grey[200],
       appBar: AppBar(
         title: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -45,6 +45,7 @@ class TradeHistoyView extends StatefulWidget {
         actions: const [],
       ),
       body: ListView.builder(
+        padding: const EdgeInsets.all(12.0),
         itemCount: StockNewService.tradeHistories.length,
         physics: const ScrollPhysics(),
         itemBuilder: (BuildContext context, int tradeIndex) {
@@ -54,16 +55,11 @@ class TradeHistoyView extends StatefulWidget {
           }
 
           return Container(
-            padding: const EdgeInsets.all(12.0),
-            decoration: BoxDecoration(
-              border: Border(
-                bottom: BorderSide(
-                  width: 1.0,
-                  color: Colors.grey[300]!,
-                ),
-              ),
+            margin: const EdgeInsets.only(
+              bottom: 0.0,
             ),
             child: Builder(builder: (context) {
+              bool devMode = false;
               List values = [
                 {
                   "label": "Date",
@@ -85,10 +81,10 @@ class TradeHistoyView extends StatefulWidget {
                   "label": "Total",
                   "value": tradeHistory["total"],
                 },
-                // {
-                //   "label": "Sekuritas",
-                //   "value": tradeHistory["stock"]["sekuritas"],
-                // },
+                {
+                  "label": "Sekuritas",
+                  "value": tradeHistory["stock"]["sekuritas"],
+                },
                 {
                   "label": "Action",
                   "value": tradeHistory["action"],
@@ -97,117 +93,120 @@ class TradeHistoyView extends StatefulWidget {
                       : Colors.red,
                 },
                 //-----------
-                {
-                  "label": "Buying Price",
-                  "value": tradeHistory["buying_price"],
-                },
-                {
-                  "label": "Avg Price",
-                  "value": tradeHistory["avg_price"],
-                },
-                {
-                  "label": "Current Price",
-                  "value": tradeHistory["current_price"],
-                },
-                // {
-                //   "label": "Selling Price",
-                //   "value": tradeHistory["selling_price"],
-                // },
-                {
-                  "label": "Cost",
-                  "value": tradeHistory["cost"],
-                },
-                {
-                  "label": "Valuation",
-                  "value": tradeHistory["valuation"],
-                },
-                {
-                  "label": "Floating Return",
-                  "value": tradeHistory["floating_return"],
-                },
-                {
-                  "label": "fund_alloc",
-                  "value":
-                      (tradeHistory["fund_alloc"] * 1.0 as double).percentage,
-                },
-                {
-                  "label": "value_effect",
-                  "value":
-                      (tradeHistory["value_effect"] * 1.0 as double).percentage,
-                },
+                if (devMode) ...[
+                  {
+                    "label": "Buying Price",
+                    "value": tradeHistory["buying_price"],
+                  },
+                  {
+                    "label": "Avg Price",
+                    "value": tradeHistory["avg_price"],
+                  },
+                  {
+                    "label": "Current Price",
+                    "value": tradeHistory["current_price"],
+                  },
+                  // {
+                  //   "label": "Selling Price",
+                  //   "value": tradeHistory["selling_price"],
+                  // },
+                  {
+                    "label": "Cost",
+                    "value": tradeHistory["action"] == "SELL"
+                        ? "-"
+                        : tradeHistory["cost"],
+                  },
+                  {
+                    "label": "Valuation",
+                    "value": tradeHistory["valuation"],
+                  },
+                  {
+                    "label": "Floating Return",
+                    "value": tradeHistory["action"] == "SELL"
+                        ? "-"
+                        : tradeHistory["floating_return"],
+                  },
+                  {
+                    "label": "fund_alloc",
+                    "value":
+                        (tradeHistory["fund_alloc"] * 1.0 as double).percentage,
+                  },
+                  {
+                    "label": "value_effect",
+                    "value": (tradeHistory["value_effect"] * 1.0 as double)
+                        .percentage,
+                  },
+                ],
               ];
 
               bool isSell = tradeHistory["action"] == "SELL";
-              return Stack(
-                children: [
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+              return Card(
+                child: Container(
+                  padding: const EdgeInsets.all(12.0),
+                  child: Stack(
                     children: [
-                      Expanded(
-                        child: GridView.builder(
-                          padding: EdgeInsets.zero,
-                          shrinkWrap: true,
-                          gridDelegate:
-                              SliverGridDelegateWithFixedCrossAxisCount(
-                            childAspectRatio: 1.0 / 0.4,
-                            crossAxisCount: 4,
-                            mainAxisSpacing: 0,
-                            crossAxisSpacing: 0,
-                          ),
-                          itemCount: values.length,
-                          physics: ScrollPhysics(),
-                          itemBuilder: (BuildContext context, int index) {
-                            var value = values[index]["value"].toString();
-
-                            if (values[index]["suffix"] == "%") {
-                              value = double.parse(
-                                      values[index]["value"].toString())
-                                  .toStringAsFixed(2);
-                            } else if (values[index]["value"] is double) {
-                              value = double.parse(
-                                      values[index]["value"].toString())
-                                  .number;
-                            }
-                            value = value + (values[index]["suffix"] ?? "");
-
-                            return Container(
-                              child: Column(
-                                children: [
-                                  Text(
-                                    "${values[index]["label"]}",
-                                    overflow: TextOverflow.ellipsis,
-                                    textAlign: TextAlign.right,
-                                    style: TextStyle(
-                                      fontSize: 10.0,
-                                      color: values[index]["color"],
-                                    ),
-                                  ),
-                                  Text(
-                                    value,
-                                    textAlign: TextAlign.right,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: TextStyle(
-                                      fontSize: 12.0,
-                                      color: values[index]["color"],
-                                    ),
-                                  ),
-                                ],
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Expanded(
+                            child: GridView.builder(
+                              padding: EdgeInsets.zero,
+                              shrinkWrap: true,
+                              gridDelegate:
+                                  SliverGridDelegateWithFixedCrossAxisCount(
+                                childAspectRatio: 1.0 / 0.4,
+                                crossAxisCount: 3,
+                                mainAxisSpacing: 0,
+                                crossAxisSpacing: 0,
                               ),
-                            );
-                          },
-                        ),
+                              itemCount: values.length,
+                              physics: ScrollPhysics(),
+                              itemBuilder: (BuildContext context, int index) {
+                                var value = values[index]["value"].toString();
+
+                                if (values[index]["suffix"] == "%") {
+                                  value = double.parse(
+                                          values[index]["value"].toString())
+                                      .toStringAsFixed(2);
+                                } else if (values[index]["value"] is double) {
+                                  value = double.parse(
+                                          values[index]["value"].toString())
+                                      .number;
+                                }
+                                value = value + (values[index]["suffix"] ?? "");
+
+                                return Container(
+                                  child: Column(
+                                    children: [
+                                      Text(
+                                        "${values[index]["label"]}",
+                                        overflow: TextOverflow.ellipsis,
+                                        textAlign: TextAlign.right,
+                                        style: TextStyle(
+                                          fontSize: 10.0,
+                                          color: values[index]["color"],
+                                        ),
+                                      ),
+                                      Text(
+                                        value,
+                                        textAlign: TextAlign.right,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: TextStyle(
+                                          fontSize: 12.0,
+                                          color: values[index]["color"],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              },
+                            ),
+                          ),
+                        ],
                       ),
                     ],
                   ),
-                  Positioned(
-                    right: 0,
-                    top: 0,
-                    child: CircleAvatar(
-                      radius: 6.0,
-                      backgroundColor: isSell ? Colors.red : Colors.green,
-                    ),
-                  ),
-                ],
+                ),
               );
             }),
           );
