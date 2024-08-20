@@ -234,17 +234,20 @@ class StockListView extends StatefulWidget {
                                       var summary = StockNewService.getSummary(
                                           item["id_saham"]);
 
+                                      int targetYear = now.year;
                                       double v = summary["valuation"] ?? 0.0;
                                       double n = UserBalanceService.sisaSaldo +
                                           StockNewService
                                               .getAllStockValuationsTotal(
-                                                  now.year);
+                                            targetYear,
+                                          );
                                       double valueEffect = v / n * 100;
 
                                       double x = summary["cost"] ?? 0;
                                       double z = UserBalanceService.sisaSaldo +
                                           StockNewService.getAllStockBuyTotal(
-                                              now.year);
+                                            targetYear,
+                                          );
                                       double fundAlloc = x / z * 100;
 
                                       List values = [

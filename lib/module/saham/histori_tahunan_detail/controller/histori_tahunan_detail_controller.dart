@@ -13,7 +13,7 @@ class HistoriTahunanDetailController extends State<HistoriTahunanDetailView> {
     WidgetsBinding.instance.addPostFrameCallback((_) => onReady());
     LocalIHSGService.insertOrUpdate(
       date: now,
-      yield: StockNewService.yieldInPercent,
+      yield: StockNewService.getYieldInPercent(now.year),
       ihsg: StockNewService.ihsg,
     );
   }

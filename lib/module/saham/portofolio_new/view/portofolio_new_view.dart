@@ -30,42 +30,56 @@ class PortofolioNewView extends StatefulWidget {
                 controller: ScrollController(),
                 scrollDirection: Axis.horizontal,
                 child: Row(
-                  children: List.generate(2, (index) {
+                  children: List.generate(1, (index) {
                     var year = now.year + index;
+
+                    double hargaUnit2025 =
+                        UserBalanceService.getHargaUnitSaatIni(year - 1);
 
                     var jumlahUnit2025 = (StockNewService.valuationTotal +
                             UserBalanceService.sisaSaldo) /
-                        UserBalanceService.hargaUnitSaatIni;
+                        UserBalanceService.getHargaUnitSaatIni(year);
 
-                    var yield2025 = (UserBalanceService.hargaUnitSaatIni -
-                            UserBalanceService.hargaUnitSaatIni) /
-                        UserBalanceService.hargaUnitSaatIni;
+                    var yield2025 =
+                        (UserBalanceService.getHargaUnitSaatIni(year) -
+                                UserBalanceService.getHargaUnitSaatIni(year)) /
+                            UserBalanceService.getHargaUnitSaatIni(year);
+
+                    int targetYear = now.year + index;
 
                     List values = [
                       {
                         "label": "Valuation",
-                        "value": StockNewService.getAllStockValuationsTotal(
-                            now.year),
+                        "value": StockNewService
+                            .getAllStockValuationsTotalCalculatedByYearsBefore(
+                                targetYear),
                       },
                       {
                         "label": "Equity",
-                        "value": StockNewService.getAllStockBuyTotal(now.year),
+                        "value": StockNewService
+                            .getAllStockBuyTotalCalculatedByYearsBefore(
+                                targetYear),
                       },
                       {
-                        "label": "Harga/unit",
-                        "value": UserBalanceService.hargaUnitSaatIni,
+                        "label": "HU Before",
+                        "value":
+                            UserBalanceService.getHargaUnitSaatIni(year - 1),
+                      },
+                      {
+                        "label": "HU Now",
+                        "value": UserBalanceService.getHargaUnitSaatIni(year),
                       },
                       {
                         "label": "Jumlah/unit",
                         "value": index == 1
                             ? jumlahUnit2025
-                            : UserBalanceService.jumlahUnit,
+                            : UserBalanceService.getJumlahUnit(year),
                       },
                       {
                         "label": "Yield",
                         "value": index == 1
                             ? yield2025
-                            : StockNewService.yieldInPercent,
+                            : StockNewService.getYieldInPercent(year),
                         "suffix": "%",
                       },
                       {
@@ -135,7 +149,7 @@ class PortofolioNewView extends StatefulWidget {
 
                     LocalIHSGService.insertOrUpdate(
                       date: DateTime(now.year, now.month, 1),
-                      yield: StockNewService.yieldInPercent,
+                      yield: StockNewService.getYieldInPercent(year),
                       ihsg: StockNewService.ihsg,
                     );
 

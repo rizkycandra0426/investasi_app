@@ -9,6 +9,83 @@ class SahamView extends StatefulWidget {
 
   Widget build(context, SahamController controller) {
     controller.view = this;
+
+    generateDummies({
+      bool nextYear = false,
+    }) async {
+      showLoading();
+      StockNewService.stocks = [];
+      StockNewService.tradeHistories = [];
+      UserBalanceService.topupHistories = [];
+      StockNewService.getStockFromDummies();
+      OfflineService.saveLocalValues();
+
+      printg("currentStockTotal:::");
+      await UserBalanceService.topup(
+        100000000,
+        false,
+      );
+
+      var stockIndex =
+          StockNewService.stocks.indexWhere((i) => i["id_saham"] == "2");
+      Map<String, dynamic> stock = StockNewService.stocks[stockIndex];
+
+      printo(stock);
+
+      StockNewService.stocks[stockIndex]["buy_volume"] += 1000;
+      StockNewService.buy(
+        idSaham: "2",
+        price: 1000,
+        volume: 1000,
+        stock: stock,
+        date: now,
+      );
+
+      StockNewService.stocks[stockIndex]["sell_volume"] += 500;
+      StockNewService.sell(
+        idSaham: "2",
+        price: 1251,
+        volume: 500,
+        stock: stock,
+        date: now,
+      );
+
+      StockNewService.stocks[stockIndex]["buy_volume"] += 1000;
+      StockNewService.buy(
+        idSaham: "2",
+        price: 2000,
+        volume: 1000,
+        stock: stock,
+        date: now,
+      );
+
+      StockNewService.stocks[stockIndex]["buy_volume"] += 1000;
+      StockNewService.buy(
+        idSaham: "2",
+        price: 3000,
+        volume: 1000,
+        stock: stock,
+        date: now,
+      );
+
+      if (nextYear) {
+        StockNewService.stocks[stockIndex]["buy_volume"] += 1000;
+        StockNewService.buy(
+          idSaham: "2",
+          price: 1000,
+          volume: 1000,
+          stock: stock,
+          date: DateTime(now.year + 1, 1, 1),
+        );
+      }
+
+      StockNewService.calculate();
+
+      hideLoading();
+      Navigator.pop(context);
+      Get.to(SahamView());
+    }
+
     return DefaultTabController(
       length: 2, // Jumlah tab
       child: Scaffold(
@@ -29,82 +106,68 @@ class SahamView extends StatefulWidget {
             ),
           ),
           actions: [
-            IconButton(
-              icon: Icon(Icons.data_array),
-              onPressed: () async {
-                showLoading();
-                StockNewService.stocks = [];
-                StockNewService.tradeHistories = [];
-                UserBalanceService.topupHistories = [];
-                StockNewService.getStockFromDummies();
-                OfflineService.saveLocalValues();
-
-                printg("currentStockTotal:::");
-                await UserBalanceService.topup(
-                  100000000,
-                  false,
-                );
-
-                var stockIndex = StockNewService.stocks
-                    .indexWhere((i) => i["id_saham"] == "2");
-                Map<String, dynamic> stock = StockNewService.stocks[stockIndex];
-
-                printo(stock);
-
-                StockNewService.stocks[stockIndex]["buy_volume"] += 1000;
-                StockNewService.buy(
-                  idSaham: "2",
-                  price: 1000,
-                  volume: 1000,
-                  stock: stock,
-                  date: now,
-                );
-
-                StockNewService.stocks[stockIndex]["sell_volume"] += 500;
-                StockNewService.sell(
-                  idSaham: "2",
-                  price: 1251,
-                  volume: 500,
-                  stock: stock,
-                  date: now,
-                );
-
-                StockNewService.stocks[stockIndex]["buy_volume"] += 1000;
-                StockNewService.buy(
-                  idSaham: "2",
-                  price: 2000,
-                  volume: 1000,
-                  stock: stock,
-                  date: now,
-                );
-
-                StockNewService.stocks[stockIndex]["buy_volume"] += 1000;
-                StockNewService.buy(
-                  idSaham: "2",
-                  price: 3000,
-                  volume: 1000,
-                  stock: stock,
-                  date: now,
-                );
-
-                StockNewService.calculate();
-
-                hideLoading();
-                Navigator.pop(context);
-                Get.to(SahamView());
-              },
+            InkWell(
+              child: Center(
+                child: Text(
+                  "2024",
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 12.0,
+                  ),
+                ),
+              ),
+              onTap: () => generateDummies(),
             ),
-            IconButton(
-              icon: Icon(Icons.refresh),
-              onPressed: () async {
+            const SizedBox(
+              width: 8.0,
+            ),
+            InkWell(
+              child: Center(
+                child: Text(
+                  "2025",
+                  style: TextStyle(
+                    fontSize: 12.0,
+                    color: Colors.black,
+                  ),
+                ),
+              ),
+              onTap: () => generateDummies(
+                nextYear: true,
+              ),
+            ),
+            const SizedBox(
+              width: 8.0,
+            ),
+            InkWell(
+              child: Center(
+                child: Text(
+                  "RFR",
+                  style: TextStyle(
+                    fontSize: 12.0,
+                    color: Colors.black,
+                  ),
+                ),
+              ),
+              onTap: () async {
                 showLoading();
                 await reloadPortofolio();
                 hideLoading();
               },
             ),
-            IconButton(
-              icon: Icon(Icons.delete_forever_sharp),
-              onPressed: () async {
+            const SizedBox(
+              width: 8.0,
+            ),
+            InkWell(
+              child: Center(
+                child: Text(
+                  "RST",
+                  style: TextStyle(
+                    fontSize: 12.0,
+                    color: Colors.black,
+                  ),
+                ),
+              ),
+              onTap: () async {
                 StockNewService.stocks = [];
                 StockNewService.tradeHistories = [];
                 UserBalanceService.topupHistories = [];
@@ -112,6 +175,9 @@ class SahamView extends StatefulWidget {
                 OfflineService.saveLocalValues();
                 Navigator.pop(context);
               },
+            ),
+            const SizedBox(
+              width: 8.0,
             ),
           ],
         ),

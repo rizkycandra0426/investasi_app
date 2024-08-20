@@ -104,7 +104,7 @@ class ProfileCard extends StatelessWidget {
                                 ),
                               ),
                               Text(
-                                "${StockNewService.yieldInPercent}%",
+                                "${StockNewService.getYieldInPercent}%",
                                 style: TextStyle(
                                   fontSize: 16,
                                   color: Colors.white,

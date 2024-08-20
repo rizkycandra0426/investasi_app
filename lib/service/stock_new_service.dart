@@ -54,14 +54,15 @@ class StockNewService {
     return newIhsg * 100;
   }
 
-  static double get yieldInPercent {
-    var yield = ((UserBalanceService.hargaUnitSaatIni - 1000) / 1000) * 100;
+  static double getYieldInPercent(int year) {
+    var yield =
+        ((UserBalanceService.getHargaUnitSaatIni(year) - 1000) / 1000) * 100;
     return yield;
   }
 
-  static double get yieldNextYear {
+  static double getYieldNextYear(int year) {
     // harga
-    var yield = (UserBalanceService.hargaUnitSaatIni - 1000) / 1000;
+    var yield = (UserBalanceService.getHargaUnitSaatIni(year) - 1000) / 1000;
     return yield;
   }
 
@@ -422,7 +423,19 @@ class StockNewService {
     };
   }
 
-  static double  getAllStockValuationsTotal(int year) {
+  static double getAllStockValuationsTotalCalculatedByYearsBefore(int year) {
+    double beforeValue = getAllStockValuationsTotal(year - 1);
+    double nowValue = getAllStockValuationsTotal(year);
+    return beforeValue + nowValue;
+  }
+
+  static double getAllStockBuyTotalCalculatedByYearsBefore(int year) {
+    double beforeValue = getAllStockBuyTotal(year - 1);
+    double nowValue = getAllStockBuyTotal(year);
+    return beforeValue + nowValue;
+  }
+
+  static double getAllStockValuationsTotal(int year) {
     var allStockValuationsTotal = 0.0;
     var allStockBuyTotal = 0.0;
     for (var stock in StockNewService.stocks) {
@@ -454,7 +467,7 @@ class StockNewService {
     return allStockValuationsTotal;
   }
 
-  static double  getAllStockBuyTotal(int year) {
+  static double getAllStockBuyTotal(int year) {
     var allStockValuationsTotal = 0.0;
     var allStockBuyTotal = 0.0;
     for (var stock in StockNewService.stocks) {
@@ -517,7 +530,7 @@ class UserBalanceService {
       jumlahUnit = amount / 1000;
     } else {
       //after first time topup
-      hargaUnit = hargaUnitSaatIni;
+      hargaUnit = getHargaUnitSaatIni(now.year);
       jumlahUnit = amount / hargaUnit;
     }
 
@@ -540,37 +553,51 @@ class UserBalanceService {
   }
 
   static withdraw(double amount) {
-    double hargaUnit = hargaUnitSaatIni;
+    double hargaUnit = getHargaUnitSaatIni(now.year);
     topupHistories.add({
       "date": DateTime.now().toString(),
       "amount": -amount,
       "harga_unit": hargaUnit,
-      "jumlah_unit": -amount / hargaUnitSaatIni,
+      "jumlah_unit": -amount / getHargaUnitSaatIni(now.year),
     });
   }
 
-  static double get jumlahUnit {
+  static double getJumlahUnit(int year) {
     double jumlah = 0;
     for (var history in topupHistories) {
+      if (DateTime.parse(history["date"]).year != year) continue;
       jumlah = jumlah + history["jumlah_unit"];
     }
     return jumlah;
   }
 
-  static double get hargaUnitSaatIni {
-    if (StockNewService.valuationTotal == 0) return 1000;
-    return (sisaSaldo + StockNewService.valuationTotalByBuyValue) / jumlahUnit;
+  static double getHargaUnitSaatIni(int year) {
+    if (StockNewService.getAllStockValuationsTotal(year) == 0) return 1000;
+    return (sisaSaldo + StockNewService.getAllStockBuyTotal(year)) /
+        getJumlahUnit(year);
   }
 
   static double get sisaSaldo {
-    return UserBalanceService.saldo - StockNewService.costTotal + sellTotal;
+    return UserBalanceService.saldo -
+        StockNewService.costTotal +
+        getSellTotal(now.year);
   }
 
-  static double get sellTotal {
+  static double getSellTotal(int year) {
     double total = 0;
     for (var history in StockNewService.tradeHistories) {
       if (history["action"] == "SELL") {
         total = total + history["total"];
+      }
+    }
+    return total;
+  }
+
+  static double getBuyTotal(int year) {
+    double total = 0;
+    for (var history in StockNewService.tradeHistories) {
+      if (history["action"] == "BUY") {
+        total = total + history["cost"];
       }
     }
     return total;
