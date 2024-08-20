@@ -106,79 +106,81 @@ class SahamView extends StatefulWidget {
             ),
           ),
           actions: [
-            InkWell(
-              child: Center(
-                child: Text(
-                  "2024",
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 12.0,
+            if (false) ...[
+              InkWell(
+                child: Center(
+                  child: Text(
+                    "2024",
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 12.0,
+                    ),
                   ),
                 ),
+                onTap: () => generateDummies(),
               ),
-              onTap: () => generateDummies(),
-            ),
-            const SizedBox(
-              width: 8.0,
-            ),
-            InkWell(
-              child: Center(
-                child: Text(
-                  "2025",
-                  style: TextStyle(
-                    fontSize: 12.0,
-                    color: Colors.black,
+              const SizedBox(
+                width: 8.0,
+              ),
+              InkWell(
+                child: Center(
+                  child: Text(
+                    "2025",
+                    style: TextStyle(
+                      fontSize: 12.0,
+                      color: Colors.black,
+                    ),
                   ),
                 ),
-              ),
-              onTap: () => generateDummies(
-                nextYear: true,
-              ),
-            ),
-            const SizedBox(
-              width: 8.0,
-            ),
-            InkWell(
-              child: Center(
-                child: Text(
-                  "RFR",
-                  style: TextStyle(
-                    fontSize: 12.0,
-                    color: Colors.black,
-                  ),
+                onTap: () => generateDummies(
+                  nextYear: true,
                 ),
               ),
-              onTap: () async {
-                showLoading();
-                await reloadPortofolio();
-                hideLoading();
-              },
-            ),
-            const SizedBox(
-              width: 8.0,
-            ),
-            InkWell(
-              child: Center(
-                child: Text(
-                  "RST",
-                  style: TextStyle(
-                    fontSize: 12.0,
-                    color: Colors.black,
+              const SizedBox(
+                width: 8.0,
+              ),
+              InkWell(
+                child: Center(
+                  child: Text(
+                    "RFR",
+                    style: TextStyle(
+                      fontSize: 12.0,
+                      color: Colors.black,
+                    ),
                   ),
                 ),
+                onTap: () async {
+                  showLoading();
+                  await reloadPortofolio();
+                  hideLoading();
+                },
               ),
-              onTap: () async {
-                StockNewService.stocks = [];
-                StockNewService.tradeHistories = [];
-                UserBalanceService.topupHistories = [];
-                StockNewService.getStockFromDummies();
-                OfflineService.saveLocalValues();
-                Navigator.pop(context);
-              },
-            ),
-            const SizedBox(
-              width: 8.0,
-            ),
+              const SizedBox(
+                width: 8.0,
+              ),
+              InkWell(
+                child: Center(
+                  child: Text(
+                    "RST",
+                    style: TextStyle(
+                      fontSize: 12.0,
+                      color: Colors.black,
+                    ),
+                  ),
+                ),
+                onTap: () async {
+                  StockNewService.stocks = [];
+                  StockNewService.tradeHistories = [];
+                  UserBalanceService.topupHistories = [];
+                  StockNewService.getStockFromDummies();
+                  OfflineService.saveLocalValues();
+                  Navigator.pop(context);
+                },
+              ),
+              const SizedBox(
+                width: 8.0,
+              ),
+            ],
           ],
         ),
         body: Column(
