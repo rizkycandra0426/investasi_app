@@ -100,13 +100,6 @@ class _HUIWidgetDemoViewState extends State<HUIWidgetDemoView> {
                   validator: Validator.required,
                   onChanged: (value) {},
                 ),
-                QLocationPicker(
-                  id: "location",
-                  label: "Location",
-                  latitude: -6.218481065235333,
-                  longitude: 106.80254435779423,
-                  onChanged: (latitude, longitude) {},
-                ),
                 QAutoComplete(
                   label: "Favorite employee",
                   hint: "Your favorite Employee",
