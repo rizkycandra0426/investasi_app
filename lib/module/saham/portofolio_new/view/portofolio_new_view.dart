@@ -60,13 +60,13 @@ class PortofolioNewView extends StatefulWidget {
                             .getAllStockBuyTotalCalculatedByYearsBefore(
                                 targetYear),
                       },
+                      // {
+                      //   "label": "HU Before",
+                      //   "value":
+                      //       UserBalanceService.getHargaUnitSaatIni(year - 1),
+                      // },
                       {
-                        "label": "HU Before",
-                        "value":
-                            UserBalanceService.getHargaUnitSaatIni(year - 1),
-                      },
-                      {
-                        "label": "HU Now",
+                        "label": "Harga Unit",
                         "value": UserBalanceService.getHargaUnitSaatIni(year),
                       },
                       {

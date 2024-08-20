@@ -96,7 +96,7 @@ class ProfileCard extends StatelessWidget {
                           Column(
                             children: [
                               Text(
-                                "${StockNewService.valuationTotal.currency}",
+                                "${StockNewService.getAllStockValuationsTotal(now.year)}",
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 16,
@@ -104,7 +104,7 @@ class ProfileCard extends StatelessWidget {
                                 ),
                               ),
                               Text(
-                                "${StockNewService.getYieldInPercent}%",
+                                "${StockNewService.getYieldInPercent(now.year)}%",
                                 style: TextStyle(
                                   fontSize: 16,
                                   color: Colors.white,
