@@ -237,12 +237,14 @@ class StockListView extends StatefulWidget {
                                       double v = summary["valuation"] ?? 0.0;
                                       double n = UserBalanceService.sisaSaldo +
                                           StockNewService
-                                              .getAllStockValuationsTotal;
+                                              .getAllStockValuationsTotal(
+                                                  now.year);
                                       double valueEffect = v / n * 100;
 
                                       double x = summary["cost"] ?? 0;
                                       double z = UserBalanceService.sisaSaldo +
-                                          StockNewService.getAllStockBuyTotal;
+                                          StockNewService.getAllStockBuyTotal(
+                                              now.year);
                                       double fundAlloc = x / z * 100;
 
                                       List values = [

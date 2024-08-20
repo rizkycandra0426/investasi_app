@@ -422,7 +422,7 @@ class StockNewService {
     };
   }
 
-  static double get getAllStockValuationsTotal {
+  static double  getAllStockValuationsTotal(int year) {
     var allStockValuationsTotal = 0.0;
     var allStockBuyTotal = 0.0;
     for (var stock in StockNewService.stocks) {
@@ -432,7 +432,7 @@ class StockNewService {
       double lastCurrentPrice = 0;
       double lastAveragePrice = 0;
       for (var history in StockNewService.tradeHistories) {
-        // if (DateTime.parse(history["date"]).year != now.year) continue;
+        if (DateTime.parse(history["date"]).year != year) continue;
         if (history["id_saham"] == stock["id_saham"]) {
           volumeTotal = volumeTotal + history["volume"];
           lastCurrentPrice = history["current_price"] ?? 0.0;
@@ -454,7 +454,7 @@ class StockNewService {
     return allStockValuationsTotal;
   }
 
-  static double get getAllStockBuyTotal {
+  static double  getAllStockBuyTotal(int year) {
     var allStockValuationsTotal = 0.0;
     var allStockBuyTotal = 0.0;
     for (var stock in StockNewService.stocks) {
@@ -464,6 +464,7 @@ class StockNewService {
       double lastCurrentPrice = 0;
       double lastAveragePrice = 0;
       for (var history in StockNewService.tradeHistories) {
+        if (DateTime.parse(history["date"]).year != year) continue;
         if (history["id_saham"] == stock["id_saham"]) {
           volumeTotal = volumeTotal + history["volume"];
           lastCurrentPrice = history["current_price"] ?? 0.0;

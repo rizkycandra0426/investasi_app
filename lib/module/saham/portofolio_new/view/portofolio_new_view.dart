@@ -44,11 +44,12 @@ class PortofolioNewView extends StatefulWidget {
                     List values = [
                       {
                         "label": "Valuation",
-                        "value": StockNewService.getAllStockValuationsTotal,
+                        "value": StockNewService.getAllStockValuationsTotal(
+                            now.year),
                       },
                       {
                         "label": "Equity",
-                        "value": StockNewService.getAllStockBuyTotal,
+                        "value": StockNewService.getAllStockBuyTotal(now.year),
                       },
                       {
                         "label": "Harga/unit",
