@@ -11,7 +11,6 @@ class TopupView extends StatefulWidget {
 
   Widget build(context, TopupController controller) {
     controller.view = this;
-    var dashboardController = DashboardController.instance;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: controller.isTopupMode ? Colors.blue : Colors.red,

@@ -28,13 +28,10 @@ class PortofolioNewView extends StatefulWidget {
             child: Builder(builder: (context) {
               return SingleChildScrollView(
                 controller: ScrollController(),
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  children: List.generate(1, (index) {
+                // scrollDirection: Axis.horizontal,
+                child: Column(
+                  children: List.generate(2, (index) {
                     var year = now.year + index;
-
-                    double hargaUnit2025 =
-                        UserBalanceService.getHargaUnitSaatIni(year - 1);
 
                     var jumlahUnit2025 = (StockNewService.valuationTotal +
                             UserBalanceService.sisaSaldo) /
@@ -71,15 +68,11 @@ class PortofolioNewView extends StatefulWidget {
                       },
                       {
                         "label": "Jumlah/unit",
-                        "value": index == 1
-                            ? jumlahUnit2025
-                            : UserBalanceService.getJumlahUnit(year),
+                        "value": UserBalanceService.getJumlahUnit(year),
                       },
                       {
                         "label": "Yield",
-                        "value": index == 1
-                            ? yield2025
-                            : StockNewService.getYieldInPercent(year),
+                        "value": StockNewService.getYieldInPercent(year),
                         "suffix": "%",
                       },
                       {

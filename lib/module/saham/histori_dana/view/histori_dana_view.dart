@@ -12,26 +12,14 @@ class HistoriDanaView extends StatefulWidget {
         title: Text(
           "Histori Dana",
         ),
-        actions: [
-          IconButton(
-            onPressed: () {
-              UserBalanceService.topupHistories = [];
-              StockNewService.initialize();
-              controller.reload();
-            },
-            icon: const Icon(
-              Icons.delete_forever,
-              size: 24.0,
-            ),
-          ),
-        ],
+        actions: [],
       ),
       body: SingleChildScrollView(
         controller: ScrollController(),
         child: Column(
           children: [
             ListView.builder(
-              itemCount: 1,
+              itemCount: 2,
               shrinkWrap: true,
               padding: EdgeInsets.zero,
               clipBehavior: Clip.none,

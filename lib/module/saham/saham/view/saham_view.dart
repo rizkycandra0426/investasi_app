@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hyper_ui/core.dart';
+import 'package:hyper_ui/main.dart';
 import 'package:hyper_ui/module/saham/stock_list/view/stock_list_view.dart';
 import 'package:hyper_ui/service/offline_service.dart';
 import '../controller/saham_controller.dart';
@@ -12,6 +13,7 @@ class SahamView extends StatefulWidget {
 
     generateDummies({
       bool nextYear = false,
+      bool noTradeNextYear = false,
     }) async {
       showLoading();
       StockNewService.stocks = [];
@@ -44,17 +46,8 @@ class SahamView extends StatefulWidget {
       StockNewService.stocks[stockIndex]["sell_volume"] += 500;
       StockNewService.sell(
         idSaham: "2",
-        price: 1251,
+        price: 1200,
         volume: 500,
-        stock: stock,
-        date: now,
-      );
-
-      StockNewService.stocks[stockIndex]["buy_volume"] += 1000;
-      StockNewService.buy(
-        idSaham: "2",
-        price: 2000,
-        volume: 1000,
         stock: stock,
         date: now,
       );
@@ -69,14 +62,38 @@ class SahamView extends StatefulWidget {
       );
 
       if (nextYear) {
-        StockNewService.stocks[stockIndex]["buy_volume"] += 1000;
-        StockNewService.buy(
-          idSaham: "2",
-          price: 1000,
-          volume: 1000,
-          stock: stock,
-          date: DateTime(now.year + 1, 1, 1),
+        await UserBalanceService.topup(
+          100000000,
+          false,
+          DateTime(now.year + 1, 1, 1),
         );
+
+        if (noTradeNextYear == false) {
+          StockNewService.stocks[stockIndex]["buy_volume"] += 1000;
+          StockNewService.buy(
+            idSaham: "2",
+            price: 1000,
+            volume: 1000,
+            stock: stock,
+            date: DateTime(now.year + 1, 1, 1),
+          );
+
+          StockNewService.stocks[stockIndex]["sell_volume"] += 1000;
+          StockNewService.sell(
+            idSaham: "2",
+            price: 1500,
+            volume: 500,
+            stock: stock,
+            date: DateTime(now.year + 1, 1, 1),
+          );
+        }
+
+        //Buang lagi nanti yaa
+        // await UserBalanceService.topup(
+        //   100000000,
+        //   false,
+        //   DateTime(now.year + 1, 1, 1),
+        // );
       }
 
       StockNewService.calculate();
@@ -106,7 +123,7 @@ class SahamView extends StatefulWidget {
             ),
           ),
           actions: [
-            if (false) ...[
+            if (isDeveloper) ...[
               InkWell(
                 child: Center(
                   child: Text(
@@ -134,6 +151,24 @@ class SahamView extends StatefulWidget {
                 ),
                 onTap: () => generateDummies(
                   nextYear: true,
+                ),
+              ),
+              const SizedBox(
+                width: 8.0,
+              ),
+              InkWell(
+                child: Center(
+                  child: Text(
+                    "2025 NT",
+                    style: TextStyle(
+                      fontSize: 12.0,
+                      color: Colors.black,
+                    ),
+                  ),
+                ),
+                onTap: () => generateDummies(
+                  nextYear: true,
+                  noTradeNextYear: true,
                 ),
               ),
               const SizedBox(

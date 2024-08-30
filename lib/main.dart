@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:hyper_ui/service/offline_service.dart';
 import 'package:hyper_ui/service/stock_new_service.dart';
@@ -6,17 +8,26 @@ import 'package:hyper_ui/core.dart';
 import 'package:flutter/material.dart';
 import 'package:hyper_ui/service/db_service.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:device_info_plus/device_info_plus.dart';
 
 // fund_alloc
 // value_effect
 // NaN
+
+bool isDeveloper = false;
+List<String> superDevs = [
+  "TP1A.220624.014",
+];
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
-  await FirebaseNotificationService.initNotifications();
+  if (!Platform.isWindows) {
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
+    await FirebaseNotificationService.initNotifications();
+  }
   await DBService.init();
   // await DBService.clear("token");
   // await DBService.deleteAll();
@@ -26,6 +37,16 @@ void main() async {
 
   await OfflineService.loadLocalValues();
   await StockNewService.initialize();
+
+  if (Platform.isAndroid) {
+    DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+    AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
+    if (superDevs.contains(androidInfo.id)) {
+      isDeveloper = true;
+    }
+  } else if (Platform.isWindows) {
+    isDeveloper = true;
+  }
 
   runMainApp();
 }
@@ -44,7 +65,8 @@ class MainApp extends StatelessWidget {
       navigatorKey: Get.navigatorKey,
       debugShowCheckedModeBanner: false,
       theme: getDefaultTheme(),
-      home: SplashScreenView(),
+      // home: Platform.isWindows ? SahamView() : SplashScreenView(),
+      home: Platform.isWindows ? DemoSahamView() : SplashScreenView(),
       builder: (context, child) => DebugView(
         context: context,
         child: child,

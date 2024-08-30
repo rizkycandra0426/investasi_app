@@ -23,28 +23,28 @@ class PortofolioTradeView extends StatefulWidget {
         backgroundColor: buyMode ? Colors.green : Colors.red,
         title: Text("Trade - ${buyMode ? "Buy" : "Sell"}"),
         actions: [
-          // InkWell(
-          //   onTap: () async {
-          //     controller.loading = true;
-          //     controller.reload();
+          InkWell(
+            onTap: () async {
+              controller.loading = true;
+              controller.reload();
 
-          //     controller.date = DateTime(now.year + 1, 1, 1);
-          //     controller.price = 1000;
-          //     controller.volume = 1000;
+              controller.date = DateTime(now.year + 1, 1, 1);
+              controller.price = 1000;
+              controller.volume = 1000;
 
-          //     await Future.delayed(Duration(milliseconds: 100));
-          //     controller.loading = false;
-          //     controller.reload();
-          //   },
-          //   child: Center(
-          //     child: Text(
-          //       "2025",
-          //       style: TextStyle(
-          //         fontSize: 12.0,
-          //       ),
-          //     ),
-          //   ),
-          // ),
+              await Future.delayed(Duration(milliseconds: 100));
+              controller.loading = false;
+              controller.reload();
+            },
+            child: Center(
+              child: Text(
+                "2025",
+                style: TextStyle(
+                  fontSize: 12.0,
+                ),
+              ),
+            ),
+          ),
           const SizedBox(
             width: 8.0,
           ),

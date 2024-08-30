@@ -1,30 +1,48 @@
-[NEW TODO]
-[v] 1. Equity belum bener mas den ketika jual beli saham masih salam dia
-[v] 2. Dibagain valuation, fund alloc, sama value effect pas melakukan edit di current price gk berubah mas den harus kayak pindah page gitu baru dia berubah
-[v] 3. Bagian berita belum memunculkan berita
-[v] 4. Notifikasi scheduler masih belum bisa menampilkan notifikasi
-[v] 5. Bagian porto setelah buy atau jual gitu belum ada delay jadi harus pindah page kalo mau liat perubahan
-[v] 6. Untuk fitur offline bagian statistik sama anggaran ngaco, dia men totalkan semua pengeluaran begitu
+1. harga unit dan yield belum bisa berubah ketika current price di ubah 
+> Edit Current Price, Yield dan Harga Unit-nya tidak berubah
+
+2. ⁠untuk mencari avg price ketika beli 2x- seterusnya itu make rumus : total buy keseluruhan dibagi total lembar
+> Buy total/jumlah_lembar
+
+3. ⁠ada tambahan deposito nanti sistem kayak nabunh begitu ( dibagian topup deviden jadinya kita milih mau deviden saham atau deposito)
+
+> Menu baru:
+  Nama deposito, Total deposito
+  BCA	         200.000
+  BRI	         200.000
+
+> Topup/ Topup Dividen bisa milih Topup Dividen utk Saham atau Deviden
+
+> Jikah pilih SAHAM, bisa pilih Topup-nya ke saham mana (Saham yang ada di portofolio saja ya)
+
+> Topup Dividen dan Saham tidak muncul di Histori Dana
+
+> Tapi muncul di Trade History?
+  Tanggal, Total, Action (Dividen)
+
+> Menu baru, Riwayat Deposito
+
+> Jika topup Deposito, sisa saldo berkurang, tapi tidak mempengaruhi kinerja.
+
+> Sharusnya topup deposito tidak merubah yield, portoo, kinerja
+
+----------
+
+Kalau Topup Dividen,
+Akan mempengaruhi kinjera
+yield dan harga_unit
+
+> Saldo, Yield dan Harga Unit
+> Fund alloc di porto berubah
+
+4. ⁠terus yang terakhir yang closingan yang kemarin itu mas den yang kita belum selesain 2024 ke 2025
+
+- Kunci kinerja 2024
+- Copy 2024 ke 2025, 
+    yield-nya 0
+
+Jika ada transaksi 2025
+---
 
 
-7. Perbaikan Harga Unit, Jumlah Unit, Valuation agar Yearly Based.
-    Tujuan: Mendapatkan harga unit, jumlah unit, valuation di tahun 2025
 
-    GET
-    - valuasi akhir 2024
-
-    di 2025
-    Modal Awal = pakai Valuasi Tahun 2024
-    Harga unit = pakai Harga unit tahun 2024
-    Jumlah unit = Modal awal / harga unit
-    Yield = 0 (karena modal awal sama dengan valuasi)
-
-    Yield tahun 2024 tidak berubah,
-    Ketika di tahun 2025,
-    Meskipun ada kenaikan atau penurunan valuasi.
-
-8. Update Fitur Jual (Cek video di Whatsapp)
-
-[v] 9. Saldo sharusnya adaalah sisa saldo + sum(tradeHistory["total"])
-
-[v] 10. Fund Alloc masih salah

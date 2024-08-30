@@ -33,7 +33,6 @@ class StockNewService {
 
   static double costTotal = 0.0;
   static double valuationTotal = 0.0;
-  static double valuationTotalByBuyValue = 0.0;
   static double ihsgStart = 0.0;
   static double ihsgEnd = 0.0;
   static double get ihsg {
@@ -73,7 +72,6 @@ class StockNewService {
   static calculate() {
     costTotal = 0;
     valuationTotal = 0;
-    valuationTotalByBuyValue = 0;
 
     for (var stock in stocks) {
       var currentVolume = stock["buy_volume"] - stock["sell_volume"];
@@ -144,15 +142,10 @@ class StockNewService {
       if (div2 == 0) {
         stock["value_effect"] = 0;
       }
-
-      var buyValueValuation = stock["buy_volume"] * stock["current_price"];
-      valuationTotalByBuyValue =
-          valuationTotalByBuyValue + (buyValueValuation ?? 0);
     }
 
     print("costTotal: $costTotal");
     print("valuationTotal: $valuationTotal");
-    print("valuationTotalByBuyValue: $valuationTotalByBuyValue");
   }
 
   static initialize() async {
@@ -424,46 +417,40 @@ class StockNewService {
   }
 
   static double getAllStockValuationsTotalCalculatedByYearsBefore(int year) {
-    double beforeValue = getAllStockValuationsTotal(year - 1);
+    // double beforeValue = getAllStockValuationsTotal(year - 1);
+    // double nowValue = getAllStockValuationsTotal(year);
+    // return beforeValue + nowValue;
+    // double beforeValue = getAllStockValuationsTotal(year - 1);
     double nowValue = getAllStockValuationsTotal(year);
-    return beforeValue + nowValue;
+    return nowValue;
   }
 
   static double getAllStockBuyTotalCalculatedByYearsBefore(int year) {
-    double beforeValue = getAllStockBuyTotal(year - 1);
+    // double beforeValue = getAllStockBuyTotal(year - 1);
+    // double nowValue = getAllStockBuyTotal(year);
+    // return beforeValue + nowValue;
+
+    // double beforeValue = getAllStockBuyTotal(year - 1);
     double nowValue = getAllStockBuyTotal(year);
-    return beforeValue + nowValue;
+    return nowValue;
   }
 
   static double getAllStockValuationsTotal(int year) {
     var allStockValuationsTotal = 0.0;
-    var allStockBuyTotal = 0.0;
     for (var stock in StockNewService.stocks) {
-      if (stock["buy_volume"] - stock["sell_volume"] <= 0) continue;
-
       double volumeTotal = 0.0;
       double lastCurrentPrice = 0;
-      double lastAveragePrice = 0;
       for (var history in StockNewService.tradeHistories) {
         if (DateTime.parse(history["date"]).year != year) continue;
         if (history["id_saham"] == stock["id_saham"]) {
           volumeTotal = volumeTotal + history["volume"];
           lastCurrentPrice = history["current_price"] ?? 0.0;
-          lastAveragePrice = history["avg_price"] ?? 0.0;
-
-          if (history["action"] == "BUY") {
-            allStockBuyTotal += (history["cost"] ?? 0);
-          } else {
-            allStockBuyTotal -= (history["total"] ?? 0);
-          }
         }
       }
-      print("volumeTotal: $volumeTotal");
-      print("lastCurrentPrice: $lastCurrentPrice");
-      print("lastAveragePrice: $lastAveragePrice");
       var summaryValuation = (volumeTotal * lastCurrentPrice);
       allStockValuationsTotal += summaryValuation;
     }
+    printg("allStockValuationsTotal: $allStockValuationsTotal");
     return allStockValuationsTotal;
   }
 
@@ -490,9 +477,6 @@ class StockNewService {
           }
         }
       }
-      print("volumeTotal: $volumeTotal");
-      print("lastCurrentPrice: $lastCurrentPrice");
-      print("lastAveragePrice: $lastAveragePrice");
       var summaryValuation = (volumeTotal * lastCurrentPrice);
       allStockValuationsTotal += summaryValuation;
     }
@@ -521,7 +505,7 @@ class UserBalanceService {
     return amountTotal;
   }
 
-  static topup(double amount, bool isTopupDividen) {
+  static topup(double amount, bool isTopupDividen, [DateTime? date]) {
     double hargaUnit = 0;
     double jumlahUnit = 0;
     if (topupHistories.isEmpty) {
@@ -530,13 +514,13 @@ class UserBalanceService {
       jumlahUnit = amount / 1000;
     } else {
       //after first time topup
-      hargaUnit = getHargaUnitSaatIni(now.year);
+      hargaUnit = getHargaUnitSaatIni((date ?? now).year);
       jumlahUnit = amount / hargaUnit;
     }
 
     if (isTopupDividen) {
       topupHistories.add({
-        "date": DateTime.now().toString(),
+        "date": (date ?? DateTime.now()).toString(),
         "amount": amount,
         "harga_unit": 0,
         "jumlah_unit": 0,
@@ -544,7 +528,7 @@ class UserBalanceService {
       return;
     } else {
       topupHistories.add({
-        "date": DateTime.now().toString(),
+        "date": (date ?? DateTime.now()).toString(),
         "amount": amount,
         "harga_unit": hargaUnit,
         "jumlah_unit": jumlahUnit,
@@ -566,6 +550,7 @@ class UserBalanceService {
     double jumlah = 0;
     for (var history in topupHistories) {
       if (DateTime.parse(history["date"]).year != year) continue;
+
       jumlah = jumlah + history["jumlah_unit"];
     }
     return jumlah;

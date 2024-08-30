@@ -132,6 +132,7 @@ export 'package:hyper_ui/service/berita_service.dart';
 export 'package:hyper_ui/service/budget_service.dart';
 export 'package:hyper_ui/service/category_request_service.dart';
 export 'package:hyper_ui/service/db_service.dart';
+export 'package:hyper_ui/service/demo_saham.dart';
 export 'package:hyper_ui/service/dividen_service.dart';
 export 'package:hyper_ui/service/histori_tahunan_service.dart';
 export 'package:hyper_ui/service/ihsg_service.dart';
