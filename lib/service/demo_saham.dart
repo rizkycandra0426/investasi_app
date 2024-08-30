@@ -17,6 +17,10 @@ class _DemoSahamViewState extends State<DemoSahamView> {
     return historyList.value.last.hargaUnit;
   }
 
+  double getJumlahUnitTerakhir() {
+    return historyList.value.last.jumlahUnit;
+  }
+
   double getSaldoTerakhir() {
     return historyList.value.last.saldo;
   }
@@ -59,6 +63,14 @@ class _DemoSahamViewState extends State<DemoSahamView> {
     return valuation;
   }
 
+  double getLastValuation() {
+    return historyList.value.last.valuation;
+  }
+
+  double getLastValuationPlusSaldo() {
+    return historyList.value.last.valuationPlusSaldo;
+  }
+
   addAdjustment({
     required DateTime date,
   }) {
@@ -82,23 +94,29 @@ class _DemoSahamViewState extends State<DemoSahamView> {
         jumlahUnit: 0,
       ));
     } else {
+      double saldoTerakhir = getSaldoTerakhir();
+      double lastValuationPlusSaldo = getLastValuationPlusSaldo();
+      double hargaUnit = getHargaUnitTerakhir();
+      double jumlahUnit = getJumlahUnitTerakhir();
+
       historyList.value.add(History(
         date: date,
         activity: "Adjustment",
         target: "Balance",
         buyingPrice: 0,
         sellingPrice: 0,
-        qty: 0,
+        qty: 1,
         sisaVolume: 0,
-        price: 0,
-        total: 0,
-        saldo: 0,
+        price: lastValuationPlusSaldo,
+        total: lastValuationPlusSaldo,
+        saldo: saldoTerakhir,
         currentPrice: 0,
-        valuation: 0,
+        valuation: getLastValuation(),
+        currentValuation: 0,
         pl: 0,
-        valuationPlusSaldo: 0,
-        hargaUnit: 1000,
-        jumlahUnit: 0,
+        valuationPlusSaldo: lastValuationPlusSaldo,
+        hargaUnit: hargaUnit,
+        jumlahUnit: jumlahUnit,
       ));
     }
   }
@@ -114,6 +132,9 @@ class _DemoSahamViewState extends State<DemoSahamView> {
     //---------------------------------
     double hargaUnit = getHargaUnitTerakhir();
     double jumlahUnit = valuationPlusSaldo / hargaUnit;
+    double valuation = getLastValuation();
+
+    double newValuationPlusSaldo = getLastValuationPlusSaldo() + amount;
     historyList.value.add(History(
       date: date,
       activity: "Topup",
@@ -127,11 +148,11 @@ class _DemoSahamViewState extends State<DemoSahamView> {
       saldo: saldo,
       modal: modal,
       currentPrice: 0,
-      valuation: 0,
+      valuation: valuation,
       pl: 0,
-      valuationPlusSaldo: valuationPlusSaldo,
-      hargaUnit: hargaUnit,
-      jumlahUnit: jumlahUnit,
+      valuationPlusSaldo: newValuationPlusSaldo,
+      hargaUnit: getHargaUnitTerakhir(),
+      jumlahUnit: newValuationPlusSaldo / getHargaUnitTerakhir(),
     ));
   }
 
@@ -144,7 +165,7 @@ class _DemoSahamViewState extends State<DemoSahamView> {
     String? sekuritas,
   }) {
     double hargaUnit = getHargaUnitTerakhir();
-    double jumlahUnit = 100000;
+    double jumlahUnit = getJumlahUnitTerakhir();
     double modal = getModalTerakhir();
 
     double total = qty * price;
@@ -159,7 +180,7 @@ class _DemoSahamViewState extends State<DemoSahamView> {
     double pl = valuation - equityByVolume;
 
     double valuationPlusSaldo = saldoTerbaru + currentValuation;
-    hargaUnit = (saldoTerbaru + valuation) / jumlahUnit;
+    hargaUnit = valuationPlusSaldo / jumlahUnit;
 
     double valueEffect = (valuation / valuationPlusSaldo) * 100;
     double fundAlloc = (equityByVolume / modal) * 100;
@@ -205,7 +226,7 @@ class _DemoSahamViewState extends State<DemoSahamView> {
     qty = qty * -1;
 
     double hargaUnit = getHargaUnitTerakhir();
-    double jumlahUnit = 100000;
+    double jumlahUnit = getJumlahUnitTerakhir();
     double modal = getModalTerakhir();
 
     double total = qty * price;
@@ -330,8 +351,8 @@ class _DemoSahamViewState extends State<DemoSahamView> {
 
     sell(
       date: DateTime(2025, 01, 01),
-      qty: 1000,
-      price: 1200,
+      qty: 500,
+      price: 7000,
       currentPrice: 6000,
       saham: "BBCA",
     );
@@ -512,6 +533,14 @@ class _DemoSahamViewState extends State<DemoSahamView> {
                         ),
                       ),
                       Text(
+                        "Current Valuation",
+                        textAlign: TextAlign.right,
+                        style: TextStyle(
+                          fontSize: 12.0,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      Text(
                         "PL",
                         textAlign: TextAlign.right,
                         style: TextStyle(
@@ -579,206 +608,216 @@ class _DemoSahamViewState extends State<DemoSahamView> {
                   ],
                 ),
               ),
-              ListView.builder(
-                shrinkWrap: true,
-                itemCount: histories.length,
-                itemBuilder: (context, index) {
-                  var item = histories[index];
-                  //display all fields in flutter table?
-                  Color color = Colors.white;
-                  if (item.date.year == now.year) {
-                    color =
-                        index % 2 == 0 ? Colors.grey[100]! : Colors.grey[300]!;
-                  } else {
-                    color =
-                        index % 2 == 0 ? Colors.blue[100]! : Colors.blue[300]!;
-                  }
+              Expanded(
+                child: ListView.builder(
+                  itemCount: histories.length,
+                  itemBuilder: (context, index) {
+                    var item = histories[index];
+                    //display all fields in flutter table?
+                    Color color = Colors.white;
+                    if (item.date.year == now.year) {
+                      color = index % 2 == 0
+                          ? Colors.grey[100]!
+                          : Colors.grey[300]!;
+                    } else {
+                      color = index % 2 == 0
+                          ? Colors.blue[100]!
+                          : Colors.blue[300]!;
+                    }
 
-                  if (item.activity == "Adjustment") {
-                    color = Colors.red[200]!;
-                  }
-                  return Container(
-                    padding: EdgeInsets.symmetric(
-                      vertical: 12.0,
-                      horizontal: 20.0,
-                    ),
-                    color: color,
-                    child: Table(
-                      children: [
-                        TableRow(children: [
-                          Container(
-                            margin: EdgeInsets.only(
-                              bottom: 12.0,
-                            ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  "${item.date.day}/${item.date.month}",
-                                  style: TextStyle(
-                                    fontSize: 12.0,
+                    if (item.activity == "Adjustment") {
+                      color = Colors.red[200]!;
+                    }
+                    return Container(
+                      padding: EdgeInsets.symmetric(
+                        vertical: 12.0,
+                        horizontal: 20.0,
+                      ),
+                      color: color,
+                      child: Table(
+                        children: [
+                          TableRow(children: [
+                            Container(
+                              margin: EdgeInsets.only(
+                                bottom: 12.0,
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    "${item.date.day}/${item.date.month}",
+                                    style: TextStyle(
+                                      fontSize: 12.0,
+                                    ),
                                   ),
-                                ),
-                                Text(
-                                  "${item.date.year}",
-                                  style: TextStyle(
-                                    fontSize: 12.0,
+                                  Text(
+                                    "${item.date.year}",
+                                    style: TextStyle(
+                                      fontSize: 12.0,
+                                    ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
-                          ),
-                          Text(
-                            item.activity + "\n" + item.target,
-                            style: TextStyle(
-                              fontSize: 12.0,
+                            Text(
+                              item.activity + "\n" + item.target,
+                              style: TextStyle(
+                                fontSize: 12.0,
+                              ),
                             ),
-                          ),
-                          Text(
-                            item.buyingPrice.number,
-                            textAlign: TextAlign.right,
-                            style: TextStyle(
-                              fontSize: 12.0,
+                            Text(
+                              item.buyingPrice.number,
+                              textAlign: TextAlign.right,
+                              style: TextStyle(
+                                fontSize: 12.0,
+                              ),
                             ),
-                          ),
-                          Text(
-                            item.sellingPrice.number,
-                            textAlign: TextAlign.right,
-                            style: TextStyle(
-                              fontSize: 12.0,
+                            Text(
+                              item.sellingPrice.number,
+                              textAlign: TextAlign.right,
+                              style: TextStyle(
+                                fontSize: 12.0,
+                              ),
                             ),
-                          ),
-                          Text(
-                            item.qty.number,
-                            textAlign: TextAlign.right,
-                            style: TextStyle(
-                              fontSize: 12.0,
+                            Text(
+                              item.qty.number,
+                              textAlign: TextAlign.right,
+                              style: TextStyle(
+                                fontSize: 12.0,
+                              ),
                             ),
-                          ),
-                          Text(
-                            item.sisaVolume.number,
-                            textAlign: TextAlign.right,
-                            style: TextStyle(
-                              fontSize: 12.0,
+                            Text(
+                              item.sisaVolume.number,
+                              textAlign: TextAlign.right,
+                              style: TextStyle(
+                                fontSize: 12.0,
+                              ),
                             ),
-                          ),
-                          Text(
-                            item.averagePrice.number,
-                            textAlign: TextAlign.right,
-                            style: TextStyle(
-                              fontSize: 12.0,
+                            Text(
+                              item.averagePrice.number,
+                              textAlign: TextAlign.right,
+                              style: TextStyle(
+                                fontSize: 12.0,
+                              ),
                             ),
-                          ),
-                          Text(
-                            item.price.number,
-                            textAlign: TextAlign.right,
-                            style: TextStyle(
-                              fontSize: 12.0,
+                            Text(
+                              item.price.number,
+                              textAlign: TextAlign.right,
+                              style: TextStyle(
+                                fontSize: 12.0,
+                              ),
                             ),
-                          ),
-                          Text(
-                            item.equitySahamBerdasarkanVolume.number,
-                            textAlign: TextAlign.right,
-                            style: TextStyle(
-                              fontSize: 12.0,
+                            Text(
+                              item.equitySahamBerdasarkanVolume.number,
+                              textAlign: TextAlign.right,
+                              style: TextStyle(
+                                fontSize: 12.0,
+                              ),
                             ),
-                          ),
-                          Text(
-                            item.total.number,
-                            textAlign: TextAlign.right,
-                            style: TextStyle(
-                              fontSize: 12.0,
+                            Text(
+                              item.total.number,
+                              textAlign: TextAlign.right,
+                              style: TextStyle(
+                                fontSize: 12.0,
+                              ),
                             ),
-                          ),
-                          Text(
-                            item.saldo.number,
-                            textAlign: TextAlign.right,
-                            style: TextStyle(
-                              fontSize: 12.0,
+                            Text(
+                              item.saldo.number,
+                              textAlign: TextAlign.right,
+                              style: TextStyle(
+                                fontSize: 12.0,
+                              ),
                             ),
-                          ),
-                          Text(
-                            item.modal.number,
-                            textAlign: TextAlign.right,
-                            style: TextStyle(
-                              fontSize: 12.0,
+                            Text(
+                              item.modal.number,
+                              textAlign: TextAlign.right,
+                              style: TextStyle(
+                                fontSize: 12.0,
+                              ),
                             ),
-                          ),
-                          Text(
-                            item.currentPrice.number,
-                            textAlign: TextAlign.right,
-                            style: TextStyle(
-                              fontSize: 12.0,
+                            Text(
+                              item.currentPrice.number,
+                              textAlign: TextAlign.right,
+                              style: TextStyle(
+                                fontSize: 12.0,
+                              ),
                             ),
-                          ),
-                          Text(
-                            item.valuation.number,
-                            textAlign: TextAlign.right,
-                            style: TextStyle(
-                              fontSize: 12.0,
+                            Text(
+                              item.valuation.number,
+                              textAlign: TextAlign.right,
+                              style: TextStyle(
+                                fontSize: 12.0,
+                              ),
                             ),
-                          ),
-                          Text(
-                            item.pl.number,
-                            textAlign: TextAlign.right,
-                            style: TextStyle(
-                              fontSize: 12.0,
+                            Text(
+                              item.currentValuation.number,
+                              textAlign: TextAlign.right,
+                              style: TextStyle(
+                                fontSize: 12.0,
+                              ),
                             ),
-                          ),
-                          Text(
-                            item.valuationPlusSaldo.number,
-                            textAlign: TextAlign.right,
-                            style: TextStyle(
-                              fontSize: 12.0,
+                            Text(
+                              item.pl.number,
+                              textAlign: TextAlign.right,
+                              style: TextStyle(
+                                fontSize: 12.0,
+                              ),
                             ),
-                          ),
-                          Text(
-                            item.hargaUnit.number,
-                            textAlign: TextAlign.right,
-                            style: TextStyle(
-                              fontSize: 12.0,
+                            Text(
+                              item.valuationPlusSaldo.number,
+                              textAlign: TextAlign.right,
+                              style: TextStyle(
+                                fontSize: 12.0,
+                              ),
                             ),
-                          ),
-                          Text(
-                            item.jumlahUnit.number,
-                            textAlign: TextAlign.right,
-                            style: TextStyle(
-                              fontSize: 12.0,
+                            Text(
+                              item.hargaUnit.number,
+                              textAlign: TextAlign.right,
+                              style: TextStyle(
+                                fontSize: 12.0,
+                              ),
                             ),
-                          ),
-                          Text(
-                            item.valueEffect.percentage,
-                            textAlign: TextAlign.right,
-                            style: TextStyle(
-                              fontSize: 12.0,
+                            Text(
+                              item.jumlahUnit.number,
+                              textAlign: TextAlign.right,
+                              style: TextStyle(
+                                fontSize: 12.0,
+                              ),
                             ),
-                          ),
-                          Text(
-                            item.fundAlloc.percentage,
-                            textAlign: TextAlign.right,
-                            style: TextStyle(
-                              fontSize: 12.0,
+                            Text(
+                              item.valueEffect.percentage,
+                              textAlign: TextAlign.right,
+                              style: TextStyle(
+                                fontSize: 12.0,
+                              ),
                             ),
-                          ),
-                          Text(
-                            item.yield.percentage,
-                            textAlign: TextAlign.right,
-                            style: TextStyle(
-                              fontSize: 12.0,
+                            Text(
+                              item.fundAlloc.percentage,
+                              textAlign: TextAlign.right,
+                              style: TextStyle(
+                                fontSize: 12.0,
+                              ),
                             ),
-                          ),
-                          Text(
-                            item.sekuritas.number,
-                            textAlign: TextAlign.right,
-                            style: TextStyle(
-                              fontSize: 12.0,
+                            Text(
+                              item.yield.percentage,
+                              textAlign: TextAlign.right,
+                              style: TextStyle(
+                                fontSize: 12.0,
+                              ),
                             ),
-                          ),
-                        ]),
-                      ],
-                    ),
-                  );
-                },
+                            Text(
+                              item.sekuritas.number,
+                              textAlign: TextAlign.right,
+                              style: TextStyle(
+                                fontSize: 12.0,
+                              ),
+                            ),
+                          ]),
+                        ],
+                      ),
+                    );
+                  },
+                ),
               ),
             ],
           );
