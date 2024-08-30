@@ -141,9 +141,12 @@ class _DemoSahamViewState extends State<DemoSahamView> {
     required double price,
     required double currentPrice,
     required String saham,
+    String? sekuritas,
   }) {
     double hargaUnit = getHargaUnitTerakhir();
-    double jumlahUnit = 100000000 / hargaUnit;
+    double jumlahUnit = 100000;
+    double modal = getModalTerakhir();
+
     double total = qty * price;
     int volumeTerbaru = getVolumeSaatIni(saham) + qty;
     double saldoTerbaru = getSaldoTerakhir() - total;
@@ -154,6 +157,14 @@ class _DemoSahamViewState extends State<DemoSahamView> {
     double valuation = volumeTerbaru * currentPrice;
     double currentValuation = getLastValuationBySaham(saham) + valuation;
     double pl = valuation - equityByVolume;
+
+    double valuationPlusSaldo = saldoTerbaru + currentValuation;
+    hargaUnit = (saldoTerbaru + valuation) / jumlahUnit;
+
+    double valueEffect = (valuation / valuationPlusSaldo) * 100;
+    double fundAlloc = (equityByVolume / modal) * 100;
+    double yield =
+        ((hargaUnit - getHargaUnitTerakhir()) / getHargaUnitTerakhir()) * 100;
 
     historyList.value.add(History(
       date: date,
@@ -168,13 +179,18 @@ class _DemoSahamViewState extends State<DemoSahamView> {
       equitySahamBerdasarkanVolume: equityByVolume,
       total: total,
       saldo: saldoTerbaru,
+      modal: modal,
       currentPrice: currentPrice,
       valuation: valuation,
       currentValuation: currentValuation,
       pl: pl,
-      valuationPlusSaldo: 0,
+      valuationPlusSaldo: valuationPlusSaldo,
       hargaUnit: hargaUnit,
       jumlahUnit: jumlahUnit,
+      valueEffect: valueEffect,
+      fundAlloc: fundAlloc,
+      yield: yield,
+      sekuritas: sekuritas ?? "-",
     ));
   }
 
@@ -184,11 +200,14 @@ class _DemoSahamViewState extends State<DemoSahamView> {
     required double price,
     required double currentPrice,
     required String saham,
+    String? sekuritas,
   }) {
     qty = qty * -1;
 
     double hargaUnit = getHargaUnitTerakhir();
-    double jumlahUnit = 100000000 / hargaUnit;
+    double jumlahUnit = 100000;
+    double modal = getModalTerakhir();
+
     double total = qty * price;
     int volumeTerbaru = getVolumeSaatIni(saham) + qty;
     double saldoTerbaru = getSaldoTerakhir() - total;
@@ -198,6 +217,14 @@ class _DemoSahamViewState extends State<DemoSahamView> {
     double valuation = volumeTerbaru * currentPrice;
     double currentValuation = getLastValuationBySaham(saham) - valuation;
     double pl = valuation - equityByVolume;
+
+    double valuationPlusSaldo = saldoTerbaru + currentValuation;
+    hargaUnit = valuationPlusSaldo / jumlahUnit;
+
+    double valueEffect = (valuation / valuationPlusSaldo) * 100;
+    double fundAlloc = (equityByVolume / modal) * 100;
+    double yield =
+        ((hargaUnit - getHargaUnitTerakhir()) / getHargaUnitTerakhir()) * 100;
 
     historyList.value.add(History(
       date: date,
@@ -211,13 +238,18 @@ class _DemoSahamViewState extends State<DemoSahamView> {
       equitySahamBerdasarkanVolume: equityByVolume,
       total: total,
       saldo: saldoTerbaru,
+      modal: modal,
       currentPrice: currentPrice,
       valuation: valuation,
       currentValuation: currentValuation,
       pl: pl,
-      valuationPlusSaldo: 0,
+      valuationPlusSaldo: valuationPlusSaldo,
       hargaUnit: hargaUnit,
       jumlahUnit: jumlahUnit,
+      valueEffect: valueEffect,
+      fundAlloc: fundAlloc,
+      yield: yield,
+      sekuritas: sekuritas ?? "-",
     ));
   }
 
@@ -511,6 +543,38 @@ class _DemoSahamViewState extends State<DemoSahamView> {
                           fontWeight: FontWeight.bold,
                         ),
                       ),
+                      Text(
+                        "Value Effect",
+                        textAlign: TextAlign.right,
+                        style: TextStyle(
+                          fontSize: 12.0,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      Text(
+                        "Fund Alloc",
+                        textAlign: TextAlign.right,
+                        style: TextStyle(
+                          fontSize: 12.0,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      Text(
+                        "Yield",
+                        textAlign: TextAlign.right,
+                        style: TextStyle(
+                          fontSize: 12.0,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      Text(
+                        "Sekuritas",
+                        textAlign: TextAlign.right,
+                        style: TextStyle(
+                          fontSize: 12.0,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                     ]),
                   ],
                 ),
@@ -677,6 +741,34 @@ class _DemoSahamViewState extends State<DemoSahamView> {
                           ),
                           Text(
                             item.jumlahUnit.number,
+                            textAlign: TextAlign.right,
+                            style: TextStyle(
+                              fontSize: 12.0,
+                            ),
+                          ),
+                          Text(
+                            item.valueEffect.percentage,
+                            textAlign: TextAlign.right,
+                            style: TextStyle(
+                              fontSize: 12.0,
+                            ),
+                          ),
+                          Text(
+                            item.fundAlloc.percentage,
+                            textAlign: TextAlign.right,
+                            style: TextStyle(
+                              fontSize: 12.0,
+                            ),
+                          ),
+                          Text(
+                            item.yield.percentage,
+                            textAlign: TextAlign.right,
+                            style: TextStyle(
+                              fontSize: 12.0,
+                            ),
+                          ),
+                          Text(
+                            item.sekuritas.number,
                             textAlign: TextAlign.right,
                             style: TextStyle(
                               fontSize: 12.0,
