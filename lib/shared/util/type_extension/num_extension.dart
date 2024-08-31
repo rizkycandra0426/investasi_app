@@ -29,7 +29,7 @@ extension DoubleExtension on double? {
       if (this != null && this!.isInfinite) return '0';
 
       var value = (this! * 1.0);
-      return '${NumberFormat().format((value ?? 0).floor())}';
+      return '${NumberFormat().format((value ?? 0).ceil())}';
     } on Exception catch (err) {
       return '0';
     }

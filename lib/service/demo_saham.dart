@@ -5,9 +5,8 @@ import 'package:hyper_ui/core.dart';
 
 enum TopupType {
   saldo,
-  dividen,
-  saham,
-  deposito,
+  devidenSaham,
+  devidenDeposito,
 }
 
 class DemoSahamView extends StatefulWidget {
@@ -134,7 +133,7 @@ class _DemoSahamViewState extends State<DemoSahamView> {
     required TopupType type,
     String? saham,
   }) {
-    if (type == TopupType.saham && saham == null) {
+    if (type == TopupType.devidenSaham && saham == null) {
       print("Nama saham wajib di isi pada topup saham!");
       return;
     }
@@ -148,6 +147,14 @@ class _DemoSahamViewState extends State<DemoSahamView> {
     double valuation = getLastValuation();
 
     double newValuationPlusSaldo = getLastValuationPlusSaldo() + amount;
+    double newJumlahUnit = newValuationPlusSaldo / getHargaUnitTerakhir();
+    double newHargaUnit = getHargaUnitTerakhir();
+
+    if (type == TopupType.devidenSaham || type == TopupType.devidenDeposito) {
+      newJumlahUnit = getJumlahUnitTerakhir();
+      newHargaUnit = newValuationPlusSaldo / newJumlahUnit;
+    }
+
     historyList.value.add(History(
       date: date,
       activity: "TOPUP",
@@ -164,8 +171,8 @@ class _DemoSahamViewState extends State<DemoSahamView> {
       valuation: valuation,
       pl: 0,
       valuationPlusSaldo: newValuationPlusSaldo,
-      hargaUnit: getHargaUnitTerakhir(),
-      jumlahUnit: newValuationPlusSaldo / getHargaUnitTerakhir(),
+      hargaUnit: newHargaUnit,
+      jumlahUnit: newJumlahUnit,
     ));
   }
 
@@ -334,49 +341,6 @@ class _DemoSahamViewState extends State<DemoSahamView> {
       saham: "BBCA",
     );
 
-    buy(
-      date: DateTime(2024, 01, 01),
-      qty: 1000,
-      price: 3000,
-      currentPrice: 3000,
-      saham: "KRIS",
-    );
-
-    buy(
-      date: DateTime(2024, 01, 01),
-      qty: 1000,
-      price: 5000,
-      currentPrice: 5000,
-      saham: "KRIS",
-    );
-
-    buy(
-      date: DateTime(2024, 01, 01),
-      qty: 1000,
-      price: 3000,
-      currentPrice: 3000,
-      saham: "BBCA",
-    );
-
-    topup(
-      date: DateTime(2024, 01, 01),
-      amount: 100000000,
-      type: TopupType.deposito,
-    );
-
-    topup(
-      date: DateTime(2024, 01, 01),
-      amount: 100000000,
-      type: TopupType.dividen,
-    );
-
-    topup(
-      date: DateTime(2024, 01, 01),
-      amount: 100000000,
-      type: TopupType.saham,
-      saham: "BBCA",
-    );
-
     //----------------- 2025 -----------------
 
     addAdjustment(
@@ -419,6 +383,19 @@ class _DemoSahamViewState extends State<DemoSahamView> {
       price: 7000,
       currentPrice: 6000,
       saham: "BBCA",
+    );
+
+    topup(
+      date: DateTime(2025, 01, 01),
+      amount: 1000000,
+      type: TopupType.devidenSaham,
+      saham: "BBCA",
+    );
+
+    topup(
+      date: DateTime(2025, 01, 01),
+      amount: 2000000,
+      type: TopupType.devidenDeposito,
     );
     setState(() {});
   }
