@@ -307,7 +307,7 @@ class TRX {
     double modal = getModalTerakhir();
 
     double total = qty * price;
-    int volumeTerbaru = getVolumeSaatIni(saham) + qty;
+    int volumeTerbaru = getVolumeSaatIni(saham) - qty;
     double saldoTerbaru = getSaldoTerakhir() - total;
     double equityByVolume =
         getEquitySahamBerdasarkanVolumeTerakhir(saham) + total;
@@ -388,7 +388,7 @@ class TRX {
           type = TopupType.devidenSaham;
         } else if (item.target.toString().toLowerCase().contains("deposito")) {
           type = TopupType.devidenDeposito;
-        } else if (item.price < 0) {
+        } else if (item.target.toString().toLowerCase().contains("withdraw")) {
           type = TopupType.withdrawBalance;
         }
 
@@ -531,6 +531,14 @@ class TRX {
       currentPrice: 5000,
       saham: "ABBA",
     );
+
+    sell(
+      date: DateTime(2025, 01, 01),
+      qty: 1999,
+      price: 7000,
+      currentPrice: 6000,
+      saham: "ABBA",
+    );
   }
 
   static generateOneTrade() {
@@ -571,6 +579,12 @@ class TRX {
     return historyList.value.where((item) {
       if (item.targetSaham.length >= 3) return true;
       return item.activity == "BUY" || item.activity == "SELL";
+    }).toList();
+  }
+
+  static List<History> get danaHistories {
+    return historyList.value.where((item) {
+      return item.activity == "TOPUP";
     }).toList();
   }
 
