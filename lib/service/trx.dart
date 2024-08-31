@@ -390,6 +390,9 @@ class TRX {
           type = TopupType.devidenDeposito;
         } else if (item.target.toString().toLowerCase().contains("withdraw")) {
           type = TopupType.withdrawBalance;
+          if (item.price < 0) {
+            item.price = item.price * -1;
+          }
         }
 
         topup(

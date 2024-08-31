@@ -30,18 +30,45 @@ class TopupController extends State<TopupView> {
   Widget build(BuildContext context) => widget.build(context, this);
 
   double amount = 0;
+  String saham = "";
 
   bool get isTopupDividen {
-    return jenisTopup == "Topup Dividen";
+    return jenisTopup == "Topup Deviden";
   }
 
   process() async {
+    bool isNotValid = formKey.currentState!.validate() == false;
+    if (isNotValid) {
+      return;
+    }
     showLoading();
 
     if (isTopupMode) {
-      await UserBalanceService.topup(amount, isTopupDividen);
+      if (jenisTopup == "Topup Deviden Saham") {
+        TRX.topup(
+          date: now,
+          amount: amount,
+          type: TopupType.devidenSaham,
+          saham: saham,
+        );
+      } else if (jenisTopup == "Topup Deviden Deposito") {
+        TRX.topup(
+          date: now,
+          amount: amount,
+          type: TopupType.devidenDeposito,
+        );
+      } else {
+        TRX.topup(
+          date: now,
+          amount: amount,
+          type: TopupType.topupBalance,
+        );
+      }
     } else {
-      await UserBalanceService.withdraw(amount);
+      TRX.withdraw(
+        date: now,
+        amount: amount,
+      );
     }
 
     hideLoading();
@@ -52,4 +79,6 @@ class TopupController extends State<TopupView> {
   reload() {
     setState(() {});
   }
+
+  GlobalKey<FormState> formKey = GlobalKey<FormState>();
 }

@@ -8,6 +8,12 @@ class StockNewService {
   static List stocks = [];
   static List tradeHistories = [];
 
+  static List get sortedStocks {
+    //sort by nama saham?
+    stocks.sort((a, b) => a["nama_saham"].compareTo(b["nama_saham"]));
+    return stocks;
+  }
+
   static List get cleanStocks {
     for (var index = 0; index < StockNewService.stocks.length; index++) {
       var fundAlloc = StockNewService.stocks[index]["fund_alloc"];

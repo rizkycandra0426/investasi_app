@@ -21,8 +21,8 @@ class HistoriIhsgView extends StatefulWidget {
               shrinkWrap: true,
               physics: const ScrollPhysics(),
               itemBuilder: (BuildContext context, int index) {
-                var itemYear = (now.year + 1) - index;
-                var yearItems = LocalIHSGService.getLastValue(year: itemYear);
+                var targetYear = (now.year + 1) - index;
+                var yearItems = LocalIHSGService.getLastValue(year: targetYear);
 
                 var yearYield = 0.0;
                 var yearIhsg = 0.0;
@@ -45,7 +45,7 @@ class HistoriIhsgView extends StatefulWidget {
                   children: [
                     InkWell(
                       onTap: () {
-                        controller.updateSelectedYear(itemYear);
+                        controller.updateSelectedYear(targetYear);
                       },
                       child: Container(
                         color: Colors.blue,
@@ -54,7 +54,7 @@ class HistoriIhsgView extends StatefulWidget {
                           children: [
                             Expanded(
                               child: Text(
-                                "${itemYear}",
+                                "${targetYear}",
                                 textAlign: TextAlign.start,
                                 style: TextStyle(
                                   fontSize: 16.0,
@@ -65,7 +65,7 @@ class HistoriIhsgView extends StatefulWidget {
                             ),
                             Expanded(
                               child: Text(
-                                "${yearYield.percentage}",
+                                "${TRX.getLastYield(targetYear).percentage}",
                                 textAlign: TextAlign.right,
                                 style: TextStyle(
                                   fontSize: 16.0,
@@ -87,9 +87,9 @@ class HistoriIhsgView extends StatefulWidget {
                         ),
                       ),
                     ),
-                    if (controller.selectedYear == itemYear)
+                    if (controller.selectedYear == targetYear)
                       HistoriTahunanDetailView(
-                        year: itemYear,
+                        year: targetYear,
                       ),
                   ],
                 );

@@ -24,11 +24,11 @@ Refacor List
   BCA	         200.000
   BRI	         200.000
 
-> Topup/ Topup Dividen bisa milih Topup Dividen utk Saham atau Deviden
+> Topup/ Topup Deviden bisa milih Topup Deviden utk Saham atau Deviden
 
 > Jikah pilih SAHAM, bisa pilih Topup-nya ke saham mana (Saham yang ada di portofolio saja ya)
 
-> Topup Dividen dan Saham tidak muncul di Histori Dana
+> Topup Deviden dan Saham tidak muncul di Histori Dana
 
 > Tapi muncul di Trade History?
   Tanggal, Total, Action (Dividen)
@@ -41,7 +41,7 @@ Refacor List
 
 ----------
 
-Kalau Topup Dividen,
+Kalau Topup Deviden,
 Akan mempengaruhi kinjera
 yield dan harga_unit
 

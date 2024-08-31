@@ -105,6 +105,10 @@ class TradeHistoyView extends StatefulWidget {
               {
                 "label": "Sekuritas",
                 "value": item.sekuritas,
+              },
+              {
+                "label": "Total",
+                "value": item.total,
               }
             ];
             return InkWell(
