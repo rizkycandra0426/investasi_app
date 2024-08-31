@@ -444,6 +444,53 @@ class PortofolioNewView extends StatefulWidget {
                                       },
                                     ),
                                   ),
+                                  Row(
+                                    children: [
+                                      QButton(
+                                        width: 100.0,
+                                        label: "Buy",
+                                        color: successColor,
+                                        size: xs,
+                                        onPressed: () async {
+                                          await Get.to(
+                                            PortofolioTradeView(
+                                              item: item,
+                                              sellMode: false,
+                                            ),
+                                          );
+                                        },
+                                      ),
+                                      const SizedBox(
+                                        width: 12.0,
+                                      ),
+                                      QButton(
+                                        width: 100.0,
+                                        label: "Sell",
+                                        color: dangerColor,
+                                        size: xs,
+                                        onPressed: () async {
+                                          await Get.to(
+                                            PortofolioTradeView(
+                                              item: item,
+                                              sellMode: true,
+                                            ),
+                                          );
+                                        },
+                                      ),
+                                      Spacer(),
+                                      QButton(
+                                        width: 200.0,
+                                        label: "Edit current price",
+                                        color: Colors.black,
+                                        size: xs,
+                                        onPressed: () async {
+                                          await Get.to(
+                                            PortofolioEditPriceView(item: item),
+                                          );
+                                        },
+                                      ),
+                                    ],
+                                  ),
                                 ],
                               ),
                             ),

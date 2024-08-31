@@ -12,15 +12,7 @@ class PortofolioEditPriceController extends State<PortofolioEditPriceView> {
     instance = this;
     WidgetsBinding.instance.addPostFrameCallback((_) => onReady());
 
-    var tradeHistories = StockNewService.tradeHistories
-        .where((i) => i["id_saham"] == widget.item["id_saham"])
-        .toList();
-
-    double currentPrice = 0;
-
-    if (tradeHistories.isNotEmpty) {
-      currentPrice = tradeHistories.last["current_price"];
-    }
+    double currentPrice = TRX.getSahamLastCurrentPrice(widget.item.target);
     price = currentPrice;
   }
 
@@ -36,14 +28,7 @@ class PortofolioEditPriceController extends State<PortofolioEditPriceView> {
 
   double price = 0;
   save() {
-    widget.item["current_price"] = price;
-
-    var histories = StockNewService.tradeHistories
-        .where((i) => i["id_saham"] == widget.item["id_saham"])
-        .toList();
-    histories.last["current_price"] = price;
-
-    StockNewService.calculate();
+    TRX.updateCurrentPriceOfLastSaham(widget.item.target, price);
     Get.back();
   }
 
@@ -53,8 +38,7 @@ class PortofolioEditPriceController extends State<PortofolioEditPriceView> {
       loading = true;
       setState(() {});
 
-      var newPrice =
-          await StockNewService.getRealtimePrice(widget.item["nama_saham"]);
+      var newPrice = await StockNewService.getRealtimePrice(widget.item.target);
       price = newPrice;
       loading = false;
       setState(() {});

@@ -57,6 +57,37 @@ class TRX {
     return valuation;
   }
 
+  static double getSahamLastCurrentPrice(String saham) {
+    double currentPrice = 0;
+    for (var item in historyList.value) {
+      if (item.target == saham) {
+        currentPrice = item.currentPrice;
+      }
+    }
+    return currentPrice;
+  }
+
+  static int getSisaVolumeOfSaham(String saham) {
+    int sisaVolume = 0;
+    for (var item in historyList.value) {
+      if (item.target == saham) {
+        sisaVolume = item.sisaVolume;
+      }
+    }
+    return sisaVolume;
+  }
+
+  static double updateCurrentPriceOfLastSaham(
+      String saham, double newCurrentPrice) {
+    for (var item in historyList.value) {
+      if (item.target == saham) {
+        item.currentPrice = newCurrentPrice;
+      }
+    }
+    sortByDateAndRecalculate();
+    return newCurrentPrice;
+  }
+
   static double getLastValuation() {
     return historyList.value.last.valuation;
   }

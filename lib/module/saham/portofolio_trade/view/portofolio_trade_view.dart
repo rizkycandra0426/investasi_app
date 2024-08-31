@@ -4,7 +4,7 @@ import '../controller/portofolio_trade_controller.dart';
 
 class PortofolioTradeView extends StatefulWidget {
   final bool sellMode;
-  final Map<String, dynamic> item;
+  final History item;
   const PortofolioTradeView({
     Key? key,
     required this.item,

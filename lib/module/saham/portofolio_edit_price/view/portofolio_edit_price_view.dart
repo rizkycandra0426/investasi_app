@@ -3,7 +3,7 @@ import 'package:hyper_ui/core.dart';
 import '../controller/portofolio_edit_price_controller.dart';
 
 class PortofolioEditPriceView extends StatefulWidget {
-  final Map<String, dynamic> item;
+  final History item;
   const PortofolioEditPriceView({
     Key? key,
     required this.item,
