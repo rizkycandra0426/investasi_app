@@ -3,6 +3,13 @@
 import 'package:flutter/material.dart';
 import 'package:hyper_ui/core.dart';
 
+enum TopupType {
+  saldo,
+  dividen,
+  saham,
+  deposito,
+}
+
 class DemoSahamView extends StatefulWidget {
   DemoSahamView({Key? key}) : super(key: key);
 
@@ -77,8 +84,8 @@ class _DemoSahamViewState extends State<DemoSahamView> {
     if (historyList.value.isEmpty) {
       historyList.value.add(History(
         date: date,
-        activity: "Adjustment",
-        target: "Balance",
+        activity: "ADJUSTMENT",
+        target: "BALANCE",
         buyingPrice: 0,
         sellingPrice: 0,
         qty: 0,
@@ -101,8 +108,8 @@ class _DemoSahamViewState extends State<DemoSahamView> {
 
       historyList.value.add(History(
         date: date,
-        activity: "Adjustment",
-        target: "Balance",
+        activity: "ADJUSTMENT",
+        target: "BALANCE",
         buyingPrice: 0,
         sellingPrice: 0,
         qty: 1,
@@ -124,7 +131,13 @@ class _DemoSahamViewState extends State<DemoSahamView> {
   topup({
     required DateTime date,
     required double amount,
+    required TopupType type,
+    String? saham,
   }) {
+    if (type == TopupType.saham && saham == null) {
+      print("Nama saham wajib di isi pada topup saham!");
+      return;
+    }
     double saldo = getSaldoTerakhir() + amount;
     double modal = getModalTerakhir() + amount;
     double valuationPlusSaldo = saldo;
@@ -137,8 +150,8 @@ class _DemoSahamViewState extends State<DemoSahamView> {
     double newValuationPlusSaldo = getLastValuationPlusSaldo() + amount;
     historyList.value.add(History(
       date: date,
-      activity: "Topup",
-      target: "Saldo",
+      activity: "TOPUP",
+      target: type.name.toUpperCase() + (saham == null ? "" : " $saham"),
       buyingPrice: 0,
       sellingPrice: 0,
       qty: 1,
@@ -290,7 +303,11 @@ class _DemoSahamViewState extends State<DemoSahamView> {
     double price = 100000000;
     double total = qty * price;
 
-    topup(date: DateTime(2024, 01, 01), amount: 100000000);
+    topup(
+      date: DateTime(2024, 01, 01),
+      amount: 100000000,
+      type: TopupType.saldo,
+    );
     // topup(date: DateTime(2024, 01, 01), amount: 100000000);
 
     buy(
@@ -317,13 +334,60 @@ class _DemoSahamViewState extends State<DemoSahamView> {
       saham: "BBCA",
     );
 
+    buy(
+      date: DateTime(2024, 01, 01),
+      qty: 1000,
+      price: 3000,
+      currentPrice: 3000,
+      saham: "KRIS",
+    );
+
+    buy(
+      date: DateTime(2024, 01, 01),
+      qty: 1000,
+      price: 5000,
+      currentPrice: 5000,
+      saham: "KRIS",
+    );
+
+    buy(
+      date: DateTime(2024, 01, 01),
+      qty: 1000,
+      price: 3000,
+      currentPrice: 3000,
+      saham: "BBCA",
+    );
+
+    topup(
+      date: DateTime(2024, 01, 01),
+      amount: 100000000,
+      type: TopupType.deposito,
+    );
+
+    topup(
+      date: DateTime(2024, 01, 01),
+      amount: 100000000,
+      type: TopupType.dividen,
+    );
+
+    topup(
+      date: DateTime(2024, 01, 01),
+      amount: 100000000,
+      type: TopupType.saham,
+      saham: "BBCA",
+    );
+
     //----------------- 2025 -----------------
 
     addAdjustment(
       date: DateTime(2025, 1, 1),
     );
 
-    topup(date: DateTime(2025, 01, 01), amount: 100000000);
+    topup(
+      date: DateTime(2025, 01, 01),
+      amount: 100000000,
+      type: TopupType.saldo,
+    );
 
     buy(
       date: DateTime(2025, 01, 01),
@@ -362,7 +426,7 @@ class _DemoSahamViewState extends State<DemoSahamView> {
   generateOneTrade() {
     historyList.value.add(History(
       date: "2024-01-01".date,
-      activity: "Topup",
+      activity: "TOPUP",
       target: "Saldo",
       buyingPrice: 0,
       sellingPrice: 0,
@@ -625,7 +689,7 @@ class _DemoSahamViewState extends State<DemoSahamView> {
                           : Colors.blue[300]!;
                     }
 
-                    if (item.activity == "Adjustment") {
+                    if (item.activity == "ADJUSTMENT") {
                       color = Colors.red[200]!;
                     }
                     return Container(
