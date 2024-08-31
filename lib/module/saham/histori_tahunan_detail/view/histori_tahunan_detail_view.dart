@@ -143,6 +143,14 @@ class HistoriTahunanDetailView extends StatefulWidget {
 
             var ihsg = item["ihsg"] ?? 0;
             var yield = item["yield"] ?? 0;
+
+            yield = TRX
+                .getLastYieldInEndOfMonth(
+                  date.year,
+                  date.month,
+                )
+                .percentage;
+
             return Padding(
               padding: EdgeInsets.all(12.0),
               child: Row(

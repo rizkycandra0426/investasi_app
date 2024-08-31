@@ -105,6 +105,16 @@ class TRX {
     return item?.yield ?? 0;
   }
 
+  static double getLastYieldInEndOfMonth(int? year, int month) {
+    var items = historyList.value.where((item) {
+      return item.date.year == year && item.date.month == month;
+    }).toList();
+    if (items.isEmpty) {
+      return 0;
+    }
+    return items.last.yield;
+  }
+
   static double getLastValuationPlusSaldo([int? year]) {
     History? item;
     if (year != null) {
@@ -434,7 +444,7 @@ class TRX {
     // topup(date: DateTime(2024, 01, 01), amount: 100000000);
 
     buy(
-      date: DateTime(2024, 01, 01),
+      date: DateTime(2024, 02, 01),
       qty: 1000,
       price: 1000,
       currentPrice: 1200,
@@ -442,7 +452,7 @@ class TRX {
     );
 
     sell(
-      date: DateTime(2024, 01, 01),
+      date: DateTime(2024, 03, 01),
       qty: 500,
       price: 1200,
       currentPrice: 1000,
@@ -450,7 +460,7 @@ class TRX {
     );
 
     buy(
-      date: DateTime(2024, 01, 01),
+      date: DateTime(2024, 04, 01),
       qty: 1000,
       price: 3000,
       currentPrice: 3000,
@@ -464,13 +474,13 @@ class TRX {
     );
 
     topup(
-      date: DateTime(2025, 01, 01),
+      date: DateTime(2025, 1, 01),
       amount: 100000000,
       type: TopupType.topupBalance,
     );
 
     buy(
-      date: DateTime(2025, 01, 01),
+      date: DateTime(2025, 1, 01),
       qty: 1000,
       price: 1000,
       currentPrice: 2000,
@@ -478,7 +488,7 @@ class TRX {
     );
 
     buy(
-      date: DateTime(2025, 01, 01),
+      date: DateTime(2025, 2, 01),
       qty: 1000,
       price: 4000,
       currentPrice: 5000,
@@ -486,7 +496,7 @@ class TRX {
     );
 
     buy(
-      date: DateTime(2025, 01, 01),
+      date: DateTime(2025, 3, 01),
       qty: 1000,
       price: 6000,
       currentPrice: 7000,
@@ -494,7 +504,7 @@ class TRX {
     );
 
     sell(
-      date: DateTime(2025, 01, 01),
+      date: DateTime(2025, 4, 01),
       qty: 500,
       price: 7000,
       currentPrice: 6000,
@@ -502,25 +512,25 @@ class TRX {
     );
 
     topup(
-      date: DateTime(2025, 01, 01),
+      date: DateTime(2025, 5, 01),
       amount: 1000000,
       type: TopupType.devidenSaham,
       saham: "BBCA",
     );
 
     topup(
-      date: DateTime(2025, 01, 01),
+      date: DateTime(2025, 7, 01),
       amount: 2000000,
       type: TopupType.devidenDeposito,
     );
 
     withdraw(
-      date: DateTime(2025, 01, 01),
+      date: DateTime(2025, 11, 01),
       amount: 5000000,
     );
 
     buy(
-      date: DateTime(2025, 01, 01),
+      date: DateTime(2025, 12, 01),
       qty: 1000,
       price: 3000,
       currentPrice: 6000,
@@ -528,7 +538,7 @@ class TRX {
     );
 
     buy(
-      date: DateTime(2025, 01, 01),
+      date: DateTime(2025, 12, 01),
       qty: 1000,
       price: 4000,
       currentPrice: 5000,
@@ -536,7 +546,7 @@ class TRX {
     );
 
     sell(
-      date: DateTime(2025, 01, 01),
+      date: DateTime(2025, 12, 01),
       qty: 1999,
       price: 7000,
       currentPrice: 6000,

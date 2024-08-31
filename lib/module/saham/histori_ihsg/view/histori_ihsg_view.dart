@@ -17,7 +17,7 @@ class HistoriIhsgView extends StatefulWidget {
         children: [
           Expanded(
             child: ListView.builder(
-              itemCount: 3,
+              itemCount: 2,
               shrinkWrap: true,
               physics: const ScrollPhysics(),
               itemBuilder: (BuildContext context, int index) {
@@ -75,7 +75,7 @@ class HistoriIhsgView extends StatefulWidget {
                             ),
                             Expanded(
                               child: Text(
-                                "${yearIhsg.percentage}",
+                                "${targetYear > now.year ? StockNewService.ihsgNextYear.percentage : StockNewService.ihsg.percentage}",
                                 textAlign: TextAlign.right,
                                 style: TextStyle(
                                   fontSize: 16.0,
