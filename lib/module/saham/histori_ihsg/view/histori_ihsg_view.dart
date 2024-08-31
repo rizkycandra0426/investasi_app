@@ -10,7 +10,7 @@ class HistoriIhsgView extends StatefulWidget {
     controller.view = this;
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Histori Tahunan"),
+        title: const Text("Histori Tahunan (IHSG)"),
         actions: const [],
       ),
       body: Column(

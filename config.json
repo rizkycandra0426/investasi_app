@@ -1,6 +1,6 @@
 {
     "modules": [
-        "auth/lupa-password"
+        "stock_report"
     ],
     "module_directory_name": "module/saham",
     "experimental_mode": false,

@@ -1,3 +1,16 @@
+Refacor List
+- Topup Balance
+- Topup Deviden Saham
+- Topup Deviden Deposito
+- Withdraw
+- Histori Dana
+- Histori Tahunan?
+- Buy
+- Sell
+- Kinerja
+- Portofolio Saham
+- Edit Current Price
+
 1. harga unit dan yield belum bisa berubah ketika current price di ubah 
 > Edit Current Price, Yield dan Harga Unit-nya tidak berubah
 

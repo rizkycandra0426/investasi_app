@@ -21,6 +21,7 @@ List<String> superDevs = [
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  TRX.generateDummies();
 
   if (!Platform.isWindows) {
     await Firebase.initializeApp(
@@ -64,9 +65,18 @@ class MainApp extends StatelessWidget {
       title: '',
       navigatorKey: Get.navigatorKey,
       debugShowCheckedModeBanner: false,
-      theme: getDefaultTheme(),
+      theme: getDefaultTheme().copyWith(
+        //set card elevation?
+        cardTheme: CardTheme(
+          elevation: 1.4,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12.0),
+          ),
+        ),
+      ),
       // home: Platform.isWindows ? SahamView() : SplashScreenView(),
-      home: Platform.isWindows ? DemoSahamView() : SplashScreenView(),
+      home: SahamView(),
+      // home:  SplashScreenView(),
       builder: (context, child) => DebugView(
         context: context,
         child: child,

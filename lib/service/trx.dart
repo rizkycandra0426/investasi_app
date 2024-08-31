@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:hyper_ui/core.dart';
 import 'package:hyper_ui/service/demo_saham.dart';
+import 'package:hyper_ui/shared/util/type_extension/date_extension.dart';
 
 class TRX {
   static ValueNotifier<List<History>> historyList = ValueNotifier(histories);
@@ -58,8 +61,59 @@ class TRX {
     return historyList.value.last.valuation;
   }
 
-  static double getLastValuationPlusSaldo() {
-    return historyList.value.last.valuationPlusSaldo;
+  static double getLastModal([int? year]) {
+    History? item;
+    if (year != null) {
+      var items = historyList.value.where((item) {
+        return item.date.year == year;
+      }).toList();
+      item = items.isEmpty ? null : items.last;
+    }
+    return item?.modal ?? 0;
+  }
+
+  static double getLastHargaUnit([int? year]) {
+    History? item;
+    if (year != null) {
+      var items = historyList.value.where((item) {
+        return item.date.year == year;
+      }).toList();
+      item = items.isEmpty ? null : items.last;
+    }
+    return item?.hargaUnit ?? 0;
+  }
+
+  static double getlastJumlahUnit([int? year]) {
+    History? item;
+    if (year != null) {
+      var items = historyList.value.where((item) {
+        return item.date.year == year;
+      }).toList();
+      item = items.isEmpty ? null : items.last;
+    }
+    return item?.jumlahUnit ?? 0;
+  }
+
+  static double getLastYield([int? year]) {
+    History? item;
+    if (year != null) {
+      var items = historyList.value.where((item) {
+        return item.date.year == year;
+      }).toList();
+      item = items.isEmpty ? null : items.last;
+    }
+    return item?.yield ?? 0;
+  }
+
+  static double getLastValuationPlusSaldo([int? year]) {
+    History? item;
+    if (year != null) {
+      var items = historyList.value.where((item) {
+        return item.date.year == year;
+      }).toList();
+      item = items.isEmpty ? null : items.last;
+    }
+    return item?.valuationPlusSaldo ?? 0;
   }
 
   static addAdjustment({
@@ -119,7 +173,7 @@ class TRX {
     topup(
       date: date,
       amount: amount,
-      type: TopupType.withdraw,
+      type: TopupType.withdrawBalance,
     );
   }
 
@@ -129,7 +183,7 @@ class TRX {
     required TopupType type,
     String? saham,
   }) {
-    if (type == TopupType.withdraw) {
+    if (type == TopupType.withdrawBalance) {
       amount = amount * -1;
     }
 
@@ -146,7 +200,7 @@ class TRX {
     double jumlahUnit = valuationPlusSaldo / hargaUnit;
     double valuation = getLastValuation();
 
-    double newValuationPlusSaldo = getLastValuationPlusSaldo() + amount;
+    double newValuationPlusSaldo = getLastValuationPlusSaldo() + saldo;
     double newJumlahUnit = newValuationPlusSaldo / getHargaUnitTerakhir();
     double newHargaUnit = getHargaUnitTerakhir();
 
@@ -158,7 +212,7 @@ class TRX {
     historyList.value.add(History(
       date: date,
       activity: "TOPUP",
-      target: type.name.toUpperCase(),
+      target: type.name.toString().toUpperCase(),
       buyingPrice: 0,
       sellingPrice: 0,
       qty: 1,
@@ -175,6 +229,7 @@ class TRX {
       jumlahUnit: newJumlahUnit,
       targetSaham: type == TopupType.devidenSaham ? saham! : "-",
     ));
+    sortByDateAndRecalculate();
   }
 
   static buy({
@@ -234,6 +289,7 @@ class TRX {
       yield: yield,
       sekuritas: sekuritas ?? "-",
     ));
+    sortByDateAndRecalculate();
   }
 
   static sell({
@@ -293,6 +349,62 @@ class TRX {
       yield: yield,
       sekuritas: sekuritas ?? "-",
     ));
+    sortByDateAndRecalculate();
+  }
+
+  static bool disableCalculate = false;
+  static sortByDateAndRecalculate() {
+    if (disableCalculate) return;
+    disableCalculate = true;
+
+    historyList.value.sort((a, b) => a.date.compareTo(b.date));
+
+    //Recalculate topup, buy and sell?
+    //Backup
+    List<History> tempHistories = historyList.value;
+    historyList.value = [];
+
+    for (var item in tempHistories) {
+      if (item.activity == "BUY") {
+        buy(
+          date: item.date,
+          qty: item.qty,
+          price: item.price,
+          currentPrice: item.currentPrice,
+          saham: item.target,
+        );
+      } else if (item.activity == "SELL") {
+        sell(
+          date: item.date,
+          qty: item.qty,
+          price: item.price,
+          currentPrice: item.currentPrice,
+          saham: item.target,
+        );
+      } else if (item.activity == "TOPUP") {
+        var type = TopupType.topupBalance;
+
+        if (item.target.toString().toLowerCase().contains("saham")) {
+          type = TopupType.devidenSaham;
+        } else if (item.target.toString().toLowerCase().contains("deposito")) {
+          type = TopupType.devidenDeposito;
+        } else if (item.price < 0) {
+          type = TopupType.withdrawBalance;
+        }
+
+        topup(
+          date: item.date,
+          amount: item.price,
+          type: type,
+          saham: item.targetSaham == "-" ? null : item.targetSaham,
+        );
+      } else if (item.activity == "ADJUSTMENT") {
+        addAdjustment(
+          date: item.date,
+        );
+      }
+    }
+    disableCalculate = false;
   }
 
   static generateDummies() {
@@ -314,7 +426,7 @@ class TRX {
     topup(
       date: DateTime(2024, 01, 01),
       amount: 100000000,
-      type: TopupType.topup,
+      type: TopupType.topupBalance,
     );
     // topup(date: DateTime(2024, 01, 01), amount: 100000000);
 
@@ -351,7 +463,7 @@ class TRX {
     topup(
       date: DateTime(2025, 01, 01),
       amount: 100000000,
-      type: TopupType.topup,
+      type: TopupType.topupBalance,
     );
 
     buy(
@@ -403,27 +515,69 @@ class TRX {
       date: DateTime(2025, 01, 01),
       amount: 5000000,
     );
+
+    buy(
+      date: DateTime(2025, 01, 01),
+      qty: 1000,
+      price: 3000,
+      currentPrice: 6000,
+      saham: "ABBA",
+    );
+
+    buy(
+      date: DateTime(2025, 01, 01),
+      qty: 1000,
+      price: 4000,
+      currentPrice: 5000,
+      saham: "ABBA",
+    );
   }
 
   static generateOneTrade() {
-    historyList.value.add(History(
-      date: "2024-01-01".date,
-      activity: "TOPUP",
-      target: "Saldo",
-      buyingPrice: 0,
-      sellingPrice: 0,
-      qty: 0,
-      sisaVolume: 0,
-      price: 0,
-      total: 100000000,
-      saldo: 100000000,
-      currentPrice: 0,
-      valuation: 0,
-      pl: 0,
-      valuationPlusSaldo: 100000000,
-      hargaUnit: 0,
-      jumlahUnit: 0,
-    ));
+    topup(
+      date: now,
+      amount: 1000000,
+      type: TopupType.topupBalance,
+    );
+  }
+
+  static List<History> get portofolioSaham {
+    var namaSahamList = [];
+    var list = historyList.value.where((item) {
+      return item.activity == "BUY" ||
+          item.activity == "SELL" ||
+          item.sisaVolume > 0;
+    }).toList();
+    namaSahamList = list
+        .map((item) {
+          return item.target;
+        })
+        .toSet()
+        .toList();
+
+    List<History> lastRecordOfSaham = [];
+
+    for (var namaSaham in namaSahamList) {
+      var item = list.lastWhere((item) {
+        return item.target == namaSaham;
+      });
+      lastRecordOfSaham.add(item);
+    }
+
+    return lastRecordOfSaham;
+  }
+
+  static List<History> get tradeHistories {
+    return historyList.value.where((item) {
+      if (item.targetSaham.length >= 3) return true;
+      return item.activity == "BUY" || item.activity == "SELL";
+    }).toList();
+  }
+
+  static getImageFromSaham(String saham) {
+    return StockNewService.stocks.firstWhere((item) {
+      return item["nama_saham"] == saham;
+    })["pic"];
   }
 }
 

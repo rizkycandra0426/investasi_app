@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hyper_ui/core.dart';
 import 'package:hyper_ui/main.dart';
+import 'package:hyper_ui/module/saham/saham/widget/simple_tabbar.dart';
 import 'package:hyper_ui/module/saham/stock_list/view/stock_list_view.dart';
 import 'package:hyper_ui/service/offline_service.dart';
 import '../controller/saham_controller.dart';
@@ -103,160 +104,141 @@ class SahamView extends StatefulWidget {
       Get.to(SahamView());
     }
 
+    return Scaffold(
+      body: SimpleTabbar(
+        items: [
+          SimpleTabbarItem(
+            label: "Portofolio",
+            icon: MdiIcons.listBox,
+            view: PortofolioNewView(),
+          ),
+          SimpleTabbarItem(
+            label: "Stock",
+            icon: MdiIcons.listBoxOutline,
+            view: StockListView(
+              portofolioMode: false,
+            ),
+          ),
+          SimpleTabbarItem(
+            label: "Log",
+            icon: MdiIcons.bug,
+            view: DemoSahamView(),
+          ),
+        ],
+      ),
+    );
     return DefaultTabController(
       length: 2, // Jumlah tab
       child: Scaffold(
         backgroundColor: Colors.white,
-        appBar: AppBar(
-          backgroundColor: Colors.white,
-          titleTextStyle: TextStyle(
-            color: Colors.black,
-          ),
-          iconTheme: IconThemeData(
-            color: Colors.black,
-          ),
-          centerTitle: true,
-          title: Text(
-            "Portofolio Saham",
-            style: TextStyle(
-              fontSize: 16.0,
-            ),
-          ),
-          actions: [
-            if (isDeveloper) ...[
-              InkWell(
-                child: Center(
-                  child: Text(
-                    "2024",
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 12.0,
+        body: SafeArea(
+          child: Column(
+            children: [
+              SizedBox(height: 20),
+              Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Row(
+                  children: [
+                    const Icon(
+                      Icons.arrow_back,
+                      size: 24.0,
+                    ),
+                    Spacer(),
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 12.0,
+                        vertical: 6.0,
+                      ),
+                      decoration: BoxDecoration(
+                        color: Colors.black,
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(12.0),
+                        ),
+                      ),
+                      child: Row(
+                        children: [
+                          //if can back?
+                          Icon(
+                            MdiIcons.listBox,
+                            size: 24.0,
+                            color: Colors.white,
+                          ),
+                          const SizedBox(
+                            width: 4.0,
+                          ),
+                          Text(
+                            "Portofolio",
+                            style: TextStyle(
+                              fontSize: 14.0,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(
+                      width: 20.0,
+                    ),
+                    Row(
+                      children: [
+                        Icon(
+                          MdiIcons.listBoxOutline,
+                          size: 24.0,
+                        ),
+                        const SizedBox(
+                          width: 4.0,
+                        ),
+                        Text(
+                          "Stock",
+                          style: TextStyle(
+                            fontSize: 14.0,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    ),
+                    Spacer(),
+                  ],
+                ),
+              ),
+              TabBar(
+                indicatorColor: Colors.blue,
+                indicatorWeight: 3,
+                tabs: [
+                  Tab(
+                    child: Text(
+                      "Portofolio",
+                      style: TextStyle(
+                        fontSize: 15,
+                        color: Colors.black87,
+                      ),
                     ),
                   ),
-                ),
-                onTap: () => generateDummies(),
-              ),
-              const SizedBox(
-                width: 8.0,
-              ),
-              InkWell(
-                child: Center(
-                  child: Text(
-                    "2025",
-                    style: TextStyle(
-                      fontSize: 12.0,
-                      color: Colors.black,
+                  Tab(
+                    child: Text(
+                      "Stock",
+                      style: TextStyle(
+                        fontSize: 15,
+                        color: Colors.black87,
+                      ),
                     ),
-                  ),
-                ),
-                onTap: () => generateDummies(
-                  nextYear: true,
-                ),
-              ),
-              const SizedBox(
-                width: 8.0,
-              ),
-              InkWell(
-                child: Center(
-                  child: Text(
-                    "2025 NT",
-                    style: TextStyle(
-                      fontSize: 12.0,
-                      color: Colors.black,
-                    ),
-                  ),
-                ),
-                onTap: () => generateDummies(
-                  nextYear: true,
-                  noTradeNextYear: true,
-                ),
-              ),
-              const SizedBox(
-                width: 8.0,
-              ),
-              InkWell(
-                child: Center(
-                  child: Text(
-                    "RFR",
-                    style: TextStyle(
-                      fontSize: 12.0,
-                      color: Colors.black,
-                    ),
-                  ),
-                ),
-                onTap: () async {
-                  showLoading();
-                  await reloadPortofolio();
-                  hideLoading();
-                },
-              ),
-              const SizedBox(
-                width: 8.0,
-              ),
-              InkWell(
-                child: Center(
-                  child: Text(
-                    "RST",
-                    style: TextStyle(
-                      fontSize: 12.0,
-                      color: Colors.black,
-                    ),
-                  ),
-                ),
-                onTap: () async {
-                  StockNewService.stocks = [];
-                  StockNewService.tradeHistories = [];
-                  UserBalanceService.topupHistories = [];
-                  StockNewService.getStockFromDummies();
-                  OfflineService.saveLocalValues();
-                  Navigator.pop(context);
-                },
-              ),
-              const SizedBox(
-                width: 8.0,
-              ),
-            ],
-          ],
-        ),
-        body: Column(
-          children: [
-            SizedBox(height: 20),
-            TabBar(
-              indicatorColor: Colors.blue,
-              indicatorWeight: 3,
-              tabs: [
-                Tab(
-                  child: Text(
-                    "Portofolio",
-                    style: TextStyle(
-                      fontSize: 15,
-                      color: Colors.black87,
-                    ),
-                  ),
-                ),
-                Tab(
-                  child: Text(
-                    "Stock",
-                    style: TextStyle(
-                      fontSize: 15,
-                      color: Colors.black87,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            Expanded(
-              child: TabBarView(
-                physics: NeverScrollableScrollPhysics(),
-                children: [
-                  PortofolioNewView(),
-                  StockListView(
-                    portofolioMode: false,
                   ),
                 ],
               ),
-            ),
-          ],
+              Expanded(
+                child: TabBarView(
+                  physics: NeverScrollableScrollPhysics(),
+                  children: [
+                    PortofolioNewView(),
+                    StockListView(
+                      portofolioMode: false,
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
