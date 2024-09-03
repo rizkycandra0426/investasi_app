@@ -102,11 +102,11 @@ class StockListView extends StatefulWidget {
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
                                           children: [
-                                            Text("${item["nama_saham"]}"),
                                             Text(
-                                              "ID Saham: ${item["id_saham"]}",
+                                              "${item["nama_saham"]}",
                                               style: TextStyle(
-                                                fontSize: 10.0,
+                                                fontSize: 16.0,
+                                                fontWeight: FontWeight.bold,
                                               ),
                                             ),
                                           ],
@@ -395,21 +395,19 @@ class StockListView extends StatefulWidget {
                                         Container(
                                           height: 24.0,
                                           child: ElevatedButton(
-                                            style:
-                                                UserBalanceService.sisaSaldo <=
-                                                        0
-                                                    ? ElevatedButton.styleFrom(
-                                                        backgroundColor:
-                                                            Colors.grey,
-                                                        foregroundColor:
-                                                            Colors.grey[600],
-                                                      )
-                                                    : ElevatedButton.styleFrom(
-                                                        backgroundColor:
-                                                            Colors.green,
-                                                        foregroundColor:
-                                                            Colors.white,
-                                                      ),
+                                            style: TRX.getSaldoTerakhir() <= 0
+                                                ? ElevatedButton.styleFrom(
+                                                    backgroundColor:
+                                                        Colors.grey,
+                                                    foregroundColor:
+                                                        Colors.grey[600],
+                                                  )
+                                                : ElevatedButton.styleFrom(
+                                                    backgroundColor:
+                                                        Colors.green,
+                                                    foregroundColor:
+                                                        Colors.white,
+                                                  ),
                                             onPressed: () async {
                                               if (UserBalanceService
                                                       .sisaSaldo <=

@@ -37,6 +37,26 @@ class TRX {
     return volume;
   }
 
+  static int getSisaVolumeTerakhir(String saham) {
+    int sisaVolume = 0;
+    for (var item in historyList.value) {
+      if (item.target == saham) {
+        sisaVolume = item.sisaVolume;
+      }
+    }
+    return sisaVolume;
+  }
+
+  static double getLastAvgPrice(String saham) {
+    double avgPrice = 0;
+    for (var item in historyList.value) {
+      if (item.target == saham) {
+        avgPrice = item.averagePrice;
+      }
+    }
+    return avgPrice;
+  }
+
   static double getEquitySahamBerdasarkanVolumeTerakhir(String saham) {
     double equity = 0;
     for (var item in historyList.value) {
@@ -286,7 +306,7 @@ class TRX {
     double modal = getModalTerakhir();
 
     double total = qty * price;
-    int volumeTerbaru = getVolumeSaatIni(saham) + qty;
+    int volumeTerbaru = getSisaVolumeTerakhir(saham) + qty;
     double saldoTerbaru = getSaldoTerakhir() - total;
     double equityByVolume =
         getEquitySahamBerdasarkanVolumeTerakhir(saham) + total;
@@ -348,7 +368,8 @@ class TRX {
     double modal = getModalTerakhir();
 
     double total = qty * price;
-    int volumeTerbaru = getVolumeSaatIni(saham) - qty;
+    int volumeTerbaru = getSisaVolumeTerakhir(saham) + qty;
+
     double saldoTerbaru = getSaldoTerakhir() - total;
     double equityByVolume =
         getEquitySahamBerdasarkanVolumeTerakhir(saham) + total;
@@ -374,6 +395,7 @@ class TRX {
       qty: qty,
       sisaVolume: volumeTerbaru,
       price: price,
+      averagePrice: getLastAvgPrice(saham),
       equitySahamBerdasarkanVolume: equityByVolume,
       total: total,
       saldo: saldoTerbaru,
@@ -407,6 +429,7 @@ class TRX {
 
     for (var item in tempHistories) {
       if (item.activity == "BUY") {
+        // item.qty = item.qty < 0 ? item.qty * -1 : item.qty;
         buy(
           date: item.date,
           qty: item.qty,
@@ -415,6 +438,7 @@ class TRX {
           saham: item.target,
         );
       } else if (item.activity == "SELL") {
+        // item.qty = item.qty > 0 ? item.qty * -1 : item.qty;
         sell(
           date: item.date,
           qty: item.qty,
@@ -573,14 +597,6 @@ class TRX {
       qty: 1000,
       price: 4000,
       currentPrice: 5000,
-      saham: "ABBA",
-    );
-
-    sell(
-      date: DateTime(2025, 12, 01),
-      qty: 1999,
-      price: 7000,
-      currentPrice: 6000,
       saham: "ABBA",
     );
   }

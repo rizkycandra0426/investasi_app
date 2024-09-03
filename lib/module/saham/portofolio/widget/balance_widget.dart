@@ -100,7 +100,9 @@ class _BalanceWidgetState extends State<BalanceWidget> {
           Spacer(),
           InkWell(
             onTap: () async {
-              await Get.to(HistoriDanaView());
+              await Get.to(HistoriDanaView(
+                depositoMode: false,
+              ));
               PortofolioNewController.instance.reload();
               setState(() {});
             },

@@ -104,104 +104,52 @@ class SahamView extends StatefulWidget {
       Get.to(SahamView());
     }
 
-    return Scaffold(
-      body: SimpleTabbar(
-        items: [
-          SimpleTabbarItem(
-            label: "Portofolio",
-            icon: MdiIcons.listBox,
-            view: PortofolioNewView(),
-          ),
-          SimpleTabbarItem(
-            label: "Stock",
-            icon: MdiIcons.listBoxOutline,
-            view: StockListView(
-              portofolioMode: false,
-            ),
-          ),
-          SimpleTabbarItem(
-            label: "Log",
-            icon: MdiIcons.bug,
-            view: DemoSahamView(),
-          ),
-        ],
-      ),
-    );
+    // return Scaffold(
+    //   body: SimpleTabbar(
+    //     items: [
+    //       SimpleTabbarItem(
+    //         label: "Portofolio",
+    //         icon: MdiIcons.listBox,
+    //         view: PortofolioNewView(),
+    //       ),
+    //       SimpleTabbarItem(
+    //         label: "Stock",
+    //         icon: MdiIcons.listBoxOutline,
+    //         view: StockListView(
+    //           portofolioMode: false,
+    //         ),
+    //       ),
+    //       SimpleTabbarItem(
+    //         label: "Log",
+    //         icon: MdiIcons.bug,
+    //         view: DemoSahamView(),
+    //       ),
+    //     ],
+    //   ),
+    // );
     return DefaultTabController(
       length: 2, // Jumlah tab
       child: Scaffold(
+        appBar: AppBar(
+          title: GestureDetector(
+            onTap: () {
+              Get.to(DemoSahamView());
+            },
+            child: Text("Saham"),
+          ),
+          centerTitle: true,
+          backgroundColor: Colors.white,
+          titleTextStyle: TextStyle(
+            color: Colors.black,
+            fontSize: 16.0,
+            fontWeight: FontWeight.bold,
+          ),
+          iconTheme: IconThemeData(color: Colors.black),
+        ),
         backgroundColor: Colors.white,
         body: SafeArea(
           child: Column(
             children: [
-              SizedBox(height: 20),
-              Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Row(
-                  children: [
-                    const Icon(
-                      Icons.arrow_back,
-                      size: 24.0,
-                    ),
-                    Spacer(),
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 12.0,
-                        vertical: 6.0,
-                      ),
-                      decoration: BoxDecoration(
-                        color: Colors.black,
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(12.0),
-                        ),
-                      ),
-                      child: Row(
-                        children: [
-                          //if can back?
-                          Icon(
-                            MdiIcons.listBox,
-                            size: 24.0,
-                            color: Colors.white,
-                          ),
-                          const SizedBox(
-                            width: 4.0,
-                          ),
-                          Text(
-                            "Portofolio",
-                            style: TextStyle(
-                              fontSize: 14.0,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(
-                      width: 20.0,
-                    ),
-                    Row(
-                      children: [
-                        Icon(
-                          MdiIcons.listBoxOutline,
-                          size: 24.0,
-                        ),
-                        const SizedBox(
-                          width: 4.0,
-                        ),
-                        Text(
-                          "Stock",
-                          style: TextStyle(
-                            fontSize: 14.0,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ],
-                    ),
-                    Spacer(),
-                  ],
-                ),
-              ),
               TabBar(
                 indicatorColor: Colors.blue,
                 indicatorWeight: 3,

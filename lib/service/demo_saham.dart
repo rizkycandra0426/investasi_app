@@ -33,6 +33,16 @@ class _DemoSahamViewState extends State<DemoSahamView> {
         children: [
           TopBar(
             children: [
+              IconButton(
+                onPressed: () {
+                  Get.back();
+                },
+                icon: Icon(
+                  Icons.arrow_back,
+                  size: 16.0,
+                  color: Colors.white,
+                ),
+              ),
               Spacer(),
               IconButton(
                 onPressed: () {
@@ -554,7 +564,7 @@ class _DemoSahamViewState extends State<DemoSahamView> {
                                         ),
                                       ),
                                       Text(
-                                        item.qty.number,
+                                        "${item.qty.number}",
                                         textAlign: TextAlign.right,
                                         style: TextStyle(
                                           fontSize: 12.0,

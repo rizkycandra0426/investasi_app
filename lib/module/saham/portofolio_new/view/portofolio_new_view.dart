@@ -23,100 +23,104 @@ class PortofolioNewView extends StatefulWidget {
               controller: ScrollController(),
               child: Column(
                 children: [
-                  TopBar(
-                    children: [
-                      InkWell(
-                        onTap: () {},
-                        child: Text(
-                          "${TRX.getSaldoTerakhir().number}",
-                          style: TextStyle(
-                            fontSize: 12.0,
-                            color: Colors.white,
+                  Container(
+                    padding: const EdgeInsets.all(20.0),
+                    child: Row(
+                      children: [
+                        InkWell(
+                          onTap: () {},
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "Saldo",
+                                style: TextStyle(
+                                  fontSize: 12.0,
+                                ),
+                              ),
+                              Text(
+                                "${TRX.getSaldoTerakhir().number}",
+                                style: TextStyle(
+                                  fontSize: 12.0,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              )
+                            ],
                           ),
                         ),
-                      ),
-                      const SizedBox(
-                        width: 12.0,
-                      ),
-                      InkWell(
-                        onTap: () => Get.to(TopupView(
-                          topupMode: true,
-                        )),
-                        child: Text(
-                          "Topup",
-                          style: TextStyle(
-                            fontSize: 12.0,
-                            color: Colors.white,
-                          ),
+                        const SizedBox(
+                          width: 12.0,
                         ),
-                      ),
-                      const SizedBox(
-                        width: 12.0,
-                      ),
-                      InkWell(
-                        onTap: () => Get.to(TopupView(
-                          topupMode: false,
-                        )),
-                        child: Text(
-                          "Withdraw",
-                          style: TextStyle(
-                            fontSize: 12.0,
-                            color: Colors.white,
-                          ),
+                        QButton(
+                          label: "Topup",
+                          color: infoColor,
+                          size: xs,
+                          width: 100.0,
+                          onPressed: () => Get.to(TopupView(
+                            topupMode: true,
+                          )),
                         ),
-                      ),
-                      Spacer(),
-                      InkWell(
-                        onTap: () => Get.to(HistoriDanaView()),
-                        child: Row(
-                          children: [
-                            const Icon(
-                              Icons.wallet,
-                              size: 16.0,
+                        const SizedBox(
+                          width: 4.0,
+                        ),
+                        QButton(
+                          label: "Withdraw",
+                          color: dangerColor,
+                          size: xs,
+                          width: 130.0,
+                          onPressed: () => Get.to(TopupView(
+                            topupMode: false,
+                          )),
+                        ),
+                        Spacer(),
+                        InkWell(
+                          onTap: () => Get.to(HistoriDanaView(
+                            depositoMode: true,
+                          )),
+                          child: CircleAvatar(
+                            radius: 12.0,
+                            backgroundColor: Colors.red,
+                            child: Icon(
+                              Icons.history,
+                              size: 14.0,
                               color: Colors.white,
                             ),
-                            const SizedBox(
-                              width: 4.0,
-                            ),
-                            Text(
-                              "Dana",
-                              style: TextStyle(
-                                fontSize: 12.0,
-                                color: Colors.white,
-                              ),
-                            )
-                          ],
+                          ),
                         ),
-                      ),
-                      const SizedBox(
-                        width: 12.0,
-                      ),
-                      InkWell(
-                        onTap: () => Get.to(HistoriIhsgView()),
-                        child: Row(
-                          children: [
-                            const Icon(
-                              Icons.calendar_month,
-                              size: 16.0,
+                        const SizedBox(
+                          width: 8.0,
+                        ),
+                        InkWell(
+                          onTap: () => Get.to(HistoriDanaView(
+                            depositoMode: false,
+                          )),
+                          child: CircleAvatar(
+                            radius: 12.0,
+                            backgroundColor: Colors.orange,
+                            child: Icon(
+                              Icons.history,
+                              size: 14.0,
                               color: Colors.white,
                             ),
-                            const SizedBox(
-                              width: 4.0,
-                            ),
-                            Text(
-                              "Tahunan",
-                              style: TextStyle(
-                                fontSize: 12.0,
-                                color: Colors.white,
-                              ),
-                            )
-                          ],
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 20.0,
+                        const SizedBox(
+                          width: 8.0,
+                        ),
+                        InkWell(
+                          onTap: () => Get.to(HistoriIhsgView()),
+                          child: CircleAvatar(
+                            radius: 12.0,
+                            backgroundColor: Colors.blue,
+                            child: Icon(
+                              Icons.stacked_line_chart,
+                              size: 14.0,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                   Container(
                     margin: const EdgeInsets.only(
@@ -127,7 +131,8 @@ class PortofolioNewView extends StatefulWidget {
                       return SingleChildScrollView(
                         controller: ScrollController(),
                         // scrollDirection: Axis.horizontal,
-                        child: Column(
+                        scrollDirection: Axis.horizontal,
+                        child: Row(
                           children: List.generate(2, (index) {
                             var year = now.year + index;
 
@@ -236,6 +241,7 @@ class PortofolioNewView extends StatefulWidget {
                             );
 
                             return Container(
+                              width: MediaQuery.of(context).size.width * 0.8,
                               margin: const EdgeInsets.only(
                                 bottom: 12.0,
                               ),
@@ -244,24 +250,13 @@ class PortofolioNewView extends StatefulWidget {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Container(
-                                      transform: Matrix4.translationValues(
-                                        -8,
-                                        -8,
-                                        0,
-                                      ),
+                                    Padding(
                                       padding: EdgeInsets.all(8.0),
-                                      decoration: BoxDecoration(
-                                        color: Colors.black,
-                                        borderRadius: BorderRadius.all(
-                                          Radius.circular(12.0),
-                                        ),
-                                      ),
                                       child: Text(
                                         "Kinerja $year",
                                         style: TextStyle(
-                                          fontSize: 12.0,
-                                          color: Colors.white,
+                                          fontSize: 14.0,
+                                          fontWeight: FontWeight.bold,
                                         ),
                                       ),
                                     ),
@@ -358,21 +353,21 @@ class PortofolioNewView extends StatefulWidget {
                         var item = TRX.portofolioSaham[index];
 
                         var itemValues = [
-                          {
-                            "label": "Saham",
-                            "value": item.target,
-                          },
-                          {
-                            "label": "Jumlah Lembar",
-                            "value": item.sisaVolume.number,
-                          },
-                          {
-                            "label": "Current Price",
-                            "value": item.currentPrice.number,
-                          },
+                          // {
+                          //   "label": "Saham",
+                          //   "value": item.target,
+                          // },
+                          // {
+                          //   "label": "Jumlah Lembar",
+                          //   "value": item.sisaVolume.number,
+                          // },
+                          // {
+                          //   "label": "Current Price",
+                          //   "value": item.currentPrice.number,
+                          // },
                           {
                             "label": "Buying Price",
-                            "value": item.buyingPrice.number,
+                            "value": item.averagePrice.number,
                           },
                           {
                             "label": "Buy Total",
@@ -409,40 +404,106 @@ class PortofolioNewView extends StatefulWidget {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  StaggeredGrid.count(
-                                    crossAxisCount: 4,
-                                    children: List.generate(
-                                      itemValues.length,
-                                      (index) {
-                                        var value = itemValues[index];
-                                        return StaggeredGridTile.fit(
-                                          crossAxisCellCount: 1,
-                                          child: Container(
-                                            margin: const EdgeInsets.only(
-                                              bottom: 12.0,
-                                            ),
-                                            child: Column(
-                                              children: [
-                                                Text(
-                                                  "${value["label"]}",
-                                                  textAlign: TextAlign.center,
-                                                  style: TextStyle(
-                                                    fontSize: 10.0,
-                                                  ),
-                                                ),
-                                                Text(
-                                                  "${value["value"]}",
-                                                  textAlign: TextAlign.center,
-                                                  style: TextStyle(
-                                                    fontSize: 14.0,
-                                                  ),
-                                                ),
-                                              ],
+                                  Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Image.network(
+                                            TRX.getImageFromSaham(item.target),
+                                            width: 32.0,
+                                            height: 32.0,
+                                            fit: BoxFit.cover,
+                                            errorBuilder: (BuildContext context,
+                                                Object exception,
+                                                StackTrace? stackTrace) {
+                                              return Image.network(
+                                                "https://res.cloudinary.com/dotz74j1p/image/upload/v1715660683/no-image.jpg",
+                                                width: 16.0,
+                                                height: 16.0,
+                                                fit: BoxFit.fill,
+                                              );
+                                            },
+                                          ),
+                                          const SizedBox(
+                                            height: 6.0,
+                                          ),
+                                          Text("${item.target}"),
+                                          Text(
+                                            "Volume",
+                                            style: TextStyle(
+                                              fontSize: 10.0,
                                             ),
                                           ),
-                                        );
-                                      },
-                                    ),
+                                          Text(
+                                            "${item.sisaVolume.number}",
+                                            style: TextStyle(
+                                              fontSize: 12.0,
+                                            ),
+                                          ),
+                                          const SizedBox(
+                                            height: 4.0,
+                                          ),
+                                          Text(
+                                            "Current Price",
+                                            style: TextStyle(
+                                              fontSize: 10.0,
+                                            ),
+                                          ),
+                                          Text(
+                                            "${item.currentPrice.number}",
+                                            style: TextStyle(
+                                              fontSize: 12.0,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      const SizedBox(
+                                        width: 12.0,
+                                      ),
+                                      Expanded(
+                                        child: StaggeredGrid.count(
+                                          crossAxisCount: 3,
+                                          children: List.generate(
+                                            itemValues.length,
+                                            (index) {
+                                              var value = itemValues[index];
+                                              return StaggeredGridTile.fit(
+                                                crossAxisCellCount: 1,
+                                                child: Container(
+                                                  margin: const EdgeInsets.only(
+                                                    bottom: 12.0,
+                                                  ),
+                                                  child: Column(
+                                                    children: [
+                                                      Text(
+                                                        "${value["label"]}",
+                                                        textAlign:
+                                                            TextAlign.center,
+                                                        style: TextStyle(
+                                                          fontSize: 10.0,
+                                                        ),
+                                                      ),
+                                                      Text(
+                                                        "${value["value"]}",
+                                                        textAlign:
+                                                            TextAlign.center,
+                                                        style: TextStyle(
+                                                          fontSize: 14.0,
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              );
+                                            },
+                                          ),
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                   Row(
                                     children: [
