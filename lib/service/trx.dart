@@ -441,7 +441,7 @@ class TRX {
         // item.qty = item.qty > 0 ? item.qty * -1 : item.qty;
         sell(
           date: item.date,
-          qty: item.qty,
+          qty: item.qty < 0 ? item.qty * -1 : item.qty,
           price: item.price,
           currentPrice: item.currentPrice,
           saham: item.target,
