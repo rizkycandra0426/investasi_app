@@ -4,6 +4,14 @@ import 'package:hyper_ui/core.dart';
 import 'package:hyper_ui/service/demo_saham.dart';
 import 'package:hyper_ui/shared/util/type_extension/date_extension.dart';
 
+enum TopupType {
+  topupBalance,
+  devidenSaham,
+  devidenDeposito,
+  withdrawBalance,
+  buyDeposito,
+}
+
 class TRX {
   static ValueNotifier<List<History>> historyList = ValueNotifier(histories);
 
@@ -244,6 +252,7 @@ class TRX {
     required TopupType type,
     String? saham,
   }) {
+    String typeName = type.name.toString().toUpperCase();
     if (type == TopupType.withdrawBalance) {
       amount = amount * -1;
     }
@@ -270,10 +279,17 @@ class TRX {
       newHargaUnit = newValuationPlusSaldo / newJumlahUnit;
     }
 
+    if (type == TopupType.buyDeposito) {
+      saldo = getSaldoTerakhir() - amount;
+      newHargaUnit = getHargaUnitTerakhir();
+      newJumlahUnit = getJumlahUnitTerakhir();
+      modal = getModalTerakhir();
+    }
+
     historyList.value.add(History(
       date: date,
       activity: "TOPUP",
-      target: type.name.toString().toUpperCase(),
+      target: typeName,
       buyingPrice: 0,
       sellingPrice: 0,
       qty: 1,
@@ -451,6 +467,11 @@ class TRX {
 
         if (item.target.toString().toLowerCase().contains("saham")) {
           type = TopupType.devidenSaham;
+        } else if (item.target
+            .toString()
+            .toLowerCase()
+            .contains("buydeposito")) {
+          type = TopupType.buyDeposito;
         } else if (item.target.toString().toLowerCase().contains("deposito")) {
           type = TopupType.devidenDeposito;
         } else if (item.target.toString().toLowerCase().contains("withdraw")) {
@@ -520,6 +541,12 @@ class TRX {
       price: 3000,
       currentPrice: 3000,
       saham: "BBCA",
+    );
+
+    topup(
+      date: DateTime(2024, 05, 01),
+      amount: 10000000,
+      type: TopupType.buyDeposito,
     );
 
     //----------------- 2025 -----------------

@@ -151,11 +151,13 @@ class HistoriDanaView extends StatefulWidget {
           ],
         );
       }),
-      bottomNavigationBar: QActionButton(
-        color: Colors.blue,
-        label: "Balance: ${TRX.getSaldoTerakhir().number}",
-        onPressed: () {},
-      ),
+      bottomNavigationBar: depositoMode
+          ? null
+          : QActionButton(
+              color: Colors.blue,
+              label: "Balance: ${TRX.getSaldoTerakhir().number}",
+              onPressed: () {},
+            ),
     );
   }
 

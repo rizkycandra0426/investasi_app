@@ -20,8 +20,9 @@ v 8. ⁠untuk bagian histori nanti seperti sebelumnya ajak masden cuma menampilk
 v 12. Qty Sell masih salah, tidak sesuai dengan yang di input
 v 13. Sisa volume ketika jual masih salah, kemungkinan getSisaVolumetErakhirnya blm benar, qty volume kadang2 tiba2 jadi +
 
+v 11. Yield kyknya masih salah, perlu dicek lagi
+
 -------------
 
 10. Topup Deposito Saham
-11. Yield kyknya masih salah, perlu dicek lagi
 14. Setup VPS

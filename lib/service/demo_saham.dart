@@ -5,13 +5,6 @@ import 'package:hyper_ui/core.dart';
 import 'package:hyper_ui/service/trx.dart';
 import 'package:hyper_ui/shared/widget/extra/topbar.dart';
 
-enum TopupType {
-  topupBalance,
-  devidenSaham,
-  devidenDeposito,
-  withdrawBalance,
-}
-
 class DemoSahamView extends StatefulWidget {
   DemoSahamView({Key? key}) : super(key: key);
 
