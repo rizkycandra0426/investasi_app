@@ -43,4 +43,4 @@ v 10. Topup Deposito Saham
 [v] 17. Topup Saham hanya memunculkan sama yang kita punya
 (Volume > 0)
 
-18. Jumlah Deviden harus sesuai dengan BANK-nya
+[v] 18. Jumlah Deviden harus sesuai dengan BANK-nya

@@ -66,16 +66,24 @@ class TRX {
   }
 
   static List<Map<String, dynamic>> getUniqueNamaBankList() {
-    List<Map<String, dynamic>> namaBankList = [];
-    for (var item in historyList.value) {
+    List<String> namaBankList = [];
+    for (var item in danaHistories) {
       if (item.namaBank != "-") {
-        namaBankList.add({
-          "label": item.namaBank,
-          "value": item.namaBank,
-        });
+        namaBankList.add(item.namaBank);
       }
     }
-    return namaBankList.toSet().toList();
+
+    namaBankList = namaBankList.toSet().toList();
+
+    List<Map<String, dynamic>> valueList = [];
+    for (var namaBank in namaBankList) {
+      valueList.add({
+        "label": namaBank,
+        "value": namaBank,
+      });
+    }
+    return valueList;
+    //return where label is unique?
   }
 
   static double getLastAvgPrice(String saham) {
