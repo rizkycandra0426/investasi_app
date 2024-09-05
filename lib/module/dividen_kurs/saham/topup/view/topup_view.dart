@@ -51,19 +51,36 @@ class TopupView extends StatefulWidget {
                         },
                       ),
                     if (controller.jenisTopup == "Topup Deviden Saham")
-                      QDropdownField(
-                        label: "Saham",
-                        validator: Validator.required,
-                        items: StockNewService.sortedStocks
-                            .map((e) => {
-                                  "label": e["nama_saham"],
-                                  "value": e["nama_saham"],
-                                })
-                            .toList(),
-                        onChanged: (value, label) {
-                          controller.saham = value;
-                        },
-                      ),
+                      Builder(builder: (context) {
+                        List<Map<String, dynamic>> items = [];
+
+                        TRX.portofolioSaham.forEach((element) {
+                          items.add({
+                            "label": element.target,
+                            "value": element.target,
+                          });
+                        });
+                        return QDropdownField(
+                          label: "Saham",
+                          validator: Validator.required,
+                          items: items,
+                          onChanged: (value, label) {
+                            controller.saham = value;
+                          },
+                        );
+                      }),
+                    if (controller.jenisTopup == "Topup Deviden Deposito")
+                      Builder(builder: (context) {
+                        var items = TRX.getUniqueNamaBankList();
+                        return QDropdownField(
+                          label: "Nama Bank",
+                          validator: Validator.required,
+                          items: items,
+                          onChanged: (value, label) {
+                            controller.namaBank = value;
+                          },
+                        );
+                      }),
                     QNumberField(
                       key: UniqueKey(),
                       label: "Amount",

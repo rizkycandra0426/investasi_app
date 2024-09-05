@@ -19,6 +19,16 @@ class TRX {
     return historyList.value.last.hargaUnit;
   }
 
+  static double getAllAmountTotalByNamaBank(String namaBank) {
+    double total = 0;
+    for (var item in historyList.value) {
+      if (item.namaBank == namaBank && item.target == "BUYDEPOSITO") {
+        total += item.total;
+      }
+    }
+    return total;
+  }
+
   static double getJumlahUnitTerakhir() {
     return historyList.value.last.jumlahUnit;
   }
@@ -53,6 +63,19 @@ class TRX {
       }
     }
     return sisaVolume;
+  }
+
+  static List<Map<String, dynamic>> getUniqueNamaBankList() {
+    List<Map<String, dynamic>> namaBankList = [];
+    for (var item in historyList.value) {
+      if (item.namaBank != "-") {
+        namaBankList.add({
+          "label": item.namaBank,
+          "value": item.namaBank,
+        });
+      }
+    }
+    return namaBankList.toSet().toList();
   }
 
   static double getLastAvgPrice(String saham) {
@@ -270,14 +293,60 @@ class TRX {
     return jumlahDeviden;
   }
 
-  static getLastJumlahDevidenWithoutIncrement() {
+  static getLastJumlahDevidenWithoutIncrement(String namaBank) {
     //where target contains Deposito?
     var items = historyList.value.where((item) {
-      return item.target.toString().toLowerCase().contains("deposito");
+      return item.target.toString().toLowerCase().contains("deposito") &&
+          item.namaBank == namaBank;
     }).toList();
     double jumlahDeviden = 0;
     for (var item in items) {
-      jumlahDeviden = item.jumlahDeviden;
+      jumlahDeviden = item.total;
+    }
+    return jumlahDeviden;
+  }
+
+  static getJumlahDeviden(String namaBank) {
+    var items = historyList.value.where((item) {
+      return item.target.toString().toLowerCase().contains("deposito") &&
+          item.namaBank == namaBank;
+    }).toList();
+    double jumlahDeviden = 0;
+    for (var item in items) {
+      jumlahDeviden += item.deviden;
+    }
+    return jumlahDeviden;
+  }
+
+  static double getLastDevidenRecordByNamaSaham(String namaBank) {
+    var items = historyList.value.where((item) {
+      return item.target.toString().toLowerCase().contains("devidendeposito") &&
+          item.namaBank == namaBank;
+    }).toList();
+    double jumlahDeviden = 0;
+    for (var item in items) {
+      jumlahDeviden = item.deviden;
+    }
+    return jumlahDeviden;
+  }
+
+  static bool isLastBuyDepositoOrDevidenDepositoRecord(
+      int index, String namaBank) {
+    int lastIndex = historyList.value.lastIndexWhere((item) =>
+        (item.target == "BUYDEPOSITO" || item.target == "DEVIDENDEPOSITO") &&
+        item.namaBank == namaBank);
+    if (index == lastIndex) return true;
+    return false;
+  }
+
+  static double getDevidenTerakhir(String namaBank) {
+    var items = historyList.value.where((item) {
+      return item.target.toString().toLowerCase().contains("deposito") &&
+          item.namaBank == namaBank;
+    }).toList();
+    double jumlahDeviden = 0;
+    for (var item in items) {
+      jumlahDeviden = item.deviden;
     }
     return jumlahDeviden;
   }
@@ -327,11 +396,11 @@ class TRX {
     double newJumlahDeviden = 0;
     if (typeName.contains("DEPOSITO")) {
       if (typeName.contains("BUY")) {
-        newDeviden = 0;
-        newJumlahDeviden = 0;
+        newDeviden = getAllAmountTotalByNamaBank(namaBank!);
+        newJumlahDeviden = getJumlahDeviden(namaBank);
       } else {
         newDeviden = amount;
-        newJumlahDeviden = getLastJumlahDevidenWithoutIncrement() + amount;
+        newJumlahDeviden = getJumlahDeviden(namaBank!) + amount;
       }
     }
 
@@ -604,16 +673,54 @@ class TRX {
     );
 
     topup(
-      date: DateTime(2024, 06, 01),
+      date: DateTime(2024, 05, 02),
       amount: 5000000,
       type: TopupType.devidenDeposito,
+      namaBank: "MANDIRI",
     );
 
     topup(
-      date: DateTime(2024, 07, 01),
+      date: DateTime(2024, 05, 03),
       amount: 5000000,
       type: TopupType.devidenDeposito,
+      namaBank: "MANDIRI",
     );
+
+    topup(
+      date: DateTime(2024, 05, 04),
+      amount: 10000000,
+      type: TopupType.buyDeposito,
+      namaBank: "MANDIRI",
+    );
+
+    topup(
+      date: DateTime(2024, 06, 01),
+      amount: 10000000,
+      type: TopupType.buyDeposito,
+      namaBank: "BBCA",
+    );
+
+    topup(
+      date: DateTime(2024, 06, 02),
+      amount: 5000000,
+      type: TopupType.devidenDeposito,
+      namaBank: "BBCA",
+    );
+
+    topup(
+      date: DateTime(2024, 06, 03),
+      amount: 5000000,
+      type: TopupType.devidenDeposito,
+      namaBank: "BBCA",
+    );
+
+    topup(
+      date: DateTime(2024, 06, 04),
+      amount: 10000000,
+      type: TopupType.buyDeposito,
+      namaBank: "BBCA",
+    );
+
     //----------------- 2025 -----------------
 
     addAdjustment(

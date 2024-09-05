@@ -116,6 +116,12 @@ class HistoriDanaView extends StatefulWidget {
                     if (item.target == "DEVIDENDEPOSITO") return Container();
                   }
 
+                  if (depositoMode) {
+                    var lastIndex = TRX.danaHistories
+                        .lastIndexWhere((dd) => dd.namaBank == item.namaBank);
+                    if (index != lastIndex) return Container();
+                  }
+
                   if (item.price < 0) {
                     action = "WITHDRAW";
                   }
@@ -131,20 +137,28 @@ class HistoriDanaView extends StatefulWidget {
                   var jumlahDeviden = 0;
 
                   var itemValues = [
-                    if (!depositoMode)
+                    if (!depositoMode) ...[
                       {
                         "label": "Date",
                         "value": item.date.dMMMy,
                       },
-                    if (depositoMode)
+                      {
+                        "label": "Amount",
+                        "value": item.total.number,
+                      },
+                    ],
+                    if (depositoMode) ...[
                       {
                         "label": "Bank",
                         "value": item.namaBank ?? '-',
                       },
-                    {
-                      "label": "Amount",
-                      "value": item.total.number,
-                    },
+                      {
+                        "label": "Deposito",
+                        "value": TRX
+                            .getAllAmountTotalByNamaBank(item.namaBank)
+                            .number,
+                      },
+                    ],
                     if (!depositoMode) ...[
                       {
                         "label": "Harga Unit",
@@ -158,7 +172,11 @@ class HistoriDanaView extends StatefulWidget {
                     if (depositoMode) ...[
                       {
                         "label": "Deviden",
-                        "value": item.deviden.number,
+                        "value": item.target == "BUYDEPOSITO"
+                            ? TRX
+                                .getLastDevidenRecordByNamaSaham(item.namaBank)
+                                .number
+                            : item.deviden.number,
                       },
                       {
                         "label": "Jumlah Deviden",

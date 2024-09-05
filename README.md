@@ -24,13 +24,11 @@ v 11. Yield kyknya masih salah, perlu dicek lagi
 
 -------------
 
-10. Topup Deposito Saham
-    - form
+v 10. Topup Deposito Saham
+    - form0
     - history
     price dan bank,
 14. Setup VPS
-
-
     topup(
       date: DateTime(2024, 05, 01),
       amount: 10000000,
@@ -38,11 +36,11 @@ v 11. Yield kyknya masih salah, perlu dicek lagi
     );
 
 
-15. Topup Deviden Deposito Bisa Milih BANK yang sudah ada sebelumnya
+[v] 15. Topup Deviden Deposito Bisa Milih BANK yang sudah ada sebelumnya
 
-16. Jika belum pernah BUY dengan BANK X,maka belum bisa Topup DEPOSITO
+[v] 16. Jika belum pernah BUY dengan BANK X,maka belum bisa Topup DEPOSITO
 
-17. Topup Saham hanya memunculkan sama yang kita punya
+[v] 17. Topup Saham hanya memunculkan sama yang kita punya
 (Volume > 0)
 
 18. Jumlah Deviden harus sesuai dengan BANK-nya

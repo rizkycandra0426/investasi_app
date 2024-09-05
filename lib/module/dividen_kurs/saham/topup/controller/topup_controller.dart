@@ -10,6 +10,7 @@ class TopupController extends State<TopupView> {
   bool isTopupMode = true;
   bool get isWithdrawMode => !isTopupMode;
   String jenisTopup = "Topup Dana";
+  String namaBank = "";
 
   @override
   void initState() {
@@ -37,6 +38,12 @@ class TopupController extends State<TopupView> {
   }
 
   process() async {
+    var bankList = TRX.getUniqueNamaBankList();
+    if (bankList.isEmpty && jenisTopup == "Topup Deviden Deposito") {
+      se("Belum ada transaksi buy deposito");
+      return;
+    }
+
     bool isNotValid = formKey.currentState!.validate() == false;
     if (isNotValid) {
       return;
@@ -56,6 +63,7 @@ class TopupController extends State<TopupView> {
           date: now,
           amount: amount,
           type: TopupType.devidenDeposito,
+          namaBank: namaBank,
         );
       } else {
         TRX.topup(
