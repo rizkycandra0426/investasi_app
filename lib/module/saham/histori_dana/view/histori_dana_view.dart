@@ -19,6 +19,17 @@ class HistoriDanaView extends StatefulWidget {
         ),
         actions: [],
       ),
+      bottomNavigationBar: depositoMode
+          ? QActionButton(
+              color: Colors.blue,
+              label: "Buy Deposito",
+              onPressed: () => Get.to(BuyDepositoView()),
+            )
+          : QActionButton(
+              color: Colors.blue,
+              label: "Balance: ${TRX.getSaldoTerakhir().number}",
+              onPressed: () {},
+            ),
       body: Builder(builder: (context) {
         return Column(
           children: [
@@ -29,7 +40,7 @@ class HistoriDanaView extends StatefulWidget {
                 children: [
                   Expanded(
                     child: Text(
-                      "Date",
+                      depositoMode ? "Bank" : "Date",
                       style: TextStyle(
                         fontSize: 12.0,
                         color: Colors.white,
@@ -38,31 +49,53 @@ class HistoriDanaView extends StatefulWidget {
                   ),
                   Expanded(
                     child: Text(
-                      "Amount",
+                      depositoMode ? "Deposito" : "Amount",
                       style: TextStyle(
                         fontSize: 12.0,
                         color: Colors.white,
                       ),
                     ),
                   ),
-                  Expanded(
-                    child: Text(
-                      "Harga Unit",
-                      style: TextStyle(
-                        fontSize: 12.0,
-                        color: Colors.white,
+                  if (!depositoMode) ...[
+                    Expanded(
+                      child: Text(
+                        "Harga Unit",
+                        style: TextStyle(
+                          fontSize: 12.0,
+                          color: Colors.white,
+                        ),
                       ),
                     ),
-                  ),
-                  Expanded(
-                    child: Text(
-                      "Jumlah Unit",
-                      style: TextStyle(
-                        fontSize: 12.0,
-                        color: Colors.white,
+                    Expanded(
+                      child: Text(
+                        "Jumlah Unit",
+                        style: TextStyle(
+                          fontSize: 12.0,
+                          color: Colors.white,
+                        ),
                       ),
                     ),
-                  ),
+                  ],
+                  if (depositoMode) ...[
+                    Expanded(
+                      child: Text(
+                        "Deviden",
+                        style: TextStyle(
+                          fontSize: 12.0,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      child: Text(
+                        "Jumlah Deviden",
+                        style: TextStyle(
+                          fontSize: 12.0,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  ],
                 ],
               ),
             ),
@@ -76,7 +109,8 @@ class HistoriDanaView extends StatefulWidget {
                   var action = "TOPUP";
 
                   if (depositoMode) {
-                    if (item.target != "DEVIDENDEPOSITO") return Container();
+                    if (item.target.contains("DEPOSITO") == false)
+                      return Container();
                   } else {
                     if (item.target == "DEVIDENSAHAM") return Container();
                     if (item.target == "DEVIDENDEPOSITO") return Container();
@@ -93,23 +127,44 @@ class HistoriDanaView extends StatefulWidget {
                     action = "TOPUP DEVIDEN DEPOSITO";
                   }
 
+                  var deviden = 0;
+                  var jumlahDeviden = 0;
+
                   var itemValues = [
-                    {
-                      "label": "Date",
-                      "value": item.date.yMd,
-                    },
+                    if (!depositoMode)
+                      {
+                        "label": "Date",
+                        "value": item.date.dMMMy,
+                      },
+                    if (depositoMode)
+                      {
+                        "label": "Bank",
+                        "value": item.namaBank ?? '-',
+                      },
                     {
                       "label": "Amount",
                       "value": item.total.number,
                     },
-                    {
-                      "label": "Harga Unit",
-                      "value": item.hargaUnit.number,
-                    },
-                    {
-                      "label": "Jumlah Unit",
-                      "value": item.jumlahUnit.number,
-                    },
+                    if (!depositoMode) ...[
+                      {
+                        "label": "Harga Unit",
+                        "value": item.hargaUnit.number,
+                      },
+                      {
+                        "label": "Jumlah Unit",
+                        "value": item.jumlahUnit.number,
+                      },
+                    ],
+                    if (depositoMode) ...[
+                      {
+                        "label": "Deviden",
+                        "value": item.deviden.number,
+                      },
+                      {
+                        "label": "Jumlah Deviden",
+                        "value": item.jumlahDeviden.number,
+                      },
+                    ],
                   ];
 
                   return InkWell(
@@ -151,13 +206,6 @@ class HistoriDanaView extends StatefulWidget {
           ],
         );
       }),
-      bottomNavigationBar: depositoMode
-          ? null
-          : QActionButton(
-              color: Colors.blue,
-              label: "Balance: ${TRX.getSaldoTerakhir().number}",
-              onPressed: () {},
-            ),
     );
   }
 

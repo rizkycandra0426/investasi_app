@@ -246,10 +246,47 @@ class TRX {
     );
   }
 
+  static getLastDeviden() {
+    //where target contains Deposito?
+    var items = historyList.value.where((item) {
+      return item.target.toString().toLowerCase().contains("deposito");
+    }).toList();
+    double lastDeviden = 0;
+    for (var item in items) {
+      lastDeviden = item.deviden;
+    }
+    return lastDeviden;
+  }
+
+  static getLastJumlahDeviden() {
+    //where target contains Deposito?
+    var items = historyList.value.where((item) {
+      return item.target.toString().toLowerCase().contains("deposito");
+    }).toList();
+    double jumlahDeviden = 0;
+    for (var item in items) {
+      jumlahDeviden += item.jumlahDeviden;
+    }
+    return jumlahDeviden;
+  }
+
+  static getLastJumlahDevidenWithoutIncrement() {
+    //where target contains Deposito?
+    var items = historyList.value.where((item) {
+      return item.target.toString().toLowerCase().contains("deposito");
+    }).toList();
+    double jumlahDeviden = 0;
+    for (var item in items) {
+      jumlahDeviden = item.jumlahDeviden;
+    }
+    return jumlahDeviden;
+  }
+
   static topup({
     required DateTime date,
     required double amount,
     required TopupType type,
+    String? namaBank,
     String? saham,
   }) {
     String typeName = type.name.toString().toUpperCase();
@@ -286,6 +323,18 @@ class TRX {
       modal = getModalTerakhir();
     }
 
+    double newDeviden = 0;
+    double newJumlahDeviden = 0;
+    if (typeName.contains("DEPOSITO")) {
+      if (typeName.contains("BUY")) {
+        newDeviden = 0;
+        newJumlahDeviden = 0;
+      } else {
+        newDeviden = amount;
+        newJumlahDeviden = getLastJumlahDevidenWithoutIncrement() + amount;
+      }
+    }
+
     historyList.value.add(History(
       date: date,
       activity: "TOPUP",
@@ -305,6 +354,9 @@ class TRX {
       hargaUnit: newHargaUnit,
       jumlahUnit: newJumlahUnit,
       targetSaham: type == TopupType.devidenSaham ? saham! : "-",
+      namaBank: namaBank ?? '-',
+      deviden: newDeviden,
+      jumlahDeviden: newJumlahDeviden,
     ));
     sortByDateAndRecalculate();
   }
@@ -486,6 +538,7 @@ class TRX {
           amount: item.price,
           type: type,
           saham: item.targetSaham == "-" ? null : item.targetSaham,
+          namaBank: item.namaBank ?? '-',
         );
       } else if (item.activity == "ADJUSTMENT") {
         addAdjustment(
@@ -547,8 +600,20 @@ class TRX {
       date: DateTime(2024, 05, 01),
       amount: 10000000,
       type: TopupType.buyDeposito,
+      namaBank: "MANDIRI",
     );
 
+    topup(
+      date: DateTime(2024, 06, 01),
+      amount: 5000000,
+      type: TopupType.devidenDeposito,
+    );
+
+    topup(
+      date: DateTime(2024, 07, 01),
+      amount: 5000000,
+      type: TopupType.devidenDeposito,
+    );
     //----------------- 2025 -----------------
 
     addAdjustment(
@@ -716,6 +781,10 @@ class History {
   double fundAlloc;
   double yield;
   String sekuritas;
+  String namaBank;
+
+  double deviden;
+  double jumlahDeviden;
 
   History({
     required this.date,
@@ -743,6 +812,9 @@ class History {
     this.fundAlloc = 0,
     this.yield = 0,
     this.sekuritas = "-",
+    this.namaBank = "-",
+    this.deviden = 0,
+    this.jumlahDeviden = 0,
   });
 }
 
