@@ -74,6 +74,8 @@ class ProfileController extends State<ProfileView> {
         password: password,
       );
 
+      await AuthService().logout();
+
       hideLoading();
       Get.offAll(LoginView());
     } on Exception catch (err) {

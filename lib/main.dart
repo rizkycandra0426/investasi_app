@@ -21,23 +21,24 @@ List<String> superDevs = [
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  TRX.generateDummies();
 
-  if (!Platform.isWindows) {
+  if (Platform.isAndroid) {
     await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform,
     );
     await FirebaseNotificationService.initNotifications();
   }
+
+  TRX.generateDummies();
+
   await DBService.init();
   // await DBService.clear("token");
   // await DBService.deleteAll();
   Diointerceptors.init();
 
   await AuthService().loadCurrentUserData();
-
-  await OfflineService.loadLocalValues();
-  await StockNewService.initialize();
+  // await OfflineService.loadLocalValues();
+  // await StockNewService.initialize();
 
   if (Platform.isAndroid) {
     DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();

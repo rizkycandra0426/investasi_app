@@ -32,8 +32,6 @@ class LoginController extends State<LoginView> {
       );
       hideLoading();
 
-      await FirebaseNotificationService.getToken();
-
       if (!isSuccess) {
         snackbarDanger(
             message: "Password salah atau akun belum terverifikasi!");
@@ -42,6 +40,7 @@ class LoginController extends State<LoginView> {
 
       Get.offAll(MainNavigationView());
     } on Exception catch (err) {
+      printr(err);
       snackbarDanger(message: "Password salah atau akun belum terverifikasi!");
     }
   }
