@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hyper_ui/core.dart';
 import 'package:hyper_ui/main.dart';
@@ -133,7 +134,9 @@ class SahamView extends StatefulWidget {
         appBar: AppBar(
           title: GestureDetector(
             onTap: () {
-              Get.to(DemoSahamView());
+              if (kDebugMode) {
+                Get.to(DemoSahamView());
+              }
             },
             child: Text("Saham"),
           ),

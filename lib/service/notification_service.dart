@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:hyper_ui/core.dart';
 import 'package:hyper_ui/env.dart';
 import 'package:hyper_ui/firebase_options.dart';
 import 'package:hyper_ui/shared/util/dio_interceptors/dio_interceptors.dart';
@@ -29,17 +30,6 @@ class NotificationService extends BaseService<Map<String, dynamic>> {
   @override
   Map<String, dynamic> decode(data) {
     return Map<String, dynamic>.from(data);
-  }
-
-  sendNotification(String title, String message) async {
-    try {
-      var url = "$baseUrl/$endpoint?title=$title&message=$message";
-      var response = await dio.get(
-        url,
-      );
-    } on Exception catch (err) {
-      print(err);
-    }
   }
 }
 

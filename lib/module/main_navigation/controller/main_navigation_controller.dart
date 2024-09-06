@@ -19,8 +19,8 @@ class MainNavigationController extends State<MainNavigationView> {
       TRX.saveRecord();
     });
 
-    BeritaService().checkBeritaBaru();
     getPermission();
+    OfflineService.cacheCategoriesFromApi();
   }
 
   @override

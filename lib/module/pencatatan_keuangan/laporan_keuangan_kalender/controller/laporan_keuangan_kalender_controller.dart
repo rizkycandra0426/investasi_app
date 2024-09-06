@@ -38,7 +38,8 @@ class LaporanKeuanganKalenderController
     if (!mounted) return;
     print("getHistories... $month/$year");
     loading = true;
-    setState(() {});
+
+    if (mounted) setState(() {});
 
     await Future.delayed(Duration(seconds: 2));
 
@@ -50,7 +51,7 @@ class LaporanKeuanganKalenderController
     calculateTotal();
 
     loading = false;
-    setState(() {});
+    if (mounted) setState(() {});
   }
 
   calculateTotal() {

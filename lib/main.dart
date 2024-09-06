@@ -33,13 +33,13 @@ void main() async {
 
   await DBService.init();
   // await DBService.clear("token");
-  // await DBService.deleteAll();
+  await DBService.deleteAll();
   Diointerceptors.init();
 
   await AuthService().loadCurrentUserData();
   await TRX.loadRecord();
   await OfflineService.loadLocalValues();
-  // await StockNewService.initialize();
+  await StockNewService.initialize();
 
   if (Platform.isAndroid) {
     DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
@@ -78,7 +78,7 @@ class MainApp extends StatelessWidget {
       ),
       // home: Platform.isWindows ? SahamView() : SplashScreenView(),
       // home: SahamView(),
-      home: SplashScreenView(),
+      home: Platform.isWindows ? DemoSahamView() : SplashScreenView(),
       builder: (context, child) => DebugView(
         context: context,
         child: child,

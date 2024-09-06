@@ -18,9 +18,34 @@ class OfflineService {
   ];
 
   static List get(String key) {
+    if (OfflineService.localValues["$key"] == null) return [];
     return OfflineService.localValues["$key"]!
         // .where((i) => i["action"] != "delete")
         .toList();
+  }
+
+  static cacheCategoriesFromApi() async {
+    try {
+      var response = await dio.get(
+        "/kategori-pemasukan",
+      );
+      Map obj = response.data;
+      List values = obj["data"];
+      localValues["kategori-pemasukan"] = values;
+    } on Exception catch (err) {
+      print(err);
+    }
+
+    try {
+      var response = await dio.get(
+        "/kategori-pengeluaran",
+      );
+      Map obj = response.data;
+      List values = obj["data"];
+      localValues["kategori-pengeluaran"] = values;
+    } on Exception catch (err) {
+      print(err);
+    }
   }
 
   static void add(String key, Map<String, dynamic> value) {
