@@ -37,7 +37,8 @@ void main() async {
   Diointerceptors.init();
 
   await AuthService().loadCurrentUserData();
-  // await OfflineService.loadLocalValues();
+  await TRX.loadRecord();
+  await OfflineService.loadLocalValues();
   // await StockNewService.initialize();
 
   if (Platform.isAndroid) {

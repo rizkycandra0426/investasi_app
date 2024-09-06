@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:hyper_ui/core.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -7,13 +9,24 @@ class MainNavigationController extends State<MainNavigationView> {
   static late MainNavigationController instance;
   late MainNavigationView view;
 
+  Timer? timer;
   @override
   void initState() {
     instance = this;
     super.initState();
 
+    timer = Timer.periodic(Duration(seconds: 10), (timer) {
+      TRX.saveRecord();
+    });
+
     BeritaService().checkBeritaBaru();
     getPermission();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    timer?.cancel();
   }
 
   reload() {
@@ -25,9 +38,6 @@ class MainNavigationController extends State<MainNavigationView> {
       openAppSettings();
     }
   }
-
-  @override
-  void dispose() => super.dispose();
 
   @override
   Widget build(BuildContext context) => widget.build(context, this);

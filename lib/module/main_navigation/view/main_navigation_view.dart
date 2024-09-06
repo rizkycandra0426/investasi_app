@@ -14,6 +14,7 @@ class MainNavigationView extends StatefulWidget {
       DashboardInvestasiView(),
       ProfileView(),
     ];
+
     List<Map<String, dynamic>> menus = [
       {
         "icon": Icons.home,

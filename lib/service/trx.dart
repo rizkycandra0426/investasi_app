@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:hyper_ui/core.dart';
@@ -14,6 +16,28 @@ enum TopupType {
 
 class TRX {
   static ValueNotifier<List<History>> historyList = ValueNotifier(histories);
+
+  static Future saveRecord() async {
+    List<Map<String, dynamic>> values = [];
+    for (var item in historyList.value) {
+      values.add(item.toJson());
+    }
+
+    await DBService.set("historyList", jsonEncode(values));
+  }
+
+  static Future loadRecord() async {
+    var jsonString = await DBService.get("historyList");
+    if (jsonString != null) {
+      List<dynamic> obj = jsonDecode(jsonString);
+      List<History> list = obj.map((item) {
+        return History.fromJson(item);
+      }).toList();
+      historyList.value = list;
+    }
+  }
+
+  static Future resetRecord() async {}
 
   static double getHargaUnitTerakhir() {
     return historyList.value.last.hargaUnit;
@@ -932,6 +956,74 @@ class History {
     this.deviden = 0,
     this.jumlahDeviden = 0,
   });
+
+  //fromJson?
+  factory History.fromJson(Map<String, dynamic> json) {
+    return History(
+      date: DateTime.parse(json["date"]),
+      activity: json["activity"],
+      target: json["target"],
+      targetSaham: json["targetSaham"],
+      buyingPrice: json["buyingPrice"],
+      sellingPrice: json["sellingPrice"],
+      qty: json["qty"],
+      sisaVolume: json["sisaVolume"],
+      averagePrice: json["averagePrice"],
+      price: json["price"],
+      equitySahamBerdasarkanVolume: json["equitySahamBerdasarkanVolume"],
+      total: json["total"],
+      saldo: json["saldo"],
+      modal: json["modal"],
+      currentPrice: json["currentPrice"],
+      valuation: json["valuation"],
+      currentValuation: json["currentValuation"],
+      pl: json["pl"],
+      valuationPlusSaldo: json["valuationPlusSaldo"],
+      hargaUnit: json["hargaUnit"],
+      jumlahUnit: json["jumlahUnit"],
+      valueEffect: json["valueEffect"],
+      fundAlloc: json["fundAlloc"],
+      yield: json["yield"],
+      sekuritas: json["sekuritas"],
+      namaBank: json["namaBank"],
+      deviden: json["deviden"],
+      jumlahDeviden: json["jumlahDeviden"],
+    );
+  }
+
+  //toJson?
+  Map<String, dynamic> toJson() {
+    return {
+      "date": date.toString(),
+      "activity": activity,
+      "target": target,
+      "targetSaham": targetSaham,
+      "buyingPrice": buyingPrice,
+      "sellingPrice": sellingPrice,
+      "qty": qty,
+      "sisaVolume": sisaVolume,
+      "averagePrice": averagePrice,
+      "price": price,
+      "equitySahamBerdasarkanVolume": equitySahamBerdasarkanVolume,
+      "total": total,
+      "saldo": saldo,
+      "modal": modal,
+      "currentPrice": currentPrice,
+      "valuation": valuation,
+      "currentValuation": currentValuation,
+      "pl": pl,
+      "valuationPlusSaldo": valuationPlusSaldo,
+      "hargaUnit": hargaUnit,
+      "jumlahUnit": jumlahUnit,
+      "valueEffect": valueEffect,
+      "fundAlloc": fundAlloc,
+      "yield": yield,
+      "sekuritas": sekuritas,
+      "namaBank": namaBank,
+      "deviden": deviden,
+      "jumlahDeviden": jumlahDeviden,
+    };
+  }
 }
 
 extension DateStringExtension on String {

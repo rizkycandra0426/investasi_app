@@ -20,7 +20,7 @@ class DashboardController extends State<DashboardView> {
   void initState() {
     instance = this;
     super.initState();
-    // OfflineService.syncPemasukanDanPengeluaranToServer();
+    OfflineService.syncPemasukanDanPengeluaranToServer();
   }
 
   @override

@@ -38,12 +38,16 @@ class AuthService extends BaseService {
           "password": password,
         },
       );
+
       Map obj = response.data;
       currentUser = CurrentUser.fromJson(obj["data"]["userData"]!);
       DBService.set("token", obj["data"]["accessToken"]);
       DBService.set("current_user", jsonEncode(currentUser!.toJson()));
       Diointerceptors.setOptions();
-      await OfflineService.loadLocalValues();
+
+      // await OfflineService.loadLocalValues();
+
+      await TRX.loadRecord();
 
       refreshUserDataViewer();
       return true;
@@ -112,5 +116,7 @@ class AuthService extends BaseService {
 
     DBService.clear("token");
     DBService.clear("current_user");
+
+    TRX.resetRecord();
   }
 }
