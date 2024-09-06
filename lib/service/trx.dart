@@ -219,6 +219,10 @@ class TRX {
     return item?.yield ?? 0;
   }
 
+  static double getLastYieldInRecord() {
+    return historyList.value.last.yield;
+  }
+
   static double getLastYieldInEndOfMonth(int? year, int month) {
     var items = historyList.value.where((item) {
       return item.date.year == year && item.date.month == month;
@@ -383,6 +387,16 @@ class TRX {
     return jumlahDeviden;
   }
 
+  static getHargaUnitDiawalTahun(int year) {
+    historyList.value.sort((a, b) => a.date.compareTo(b.date));
+
+    var items = historyList.value.where((item) {
+      return item.date.year == year;
+    }).toList();
+
+    return items.first.hargaUnit;
+  }
+
   static topup({
     required DateTime date,
     required double amount,
@@ -436,6 +450,17 @@ class TRX {
       }
     }
 
+    var newYield = getLastYieldInRecord();
+    if (type == TopupType.topupBalance) {
+      newYield = getLastYieldInRecord();
+    } else if (type == TopupType.buyDeposito) {
+      newYield = getLastYieldInRecord();
+    } else if (type == TopupType.devidenDeposito) {
+      double hargaUnitDiawalTahun = getHargaUnitDiawalTahun(date.year);
+      newYield =
+          (newHargaUnit - hargaUnitDiawalTahun) / hargaUnitDiawalTahun * 100;
+    }
+
     historyList.value.add(History(
       date: date,
       activity: "TOPUP",
@@ -458,6 +483,7 @@ class TRX {
       namaBank: namaBank ?? '-',
       deviden: newDeviden,
       jumlahDeviden: newJumlahDeviden,
+      yield: newYield,
     ));
     sortByDateAndRecalculate();
   }

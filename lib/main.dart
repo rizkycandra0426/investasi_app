@@ -78,7 +78,7 @@ class MainApp extends StatelessWidget {
       ),
       // home: Platform.isWindows ? SahamView() : SplashScreenView(),
       // home: SahamView(),
-      home: Platform.isWindows ? DemoSahamView() : SplashScreenView(),
+      home: Platform.isWindows ? SahamView() : SplashScreenView(),
       builder: (context, child) => DebugView(
         context: context,
         child: child,
