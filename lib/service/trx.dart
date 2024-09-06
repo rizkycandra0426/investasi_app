@@ -777,13 +777,14 @@ class TRX {
       date: DateTime(2025, 5, 01),
       amount: 1000000,
       type: TopupType.devidenSaham,
-      saham: "BBCA",
+      namaBank: "BBCA",
     );
 
     topup(
       date: DateTime(2025, 7, 01),
       amount: 2000000,
       type: TopupType.devidenDeposito,
+      namaBank: "BBCA",
     );
 
     withdraw(
