@@ -44,3 +44,5 @@ v 11. Yield kyknya masih salah, perlu dicek lagi
 
 17. Topup Saham hanya memunculkan sama yang kita punya
 (Volume > 0)
+
+18. Jumlah Deviden harus sesuai dengan BANK-nya
