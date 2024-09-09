@@ -245,6 +245,17 @@ class TRX {
     return item?.valuationPlusSaldo ?? 0;
   }
 
+  static double getLastFloatingReturnInYear([int? year]) {
+    History? item;
+    if (year != null) {
+      var items = historyList.value.where((item) {
+        return item.date.year == year && item.pl > 0;
+      }).toList();
+      item = items.isEmpty ? null : items.last;
+    }
+    return item?.pl ?? 0;
+  }
+
   static addAdjustment({
     required DateTime date,
   }) {
