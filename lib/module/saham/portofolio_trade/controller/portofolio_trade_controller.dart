@@ -11,10 +11,10 @@ class PortofolioTradeController extends State<PortofolioTradeView> {
     super.initState();
     instance = this;
     WidgetsBinding.instance.addPostFrameCallback((_) => onReady());
-    price = TRX.getSahamLastCurrentPrice(widget.item.target);
+    price = TRX.getSahamLastCurrentPrice(widget.namaSaham);
 
     if (widget.sellMode) {
-      volume = TRX.getSisaVolumeOfSaham(widget.item.target);
+      volume = TRX.getSisaVolumeOfSaham(widget.namaSaham);
     }
 
     if (!widget.sellMode) {
@@ -52,7 +52,7 @@ class PortofolioTradeController extends State<PortofolioTradeView> {
         qty: volume,
         price: price,
         currentPrice: price,
-        saham: widget.item.target,
+        saham: widget.namaSaham,
       );
     } else {
       //buy mode
@@ -61,7 +61,7 @@ class PortofolioTradeController extends State<PortofolioTradeView> {
         qty: volume,
         price: price,
         currentPrice: price,
-        saham: widget.item.target,
+        saham: widget.namaSaham,
       );
     }
 
@@ -75,7 +75,7 @@ class PortofolioTradeController extends State<PortofolioTradeView> {
       loading = true;
       setState(() {});
 
-      var newPrice = await StockNewService.getRealtimePrice(widget.item.target);
+      var newPrice = await StockNewService.getRealtimePrice(widget.namaSaham);
       price = newPrice;
       loading = false;
       setState(() {});

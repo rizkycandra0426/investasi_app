@@ -155,7 +155,6 @@ class StockNewService {
   }
 
   static initialize() async {
-    if (stocks.isNotEmpty) return;
     getStockFromDummies();
   }
 

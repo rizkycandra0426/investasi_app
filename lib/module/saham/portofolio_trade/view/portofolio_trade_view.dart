@@ -4,11 +4,11 @@ import '../controller/portofolio_trade_controller.dart';
 
 class PortofolioTradeView extends StatefulWidget {
   final bool sellMode;
-  final History item;
+  final String namaSaham;
   const PortofolioTradeView({
     Key? key,
-    required this.item,
     this.sellMode = false,
+    required this.namaSaham,
   }) : super(key: key);
 
   Widget build(context, PortofolioTradeController controller) {

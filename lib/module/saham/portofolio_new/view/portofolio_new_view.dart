@@ -515,7 +515,8 @@ class PortofolioNewView extends StatefulWidget {
                                         onPressed: () async {
                                           await Get.to(
                                             PortofolioTradeView(
-                                              item: item,
+                                              // item: item,
+                                              namaSaham: item.target,
                                               sellMode: false,
                                             ),
                                           );
@@ -532,7 +533,8 @@ class PortofolioNewView extends StatefulWidget {
                                         onPressed: () async {
                                           await Get.to(
                                             PortofolioTradeView(
-                                              item: item,
+                                              // item: item,
+                                              namaSaham: item.target,
                                               sellMode: true,
                                             ),
                                           );

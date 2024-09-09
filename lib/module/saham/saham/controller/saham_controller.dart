@@ -12,6 +12,7 @@ class SahamController extends State<SahamView> {
   @override
   void initState() {
     instance = this;
+    StockNewService.initialize();
     super.initState();
   }
 

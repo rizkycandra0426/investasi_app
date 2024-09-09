@@ -409,11 +409,11 @@ class StockListView extends StatefulWidget {
                                                         Colors.white,
                                                   ),
                                             onPressed: () async {
-                                              if (UserBalanceService
-                                                      .sisaSaldo <=
-                                                  0) return;
+                                              double saldo =
+                                                  TRX.getSaldoTerakhir();
+                                              if (saldo <= 0) return;
                                               await Get.to(PortofolioTradeView(
-                                                item: item,
+                                                namaSaham: item["nama_saham"],
                                               ));
                                               controller.reload();
                                             },
@@ -439,7 +439,7 @@ class StockListView extends StatefulWidget {
                                               onPressed: () async {
                                                 await Get.to(
                                                     PortofolioTradeView(
-                                                  item: item,
+                                                  namaSaham: item["nama_saham"],
                                                   sellMode: true,
                                                 ));
                                                 controller.reload();
