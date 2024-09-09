@@ -29,7 +29,8 @@ void main() async {
     await FirebaseNotificationService.initNotifications();
   }
 
-  TRX.generateDummies();
+  TRX.initStock();
+  // TRX.generateDummies();
 
   await DBService.init();
   // await DBService.clear("token");

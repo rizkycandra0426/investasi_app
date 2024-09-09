@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -674,6 +675,15 @@ class TRX {
       }
     }
     disableCalculate = false;
+  }
+
+  static initStock() {
+    if (historyList.value.isEmpty) {
+      addAdjustment(
+        date: DateTime(2024, 1, 1),
+      );
+      return;
+    }
   }
 
   static generateDummies() {
