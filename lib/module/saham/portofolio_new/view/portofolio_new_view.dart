@@ -144,11 +144,11 @@ class PortofolioNewView extends StatefulWidget {
                                 "value":
                                     TRX.getLastValuationPlusSaldo(targetYear),
                               },
-                              {
-                                "label": "Valuation",
-                                "value":
-                                    TRX.getLastFloatingReturnInYear(targetYear),
-                              },
+                              // {
+                              //   "label": "Valuation",
+                              //   "value":
+                              //       TRX.getLastFloatingReturnInYear(targetYear),
+                              // },
                               {
                                 "label": "Equity",
                                 "value": TRX.getLastModal(targetYear),
