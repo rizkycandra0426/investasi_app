@@ -39,8 +39,11 @@ void main() async {
 
   await AuthService().loadCurrentUserData();
   await TRX.loadRecord();
-  await OfflineService.loadLocalValues();
   await StockNewService.initialize();
+
+  if (token != null) {
+    await OfflineService.loadLocalValues();
+  }
 
   if (Platform.isAndroid) {
     DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
