@@ -141,8 +141,8 @@ class PortofolioNewView extends StatefulWidget {
                             List values = [
                               {
                                 "label": "Valuation",
-                                "value":
-                                    TRX.getLastValuationPlusSaldo(targetYear),
+                                "value": TRX
+                                    .getLastCurrentValuationOfYear(targetYear),
                               },
                               // {
                               //   "label": "Valuation",
@@ -151,7 +151,7 @@ class PortofolioNewView extends StatefulWidget {
                               // },
                               {
                                 "label": "Equity",
-                                "value": TRX.getLastModal(targetYear),
+                                "value": TRX.getTotalBuyInYear(targetYear),
                               },
                               // {
                               //   "label": "HU Before",

@@ -60,6 +60,19 @@ class _DemoSahamViewState extends State<DemoSahamView> {
                     color: Colors.white,
                   ),
                 ),
+                IconButton(
+                  onPressed: () {
+                    TRX.disableCalculate = false;
+                    TRX.sortByDateAndRecalculate();
+                    TRX.disableCalculate = true;
+                    setState(() {});
+                  },
+                  icon: Icon(
+                    Icons.adjust,
+                    size: 16.0,
+                    color: Colors.white,
+                  ),
+                ),
               ],
             ),
             Expanded(

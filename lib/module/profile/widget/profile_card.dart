@@ -97,7 +97,7 @@ class ProfileCard extends StatelessWidget {
                             children: [
                               Text(
                                 // "${StockNewService.getAllStockValuationsTotal(now.year)}",
-                                "${TRX.getLastValuationPlusSaldo(now.year).number}",
+                                "${TRX.getCurrentFloatingReturn(now.year).number}",
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 16,
@@ -106,7 +106,7 @@ class ProfileCard extends StatelessWidget {
                               ),
                               Text(
                                 // "${StockNewService.getYieldInPercent(now.year)}%",
-                                "${TRX.getLastYield(now.year)}%",
+                                "${TRX.getLastYield(now.year).percentage}",
                                 style: TextStyle(
                                   fontSize: 16,
                                   color: Colors.white,

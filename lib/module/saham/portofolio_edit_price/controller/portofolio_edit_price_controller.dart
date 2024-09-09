@@ -27,8 +27,15 @@ class PortofolioEditPriceController extends State<PortofolioEditPriceView> {
   Widget build(BuildContext context) => widget.build(context, this);
 
   double price = 0;
-  save() {
+  save() async {
+    showLoading();
     TRX.updateCurrentPriceOfLastSaham(widget.item.target, price);
+    await Future.delayed(Duration(seconds: 1));
+
+    TRX.disableCalculate = false;
+    TRX.sortByDateAndRecalculate();
+    TRX.disableCalculate = true;
+    hideLoading();
     Get.back();
   }
 

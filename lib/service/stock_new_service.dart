@@ -159,6 +159,7 @@ class StockNewService {
   }
 
   static getStockFromDummies() async {
+    stocks = [];
     var lines = stockData.split("\n");
     for (var line in lines) {
       if (!line.contains(",")) continue;

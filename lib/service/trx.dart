@@ -131,14 +131,26 @@ class TRX {
     return equity;
   }
 
-  static double getLastValuationBySaham(String saham) {
-    double valuation = 0;
+  static double getLastCurrentValuation(String saham) {
+    double currentValuation = 0;
     for (var item in historyList.value) {
-      if (item.target == saham) {
-        valuation = item.valuation;
+      if (item.activity == "SELL") {
+        currentValuation -= item.valuation;
+      } else {
+        currentValuation += item.valuation;
       }
     }
-    return valuation;
+    return currentValuation;
+  }
+
+  static double getLastCurrentValuationOfYear(int year) {
+    double currentValuation = 0;
+    for (var item in historyList.value) {
+      if (item.date.year == year) {
+        currentValuation = item.currentValuation;
+      }
+    }
+    return currentValuation;
   }
 
   static double getSahamLastCurrentPrice(String saham) {
@@ -149,6 +161,21 @@ class TRX {
       }
     }
     return currentPrice;
+  }
+
+  static double getOtherSahamValuation(String targetSaham) {
+    List<String> uniqueSaham =
+        historyList.value.map((e) => e.target).toSet().toList();
+    double valuationTotal = 0;
+    for (var saham in uniqueSaham) {
+      //get valuation from saham from lastest record with saham?
+      var sahamHistories = historyList.value.where((item) {
+        return item.target == saham && item.target != targetSaham;
+      }).toList();
+      if (sahamHistories.isEmpty) continue;
+      valuationTotal += sahamHistories.last.valuation;
+    }
+    return valuationTotal;
   }
 
   static int getSisaVolumeOfSaham(String saham) {
@@ -243,6 +270,29 @@ class TRX {
       item = items.isEmpty ? null : items.last;
     }
     return item?.valuationPlusSaldo ?? 0;
+  }
+
+  static double getValuationTotalInYear(int year) {
+    var items = historyList.value.where((item) {
+      return item.date.year == year;
+    }).toList();
+    double total = 0;
+    for (var item in items) {
+      total += item.valuation;
+    }
+    return total;
+  }
+
+  static double getTotalBuyInYear(int year) {
+    var items = historyList.value.where((item) {
+      return item.date.year == year &&
+          (item.activity == "BUY" || item.activity == "SELL");
+    }).toList();
+    double total = 0;
+    for (var item in items) {
+      total += item.total;
+    }
+    return total;
   }
 
   static double getLastFloatingReturnInYear([int? year]) {
@@ -500,6 +550,22 @@ class TRX {
     sortByDateAndRecalculate();
   }
 
+  static bool lastBuyOrSellIsEqualToSaham(String targetSaham) {
+    var items = historyList.value.where((item) {
+      return item.target == targetSaham;
+    }).toList();
+
+    if (items.isEmpty) {
+      return false;
+    }
+
+    return items.last.target == targetSaham;
+  }
+
+  static double getCurrentFloatingReturn(int year) {
+    return getLastCurrentValuationOfYear(year) - getTotalBuyInYear(year);
+  }
+
   static buy({
     required DateTime date,
     required int qty,
@@ -520,7 +586,13 @@ class TRX {
     double averagePrice = equityByVolume / volumeTerbaru;
 
     double valuation = volumeTerbaru * currentPrice;
-    double currentValuation = getLastValuationBySaham(saham) + valuation;
+
+    double currentValuation = 0;
+    //  currentValuation = getLastCurrentValuation(saham) + valuation;
+
+    double otherSahamValuation = getOtherSahamValuation(saham);
+    currentValuation = otherSahamValuation + valuation;
+
     double pl = valuation - equityByVolume;
 
     double valuationPlusSaldo = saldoTerbaru + currentValuation;
@@ -528,8 +600,13 @@ class TRX {
 
     double valueEffect = (valuation / valuationPlusSaldo) * 100;
     double fundAlloc = (equityByVolume / modal) * 100;
+
     double yield =
         ((hargaUnit - getHargaUnitTerakhir()) / getHargaUnitTerakhir()) * 100;
+
+    if (lastBuyOrSellIsEqualToSaham(saham) == false) {
+      yield = yield + getLastYieldInRecord();
+    }
 
     historyList.value.add(History(
       date: date,
@@ -582,7 +659,7 @@ class TRX {
         getEquitySahamBerdasarkanVolumeTerakhir(saham) + total;
 
     double valuation = volumeTerbaru * currentPrice;
-    double currentValuation = getLastValuationBySaham(saham) - valuation;
+    double currentValuation = getLastCurrentValuation(saham) - valuation;
     double pl = valuation - equityByVolume;
 
     double valuationPlusSaldo = saldoTerbaru + currentValuation;
@@ -635,6 +712,9 @@ class TRX {
     historyList.value = [];
 
     for (var item in tempHistories) {
+      // item.valuation = 0;
+      // item.currentValuation = item.valuation;
+
       if (item.activity == "BUY") {
         // item.qty = item.qty < 0 ? item.qty * -1 : item.qty;
         buy(
@@ -928,6 +1008,10 @@ class TRX {
   }
 
   static getImageFromSaham(String saham) {
+    if (StockNewService.stocks.isEmpty) {
+      StockNewService.initialize();
+    }
+
     return StockNewService.stocks.firstWhere((item) {
       return item["nama_saham"] == saham;
     })["pic"];

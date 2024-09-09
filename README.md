@@ -1,46 +1,13 @@
-v 1. Update tampilan Trade Histories, Buy, Sell, Devden
-v 2. Update Tampilkan Awal Portofolio
-v 3. Update Histori Dana
+Fitur masih problem
+v login seketika error
 
-------------
+v ⁠bagian kinerja portofolio dibagian valuation, yiled dan harga unit belum bener ketika beli 2 saham yang berbeda
 
-List issue
-v 4. topup dana biasa tidak mempengaruhi yield, harga unit cuma mempengaruhi jumlah unit
+v ⁠ada beberapa saham yang double namanya di stock
 
-v 5. ⁠bagian jual saham belum bener,
-v jumlah Volume belum benar setelah beli
+v ⁠bagian profile jadinya make valution - equity untuk ditampilkan dan yang yield biarin
 
-v 6. ⁠average di buying price belum b
-ener
+v edit current price tidak jalan
 
-v 7. ⁠dibagian dana itu seperti yang sebelumnya menampilksn topup dana berapa, harga unit berspa, jumlah unit berapa dan total balancenya
+- ⁠notifikasi schedulernya belum bisa
 
-v 8. ⁠untuk bagian histori nanti seperti sebelumnya ajak masden cuma menampilkan tanggal, volume, current price, total harga, sekuritas dan action jual atu beli
-
-v 12. Qty Sell masih salah, tidak sesuai dengan yang di input
-v 13. Sisa volume ketika jual masih salah, kemungkinan getSisaVolumetErakhirnya blm benar, qty volume kadang2 tiba2 jadi +
-
-v 11. Yield kyknya masih salah, perlu dicek lagi
-
--------------
-
-v 10. Topup Deposito Saham
-    - form0
-    - history
-    price dan bank,
-14. Setup VPS
-    topup(
-      date: DateTime(2024, 05, 01),
-      amount: 10000000,
-      type: TopupType.buyDeposito,
-    );
-
-
-[v] 15. Topup Deviden Deposito Bisa Milih BANK yang sudah ada sebelumnya
-
-[v] 16. Jika belum pernah BUY dengan BANK X,maka belum bisa Topup DEPOSITO
-
-[v] 17. Topup Saham hanya memunculkan sama yang kita punya
-(Volume > 0)
-
-[v] 18. Jumlah Deviden harus sesuai dengan BANK-nya
