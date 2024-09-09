@@ -29,13 +29,14 @@ void main() async {
     await FirebaseNotificationService.initNotifications();
   }
 
-  TRX.initStock();
   // TRX.generateDummies();
 
   await DBService.init();
   // await DBService.clear("token");
-  await DBService.deleteAll();
+  // await DBService.deleteAll();
   Diointerceptors.init();
+
+  TRX.initStock();
 
   await AuthService().loadCurrentUserData();
   await TRX.loadRecord();
