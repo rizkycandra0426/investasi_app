@@ -38,7 +38,9 @@ class LoginController extends State<LoginView> {
         return;
       }
 
+      showLoading();
       await OfflineService.loadLocalValues();
+      hideLoading();
 
       Get.offAll(MainNavigationView());
     } on Exception catch (err) {
