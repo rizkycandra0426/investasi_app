@@ -98,7 +98,7 @@ class PortofolioNewView extends StatefulWidget {
                             radius: 12.0,
                             backgroundColor: Colors.orange,
                             child: Icon(
-                              Icons.history,
+                              Icons.pie_chart,
                               size: 14.0,
                               color: Colors.white,
                             ),
