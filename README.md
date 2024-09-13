@@ -1,13 +1,10 @@
-Fitur masih problem
-v login seketika error
+List yang masih error
+- valuation dan equity di bagian kinerja yang ditampilkan yaitu buy total keseluruhan saham dan valution keseluruhan saham
+- ⁠ketika menambahkan sekuritas dia gk tampil di portofolio
+- ⁠halaman histori dana gk menampilkan pembelian deposito
+- ⁠terus pas dia beli saham di tahun 2025 rata” buying pricenya gk sesuai
 
-v ⁠bagian kinerja portofolio dibagian valuation, yiled dan harga unit belum bener ketika beli 2 saham yang berbeda
+--------------
 
-v ⁠ada beberapa saham yang double namanya di stock
-
-v ⁠bagian profile jadinya make valution - equity untuk ditampilkan dan yang yield biarin
-
-v edit current price tidak jalan
-
-- ⁠notifikasi schedulernya belum bisa
-
+- ⁠ketika beli 2 saham dia masih error kinerjanya
+v Notifikasi Berita
