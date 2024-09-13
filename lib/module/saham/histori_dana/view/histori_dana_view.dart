@@ -114,6 +114,7 @@ class HistoriDanaView extends StatefulWidget {
                   } else {
                     if (item.target == "DEVIDENSAHAM") return Container();
                     if (item.target == "DEVIDENDEPOSITO") return Container();
+                    if (item.target == "BUYDEPOSITO") return Container();
                   }
 
                   if (depositoMode) {

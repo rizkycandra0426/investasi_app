@@ -53,6 +53,7 @@ class PortofolioTradeController extends State<PortofolioTradeView> {
         price: price,
         currentPrice: price,
         saham: widget.namaSaham,
+        sekuritas: sekuritas,
       );
     } else {
       //buy mode
@@ -62,8 +63,11 @@ class PortofolioTradeController extends State<PortofolioTradeView> {
         price: price,
         currentPrice: price,
         saham: widget.namaSaham,
+        sekuritas: sekuritas,
       );
     }
+
+    PortofolioNewController.instance.reload();
 
     Get.back();
     ss(widget.sellMode ? "Sell success" : "Buy success");

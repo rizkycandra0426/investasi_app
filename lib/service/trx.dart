@@ -153,6 +153,21 @@ class TRX {
     return currentValuation;
   }
 
+  static double getTotalValuationOfLastRecordOfUniqueSaham(int year) {
+    List<String> uniqueSaham =
+        historyList.value.map((e) => e.target).toSet().toList();
+    double valuationTotal = 0;
+    for (var saham in uniqueSaham) {
+      //get valuation from saham from lastest record with saham?
+      var sahamHistories = historyList.value.where((item) {
+        return item.target == saham && item.date.year == year;
+      }).toList();
+      if (sahamHistories.isEmpty) continue;
+      valuationTotal += sahamHistories.last.valuation;
+    }
+    return valuationTotal;
+  }
+
   static double getSahamLastCurrentPrice(String saham) {
     double currentPrice = 0;
     for (var item in historyList.value) {
@@ -723,6 +738,7 @@ class TRX {
           price: item.price,
           currentPrice: item.currentPrice,
           saham: item.target,
+          sekuritas: item.sekuritas,
         );
       } else if (item.activity == "SELL") {
         // item.qty = item.qty > 0 ? item.qty * -1 : item.qty;
@@ -732,6 +748,7 @@ class TRX {
           price: item.price,
           currentPrice: item.currentPrice,
           saham: item.target,
+          sekuritas: item.sekuritas,
         );
       } else if (item.activity == "TOPUP") {
         var type = TopupType.topupBalance;

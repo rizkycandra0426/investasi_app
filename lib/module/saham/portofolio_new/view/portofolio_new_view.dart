@@ -141,8 +141,11 @@ class PortofolioNewView extends StatefulWidget {
                             List values = [
                               {
                                 "label": "Valuation",
+                                // "value": TRX
+                                //     .getLastCurrentValuationOfYear(targetYear),
                                 "value": TRX
-                                    .getLastCurrentValuationOfYear(targetYear),
+                                    .getTotalValuationOfLastRecordOfUniqueSaham(
+                                        targetYear),
                               },
                               // {
                               //   "label": "Valuation",

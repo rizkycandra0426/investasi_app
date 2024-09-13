@@ -25,7 +25,7 @@ class PortofolioNewController extends State<PortofolioNewView> {
   @override
   Widget build(BuildContext context) => widget.build(context, this);
   reload() {
-    setState(() {});
+    if (mounted) setState(() {});
   }
 }
 
