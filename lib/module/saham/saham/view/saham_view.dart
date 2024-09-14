@@ -18,6 +18,7 @@ class SahamView extends StatefulWidget {
       bool noTradeNextYear = false,
     }) async {
       showLoading();
+
       StockNewService.stocks = [];
       StockNewService.tradeHistories = [];
       UserBalanceService.topupHistories = [];

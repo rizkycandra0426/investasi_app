@@ -19,7 +19,7 @@ dependencies:
   flutter_image_compress: ^2.0.3
   cached_network_image: ^3.2.2
   permission_handler: ^11.3.1
-  geolocator: ^12.0.0
+  geolocator: ^13.0.1
   flutter_map: ^7.0.2
   carousel_slider: ^5.0.0
   flutter_rating_bar: ^4.0.1
@@ -39,7 +39,7 @@ dependencies:
   flutter_staggered_grid_view: ^0.7.0
   flutter_inappwebview: ^5.7.2+3
   syncfusion_flutter_calendar: ^26.2.9
-  fl_chart: ^0.68.0
+  fl_chart: ^0.69.0
   shared_preferences: ^2.2.3
   numberpicker: ^2.1.2
   lottie: ^3.1.2

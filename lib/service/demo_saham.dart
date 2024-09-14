@@ -51,8 +51,21 @@ class _DemoSahamViewState extends State<DemoSahamView> {
                 ),
                 IconButton(
                   onPressed: () {
+                    TRX.cleanData();
+                    setState(() {});
+                    PortofolioNewController.instance.reload();
+                  },
+                  icon: Icon(
+                    Icons.delete,
+                    size: 16.0,
+                    color: Colors.white,
+                  ),
+                ),
+                IconButton(
+                  onPressed: () {
                     TRX.generateDummies();
                     setState(() {});
+                    PortofolioNewController.instance.reload();
                   },
                   icon: Icon(
                     Icons.refresh,

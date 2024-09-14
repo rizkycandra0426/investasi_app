@@ -43,6 +43,7 @@ class NotifikasiController extends State<NotifikasiView> {
     try {
       showLoading();
       await NotificationSchedulerService().create({
+        "user_id": currentUser?.userId,
         "hour": hour,
         "minute": minute,
         "message":

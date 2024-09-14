@@ -59,6 +59,7 @@ class TRX {
   }
 
   static double getSaldoTerakhir() {
+    if (historyList.value.isEmpty) return 0;
     return historyList.value.last.saldo;
   }
 
@@ -792,6 +793,10 @@ class TRX {
       );
       return;
     }
+  }
+
+  static cleanData() {
+    historyList.value.clear();
   }
 
   static generateDummies() {
