@@ -21,20 +21,20 @@ List<String> superDevs = [
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await DBService.init();
+  // await DBService.clear("token");
+  // await DBService.deleteAll();
+  Diointerceptors.init();
 
   if (Platform.isAndroid) {
     await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform,
     );
     await FirebaseNotificationService.initNotifications();
+    await FirebaseNotificationService.getToken();
   }
 
   // TRX.generateDummies();
-
-  await DBService.init();
-  // await DBService.clear("token");
-  // await DBService.deleteAll();
-  Diointerceptors.init();
 
   TRX.initStock();
 

@@ -21,6 +21,14 @@ class TRX {
   static Future saveRecord() async {
     List<Map<String, dynamic>> values = [];
     for (var item in historyList.value) {
+      if (item.jumlahUnit.isInfinite) {
+        item.jumlahUnit = 0;
+      }
+
+      if (item.yieldValue.isNaN) {
+        item.yieldValue = 0;
+      }
+
       values.add(item.toJson());
     }
 
@@ -41,6 +49,7 @@ class TRX {
   static Future resetRecord() async {}
 
   static double getHargaUnitTerakhir() {
+    if (historyList.value.isEmpty) return 1000;
     return historyList.value.last.hargaUnit;
   }
 
@@ -55,6 +64,7 @@ class TRX {
   }
 
   static double getJumlahUnitTerakhir() {
+    if (historyList.value.isEmpty) return 0;
     return historyList.value.last.jumlahUnit;
   }
 
@@ -161,7 +171,9 @@ class TRX {
     for (var saham in uniqueSaham) {
       //get valuation from saham from lastest record with saham?
       var sahamHistories = historyList.value.where((item) {
-        return item.target == saham && item.date.year == year;
+        return item.target == saham &&
+            item.date.year == year &&
+            (item.activity == "BUY" || item.activity == "SELL");
       }).toList();
       if (sahamHistories.isEmpty) continue;
       valuationTotal += sahamHistories.last.valuation;
@@ -216,6 +228,7 @@ class TRX {
   }
 
   static double getLastValuation() {
+    if (historyList.value.isEmpty) return 0;
     return historyList.value.last.valuation;
   }
 
@@ -260,11 +273,12 @@ class TRX {
       }).toList();
       item = items.isEmpty ? null : items.last;
     }
-    return item?.yield ?? 0;
+    return item?.yieldValue ?? 0;
   }
 
   static double getLastYieldInRecord() {
-    return historyList.value.last.yield;
+    if (historyList.value.isEmpty) return 0;
+    return historyList.value.last.yieldValue;
   }
 
   static double getLastYieldInEndOfMonth(int? year, int month) {
@@ -274,7 +288,7 @@ class TRX {
     if (items.isEmpty) {
       return 0;
     }
-    return items.last.yield;
+    return items.last.yieldValue;
   }
 
   static double getLastValuationPlusSaldo([int? year]) {
@@ -561,7 +575,7 @@ class TRX {
       namaBank: namaBank ?? '-',
       deviden: newDeviden,
       jumlahDeviden: newJumlahDeviden,
-      yield: newYield,
+      yieldValue: newYield,
     ));
     sortByDateAndRecalculate();
   }
@@ -647,7 +661,7 @@ class TRX {
       jumlahUnit: jumlahUnit,
       valueEffect: valueEffect,
       fundAlloc: fundAlloc,
-      yield: yield,
+      yieldValue: yield,
       sekuritas: sekuritas ?? "-",
     ));
     sortByDateAndRecalculate();
@@ -709,7 +723,7 @@ class TRX {
       jumlahUnit: jumlahUnit,
       valueEffect: valueEffect,
       fundAlloc: fundAlloc,
-      yield: yield,
+      yieldValue: yield,
       sekuritas: sekuritas ?? "-",
     ));
     sortByDateAndRecalculate();
@@ -730,6 +744,11 @@ class TRX {
     for (var item in tempHistories) {
       // item.valuation = 0;
       // item.currentValuation = item.valuation;
+
+//if item.jumlahUnit is infinity set to 0?
+      if (item.jumlahUnit.isInfinite) {
+        item.jumlahUnit = 0;
+      }
 
       if (item.activity == "BUY") {
         // item.qty = item.qty < 0 ? item.qty * -1 : item.qty;
@@ -797,6 +816,9 @@ class TRX {
 
   static cleanData() {
     historyList.value.clear();
+    addAdjustment(
+      date: DateTime(2024, 1, 1),
+    );
   }
 
   static generateDummies() {
@@ -1072,7 +1094,7 @@ class History {
 
   double valueEffect;
   double fundAlloc;
-  double yield;
+  double yieldValue;
   String sekuritas;
   String namaBank;
 
@@ -1103,7 +1125,7 @@ class History {
     this.jumlahUnit = 0,
     this.valueEffect = 0,
     this.fundAlloc = 0,
-    this.yield = 0,
+    this.yieldValue = 0,
     this.sekuritas = "-",
     this.namaBank = "-",
     this.deviden = 0,
@@ -1136,7 +1158,7 @@ class History {
       jumlahUnit: json["jumlahUnit"],
       valueEffect: json["valueEffect"],
       fundAlloc: json["fundAlloc"],
-      yield: json["yield"],
+      yieldValue: json["yield"],
       sekuritas: json["sekuritas"],
       namaBank: json["namaBank"],
       deviden: json["deviden"],
@@ -1170,7 +1192,7 @@ class History {
       "jumlahUnit": jumlahUnit,
       "valueEffect": valueEffect,
       "fundAlloc": fundAlloc,
-      "yield": yield,
+      "yield": yieldValue,
       "sekuritas": sekuritas,
       "namaBank": namaBank,
       "deviden": deviden,

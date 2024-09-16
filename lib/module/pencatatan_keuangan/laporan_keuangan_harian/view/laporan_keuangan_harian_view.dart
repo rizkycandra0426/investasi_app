@@ -157,17 +157,6 @@ class LaporanKeuanganHarianView extends StatefulWidget {
                           ),
                           child: Row(
                             children: [
-                              if (kDebugMode) ...[
-                                Text(
-                                  "${item.id}",
-                                  style: TextStyle(
-                                    fontSize: 16.0,
-                                  ),
-                                ),
-                                const SizedBox(
-                                  width: 8.0,
-                                ),
-                              ],
                               Expanded(
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,

@@ -136,51 +136,6 @@ class NotifikasiView extends StatefulWidget {
                 const SizedBox(
                   height: 12.0,
                 ),
-                if (kDebugMode) ...[
-                  InkWell(
-                    onTap: () async {
-                      var response = await Dio().get(
-                        "${baseUrl}/send-notifications/testing",
-                        options: Options(
-                          headers: {
-                            "Content-Type": "application/json",
-                          },
-                        ),
-                      );
-                      Map obj = response.data;
-                    },
-                    child: Text(
-                      "Test Notifikasi (Instant)",
-                      style: TextStyle(
-                        fontSize: 14.0,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 8.0,
-                  ),
-                  InkWell(
-                    onTap: () async {
-                      var response = await Dio().get(
-                        "${baseUrl}/send-notifications/all",
-                        options: Options(
-                          headers: {
-                            "Content-Type": "application/json",
-                          },
-                        ),
-                      );
-                      Map obj = response.data;
-                    },
-                    child: Text(
-                      "Test Notifikasi (Scheduled)",
-                      style: TextStyle(
-                        fontSize: 14.0,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                ],
               ],
             ),
           ),

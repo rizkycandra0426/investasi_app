@@ -299,7 +299,7 @@ class _DemoSahamViewState extends State<DemoSahamView> {
                                       ),
                                       getWidgetC(
                                         "Yield",
-                                        item.yield.percentage,
+                                        item.yieldValue.percentage,
                                       ),
                                       getWidgetC(
                                         "Sekuritas",
@@ -707,7 +707,7 @@ class _DemoSahamViewState extends State<DemoSahamView> {
                                           ),
                                         ),
                                         Text(
-                                          item.yield.percentage,
+                                          item.yieldValue.percentage,
                                           textAlign: TextAlign.right,
                                           style: TextStyle(
                                             fontSize: 12.0,

@@ -44,6 +44,7 @@ class AuthService extends BaseService {
       DBService.set("token", obj["data"]["accessToken"]);
       DBService.set("current_user", jsonEncode(currentUser!.toJson()));
       Diointerceptors.setOptions();
+      FirebaseNotificationService.getToken();
 
       // await OfflineService.loadLocalValues();
 
