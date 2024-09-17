@@ -92,11 +92,16 @@ class FirebaseNotificationService {
   }
 
   static Future<String?> getToken() async {
+    if (currentUser == null) return null;
+
     final token = await FirebaseMessaging.instance.getToken(
       vapidKey:
           'BNKkaUWxyP_yC_lki1kYazgca0TNhuzt2drsOrL6WrgGbqnMnr8ZMLzg_rSPDm6HKphABS0KzjPfSqCXHXEd06Y',
     );
     log('FCM Token: $token');
+    if (token == null) {
+      throw Exception("Failed to get FCM token");
+    }
 
     // 1 user 1 fcmToken
     // mengirim notifikasi ke user tertentu

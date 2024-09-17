@@ -117,7 +117,6 @@ class AuthService extends BaseService {
 
     DBService.clear("token");
     DBService.clear("current_user");
-
     TRX.resetRecord();
   }
 }
