@@ -140,6 +140,26 @@ class ProfileView extends StatefulWidget {
                     child: ListTile(
                       contentPadding: EdgeInsets.only(left: 20),
                       visualDensity: VisualDensity.compact,
+                      leading: Icon(Icons.list),
+                      minLeadingWidth: 0.0,
+                      title: Text("Berita"),
+                      trailing: Icon(
+                        Icons.chevron_right,
+                        size: 24.0,
+                      ),
+                      onTap: () => Get.to(BeritaView()),
+                      tileColor: Colors.white70
+                          .withOpacity(0.3), // Warna untuk ListTile
+                    ),
+                  ),
+                  SizedBox(height: 5),
+                  Material(
+                    elevation: 5, // Atur tinggi material untuk efek melayang
+                    borderRadius:
+                        BorderRadius.circular(12), // Atur radius sudut material
+                    child: ListTile(
+                      contentPadding: EdgeInsets.only(left: 20),
+                      visualDensity: VisualDensity.compact,
                       leading: Icon(Icons.notifications),
                       minLeadingWidth: 0.0,
                       title: Text("Notifikasi"),
@@ -152,7 +172,7 @@ class ProfileView extends StatefulWidget {
                           .withOpacity(0.3), // Warna untuk ListTile
                     ),
                   ),
-                  SizedBox(height: 5), // Spasi antara ListTile
+                  SizedBox(height: 5),
                   Material(
                     elevation: 5, // Atur tinggi material untuk efek melayang
                     borderRadius:

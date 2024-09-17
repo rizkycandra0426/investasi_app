@@ -63,6 +63,20 @@ class _DemoSahamViewState extends State<DemoSahamView> {
                 ),
                 IconButton(
                   onPressed: () {
+                    TRX.generateCustomDummies();
+                    setState(() {});
+                    PortofolioNewController.instance.reload();
+                  },
+                  icon: Text(
+                    "DM",
+                    style: TextStyle(
+                      fontSize: 16.0,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+                IconButton(
+                  onPressed: () {
                     TRX.generateDummies();
                     setState(() {});
                     PortofolioNewController.instance.reload();
@@ -98,6 +112,7 @@ class _DemoSahamViewState extends State<DemoSahamView> {
                       bool isTablet =
                           MediaQuery.of(context).size.width < 1100 &&
                               MediaQuery.of(context).size.width >= 850;
+
                       bool isDesktop =
                           MediaQuery.of(context).size.width >= 1100;
                       bool isMobile = MediaQuery.of(context).size.width < 850;

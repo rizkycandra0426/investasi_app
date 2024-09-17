@@ -56,9 +56,13 @@ class PortofolioNewView extends StatefulWidget {
                           color: infoColor,
                           size: xs,
                           width: 100.0,
-                          onPressed: () => Get.to(TopupView(
-                            topupMode: true,
-                          )),
+                          onPressed: () async {
+                            await Get.to(TopupView(
+                              topupMode: true,
+                            ));
+
+                            controller.reload();
+                          },
                         ),
                         const SizedBox(
                           width: 4.0,
@@ -154,7 +158,9 @@ class PortofolioNewView extends StatefulWidget {
                               // },
                               {
                                 "label": "Equity",
-                                "value": TRX.getTotalBuyInYear(targetYear),
+                                "value": TRX
+                                    .getTotalOfEquityByVolumeOfUniqueSahamInYear(
+                                        targetYear),
                               },
                               // {
                               //   "label": "HU Before",

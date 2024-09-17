@@ -23,7 +23,10 @@ class HistoriDanaView extends StatefulWidget {
           ? QActionButton(
               color: Colors.blue,
               label: "Buy Deposito",
-              onPressed: () => Get.to(BuyDepositoView()),
+              onPressed: () async {
+                await Get.to(BuyDepositoView());
+                controller.reload();
+              },
             )
           : QActionButton(
               color: Colors.blue,

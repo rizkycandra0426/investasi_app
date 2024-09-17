@@ -27,7 +27,7 @@ class OfflineService {
   static cacheCategoriesFromApi() async {
     try {
       var response = await dio.get(
-        "/kategori-pemasukan",
+        "/kategori_pemasukans?action=cacheCategoriesFromApi",
       );
       Map obj = response.data;
       List values = obj["data"];
@@ -38,7 +38,7 @@ class OfflineService {
 
     try {
       var response = await dio.get(
-        "/kategori-pengeluaran",
+        "/kategori_pengeluarans?action=cacheCategoriesFromApi",
       );
       Map obj = response.data;
       List values = obj["data"];
