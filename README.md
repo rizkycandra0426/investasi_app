@@ -1,3 +1,3 @@
-v Notifikasi terjadwal tidak muncul
-
-- Topup Dividen Saham atau Deposito, Yieldnya, Valuation, Harga Unit ga bener
+- halaman berita hilang
+- ⁠untuk yang topup deviden saham atau deposito belum bener yield dan harga unitnya
+- ⁠pada saat register belum bisa verifikasi, masih unvalid
