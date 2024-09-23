@@ -22,4 +22,8 @@ class TradeHistoyController extends State<TradeHistoyView> {
 
   @override
   Widget build(BuildContext context) => widget.build(context, this);
+
+  reload() {
+    setState(() {});
+  }
 }

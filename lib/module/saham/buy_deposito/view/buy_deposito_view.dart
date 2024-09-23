@@ -21,6 +21,7 @@ class BuyDepositoView extends StatefulWidget {
               children: [
                 QNumberField(
                   label: "Amount",
+                  pattern: "#,###",
                   validator: Validator.required,
                   value: controller.amount.toString(),
                   onChanged: (value) {

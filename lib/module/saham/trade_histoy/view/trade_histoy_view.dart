@@ -173,97 +173,124 @@ class TradeHistoyView extends StatefulWidget {
             }
 
             return InkWell(
-              onTap: () {},
+              onTap: () async {
+                if (item.activity == "BUY" || item.activity == "SELL") {
+                  //Edit
+                  await Get.to(
+                    PortofolioTradeView(
+                      namaSaham: item.target,
+                      sellMode: item.activity == "SELL",
+                      editMode: true,
+                      editItem: item,
+                    ),
+                  );
+                  controller.reload();
+                }
+              },
               child: Container(
                 child: Card(
                   child: Padding(
                     padding: EdgeInsets.all(20.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                    child: Stack(
                       children: [
-                        Row(
+                        Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Column(
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Image.network(
-                                  TRX.getImageFromSaham(saham),
-                                  width: 24.0,
-                                  height: 24.0,
-                                  fit: BoxFit.cover,
-                                  errorBuilder: (BuildContext context,
-                                      Object exception,
-                                      StackTrace? stackTrace) {
-                                    return Image.network(
-                                      "https://res.cloudinary.com/dotz74j1p/image/upload/v1715660683/no-image.jpg",
-                                      width: 16.0,
-                                      height: 16.0,
-                                      fit: BoxFit.fill,
-                                    );
-                                  },
+                                Column(
+                                  children: [
+                                    Image.network(
+                                      TRX.getImageFromSaham(saham),
+                                      width: 24.0,
+                                      height: 24.0,
+                                      fit: BoxFit.cover,
+                                      errorBuilder: (BuildContext context,
+                                          Object exception,
+                                          StackTrace? stackTrace) {
+                                        return Image.network(
+                                          "https://res.cloudinary.com/dotz74j1p/image/upload/v1715660683/no-image.jpg",
+                                          width: 16.0,
+                                          height: 16.0,
+                                          fit: BoxFit.fill,
+                                        );
+                                      },
+                                    ),
+                                    const SizedBox(
+                                      height: 6.0,
+                                    ),
+                                    Text("${saham}"),
+                                  ],
                                 ),
                                 const SizedBox(
-                                  height: 6.0,
+                                  width: 12.0,
                                 ),
-                                Text("${saham}"),
+                                Expanded(
+                                  child: StaggeredGrid.count(
+                                    crossAxisCount: 3,
+                                    children: List.generate(
+                                      itemValues.length,
+                                      (index) {
+                                        var value = itemValues[index];
+                                        Color? color = null;
+
+                                        if (value["label"] == "Activity") {
+                                          if (value["value"] == "BUY") {
+                                            color = Colors.blue;
+                                          } else if (value["value"] == "SELL") {
+                                            color = Colors.red;
+                                          } else if (value["value"] ==
+                                              "TOPUP") {
+                                            color = Colors.green;
+                                          }
+                                        }
+
+                                        return StaggeredGridTile.fit(
+                                          crossAxisCellCount: 1,
+                                          child: Container(
+                                            margin: const EdgeInsets.only(
+                                              bottom: 12.0,
+                                            ),
+                                            child: Column(
+                                              children: [
+                                                Text(
+                                                  "${value["label"]}",
+                                                  textAlign: TextAlign.center,
+                                                  style: TextStyle(
+                                                    fontSize: 10.0,
+                                                    color: color,
+                                                  ),
+                                                ),
+                                                Text(
+                                                  "${value["value"]}",
+                                                  textAlign: TextAlign.center,
+                                                  style: TextStyle(
+                                                    fontSize: 14.0,
+                                                    color: color,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        );
+                                      },
+                                    ),
+                                  ),
+                                )
                               ],
                             ),
-                            const SizedBox(
-                              width: 12.0,
-                            ),
-                            Expanded(
-                              child: StaggeredGrid.count(
-                                crossAxisCount: 3,
-                                children: List.generate(
-                                  itemValues.length,
-                                  (index) {
-                                    var value = itemValues[index];
-                                    Color? color = null;
-
-                                    if (value["label"] == "Activity") {
-                                      if (value["value"] == "BUY") {
-                                        color = Colors.blue;
-                                      } else if (value["value"] == "SELL") {
-                                        color = Colors.red;
-                                      } else if (value["value"] == "TOPUP") {
-                                        color = Colors.green;
-                                      }
-                                    }
-
-                                    return StaggeredGridTile.fit(
-                                      crossAxisCellCount: 1,
-                                      child: Container(
-                                        margin: const EdgeInsets.only(
-                                          bottom: 12.0,
-                                        ),
-                                        child: Column(
-                                          children: [
-                                            Text(
-                                              "${value["label"]}",
-                                              textAlign: TextAlign.center,
-                                              style: TextStyle(
-                                                fontSize: 10.0,
-                                                color: color,
-                                              ),
-                                            ),
-                                            Text(
-                                              "${value["value"]}",
-                                              textAlign: TextAlign.center,
-                                              style: TextStyle(
-                                                fontSize: 14.0,
-                                                color: color,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    );
-                                  },
-                                ),
-                              ),
-                            )
                           ],
                         ),
+                        if (item.activity == "BUY" || item.activity == "SELL")
+                          Positioned(
+                            right: 0,
+                            top: 0,
+                            child: Icon(
+                              Icons.edit,
+                              size: 12.0,
+                            ),
+                          ),
                       ],
                     ),
                   ),

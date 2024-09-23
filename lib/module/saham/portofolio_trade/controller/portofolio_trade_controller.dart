@@ -20,6 +20,13 @@ class PortofolioTradeController extends State<PortofolioTradeView> {
     if (!widget.sellMode) {
       price = 0;
     }
+
+    if (widget.editMode) {
+      date = widget.editItem!.date;
+      price = widget.editItem!.price;
+      volume = widget.editItem!.qty;
+      sekuritas = widget.editItem!.sekuritas;
+    }
   }
 
   void onReady() {}
@@ -47,6 +54,10 @@ class PortofolioTradeController extends State<PortofolioTradeView> {
   trade() async {
     if (widget.sellMode) {
       //sell mode
+      if (widget.editMode) {
+        TRX.historyList.value.removeWhere((i) => i == widget.editItem);
+      }
+
       TRX.sell(
         date: date,
         qty: volume,
@@ -57,6 +68,10 @@ class PortofolioTradeController extends State<PortofolioTradeView> {
       );
     } else {
       //buy mode
+      if (widget.editMode) {
+        TRX.historyList.value.removeWhere((i) => i == widget.editItem);
+      }
+
       TRX.buy(
         date: date,
         qty: volume,

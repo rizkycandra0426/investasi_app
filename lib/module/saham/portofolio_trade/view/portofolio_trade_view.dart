@@ -4,10 +4,14 @@ import '../controller/portofolio_trade_controller.dart';
 
 class PortofolioTradeView extends StatefulWidget {
   final bool sellMode;
+  final bool editMode;
+  final History? editItem;
   final String namaSaham;
   const PortofolioTradeView({
     Key? key,
     this.sellMode = false,
+    this.editMode = false,
+    this.editItem,
     required this.namaSaham,
   }) : super(key: key);
 
@@ -18,6 +22,7 @@ class PortofolioTradeView extends StatefulWidget {
     var loadingWidget = Center(
       child: Text("Load realtime data..."),
     );
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: buyMode ? Colors.green : Colors.red,

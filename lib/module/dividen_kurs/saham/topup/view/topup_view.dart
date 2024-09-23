@@ -84,6 +84,7 @@ class TopupView extends StatefulWidget {
                     QNumberField(
                       key: UniqueKey(),
                       label: "Amount",
+                      pattern: "#,###",
                       validator: (value) {
                         if ((int.tryParse(value.toString()) ?? 0) < 0) {
                           return "Amount must be greater than 0";

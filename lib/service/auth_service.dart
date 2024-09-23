@@ -112,11 +112,11 @@ class AuthService extends BaseService {
   Future<void> logout() async {
     currentUser = null;
     //Kalau sudah tidak perlu dibuang
+    TRX.cleanData();
     DBService.clear("id_berita");
     //----------------
 
     DBService.clear("token");
     DBService.clear("current_user");
-    TRX.resetRecord();
   }
 }
