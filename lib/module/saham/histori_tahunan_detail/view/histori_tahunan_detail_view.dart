@@ -26,6 +26,7 @@ class HistoriTahunanDetailView extends StatefulWidget {
                 year: year,
                 month: i,
               );
+
               if (item["yield"] != null && item["yield"] != 0) {
                 yields.add({
                   "month": DateTime(year, item["month"], 1).MMM,
@@ -129,117 +130,125 @@ class HistoriTahunanDetailView extends StatefulWidget {
             ],
           ),
         ),
-        ListView.builder(
-          itemCount: 12,
-          shrinkWrap: true,
-          physics: const ScrollPhysics(),
-          itemBuilder: (BuildContext context, int index) {
-            var date = DateTime(year, index + 1, 1);
+        Builder(builder: (context) {
+          HistoriIhsgController.instance.yieldMaps[year] = [];
+          HistoriIhsgController.instance.ihsgMaps[year] = [];
 
-            var item = LocalIHSGService.getHistoryByYearAndMonth(
-              year: date.year,
-              month: date.month,
-            );
+          return ListView.builder(
+            itemCount: 12,
+            shrinkWrap: true,
+            physics: const ScrollPhysics(),
+            itemBuilder: (BuildContext context, int index) {
+              var date = DateTime(year, index + 1, 1);
 
-            var ihsg = item["ihsg"] ?? 0;
-            var yield = item["yield"] ?? 0;
+              var item = LocalIHSGService.getHistoryByYearAndMonth(
+                year: date.year,
+                month: date.month,
+              );
 
-            yield = TRX
-                .getLastYieldInEndOfMonth(
-                  date.year,
-                  date.month,
-                )
-                .percentage;
+              var ihsg = item["ihsg"] ?? 0;
+              var yield = item["yield"] ?? 0;
 
-            return Padding(
-              padding: EdgeInsets.all(12.0),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: Text(
-                      "${date.MMM}",
-                      textAlign: TextAlign.start,
-                      style: TextStyle(
-                        fontSize: 14.0,
-                        fontWeight: FontWeight.bold,
+              HistoriIhsgController.instance.yieldMaps[year].add(yield);
+              HistoriIhsgController.instance.ihsgMaps[year].add(ihsg);
+
+              yield = TRX
+                  .getLastYieldInEndOfMonth(
+                    date.year,
+                    date.month,
+                  )
+                  .percentage;
+
+              return Padding(
+                padding: EdgeInsets.all(12.0),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Text(
+                        "${date.MMM}",
+                        textAlign: TextAlign.start,
+                        style: TextStyle(
+                          fontSize: 14.0,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
-                  ),
-                  Expanded(
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: TextFormField(
-                            readOnly: true,
-                            initialValue: yield?.toString(),
-                            textAlign: TextAlign.right,
-                            keyboardType: TextInputType.number,
-                            decoration: InputDecoration.collapsed(
-                              hintText: "0",
+                    Expanded(
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: TextFormField(
+                              readOnly: true,
+                              initialValue: yield?.toString(),
+                              textAlign: TextAlign.right,
+                              keyboardType: TextInputType.number,
+                              decoration: InputDecoration.collapsed(
+                                hintText: "0",
+                              ),
+                              onFieldSubmitted: (value) {
+                                LocalIHSGService.insertOrUpdate(
+                                  date: date,
+                                  yield: double.tryParse(value.toString()) ?? 0,
+                                  ihsg: double.tryParse(ihsg.toString()) ?? 0,
+                                );
+                                HistoriIhsgController.instance.reload();
+                              },
                             ),
-                            onFieldSubmitted: (value) {
-                              LocalIHSGService.insertOrUpdate(
-                                date: date,
-                                yield: double.tryParse(value.toString()) ?? 0,
-                                ihsg: double.tryParse(ihsg.toString()) ?? 0,
-                              );
-                              HistoriIhsgController.instance.reload();
-                            },
                           ),
-                        ),
-                        const SizedBox(
-                          width: 6.0,
-                        ),
-                        Text(
-                          "%",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontSize: 14.0,
+                          const SizedBox(
+                            width: 6.0,
                           ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Expanded(
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: TextFormField(
-                            readOnly: true,
-                            initialValue: ihsg?.toString(),
-                            textAlign: TextAlign.right,
-                            keyboardType: TextInputType.number,
-                            decoration: InputDecoration.collapsed(
-                              hintText: "0",
+                          Text(
+                            "%",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontSize: 14.0,
                             ),
-                            onFieldSubmitted: (value) {
-                              LocalIHSGService.insertOrUpdate(
-                                date: date,
-                                yield: double.tryParse(yield.toString()) ?? 0,
-                                ihsg: double.tryParse(value.toString()) ?? 0,
-                              );
-                              HistoriIhsgController.instance.reload();
-                            },
                           ),
-                        ),
-                        const SizedBox(
-                          width: 6.0,
-                        ),
-                        Text(
-                          "%",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontSize: 14.0,
-                          ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
-                  ),
-                ],
-              ),
-            );
-          },
-        ),
+                    Expanded(
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: TextFormField(
+                              readOnly: true,
+                              initialValue: ihsg?.toString(),
+                              textAlign: TextAlign.right,
+                              keyboardType: TextInputType.number,
+                              decoration: InputDecoration.collapsed(
+                                hintText: "0",
+                              ),
+                              onFieldSubmitted: (value) {
+                                LocalIHSGService.insertOrUpdate(
+                                  date: date,
+                                  yield: double.tryParse(yield.toString()) ?? 0,
+                                  ihsg: double.tryParse(value.toString()) ?? 0,
+                                );
+                                HistoriIhsgController.instance.reload();
+                              },
+                            ),
+                          ),
+                          const SizedBox(
+                            width: 6.0,
+                          ),
+                          Text(
+                            "%",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontSize: 14.0,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            },
+          );
+        }),
       ],
     );
   }

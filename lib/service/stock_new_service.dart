@@ -626,6 +626,14 @@ class LocalIHSGService {
     return items;
   }
 
+  static getIHSGTotalValue({
+    required int year,
+  }) {
+    var items = histories.where((element) => element["year"] == year).toList();
+    items.sort((a, b) => a["month"].compareTo(b["month"]));
+    return items;
+  }
+
   static getYearValues({
     required int year,
   }) {

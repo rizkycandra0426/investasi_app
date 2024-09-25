@@ -18,6 +18,15 @@ enum TopupType {
 class TRX {
   static ValueNotifier<List<History>> historyList = ValueNotifier(histories);
 
+  static availableYears() {
+    List<int> years = [];
+    for (var item in historyList.value) {
+      years.add(item.date.year);
+    }
+    years.sort();
+    return years.toSet().toList();
+  }
+
   static Future saveRecord() async {
     List<Map<String, dynamic>> values = [];
     for (var item in historyList.value) {
@@ -233,11 +242,10 @@ class TRX {
 
   static double updateCurrentPriceOfLastSaham(
       String saham, double newCurrentPrice) {
-    for (var item in historyList.value) {
-      if (item.target == saham) {
-        item.currentPrice = newCurrentPrice;
-      }
-    }
+    var index =
+        historyList.value.lastIndexWhere((element) => element.target == saham);
+    historyList.value[index].currentPrice = newCurrentPrice;
+
     sortByDateAndRecalculate();
     return newCurrentPrice;
   }
@@ -547,6 +555,11 @@ class TRX {
     double newValuationPlusSaldo = getLastValuationPlusSaldo() + saldo;
     double newJumlahUnit = newValuationPlusSaldo / getHargaUnitTerakhir();
     double newHargaUnit = getHargaUnitTerakhir();
+
+    // if (amount == 1000000 && type == TopupType.devidenDeposito) {
+    //   print(getLastValuationPlusSaldo());
+    //   print(getLastValuationPlusSaldo());
+    // }
 
     if (type == TopupType.devidenSaham) {
       valuation = getLastCurrentValuationOfAllSaham();
@@ -972,6 +985,13 @@ class TRX {
       amount: 1000000,
       type: TopupType.devidenSaham,
       saham: "ABBA",
+    );
+
+    topup(
+      date: DateTime(2024, 5, 02),
+      amount: 10000000,
+      type: TopupType.devidenDeposito,
+      namaBank: "MANDIRI",
     );
 
     buy(

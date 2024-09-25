@@ -72,6 +72,12 @@ class PortofolioTradeController extends State<PortofolioTradeView> {
         TRX.historyList.value.removeWhere((i) => i == widget.editItem);
       }
 
+      double saldo = TRX.getSaldoTerakhir();
+      if (saldo - total < 0) {
+        se("Saldo tidak cukup");
+        return;
+      }
+
       TRX.buy(
         date: date,
         qty: volume,

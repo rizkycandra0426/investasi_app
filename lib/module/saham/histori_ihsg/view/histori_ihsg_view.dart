@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:hyper_ui/core.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import '../controller/histori_ihsg_controller.dart';
@@ -8,20 +9,38 @@ class HistoriIhsgView extends StatefulWidget {
 
   Widget build(context, HistoriIhsgController controller) {
     controller.view = this;
+
+    List years = TRX.availableYears();
+    if (controller.mode == 0) {
+      years = [now.year];
+    }
+
     return Scaffold(
+      key: UniqueKey(),
       appBar: AppBar(
         title: const Text("Histori Tahunan (IHSG)"),
-        actions: const [],
+        actions: [
+          Padding(
+            padding: EdgeInsets.all(8.0),
+            child: QButton(
+              width: controller.mode == 0 ? 100.0 : 140.0,
+              label: controller.mode == 0 ? "Tahunan" : "Per Portofolio",
+              color: warningColor,
+              onPressed: () =>
+                  controller.updateMode(controller.mode == 0 ? 1 : 0),
+            ),
+          ),
+        ],
       ),
       body: Column(
         children: [
           Expanded(
             child: ListView.builder(
-              itemCount: 2,
+              itemCount: years.length,
               shrinkWrap: true,
               physics: const ScrollPhysics(),
               itemBuilder: (BuildContext context, int index) {
-                var targetYear = (now.year + 1) - index;
+                var targetYear = years[index];
                 var yearItems = LocalIHSGService.getLastValue(year: targetYear);
 
                 var yearYield = 0.0;
@@ -41,6 +60,7 @@ class HistoriIhsgView extends StatefulWidget {
                   }
                 }
 
+                // ####################
                 return Column(
                   children: [
                     InkWell(
@@ -65,7 +85,7 @@ class HistoriIhsgView extends StatefulWidget {
                             ),
                             Expanded(
                               child: Text(
-                                "${TRX.getLastYield(targetYear).percentage}",
+                                "${controller.getYieldTotalByYear(targetYear).percentage}",
                                 textAlign: TextAlign.right,
                                 style: TextStyle(
                                   fontSize: 16.0,
@@ -75,7 +95,7 @@ class HistoriIhsgView extends StatefulWidget {
                             ),
                             Expanded(
                               child: Text(
-                                "${targetYear > now.year ? StockNewService.ihsgNextYear.percentage : StockNewService.ihsg.percentage}",
+                                "${controller.getIhsgTotalByYear(targetYear).percentage}",
                                 textAlign: TextAlign.right,
                                 style: TextStyle(
                                   fontSize: 16.0,

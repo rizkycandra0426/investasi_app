@@ -22,13 +22,41 @@ class HistoriIhsgController extends State<HistoriIhsgView> {
 
   @override
   Widget build(BuildContext context) => widget.build(context, this);
+
   reload() {
-    setState(() {});
+    if (mounted) setState(() {});
   }
 
   int selectedYear = now.year;
   updateSelectedYear(int value) {
     selectedYear = value;
     setState(() {});
+  }
+
+  int mode = 0;
+  updateMode(int value) {
+    mode = value;
+    setState(() {});
+  }
+
+  Map yieldMaps = {};
+  Map ihsgMaps = {};
+
+  double getYieldTotalByYear(int year) {
+    yieldMaps[year] = yieldMaps[year] ?? [];
+    var total = 0.0;
+    for (var item in yieldMaps[year]) {
+      total += item;
+    }
+    return total;
+  }
+
+  double getIhsgTotalByYear(int year) {
+    ihsgMaps[year] = ihsgMaps[year] ?? [];
+    var total = 0.0;
+    for (var item in ihsgMaps[year]) {
+      total += item;
+    }
+    return total;
   }
 }

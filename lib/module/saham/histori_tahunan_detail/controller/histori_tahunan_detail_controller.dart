@@ -16,6 +16,12 @@ class HistoriTahunanDetailController extends State<HistoriTahunanDetailView> {
       yield: StockNewService.getYieldInPercent(now.year),
       ihsg: StockNewService.ihsg,
     );
+
+    Future.delayed(Duration(seconds: 1), () {
+      print(HistoriIhsgController.instance.yieldMaps);
+      print(HistoriIhsgController.instance.ihsgMaps);
+      HistoriIhsgController.instance.reload();
+    });
   }
 
   void onReady() {}
