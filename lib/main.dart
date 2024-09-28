@@ -8,7 +8,6 @@ import 'package:hyper_ui/core.dart';
 import 'package:flutter/material.dart';
 import 'package:hyper_ui/service/db_service.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:device_info_plus/device_info_plus.dart';
 
 // fund_alloc
 // value_effect
@@ -56,16 +55,6 @@ void main() async {
     print("8. load local values");
     await OfflineService.loadLocalValues();
   }
-
-  // if (Platform.isAndroid) {
-  //   DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
-  //   AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
-  //   if (superDevs.contains(androidInfo.id)) {
-  //     isDeveloper = true;
-  //   }
-  // } else if (Platform.isWindows) {
-  //   isDeveloper = true;
-  // }
 
   runMainApp();
 }

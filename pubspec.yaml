@@ -48,7 +48,6 @@ dependencies:
   firebase_messaging: ^15.1.0
   flutter_local_notifications: ^17.2.0
   flutter_launcher_icons: ^0.13.1
-  device_info_plus: ^10.1.2
 dev_dependencies:
   flutter_test:
     sdk: flutter
