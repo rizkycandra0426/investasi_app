@@ -17,11 +17,11 @@ class HistoriTahunanDetailController extends State<HistoriTahunanDetailView> {
       ihsg: StockNewService.ihsg,
     );
 
-    Future.delayed(Duration(seconds: 1), () {
-      print(HistoriIhsgController.instance.yieldMaps);
-      print(HistoriIhsgController.instance.ihsgMaps);
-      HistoriIhsgController.instance.reload();
-    });
+    // Future.delayed(Duration(seconds: 1), () {
+    //   print(HistoriIhsgController.instance.yieldMaps);
+    //   print(HistoriIhsgController.instance.ihsgMaps);
+    //   HistoriIhsgController.instance.reload();
+    // });
   }
 
   void onReady() {}

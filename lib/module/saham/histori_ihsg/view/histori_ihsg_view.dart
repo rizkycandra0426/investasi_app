@@ -60,6 +60,23 @@ class HistoriIhsgView extends StatefulWidget {
                   }
                 }
 
+                double ihsgTotal = 0;
+                double yieldTotal = 0;
+                for (var i = 1; i < 12; i++) {
+                  var item = LocalIHSGService.getHistoryByYearAndMonth(
+                    year: targetYear,
+                    month: i,
+                  );
+
+                  var ihsg = item["ihsg"] ?? 0;
+                  var yield = TRX.getLastYieldInEndOfMonth(
+                    targetYear,
+                    i,
+                  );
+                  yieldTotal += yield;
+                  ihsgTotal += ihsg;
+                }
+
                 // ####################
                 return Column(
                   children: [
@@ -85,7 +102,7 @@ class HistoriIhsgView extends StatefulWidget {
                             ),
                             Expanded(
                               child: Text(
-                                "${controller.getYieldTotalByYear(targetYear).percentage}",
+                                "${yieldTotal.percentage}",
                                 textAlign: TextAlign.right,
                                 style: TextStyle(
                                   fontSize: 16.0,
@@ -95,7 +112,7 @@ class HistoriIhsgView extends StatefulWidget {
                             ),
                             Expanded(
                               child: Text(
-                                "${controller.getIhsgTotalByYear(targetYear).percentage}",
+                                "${ihsgTotal.percentage}",
                                 textAlign: TextAlign.right,
                                 style: TextStyle(
                                   fontSize: 16.0,

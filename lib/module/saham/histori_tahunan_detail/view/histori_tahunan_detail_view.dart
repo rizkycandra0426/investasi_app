@@ -21,40 +21,39 @@ class HistoriTahunanDetailView extends StatefulWidget {
             List<Map> yields = [];
             List<Map> ihsgs = [];
 
+            double yieldTotal = 0;
+            double ihsgTotal = 0;
+
             for (var i = 1; i <= 12; i++) {
               var item = LocalIHSGService.getHistoryByYearAndMonth(
                 year: year,
                 month: i,
               );
 
-              if (item["yield"] != null && item["yield"] != 0) {
-                yields.add({
-                  "month": DateTime(year, item["month"], 1).MMM,
-                  "value": item["yield"],
-                  "month_number": item["month"],
-                });
-              } else {
-                yields.add({
-                  "month": DateTime(year, i, 1).MMM,
-                  "value": 0,
-                  "month_number": i,
-                });
-              }
+              var ihsg = item["ihsg"] ?? 0;
+              var yield = TRX.getLastYieldInEndOfMonth(
+                year,
+                i,
+              );
 
-              if (item["ihsg"] != null && item["ihsg"] != 0) {
-                ihsgs.add({
-                  "month": DateTime(year, item["month"], 1).MMM,
-                  "value": item["ihsg"],
-                  "month_number": item["month"],
-                });
-              } else {
-                ihsgs.add({
-                  "month": DateTime(year, i, 1).MMM,
-                  "value": 0,
-                  "month_number": i,
-                });
-              }
+              yieldTotal += item["yield"] ?? 0;
+              ihsgTotal += item["ihsg"] ?? 0;
+
+              yields.add({
+                "month": DateTime(year, i, 1).MMM,
+                "value": yield,
+                "month_number": i,
+              });
+
+              ihsgs.add({
+                "month": DateTime(year, i, 1).MMM,
+                "value": ihsg,
+                "month_number": i,
+              });
             }
+
+            printg("Yield Total: $yieldTotal");
+            printg("IHSG Total: $ihsgTotal");
 
             return Container(
               height: MediaQuery.of(context).size.height * 0.24,
@@ -70,6 +69,8 @@ class HistoriTahunanDetailView extends StatefulWidget {
                   labelStyle: TextStyle(
                     fontSize: 10.0,
                   ),
+                  minimum: -200,
+                  maximum: 200,
                 ),
                 series: <CartesianSeries>[
                   SplineSeries<Map, String>(
