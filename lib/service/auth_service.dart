@@ -14,6 +14,7 @@ CurrentUser? currentUser;
 
 class AuthService extends BaseService {
   Future loadCurrentUserData() async {
+    if (token == null) return;
     if (DBService.get("current_user") == null) return;
     var jsonString = DBService.get("current_user");
     if (jsonString != null) {

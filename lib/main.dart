@@ -27,34 +27,45 @@ void main() async {
   Diointerceptors.init();
 
   if (Platform.isAndroid) {
+    print("1. Firebase");
     await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform,
     );
+    print("2. Init  notifications");
     await FirebaseNotificationService.initNotifications();
+
+    print("3. getToken");
     await FirebaseNotificationService.getToken();
   }
 
   // TRX.generateDummies();
 
+  print("4. initStock");
   TRX.initStock();
 
+  print("5. load current user data");
   await AuthService().loadCurrentUserData();
+
+  print("6. load record");
   await TRX.loadRecord();
+
+  print("7. stock new servie init");
   await StockNewService.initialize();
 
   if (token != null) {
+    print("8. load local values");
     await OfflineService.loadLocalValues();
   }
 
-  if (Platform.isAndroid) {
-    DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
-    AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
-    if (superDevs.contains(androidInfo.id)) {
-      isDeveloper = true;
-    }
-  } else if (Platform.isWindows) {
-    isDeveloper = true;
-  }
+  // if (Platform.isAndroid) {
+  //   DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+  //   AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
+  //   if (superDevs.contains(androidInfo.id)) {
+  //     isDeveloper = true;
+  //   }
+  // } else if (Platform.isWindows) {
+  //   isDeveloper = true;
+  // }
 
   runMainApp();
 }
@@ -83,12 +94,13 @@ class MainApp extends StatelessWidget {
       ),
       // home: Platform.isWindows ? SahamView() : SplashScreenView(),
       // home: SahamView(),
-      home: Platform.isWindows ? SahamView() : SplashScreenView(),
-      builder: (context, child) => DebugView(
-        context: context,
-        child: child,
-        visible: true,
-      ),
+      // home: Platform.isWindows ? SahamView() : SplashScreenView(),
+      home: SplashScreenView(),
+      // builder: (context, child) => DebugView(
+      //   context: context,
+      //   child: child,
+      //   visible: true,
+      // ),
     );
   }
 }
