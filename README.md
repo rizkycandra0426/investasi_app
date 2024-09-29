@@ -2,8 +2,8 @@ v 1. ⁠ketika topup dan witdraw dana pas ganti 2025 malah yang keisi dananya yg
 
 v 2. ⁠histori tahunan yang tahunan ketika gamti tahun langsung pindah ke tahun 2025
 
-3. Register belum bisa verifikasi email
+v 3. Register belum bisa verifikasi email
 
-4. ⁠ketika logout data portofolio masih nyangkut
+v 4. ⁠ketika logout data portofolio masih nyangkut
 
 5. API Realtime
