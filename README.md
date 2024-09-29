@@ -6,4 +6,4 @@ v 3. Register belum bisa verifikasi email
 
 v 4. ⁠ketika logout data portofolio masih nyangkut
 
-5. API Realtime
+v 5. API Realtime

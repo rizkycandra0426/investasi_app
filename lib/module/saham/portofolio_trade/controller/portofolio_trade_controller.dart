@@ -39,6 +39,7 @@ class PortofolioTradeController extends State<PortofolioTradeView> {
   @override
   Widget build(BuildContext context) => widget.build(context, this);
 
+  double realtimePrice = 0;
   double price = 0;
   int volume = 1;
   DateTime date = DateTime.now();
@@ -98,10 +99,11 @@ class PortofolioTradeController extends State<PortofolioTradeView> {
   useRealtimePrice() async {
     try {
       loading = true;
+      price = realtimePrice;
       setState(() {});
 
-      var newPrice = await StockNewService.getRealtimePrice(widget.namaSaham);
-      price = newPrice;
+      await Future.delayed(Duration(milliseconds: 1000));
+
       loading = false;
       setState(() {});
     } on Exception catch (_) {

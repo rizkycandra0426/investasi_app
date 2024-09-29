@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:hyper_ui/core.dart';
 import '../controller/portofolio_trade_controller.dart';
 
@@ -74,6 +75,33 @@ class PortofolioTradeView extends StatefulWidget {
                       label: "Use Realtime Price",
                       color: Colors.grey,
                       onPressed: () => controller.useRealtimePrice(),
+                    ),
+                    Container(
+                      width: MediaQuery.of(context).size.width,
+                      height: 1.0,
+                      child: InAppWebView(
+                        initialUrlRequest: URLRequest(
+                          url: Uri.parse(
+                              "https://id.tradingview.com/symbols/IDX-${namaSaham}/"),
+                        ),
+                        onLoadStop: (webController, url) {
+                          print("onLoadStop $url");
+                          // get html of #js-category-content > div.tv-react-category-header > div.js-symbol-page-header-root > div > div.symbolRow-OJZRoKx6.hideTabs-OJZRoKx6 > div > div.quotesRow-pAUXADuj > div:nth-child(1) > div > div.lastContainer-JWoJqCpY > span.last-JWoJqCpY.js-symbol-last > span?
+                          webController.evaluateJavascript(source: """
+                            var price = document.querySelector("#js-category-content > div.tv-react-category-header > div.js-symbol-page-header-root > div > div.symbolRow-OJZRoKx6.hideTabs-OJZRoKx6 > div > div.quotesRow-pAUXADuj > div:nth-child(1) > div > div.lastContainer-JWoJqCpY > span.last-JWoJqCpY.js-symbol-last > span").innerText;
+                            price;
+                          """).then((value) {
+                            print("value: $value");
+                            if (value != null) {
+                              controller.realtimePrice =
+                                  double.tryParse(value) ?? 0.0;
+                              //MEMEFI
+                              //MAJOR
+                              //TOMARKET
+                            }
+                          });
+                        },
+                      ),
                     ),
                     const SizedBox(
                       height: 12.0,
