@@ -19,7 +19,7 @@ class TRX {
   static ValueNotifier<List<History>> historyList = ValueNotifier(histories);
 
   static availableYears() {
-    List<int> years = [];
+    List<int> years = [now.year];
     for (var item in historyList.value) {
       years.add(item.date.year);
     }
@@ -924,6 +924,7 @@ class TRX {
     addAdjustment(
       date: DateTime(2024, 1, 1),
     );
+    saveRecord();
   }
 
   static generateCustomDummies() {

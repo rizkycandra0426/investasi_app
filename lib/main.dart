@@ -31,10 +31,10 @@ void main() async {
       options: DefaultFirebaseOptions.currentPlatform,
     );
     print("2. Init  notifications");
-    await FirebaseNotificationService.initNotifications();
-
-    print("3. getToken");
-    await FirebaseNotificationService.getToken();
+    FirebaseNotificationService.initNotifications().then((s) {
+      print("3. getToken");
+      FirebaseNotificationService.getToken();
+    });
   }
 
   // TRX.generateDummies();

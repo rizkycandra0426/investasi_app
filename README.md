@@ -1,10 +1,9 @@
-Izin todolist yg masih agak salah
-v 1. ketika topup deviden deposito dia masih salah mas den, harusnya rumusnya kayak yg topu deviden saham
+v 1. ⁠ketika topup dan witdraw dana pas ganti 2025 malah yang keisi dananya yg 2024 dan kinerjanya jadi ngawur yg di 2024
 
-v 2. ⁠nah terus pada saat ganti tahus mas den, ketika dia ada 2 saham terus saham satunya ganti tahun yg satu lagi enggak, yang ganti tahun ini ikut ke tahun sebelumnya juga buat kehitung kinerja
+v 2. ⁠histori tahunan yang tahunan ketika gamti tahun langsung pindah ke tahun 2025
 
-v 3. ⁠terus buatin validasi ketika saldo tidak mencukupi dia gk bisa beli saham
+3. Register belum bisa verifikasi email
 
-7. ⁠lalu di bagian histori tahunan itu ada pilihan gitu mas den tahunan dan menyuluruh
-    - Tahunan (2024)
-    - Per Portofolio    (2024, 2025)
+4. ⁠ketika logout data portofolio masih nyangkut
+
+5. API Realtime

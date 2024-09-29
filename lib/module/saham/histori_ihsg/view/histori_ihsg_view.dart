@@ -12,7 +12,13 @@ class HistoriIhsgView extends StatefulWidget {
 
     List years = TRX.availableYears();
     if (controller.mode == 0) {
-      years = [now.year];
+      years.sort();
+      years = [years.last];
+      controller.selectedYear = years.last;
+    } else {
+      //desc
+      years.sort((a, b) => b.compareTo(a));
+      controller.selectedYear = years.first;
     }
 
     return Scaffold(
