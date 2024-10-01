@@ -31,28 +31,28 @@ class DividenView extends StatefulWidget {
                       child: Text(
                         "Emiten",
                         textAlign: TextAlign.center,
-                        style: TextStyle(fontSize: 18, color: Colors.white),
+                        style: TextStyle(fontSize: 14, color: Colors.white),
                       ),
                     ),
                     Expanded(
                       child: Text(
                         "Tanggal Dividen",
                         textAlign: TextAlign.center,
-                        style: TextStyle(fontSize: 18, color: Colors.white),
+                        style: TextStyle(fontSize: 14, color: Colors.white),
                       ),
                     ),
                     Expanded(
                       child: Text(
                         "Dividen",
                         textAlign: TextAlign.center,
-                        style: TextStyle(fontSize: 18, color: Colors.white),
+                        style: TextStyle(fontSize: 14, color: Colors.white),
                       ),
                     ),
                     Expanded(
                       child: Text(
                         "Dividen YIELD",
                         textAlign: TextAlign.center,
-                        style: TextStyle(fontSize: 18, color: Colors.white),
+                        style: TextStyle(fontSize: 14, color: Colors.white),
                       ),
                     ),
                   ],

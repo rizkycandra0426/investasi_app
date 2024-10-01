@@ -40,7 +40,7 @@ class HargaDividenView extends StatefulWidget {
                       "Dividen & Kurs",
                       style: TextStyle(
                         fontWeight: FontWeight.w900,
-                        fontSize: 20,
+                        fontSize: 18,
                         color: Colors.black87,
                       ),
                     ),
@@ -56,7 +56,7 @@ class HargaDividenView extends StatefulWidget {
                     child: Text(
                       "Dividen",
                       style: TextStyle(
-                        fontSize: 15,
+                        fontSize: 14,
                         color: Colors.black87,
                       ),
                     ),
@@ -65,7 +65,7 @@ class HargaDividenView extends StatefulWidget {
                     child: Text(
                       "Kurs",
                       style: TextStyle(
-                        fontSize: 15,
+                        fontSize: 14,
                         color: Colors.black87,
                       ),
                     ),
