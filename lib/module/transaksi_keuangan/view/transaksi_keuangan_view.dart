@@ -49,6 +49,7 @@ class TransaksiKeuanganView extends StatefulWidget {
                   margin: EdgeInsets.only(top: 225, left: 10, right: 10),
                   child: TextFormField(
                     controller: controller.textEditingController,
+                    focusNode: controller.focusNode,
                     showCursor: true,
                     cursorColor: Colors.transparent,
                     textAlign: TextAlign.center,
@@ -62,12 +63,22 @@ class TransaksiKeuanganView extends StatefulWidget {
                       hintStyle: TextStyle(color: Colors.white, fontSize: 26),
                     ),
                     onChanged: (value) {
-                      controller.amount = double.tryParse(value) ?? 0;
+                      final NumberFormat _numberFormat = NumberFormat('#,###');
+                      final formattedValue = _numberFormat.format(
+                          double.tryParse(value.replaceAll(',', '')) ?? 0);
+                      controller.textEditingController.value = TextEditingValue(
+                        text: formattedValue,
+                        selection: TextSelection.fromPosition(
+                          TextPosition(offset: formattedValue.length),
+                        ),
+                      );
+
+                      var valuex = value.replaceAll(",", "");
+                      valuex = value.replaceAll(".", "");
+                      controller.amount = double.tryParse(valuex) ?? 0;
                     },
                     onFieldSubmitted: (value) {
-                      controller.amount = double.tryParse(value) ?? 0;
-                      controller.textEditingController.text =
-                          controller.amount.number;
+                      // controller.amount = double.tryParse(value) ?? 0;
                     },
                   ),
                 ),

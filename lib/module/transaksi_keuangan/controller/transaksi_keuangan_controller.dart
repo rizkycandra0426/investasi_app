@@ -295,4 +295,5 @@ class TransaksiKeuanganController extends State<TransaksiKeuanganView> {
   }
 
   TextEditingController textEditingController = TextEditingController();
+  FocusNode focusNode = FocusNode();
 }
