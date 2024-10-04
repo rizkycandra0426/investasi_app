@@ -17,7 +17,7 @@ class KursView extends StatefulWidget {
               Text(
                 textAlign: TextAlign.center,
                 "Nilai Tukar Rupiah (Rp.) Terhadapat Mata Uang Asing",
-                style: TextStyle(fontSize: 20, color: Colors.black),
+                style: TextStyle(fontSize: 16, color: Colors.black),
               ),
               SizedBox(height: 10),
               Container(
@@ -34,11 +34,11 @@ class KursView extends StatefulWidget {
                   children: [
                     Text(
                       "Negara",
-                      style: TextStyle(fontSize: 20, color: Colors.white),
+                      style: TextStyle(fontSize: 16, color: Colors.white),
                     ),
                     Text(
                       "Nilai Tukar",
-                      style: TextStyle(fontSize: 20, color: Colors.white),
+                      style: TextStyle(fontSize: 16, color: Colors.white),
                     ),
                   ],
                 ),
