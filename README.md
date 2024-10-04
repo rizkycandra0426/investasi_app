@@ -1,6 +1,6 @@
-- data aplikasi hilang ketika reload aplikasinya itu dia gk kesimpen datanya
+v data aplikasi hilang ketika reload aplikasinya itu dia gk kesimpen datanya
 
-- ⁠bagian transaksi keuangan bisa dibuatin rp gitu pas dia ngetik jadinya tau berapa gitu
+v ⁠bagian transaksi keuangan bisa dibuatin rp gitu pas dia ngetik jadinya tau berapa gitu
 
 v ⁠terus bisa bantuin dibagian edit current price yang real timenya belum bisa
 
