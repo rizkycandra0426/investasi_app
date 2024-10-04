@@ -40,17 +40,6 @@ class _DemoSahamViewState extends State<DemoSahamView> {
                 Spacer(),
                 IconButton(
                   onPressed: () {
-                    TRX.generateOneTrade();
-                    setState(() {});
-                  },
-                  icon: Icon(
-                    Icons.add,
-                    size: 16.0,
-                    color: Colors.white,
-                  ),
-                ),
-                IconButton(
-                  onPressed: () {
                     TRX.cleanData();
                     setState(() {});
                     PortofolioNewController.instance.reload();

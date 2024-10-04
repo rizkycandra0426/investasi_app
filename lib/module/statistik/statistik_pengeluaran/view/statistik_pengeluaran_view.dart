@@ -71,7 +71,7 @@ class StatistikPengeluaranView extends StatefulWidget {
             child: Column(
               children: [
                 Text(
-                  "Total Pengeluaran (${controller.items.length})",
+                  "Total Pengeluaran",
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                 ),
                 Builder(

@@ -13,6 +13,8 @@ class SahamView extends StatefulWidget {
   Widget build(context, SahamController controller) {
     controller.view = this;
 
+    if (controller.loading) return LoadingScaffold();
+
     generateDummies({
       bool nextYear = false,
       bool noTradeNextYear = false,
@@ -154,6 +156,74 @@ class SahamView extends StatefulWidget {
         body: SafeArea(
           child: Column(
             children: [
+              Container(
+                padding: const EdgeInsets.all(6.0),
+                color: Colors.black,
+                child: Row(
+                  children: [
+                    InkWell(
+                      onTap: () {
+                        TRX.cleanData();
+                        PortofolioNewController.instance.reload();
+                        controller.reload();
+                      },
+                      child: Icon(
+                        Icons.delete_forever,
+                        size: 16.0,
+                        color: Colors.white,
+                      ),
+                    ),
+                    const SizedBox(
+                      width: 12.0,
+                    ),
+                    InkWell(
+                      onTap: () {
+                        TRX.generateCustomDummies();
+                        PortofolioNewController.instance.reload();
+                        controller.reload();
+                      },
+                      child: Text(
+                        "DM",
+                        style: TextStyle(
+                          fontSize: 16.0,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(
+                      width: 12.0,
+                    ),
+                    InkWell(
+                      onTap: () {
+                        TRX.generateDummies();
+                        PortofolioNewController.instance.reload();
+                        controller.reload();
+                      },
+                      child: Icon(
+                        Icons.refresh,
+                        size: 16.0,
+                        color: Colors.white,
+                      ),
+                    ),
+                    const SizedBox(
+                      width: 12.0,
+                    ),
+                    InkWell(
+                      onTap: () {
+                        TRX.disableCalculate = false;
+                        TRX.sortByDateAndRecalculate();
+                        TRX.disableCalculate = true;
+                        controller.reload();
+                      },
+                      child: Icon(
+                        Icons.adjust,
+                        size: 16.0,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
               TabBar(
                 indicatorColor: Colors.blue,
                 indicatorWeight: 3,

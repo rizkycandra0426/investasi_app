@@ -1,9 +1,11 @@
-v 1. ⁠ketika topup dan witdraw dana pas ganti 2025 malah yang keisi dananya yg 2024 dan kinerjanya jadi ngawur yg di 2024
+- data aplikasi hilang ketika reload aplikasinya itu dia gk kesimpen datanya
 
-v 2. ⁠histori tahunan yang tahunan ketika gamti tahun langsung pindah ke tahun 2025
+- ⁠bagian transaksi keuangan bisa dibuatin rp gitu pas dia ngetik jadinya tau berapa gitu
 
-v 3. Register belum bisa verifikasi email
+v ⁠terus bisa bantuin dibagian edit current price yang real timenya belum bisa
 
-v 4. ⁠ketika logout data portofolio masih nyangkut
+v ⁠bagian profile buat scroll bisa masden?
 
-v 5. API Realtime
+v ⁠untuk fitur portofolio bisa dibuat fitur reload gk masden kayak yang di demo itu
+
+- ⁠fitur deposito masih main”

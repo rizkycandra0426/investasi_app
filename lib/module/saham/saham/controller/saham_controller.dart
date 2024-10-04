@@ -21,4 +21,15 @@ class SahamController extends State<SahamView> {
 
   @override
   Widget build(BuildContext context) => widget.build(context, this);
+
+  bool loading = false;
+  void reload() async {
+    loading = true;
+    setState(() {});
+
+    await Future.delayed(Duration(seconds: 1));
+
+    loading = false;
+    setState(() {});
+  }
 }

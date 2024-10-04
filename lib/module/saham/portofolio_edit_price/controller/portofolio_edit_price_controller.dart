@@ -26,6 +26,7 @@ class PortofolioEditPriceController extends State<PortofolioEditPriceView> {
   @override
   Widget build(BuildContext context) => widget.build(context, this);
 
+  double realtimePrice = 0;
   double price = 0;
   save() async {
     showLoading();
@@ -43,10 +44,11 @@ class PortofolioEditPriceController extends State<PortofolioEditPriceView> {
   useRealtimePrice() async {
     try {
       loading = true;
+      price = realtimePrice;
       setState(() {});
 
-      var newPrice = await StockNewService.getRealtimePrice(widget.item.target);
-      price = newPrice;
+      await Future.delayed(Duration(milliseconds: 1000));
+
       loading = false;
       setState(() {});
     } on Exception catch (_) {
