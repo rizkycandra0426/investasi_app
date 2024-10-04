@@ -63,7 +63,9 @@ class TransaksiKeuanganView extends StatefulWidget {
                       hintStyle: TextStyle(color: Colors.white, fontSize: 26),
                     ),
                     onChanged: (value) {
-                      final NumberFormat _numberFormat = NumberFormat('#,###');
+                      final NumberFormat _numberFormat = NumberFormat(
+                        '#,###',
+                      );
                       final formattedValue = _numberFormat.format(
                           double.tryParse(value.replaceAll(',', '')) ?? 0);
                       controller.textEditingController.value = TextEditingValue(

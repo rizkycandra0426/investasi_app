@@ -13,6 +13,15 @@ class TransaksiKeuanganController extends State<TransaksiKeuanganView> {
     instance = this;
     loadData();
     super.initState();
+    focusNode.addListener(() {
+      if (focusNode.hasFocus) {
+        if (textEditingController.text.isEmpty) {
+          textEditingController.text = "0";
+        }
+        amount = double.parse(textEditingController.text);
+        setState(() {});
+      }
+    });
   }
 
   @override
