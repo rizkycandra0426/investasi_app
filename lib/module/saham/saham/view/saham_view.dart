@@ -1,11 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hyper_ui/core.dart';
-import 'package:hyper_ui/main.dart';
-import 'package:hyper_ui/module/saham/saham/widget/simple_tabbar.dart';
-import 'package:hyper_ui/module/saham/stock_list/view/stock_list_view.dart';
-import 'package:hyper_ui/service/offline_service.dart';
-import '../controller/saham_controller.dart';
 
 class SahamView extends StatefulWidget {
   const SahamView({Key? key}) : super(key: key);
@@ -143,6 +138,28 @@ class SahamView extends StatefulWidget {
             },
             child: Text("Saham"),
           ),
+          actions: [
+            GestureDetector(
+              onTap: () {
+                TRX.cleanData();
+                PortofolioNewController.instance.reload();
+                controller.reload();
+              },
+              onDoubleTap: () {
+                TRX.generateCustomDummies();
+                PortofolioNewController.instance.reload();
+                controller.reload();
+              },
+              child: Icon(
+                Icons.delete_forever,
+                size: 20.0,
+                color: Colors.black,
+              ),
+            ),
+            const SizedBox(
+              width: 12.0,
+            ),
+          ],
           centerTitle: true,
           backgroundColor: Colors.white,
           titleTextStyle: TextStyle(
@@ -156,74 +173,6 @@ class SahamView extends StatefulWidget {
         body: SafeArea(
           child: Column(
             children: [
-              Container(
-                padding: const EdgeInsets.all(6.0),
-                color: Colors.black,
-                child: Row(
-                  children: [
-                    InkWell(
-                      onTap: () {
-                        TRX.cleanData();
-                        PortofolioNewController.instance.reload();
-                        controller.reload();
-                      },
-                      child: Icon(
-                        Icons.delete_forever,
-                        size: 16.0,
-                        color: Colors.white,
-                      ),
-                    ),
-                    const SizedBox(
-                      width: 12.0,
-                    ),
-                    InkWell(
-                      onTap: () {
-                        TRX.generateCustomDummies();
-                        PortofolioNewController.instance.reload();
-                        controller.reload();
-                      },
-                      child: Text(
-                        "DM",
-                        style: TextStyle(
-                          fontSize: 16.0,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                    const SizedBox(
-                      width: 12.0,
-                    ),
-                    InkWell(
-                      onTap: () {
-                        TRX.generateDummies();
-                        PortofolioNewController.instance.reload();
-                        controller.reload();
-                      },
-                      child: Icon(
-                        Icons.refresh,
-                        size: 16.0,
-                        color: Colors.white,
-                      ),
-                    ),
-                    const SizedBox(
-                      width: 12.0,
-                    ),
-                    InkWell(
-                      onTap: () {
-                        TRX.disableCalculate = false;
-                        TRX.sortByDateAndRecalculate();
-                        TRX.disableCalculate = true;
-                        controller.reload();
-                      },
-                      child: Icon(
-                        Icons.adjust,
-                        size: 16.0,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
               TabBar(
                 indicatorColor: Colors.blue,
                 indicatorWeight: 3,

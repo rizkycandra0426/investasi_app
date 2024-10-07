@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:hyper_ui/core.dart';
-import 'package:hyper_ui/module/pencatatan_keuangan/dashboard/view/dashboard_view.dart';
 
 class MainNavigationView extends StatefulWidget {
   MainNavigationView({Key? key}) : super(key: key);

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:hyper_ui/core.dart';
-import '../view/buy_deposito_view.dart';
 
 class BuyDepositoController extends State<BuyDepositoView> {
   static late BuyDepositoController instance;

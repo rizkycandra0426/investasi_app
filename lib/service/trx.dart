@@ -1,11 +1,7 @@
 import 'dart:convert';
-import 'dart:ffi';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:hyper_ui/core.dart';
-import 'package:hyper_ui/service/demo_saham.dart';
-import 'package:hyper_ui/shared/util/type_extension/date_extension.dart';
 
 enum TopupType {
   topupBalance,
@@ -565,7 +561,13 @@ class TRX {
       valuation = getLastCurrentValuationOfAllSaham();
     }
 
-    if (type == TopupType.devidenSaham || type == TopupType.devidenDeposito) {
+    // if (type == TopupType.devidenSaham || type == TopupType.devidenDeposito) {
+    //   newValuationPlusSaldo = saldo + valuation;
+    //   newJumlahUnit = getJumlahUnitTerakhir();
+    //   newHargaUnit = newValuationPlusSaldo / newJumlahUnit;
+    // }
+
+    if (type == TopupType.devidenSaham) {
       newValuationPlusSaldo = saldo + valuation;
       newJumlahUnit = getJumlahUnitTerakhir();
       newHargaUnit = newValuationPlusSaldo / newJumlahUnit;
@@ -573,9 +575,18 @@ class TRX {
 
     if (type == TopupType.buyDeposito) {
       saldo = getSaldoTerakhir() - amount;
-      newHargaUnit = getHargaUnitTerakhir();
+      newValuationPlusSaldo = saldo + valuation;
+      // newHargaUnit = getHargaUnitTerakhir();
       newJumlahUnit = getJumlahUnitTerakhir();
+      newHargaUnit = newValuationPlusSaldo / newJumlahUnit;
       modal = getModalTerakhir();
+    }
+
+    if (type == TopupType.devidenDeposito) {
+      newValuationPlusSaldo = saldo + valuation;
+      newJumlahUnit = getJumlahUnitTerakhir();
+      // newHargaUnit = modal / newJumlahUnit;
+      newHargaUnit = newValuationPlusSaldo / newJumlahUnit;
     }
 
     double newDeviden = 0;
@@ -921,6 +932,13 @@ class TRX {
 
   static cleanData() {
     historyList.value.clear();
+    StockNewService.ihsgStart = 0;
+    StockNewService.ihsgEnd = 0;
+    StockNewService.ihsgEndNextYear = 0;
+    StockNewService.ihsgStartNextYear = 0;
+    DBService.set("ihsg_start", "0");
+    DBService.set("ihsg_end", "0");
+
     addAdjustment(
       date: DateTime(2024, 1, 1),
     );
@@ -942,7 +960,6 @@ class TRX {
     int qty = 1;
     double price = 100000000;
     double total = qty * price;
-
     topup(
       date: DateTime(2024, 01, 01),
       amount: 10000000,
@@ -957,75 +974,19 @@ class TRX {
       saham: "ABBA",
     );
 
-    sell(
-      date: DateTime(2024, 02, 01),
-      qty: 500,
-      price: 2000,
-      currentPrice: 2000,
-      saham: "ABBA",
-    );
-
-    buy(
-      date: DateTime(2024, 02, 01),
-      qty: 1000,
-      price: 1000,
-      currentPrice: 1000,
-      saham: "BBCA",
-    );
-
-    buy(
-      date: DateTime(2024, 02, 01),
-      qty: 1000,
-      price: 1000,
-      currentPrice: 1000,
-      saham: "BRIS",
-    );
-
     topup(
-      date: DateTime(2024, 5, 01),
+      date: DateTime(2024, 05, 01),
       amount: 1000000,
-      type: TopupType.devidenSaham,
-      saham: "ABBA",
-    );
-
-    topup(
-      date: DateTime(2024, 5, 02),
-      amount: 10000000,
-      type: TopupType.devidenDeposito,
+      type: TopupType.buyDeposito,
       namaBank: "MANDIRI",
     );
 
-    buy(
-      date: DateTime(2024, 02, 01),
-      qty: 1000,
-      price: 1000,
-      currentPrice: 1000,
-      saham: "BBCA",
+    topup(
+      date: DateTime(2024, 05, 02),
+      amount: 1000000,
+      type: TopupType.devidenDeposito,
+      namaBank: "MANDIRI",
     );
-
-    buy(
-      date: DateTime(2024, 02, 01),
-      qty: 1000,
-      price: 1000,
-      currentPrice: 1000,
-      saham: "BRIS",
-    );
-
-    sell(
-      date: DateTime(2024, 06, 01),
-      qty: 500,
-      price: 2000,
-      currentPrice: 2000,
-      saham: "BRIS",
-    );
-
-    // sell(
-    //   date: DateTime(2024, 07, 01),
-    //   qty: 500,
-    //   price: 1200,
-    //   currentPrice: 2000,
-    //   saham: "ABBA",
-    // );
   }
 
   static generateDummies() {

@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:hyper_ui/core.dart';
-import 'package:hyper_ui/service/kurs_service.dart';
-import '../view/kurs_view.dart';
 
 class KursController extends State<KursView> {
   static late KursController instance;

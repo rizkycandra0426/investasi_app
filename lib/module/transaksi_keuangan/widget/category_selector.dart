@@ -2,7 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:hyper_ui/core.dart';
-import 'package:hyper_ui/module/transaksi_keuangan/controller/transaksi_keuangan_controller.dart';
 
 class CategorySelectorView extends StatefulWidget {
   const CategorySelectorView({Key? key}) : super(key: key);

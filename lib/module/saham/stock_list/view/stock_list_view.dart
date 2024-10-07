@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:hyper_ui/core.dart';
-import 'package:hyper_ui/service/offline_service.dart';
-import '../controller/stock_list_controller.dart';
 
 class StockListView extends StatefulWidget {
   final bool portofolioMode;

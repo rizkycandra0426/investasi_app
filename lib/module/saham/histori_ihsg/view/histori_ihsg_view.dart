@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:hyper_ui/core.dart';
-import 'package:syncfusion_flutter_charts/charts.dart';
-import '../controller/histori_ihsg_controller.dart';
 
 class HistoriIhsgView extends StatefulWidget {
   const HistoriIhsgView({Key? key}) : super(key: key);

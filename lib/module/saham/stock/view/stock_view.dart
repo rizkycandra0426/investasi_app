@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:hyper_ui/core.dart';
-import 'package:hyper_ui/shared/widget/dio_list/list_view.dart';
-import '../controller/stock_controller.dart';
 
 class StockView extends StatefulWidget {
   const StockView({Key? key}) : super(key: key);

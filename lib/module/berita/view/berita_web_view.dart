@@ -31,6 +31,10 @@ class BeritaWebView extends StatelessWidget {
       ),
       body: InAppWebView(
         initialUrlRequest: URLRequest(url: Uri.parse(url)),
+        // onReceivedServerTrustAuthRequest: (controller, challenge) async {
+        //   return ServerTrustAuthResponse(
+        //       action: ServerTrustAuthResponseAction.PROCEED);
+        // },
       ),
     );
   }

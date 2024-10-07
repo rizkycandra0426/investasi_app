@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:hyper_ui/core.dart';
-import 'package:hyper_ui/service/berita_service.dart';
-import '../view/berita_view.dart';
 
 int? lastIdBerita;
 bool adaBeritaBaru = false;

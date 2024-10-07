@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hyper_ui/service/notification_scheduler_service.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:hyper_ui/core.dart';
-import '../view/notifikasi_view.dart';
 
 class NotifikasiController extends State<NotifikasiView> {
   static late NotifikasiController instance;

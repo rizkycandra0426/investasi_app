@@ -2,8 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:hyper_ui/core.dart';
-import 'package:hyper_ui/service/trx.dart';
-import 'package:hyper_ui/shared/widget/extra/topbar.dart';
 
 class DemoSahamView extends StatefulWidget {
   DemoSahamView({Key? key}) : super(key: key);
@@ -282,7 +280,7 @@ class _DemoSahamViewState extends State<DemoSahamView> {
                                         item.pl.number,
                                       ),
                                       getWidgetC(
-                                        "Valuation + Saldo",
+                                        "V+S",
                                         item.valuationPlusSaldo.number,
                                       ),
                                       getWidgetC(

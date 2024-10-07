@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:hyper_ui/core.dart';
-import 'package:hyper_ui/service/category_request_service.dart';
-import '../view/kategori_request_view.dart';
 
 class KategoriRequestController extends State<KategoriRequestView> {
   static late KategoriRequestController instance;

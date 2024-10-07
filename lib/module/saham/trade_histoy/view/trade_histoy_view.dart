@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:hyper_ui/core.dart';
-import 'package:hyper_ui/main.dart';
-import '../controller/trade_histoy_controller.dart';
 
 class TradeHistoyView extends StatefulWidget {
   const TradeHistoyView({

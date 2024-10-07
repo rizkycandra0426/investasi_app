@@ -1,17 +1,21 @@
 import 'dart:io';
 
 import 'package:firebase_core/firebase_core.dart';
-import 'package:hyper_ui/service/offline_service.dart';
-import 'package:hyper_ui/service/stock_new_service.dart';
-import 'package:hyper_ui/state_util.dart';
 import 'package:hyper_ui/core.dart';
 import 'package:flutter/material.dart';
-import 'package:hyper_ui/service/db_service.dart';
-import 'package:permission_handler/permission_handler.dart';
 
 // fund_alloc
 // value_effect
 // NaN
+
+class MyHttpOverrides extends HttpOverrides {
+  @override
+  HttpClient createHttpClient(SecurityContext? context) {
+    return super.createHttpClient(context)
+      ..badCertificateCallback =
+          (X509Certificate cert, String host, int port) => true;
+  }
+}
 
 bool isDeveloper = false;
 List<String> superDevs = [
@@ -19,6 +23,7 @@ List<String> superDevs = [
 ];
 
 void main() async {
+  HttpOverrides.global = MyHttpOverrides();
   WidgetsFlutterBinding.ensureInitialized();
   await DBService.init();
   // await DBService.clear("token");

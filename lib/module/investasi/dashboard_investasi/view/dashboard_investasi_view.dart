@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:hyper_ui/core.dart';
-import '../controller/dashboard_investasi_controller.dart';
 
 class DashboardInvestasiView extends StatefulWidget {
   const DashboardInvestasiView({Key? key}) : super(key: key);

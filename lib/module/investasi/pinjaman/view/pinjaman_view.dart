@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:hyper_ui/core.dart';
-import 'package:hyper_ui/module/investasi/pinjaman/widget/pinjaman_clippath.dart';
-import 'package:hyper_ui/module/investasi/pinjaman/widget/pinjaman_detail.dart';
-import 'package:hyper_ui/shared/util/type_extension/num_extension.dart';
-import '../controller/pinjaman_controller.dart';
 
 class PinjamanView extends StatefulWidget {
   const PinjamanView({Key? key}) : super(key: key);

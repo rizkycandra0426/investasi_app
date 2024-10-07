@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:hyper_ui/core.dart';
-import 'package:hyper_ui/shared/widget/loading/loading_scaffold.dart';
-import '../controller/catatan_pengeluaran_controller.dart';
 
 class CatatanPengeluaranView extends StatefulWidget {
   CatatanPengeluaranView({Key? key}) : super(key: key);

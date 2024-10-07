@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:hyper_ui/core.dart';
-import '../view/portofolio_edit_price_view.dart';
 
 class PortofolioEditPriceController extends State<PortofolioEditPriceView> {
   static late PortofolioEditPriceController instance;

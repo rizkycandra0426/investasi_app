@@ -1,5 +1,4 @@
 import 'package:hyper_ui/core.dart';
-import 'package:hyper_ui/model/pengeluaran_response.dart';
 import 'package:hyper_ui/service/base_service.dart';
 
 class KursService extends BaseService<Map<String, dynamic>> {

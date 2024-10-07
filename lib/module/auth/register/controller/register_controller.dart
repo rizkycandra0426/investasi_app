@@ -1,9 +1,6 @@
-import 'package:faker_dart/faker_dart.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:hyper_ui/core.dart';
-import '../view/register_view.dart';
 
 class RegisterController extends State<RegisterView> {
   static late RegisterController instance;

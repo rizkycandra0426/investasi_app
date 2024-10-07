@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:hyper_ui/core.dart';
-import 'package:hyper_ui/module/berita/view/berita_web_view.dart';
-import '../controller/berita_controller.dart';
 
 class BeritaView extends StatefulWidget {
   const BeritaView({Key? key}) : super(key: key);

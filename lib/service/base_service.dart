@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart';
 import 'package:hyper_ui/env.dart';
-import 'package:hyper_ui/model/kategori_pemasukan_response.dart';
 import 'package:hyper_ui/service/auth_service.dart';
 import 'package:hyper_ui/shared/util/dio_interceptors/dio_interceptors.dart';
 

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:hyper_ui/core.dart';
-import 'package:hyper_ui/service/budget_service.dart';
 
 class KategoriListView extends StatefulWidget {
   const KategoriListView({Key? key}) : super(key: key);

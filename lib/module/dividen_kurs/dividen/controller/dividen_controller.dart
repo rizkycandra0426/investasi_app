@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:hyper_ui/core.dart';
-import 'package:hyper_ui/service/dividen_service.dart';
-import '../view/dividen_view.dart';
 
 class DividenController extends State<DividenView> {
   static late DividenController instance;

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:hyper_ui/core.dart';
-import '../view/stock_list_view.dart';
 
 class StockListController extends State<StockListView> {
   static late StockListController instance;

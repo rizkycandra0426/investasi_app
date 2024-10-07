@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:hyper_ui/core.dart';
-import '../controller/dividen_controller.dart';
 
 class DividenView extends StatefulWidget {
   const DividenView({Key? key}) : super(key: key);

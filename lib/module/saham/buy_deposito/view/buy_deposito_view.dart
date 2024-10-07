@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:hyper_ui/core.dart';
-import '../controller/buy_deposito_controller.dart';
 
 class BuyDepositoView extends StatefulWidget {
   const BuyDepositoView({super.key});

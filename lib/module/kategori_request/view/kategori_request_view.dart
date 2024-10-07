@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:hyper_ui/core.dart';
-import 'package:hyper_ui/module/kategori_request/widget/request_clippath.dart';
-import '../controller/kategori_request_controller.dart';
 
 class KategoriRequestView extends StatefulWidget {
   KategoriRequestView({Key? key}) : super(key: key);

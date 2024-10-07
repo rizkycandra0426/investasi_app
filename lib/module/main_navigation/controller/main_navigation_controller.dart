@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:hyper_ui/core.dart';
 import 'package:permission_handler/permission_handler.dart';
-import '../view/main_navigation_view.dart';
 
 class MainNavigationController extends State<MainNavigationView> {
   static late MainNavigationController instance;

@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:hyper_ui/core.dart';
-import 'package:hyper_ui/module/investasi/lumpsum_investasi/widget/detail_investasi.dart';
-import 'package:hyper_ui/shared/util/type_extension/num_extension.dart';
-import '../controller/lumpsum_investasi_controller.dart';
 
 class LumpsumInvestasiView extends StatefulWidget {
   LumpsumInvestasiView({Key? key}) : super(key: key);

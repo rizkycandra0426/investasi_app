@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:hyper_ui/core.dart';
-import 'package:hyper_ui/shared/util/type_extension/date_extension.dart';
-import '../controller/history_transaksi_controller.dart';
 
 class HistoryTransaksiView extends StatefulWidget {
   final String emiten;

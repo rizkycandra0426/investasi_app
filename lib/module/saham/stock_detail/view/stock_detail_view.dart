@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hyper_ui/core.dart';
-import 'package:hyper_ui/model/stock_detail_response.dart';
-import 'package:hyper_ui/module/saham/stock_detail/widget/widget_beli.dart';
-import 'package:hyper_ui/module/saham/stock_detail/widget/widget_jual.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
-import '../controller/stock_detail_controller.dart';
 
 class StockDetailView extends StatefulWidget {
   StockDetailView({

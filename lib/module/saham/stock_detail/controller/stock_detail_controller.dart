@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hyper_ui/core.dart';
 import 'package:hyper_ui/model/stock_detail_response.dart';
-import 'package:hyper_ui/service/stock_service.dart';
-import '../view/stock_detail_view.dart';
 
 class StockDetailController extends State<StockDetailView> {
   static late StockDetailController instance;

@@ -3,7 +3,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hyper_ui/core.dart';
 import 'package:lottie/lottie.dart';
-import '../controller/splash_screen_controller.dart';
 
 class SplashScreenView extends StatefulWidget {
   const SplashScreenView({Key? key}) : super(key: key);

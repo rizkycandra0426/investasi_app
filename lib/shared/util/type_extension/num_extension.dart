@@ -30,7 +30,7 @@ extension DoubleExtension on double? {
 
       var value = (this! * 1.0);
       return '${NumberFormat().format((value ?? 0).ceil())}';
-    } on Exception catch (err) {
+    } on Exception {
       return '0';
     }
   }

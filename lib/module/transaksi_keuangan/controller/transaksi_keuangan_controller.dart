@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:hyper_ui/core.dart';
-import 'package:hyper_ui/module/transaksi_keuangan/widget/category_selector.dart';
-import 'package:hyper_ui/service/offline_service.dart';
-import '../view/transaksi_keuangan_view.dart';
 
 class TransaksiKeuanganController extends State<TransaksiKeuanganView> {
   static late TransaksiKeuanganController instance;
@@ -18,9 +15,15 @@ class TransaksiKeuanganController extends State<TransaksiKeuanganView> {
         if (textEditingController.text.isEmpty) {
           textEditingController.text = "0";
         }
-        amount = double.parse(textEditingController.text);
+        amount = double.parse(textEditingController.text.replaceAll(",", ""));
+        print("amount: $amount");
         setState(() {});
       }
+    });
+
+    textEditingController.addListener(() {
+      if (textEditingController.text.isEmpty) return;
+      amount = double.parse(textEditingController.text.replaceAll(",", ""));
     });
   }
 
@@ -110,6 +113,10 @@ class TransaksiKeuanganController extends State<TransaksiKeuanganView> {
   }
 
   save() async {
+    amount = double.parse(textEditingController.text.replaceAll(",", ""));
+    printg(textEditingController.text);
+    printg(amount);
+
     bool isValid = formKey.currentState!.validate();
     if (!isValid || idCategory <= 0 || categoryName.isEmpty || memo.isEmpty) {
       snackbarDanger(message: "Data tidak lengkap!");
@@ -141,6 +148,8 @@ class TransaksiKeuanganController extends State<TransaksiKeuanganView> {
         }
       }
       var newId = highestId + 1;
+      var userId = currentUser!.userId!;
+      newId = (userId * 10000) + newId;
 
       OfflineService.add("pemasukan", {
         "id_pemasukan": newId,

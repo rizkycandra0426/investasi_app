@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:hyper_ui/core.dart';
-import '../view/lupa-password_view.dart';
 
 class LupaPasswordController extends State<LupaPasswordView> {
   static late LupaPasswordController instance;
@@ -73,7 +72,7 @@ class LupaPasswordController extends State<LupaPasswordView> {
       hideLoading();
       ss("Reset password success!");
       Get.back();
-    } on Exception catch (err) {
+    } on Exception {
       hideLoading();
       se("Invalid verification code!");
     }

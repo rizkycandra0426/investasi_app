@@ -1,12 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:hyper_ui/core.dart';
-import 'package:hyper_ui/module/pencatatan_keuangan/dashboard/controller/dashboard_controller.dart';
-import 'package:hyper_ui/module/pencatatan_keuangan/dashboard/widget/dashboard_card.dart';
-import 'package:hyper_ui/module/pencatatan_keuangan/dashboard/widget/dashboard_clippath.dart';
-import 'package:hyper_ui/module/pencatatan_keuangan/laporan_keuangan_bulanan/view/laporan_keuangan_bulanan_view.dart';
-import 'package:hyper_ui/module/pencatatan_keuangan/laporan_keuangan_harian/view/laporan_keuangan_harian_view.dart';
-import 'package:hyper_ui/module/pencatatan_keuangan/laporan_keuangan_kalender/view/laporan_keuangan_kalender_view.dart';
-import 'package:hyper_ui/service/offline_service.dart';
 
 class DashboardView extends StatefulWidget {
   DashboardView({Key? key}) : super(key: key);

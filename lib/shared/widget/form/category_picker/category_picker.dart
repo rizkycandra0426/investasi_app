@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:hyper_ui/core.dart';
 
 class QCategoryPicker extends StatefulWidget {
   final List<Map<String, dynamic>> items;

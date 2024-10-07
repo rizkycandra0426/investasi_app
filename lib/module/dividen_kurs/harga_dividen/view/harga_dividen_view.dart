@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:hyper_ui/core.dart';
-import 'package:hyper_ui/module/dividen_kurs/dividen/view/dividen_view.dart';
-import 'package:hyper_ui/module/dividen_kurs/kurs/view/kurs_view.dart';
-import '../controller/harga_dividen_controller.dart';
 
 class HargaDividenView extends StatefulWidget {
   const HargaDividenView({Key? key}) : super(key: key);

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:hyper_ui/core.dart';
-import '../view/histori_ihsg_view.dart';
 
 class HistoriIhsgController extends State<HistoriIhsgView> {
   static late HistoriIhsgController instance;

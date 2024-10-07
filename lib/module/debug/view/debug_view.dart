@@ -1,12 +1,9 @@
 import 'dart:async';
 import 'dart:math';
 
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hyper_ui/core.dart';
-import 'package:hyper_ui/service/offline_service.dart';
-import 'package:permission_handler/permission_handler.dart';
 
 class DebugView extends StatefulWidget {
   final BuildContext context;

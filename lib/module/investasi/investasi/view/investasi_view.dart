@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:hyper_ui/core.dart';
-import 'package:hyper_ui/module/investasi/investasi/widget/investasi_clippath.dart';
-import '../controller/investasi_controller.dart';
 
 class InvestasiView extends StatefulWidget {
   const InvestasiView({Key? key}) : super(key: key);

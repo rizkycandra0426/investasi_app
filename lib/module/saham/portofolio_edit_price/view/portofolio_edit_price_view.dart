@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:hyper_ui/core.dart';
-import '../controller/portofolio_edit_price_controller.dart';
 
 class PortofolioEditPriceView extends StatefulWidget {
   final History item;

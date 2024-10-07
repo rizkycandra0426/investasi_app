@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:hyper_ui/core.dart';
-import 'package:hyper_ui/module/investasi/bulanan_investasi/widget/bulanan_detail.dart';
-import 'package:hyper_ui/shared/util/type_extension/num_extension.dart';
-import '../controller/bulanan_investasi_controller.dart';
 
 class BulananInvestasiView extends StatefulWidget {
   const BulananInvestasiView({Key? key}) : super(key: key);

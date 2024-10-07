@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:hyper_ui/core.dart';
-import '../view/portofolio_trade_view.dart';
 
 class PortofolioTradeController extends State<PortofolioTradeView> {
   static late PortofolioTradeController instance;

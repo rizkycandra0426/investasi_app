@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hyper_ui/core.dart';
-import 'package:hyper_ui/module/profile/widget/profile_card.dart';
-import 'package:hyper_ui/module/profile/widget/profile_clippath.dart';
 
-import 'package:hyper_ui/shared/util/animation/animation.dart';
-import '../controller/profile_controller.dart';
 
 class ProfileView extends StatefulWidget {
   ProfileView({Key? key}) : super(key: key);

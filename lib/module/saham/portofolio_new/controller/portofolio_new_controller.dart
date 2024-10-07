@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:hyper_ui/core.dart';
-import 'package:hyper_ui/service/offline_service.dart';
-import '../view/portofolio_new_view.dart';
 
 class PortofolioNewController extends State<PortofolioNewView> {
   static late PortofolioNewController instance;

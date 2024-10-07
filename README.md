@@ -1,11 +1,16 @@
-v data aplikasi hilang ketika reload aplikasinya itu dia gk kesimpen datanya
+- IHSG Belum terhapus jika logout
 
-v ⁠bagian transaksi keuangan bisa dibuatin rp gitu pas dia ngetik jadinya tau berapa gitu
+1. deposit 10jt
+2. Belikan deposito 1 jt jadi sisa dana 9jt, harga unit 1000 dan yied 0%
+    saldo: 9jt
 
-v ⁠terus bisa bantuin dibagian edit current price yang real timenya belum bisa
+3. Topup deviden deposito 1 jt jadi dana 10jt dan yield naik 10% harga unit jadi 1100
+    saldo: 10jt
+    harga_unit: 11.000.000/10.000 = 1000
 
-v ⁠bagian profile buat scroll bisa masden?
+4. beli abba 1000 x 1000 , harga naik ke 2000
+    sharusnya 
+        harga_unit = 1200
+        yield = 20
 
-v ⁠untuk fitur portofolio bisa dibuat fitur reload gk masden kayak yang di demo itu
 
-- ⁠fitur deposito masih main”

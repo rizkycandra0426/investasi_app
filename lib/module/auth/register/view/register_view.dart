@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:hyper_ui/core.dart';
-import '../controller/register_controller.dart';
 
 class RegisterView extends StatefulWidget {
   RegisterView({Key? key}) : super(key: key);

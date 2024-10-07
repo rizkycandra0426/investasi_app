@@ -2,7 +2,6 @@ import 'package:hyper_ui/core.dart';
 import 'package:hyper_ui/model/transaction_by_month_and_year_response.dart';
 import 'package:hyper_ui/model/transaction_by_year_response.dart';
 import 'package:hyper_ui/model/transaction_categories_by_month_and_year_response.dart';
-import 'package:hyper_ui/service/offline_service.dart';
 
 class TransactionHistoryService extends BaseService {
   Future<TransactionByMonthAndYearResponse> byMonthAndYear({

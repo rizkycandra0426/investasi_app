@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:hyper_ui/core.dart';
-import 'package:hyper_ui/module/statistik/statistik_dashboard/widget/statistik_clippath.dart';
-import '../controller/statistik_dashboard_controller.dart';
 
 class StatistikDashboardView extends StatefulWidget {
   const StatistikDashboardView({Key? key}) : super(key: key);

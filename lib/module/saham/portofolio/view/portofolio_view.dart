@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:hyper_ui/core.dart';
-import '../controller/portofolio_controller.dart';
-import '../widget/balance_widget.dart';
 
 class PortofolioView extends StatefulWidget {
   const PortofolioView({Key? key}) : super(key: key);

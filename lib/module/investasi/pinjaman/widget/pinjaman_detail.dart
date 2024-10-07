@@ -5,7 +5,6 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:hyper_ui/core.dart';
 
-import 'pinjaman_indexed_value_item.dart';
 
 class PinjamanDetail extends StatelessWidget {
   const PinjamanDetail({Key? key}) : super(key: key);

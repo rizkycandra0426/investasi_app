@@ -1,8 +1,6 @@
 // ignore_for_file: camel_case_types, prefer_typing_uninitialized_variables
 
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:hyper_ui/env.dart';
 import 'package:hyper_ui/shared/util/dio_interceptors/dio_interceptors.dart';
 import 'package:hyper_ui/shared/util/log/log.dart';
 

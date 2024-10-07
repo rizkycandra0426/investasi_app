@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:hyper_ui/core.dart';
-import 'package:hyper_ui/service/saldo_service.dart';
 
 class BalanceWidget extends StatefulWidget {
   final bool enableTopup;

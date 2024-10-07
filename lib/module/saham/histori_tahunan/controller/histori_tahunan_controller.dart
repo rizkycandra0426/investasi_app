@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:hyper_ui/core.dart';
-import '../view/histori_tahunan_view.dart';
 
 class HistoriTahunanController extends State<HistoriTahunanView> {
   static late HistoriTahunanController instance;

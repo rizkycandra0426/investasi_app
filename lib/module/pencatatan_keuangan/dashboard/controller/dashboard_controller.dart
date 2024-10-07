@@ -2,11 +2,6 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:hyper_ui/core.dart';
-import 'package:hyper_ui/module/pencatatan_keuangan/laporan_keuangan_bulanan/controller/laporan_keuangan_bulanan_controller.dart';
-import 'package:hyper_ui/module/pencatatan_keuangan/laporan_keuangan_harian/controller/laporan_keuangan_harian_controller.dart';
-import 'package:hyper_ui/module/pencatatan_keuangan/laporan_keuangan_kalender/controller/laporan_keuangan_kalender_controller.dart';
-import 'package:hyper_ui/service/offline_service.dart';
-import '../view/dashboard_view.dart';
 
 class DashboardController extends State<DashboardView> {
   static late DashboardController instance;

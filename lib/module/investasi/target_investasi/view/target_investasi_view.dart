@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:hyper_ui/core.dart';
-import 'package:hyper_ui/module/investasi/target_investasi/widget/target_detail.dart';
-import 'package:hyper_ui/shared/util/type_extension/num_extension.dart';
-import '../controller/target_investasi_controller.dart';
 
 class TargetInvestasiView extends StatefulWidget {
   const TargetInvestasiView({Key? key}) : super(key: key);

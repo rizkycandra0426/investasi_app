@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hyper_ui/core.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
-import '../controller/histori_tahunan_detail_controller.dart';
 
 class HistoriTahunanDetailView extends StatefulWidget {
   final int year;
