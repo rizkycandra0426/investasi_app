@@ -51,7 +51,13 @@ class BeritaView extends StatefulWidget {
 
                   return InkWell(
                     onTap: () async {
-                      Get.to(BeritaWebView(url: item["url"]));
+                      // Get.to(BeritaWebView(url: item["url"]));
+                      var url = item['url'];
+                      if (await canLaunchUrl(Uri.parse(url))) {
+                        await launchUrl(Uri.parse(url));
+                      } else {
+                        throw 'Could not launch $url';
+                      }
                     },
                     child: Card(
                       clipBehavior: Clip.antiAlias,
