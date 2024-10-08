@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hyper_ui/core.dart';
 
-
 class ProfileView extends StatefulWidget {
   ProfileView({Key? key}) : super(key: key);
 
@@ -37,75 +36,75 @@ class ProfileView extends StatefulWidget {
         //   ),
         // ],
       ),
-      body: SingleChildScrollView(
-        controller: ScrollController(),
-        child: SizedBox(
-          height: MediaQuery.of(context).size.height,
-          width: MediaQuery.of(context).size.width,
-          child: Stack(
-            children: [
-              ClipPath(
-                clipper: ProfileCardClipPath(),
-                child: Container(
-                  height: 300,
-                  width: MediaQuery.of(context).size.width,
-                  color: primaryColor,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      SizedBox(height: 60),
-                      CircleAvatar(
-                        radius: 50,
-                        backgroundImage: AssetImage('assets/images/robot.png'),
-                        backgroundColor:
-                            Colors.white, // Ganti dengan path gambar Anda
-                      ),
-                      SizedBox(
-                          height: 10), // Spasi antara CircleAvatar dan teks
-                      Text(
-                        "${currentUser!.name}",
-                        style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.normal,
-                            fontFamily: "Montserrat",
-                            color: Colors.white),
-                      ),
-                      SizedBox(height: 5), // Spasi antara nama dan email
-                      Text(
-                        "${currentUser!.email}",
-                        style: TextStyle(
-                            fontSize: 16,
-                            fontFamily: "Montserrat",
-                            color: Colors.white,
-                            fontWeight: FontWeight.normal),
-                      ),
-                    ],
-                  ),
+      body: SizedBox(
+        height: MediaQuery.of(context).size.height,
+        width: MediaQuery.of(context).size.width,
+        child: Stack(
+          children: [
+            ClipPath(
+              clipper: ProfileCardClipPath(),
+              child: Container(
+                height: 300,
+                width: MediaQuery.of(context).size.width,
+                color: primaryColor,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SizedBox(height: 60),
+                    CircleAvatar(
+                      radius: 50,
+                      backgroundImage: AssetImage('assets/images/robot.png'),
+                      backgroundColor:
+                          Colors.white, // Ganti dengan path gambar Anda
+                    ),
+                    SizedBox(height: 10), // Spasi antara CircleAvatar dan teks
+                    Text(
+                      "${currentUser!.name}",
+                      style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.normal,
+                          fontFamily: "Montserrat",
+                          color: Colors.white),
+                    ),
+                    SizedBox(height: 5), // Spasi antara nama dan email
+                    Text(
+                      "${currentUser!.email}",
+                      style: TextStyle(
+                          fontSize: 16,
+                          fontFamily: "Montserrat",
+                          color: Colors.white,
+                          fontWeight: FontWeight.normal),
+                    ),
+                  ],
                 ),
               ),
-              Positioned(
-                top: 300,
-                left: 0,
-                right: 0,
-                child: ProfileCard(),
-              ),
-              Positioned(
-                top: 420,
-                left: 20,
-                child: Text(
-                  "Settings",
-                  style: TextStyle(
-                    fontSize: 18,
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold,
-                    fontFamily: 'Montserrat',
-                  ),
+            ),
+            Positioned(
+              top: 300,
+              left: 0,
+              right: 0,
+              child: ProfileCard(),
+            ),
+            Positioned(
+              top: 420,
+              left: 20,
+              child: Text(
+                "Settings",
+                style: TextStyle(
+                  fontSize: 18,
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: 'Montserrat',
                 ),
               ),
-              Positioned(
-                top: 450,
-                left: 20,
-                right: 20,
+            ),
+            Positioned(
+              top: 450,
+              left: 20,
+              right: 20,
+              bottom: 0,
+              child: SingleChildScrollView(
+                controller: ScrollController(),
                 child: Column(
                   children: [
                     Material(
@@ -205,18 +204,11 @@ class ProfileView extends StatefulWidget {
                           onTap: () => controller.logout()),
                     ),
                     SizedBox(height: 5), // Spasi antara ListTile
-                    Container(
-                      height: 100,
-                      width: MediaQuery.of(context).size.width,
-                      decoration: const BoxDecoration(
-                        color: Colors.white,
-                      ),
-                    ),
                   ],
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

@@ -149,7 +149,7 @@ class TransaksiKeuanganController extends State<TransaksiKeuanganView> {
       }
       var newId = highestId + 1;
       var userId = currentUser!.userId!;
-      newId = (userId * 10000) + newId;
+      newId = (userId * 100000) + newId;
 
       OfflineService.add("pemasukan", {
         "id_pemasukan": newId,
@@ -186,7 +186,10 @@ class TransaksiKeuanganController extends State<TransaksiKeuanganView> {
           highestId = item["id_pengeluaran"];
         }
       }
+
       var newId = highestId + 1;
+      var userId = currentUser!.userId!;
+      newId = (userId * 100000) + newId;
 
       OfflineService.add("pengeluaran", {
         "id_pengeluaran": newId,
