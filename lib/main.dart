@@ -25,6 +25,7 @@ List<String> superDevs = [
 void main() async {
   HttpOverrides.global = MyHttpOverrides();
   WidgetsFlutterBinding.ensureInitialized();
+  DateTime start = DateTime.now();
   await DBService.init();
   // await DBService.clear("token");
   // await DBService.deleteAll();
@@ -60,6 +61,10 @@ void main() async {
     print("8. load local values");
     await OfflineService.loadLocalValues();
   }
+
+  DateTime end = DateTime.now();
+  var diffInSeconds = end.difference(start).inSeconds;
+  printr("[PERFORMANCE] Time taken: $diffInSeconds seconds before runMainApp");
 
   runMainApp();
 }

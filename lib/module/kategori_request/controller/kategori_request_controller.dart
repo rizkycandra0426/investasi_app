@@ -38,6 +38,12 @@ class KategoriRequestController extends State<KategoriRequestView> {
   }
 
   submit() async {
+    var index = items.indexWhere((i) => i["nama_kategori"] == namaKategori);
+    if (index > -1) {
+      se("Kategori sudah ada!");
+      return;
+    }
+
     try {
       showLoading();
       await CategoryRequestService().create({
@@ -49,7 +55,7 @@ class KategoriRequestController extends State<KategoriRequestView> {
       getData();
     } on Exception catch (err) {
       hideLoading();
-      snackbarDanger(message: "$err");
+      se("$err");
     }
   }
 }

@@ -58,111 +58,114 @@ class PortofolioTradeView extends StatefulWidget {
       body: controller.loading
           ? loadingWidget
           : SingleChildScrollView(
-              child: Container(
-                padding: const EdgeInsets.all(20.0),
-                child: Column(
-                  children: [
-                    QNumberField(
-                      label: "Price",
-                      validator: Validator.required,
-                      value: controller.price.toString(),
-                      onChanged: (value) {
-                        controller.price = double.tryParse(value) ?? 0;
-                      },
-                    ),
-                    QButton(
-                      label: "Use Realtime Price",
-                      color: Colors.grey,
-                      onPressed: () => controller.useRealtimePrice(),
-                    ),
-                    Container(
-                      width: MediaQuery.of(context).size.width,
-                      height: 1.0,
-                      child: InAppWebView(
-                        initialUrlRequest: URLRequest(
-                          url: Uri.parse(
-                              "https://id.tradingview.com/symbols/IDX-${namaSaham}/"),
-                        ),
-                        onLoadStop: (webController, url) {
-                          print("onLoadStop $url");
-                          // get html of #js-category-content > div.tv-react-category-header > div.js-symbol-page-header-root > div > div.symbolRow-OJZRoKx6.hideTabs-OJZRoKx6 > div > div.quotesRow-pAUXADuj > div:nth-child(1) > div > div.lastContainer-JWoJqCpY > span.last-JWoJqCpY.js-symbol-last > span?
-                          webController.evaluateJavascript(source: """
+              child: Form(
+                key: controller.formKey,
+                child: Container(
+                  padding: const EdgeInsets.all(20.0),
+                  child: Column(
+                    children: [
+                      QNumberField(
+                        label: "Price",
+                        validator: Validator.required,
+                        value: controller.price.toString(),
+                        onChanged: (value) {
+                          controller.price = double.tryParse(value) ?? 0;
+                        },
+                      ),
+                      QButton(
+                        label: "Use Realtime Price",
+                        color: Colors.grey,
+                        onPressed: () => controller.useRealtimePrice(),
+                      ),
+                      Container(
+                        width: MediaQuery.of(context).size.width,
+                        height: 1.0,
+                        child: InAppWebView(
+                          initialUrlRequest: URLRequest(
+                            url: Uri.parse(
+                                "https://id.tradingview.com/symbols/IDX-${namaSaham}/"),
+                          ),
+                          onLoadStop: (webController, url) {
+                            print("onLoadStop $url");
+                            // get html of #js-category-content > div.tv-react-category-header > div.js-symbol-page-header-root > div > div.symbolRow-OJZRoKx6.hideTabs-OJZRoKx6 > div > div.quotesRow-pAUXADuj > div:nth-child(1) > div > div.lastContainer-JWoJqCpY > span.last-JWoJqCpY.js-symbol-last > span?
+                            webController.evaluateJavascript(source: """
                             var price = document.querySelector("#js-category-content > div.tv-react-category-header > div.js-symbol-page-header-root > div > div.symbolRow-OJZRoKx6.hideTabs-OJZRoKx6 > div > div.quotesRow-pAUXADuj > div:nth-child(1) > div > div.lastContainer-JWoJqCpY > span.last-JWoJqCpY.js-symbol-last > span").innerText;
                             price;
                           """).then((value) {
-                            print("value: $value");
-                            if (value != null) {
-                              controller.realtimePrice =
-                                  double.tryParse(value) ?? 0.0;
-                              //MEMEFI
-                              //MAJOR
-                              //TOMARKET
-                            }
-                          });
-                        },
+                              print("value: $value");
+                              if (value != null) {
+                                controller.realtimePrice =
+                                    double.tryParse(value) ?? 0.0;
+                                //MEMEFI
+                                //MAJOR
+                                //TOMARKET
+                              }
+                            });
+                          },
+                        ),
                       ),
-                    ),
-                    const SizedBox(
-                      height: 12.0,
-                    ),
-                    QDatePicker(
-                      label: "Date",
-                      validator: Validator.required,
-                      value: controller.date,
-                      onChanged: (value) {
-                        print("value: $value");
-                        controller.date = value;
-                      },
-                    ),
-                    QNumberField(
-                      label: "Volume",
-                      validator: Validator.required,
-                      value: controller.volume.toString(),
-                      onChanged: (value) {
-                        controller.volume = int.tryParse(value) ?? 0;
-                        controller.reload();
-                      },
-                    ),
-                    AbsorbPointer(
-                      child: QNumberField(
-                        key: Key("${controller.volume}"),
-                        label: "Total",
+                      const SizedBox(
+                        height: 12.0,
+                      ),
+                      QDatePicker(
+                        label: "Date",
                         validator: Validator.required,
-                        value: controller.total.toString(),
-                        onChanged: (value) {},
+                        value: controller.date,
+                        onChanged: (value) {
+                          print("value: $value");
+                          controller.date = value;
+                        },
                       ),
-                    ),
-                    QDropdownField(
-                      label: "Sekuritas",
-                      validator: Validator.required,
-                      items: [
-                        {
-                          "label": "Ajaib",
-                          "value": "Ajaib",
+                      QNumberField(
+                        label: "Volume",
+                        validator: Validator.required,
+                        value: controller.volume.toString(),
+                        onChanged: (value) {
+                          controller.volume = int.tryParse(value) ?? 0;
+                          controller.reload();
                         },
-                        {
-                          "label": "Bibit",
-                          "value": "Bibit",
+                      ),
+                      AbsorbPointer(
+                        child: QNumberField(
+                          key: Key("${controller.volume}"),
+                          label: "Total",
+                          validator: Validator.required,
+                          value: controller.total.toString(),
+                          onChanged: (value) {},
+                        ),
+                      ),
+                      QDropdownField(
+                        label: "Sekuritas",
+                        validator: Validator.required,
+                        items: [
+                          {
+                            "label": "Ajaib",
+                            "value": "Ajaib",
+                          },
+                          {
+                            "label": "Bibit",
+                            "value": "Bibit",
+                          },
+                          {
+                            "label": "Stockbit",
+                            "value": "Stockbit",
+                          },
+                          {
+                            "label": "IPOT",
+                            "value": "IPOT",
+                          },
+                          {
+                            "label": "RTI Business",
+                            "value": "RTI Business",
+                          }
+                        ],
+                        value: controller.sekuritas,
+                        onChanged: (value, label) {
+                          controller.sekuritas = value;
                         },
-                        {
-                          "label": "Stockbit",
-                          "value": "Stockbit",
-                        },
-                        {
-                          "label": "IPOT",
-                          "value": "IPOT",
-                        },
-                        {
-                          "label": "RTI Business",
-                          "value": "RTI Business",
-                        }
-                      ],
-                      value: controller.sekuritas,
-                      onChanged: (value, label) {
-                        controller.sekuritas = value;
-                      },
-                    ),
-                  ],
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),

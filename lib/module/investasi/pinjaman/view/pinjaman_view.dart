@@ -294,10 +294,11 @@ class PinjamanView extends StatefulWidget {
                                     30), // Border radius 30
                               ),
                             ),
-                            onPressed: () {
+                            onPressed: () async {
                               print("HITUNG?");
-                              controller.hitung();
-                              Get.to(PinjamanDetail());
+                              if (await controller.hitung()) {
+                                Get.to(PinjamanDetail());
+                              }
                             },
                             child: Ink(
                               decoration: BoxDecoration(
@@ -330,7 +331,8 @@ class PinjamanView extends StatefulWidget {
                               ),
                             ),
                             onPressed: () {
-                              controller.reset();
+                              Get.back();
+                              Get.to(PinjamanView());
                             },
                             child: Ink(
                               decoration: BoxDecoration(

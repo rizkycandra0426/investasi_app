@@ -51,7 +51,18 @@ class PortofolioTradeController extends State<PortofolioTradeView> {
     setState(() {});
   }
 
+  GlobalKey<FormState> formKey = GlobalKey<FormState>();
   trade() async {
+    bool isNotValid = formKey.currentState!.validate() == false;
+    if (isNotValid) {
+      return;
+    }
+
+    if (price == 0) {
+      se("Price cannot be 0");
+      return;
+    }
+
     if (widget.sellMode) {
       //sell mode
       if (widget.editMode) {

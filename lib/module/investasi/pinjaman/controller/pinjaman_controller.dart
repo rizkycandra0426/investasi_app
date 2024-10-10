@@ -50,7 +50,15 @@ class PinjamanController extends State<PinjamanView> {
     scrollController.jumpTo(0);
   }
 
-  hitung() async {
+  Future<bool> hitung() async {
+    if (pinjamanAwal == 0 ||
+        jangkaWaktuDalamBulan == 0 ||
+        persentaseBunga == 0) {
+      se("Mohon isi semua field");
+      setState(() {});
+      return false;
+    }
+
     hitungNilaiPinjaman();
     setState(() {
       isButtonPressed = true;
@@ -59,6 +67,7 @@ class PinjamanController extends State<PinjamanView> {
     await Future.delayed(Duration(milliseconds: 250));
     scrollController.jumpTo(scrollController.position.maxScrollExtent);
     print("Scroll to bottom");
+    return true;
   }
 
   void hitungNilaiPinjaman() {

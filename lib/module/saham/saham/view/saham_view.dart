@@ -140,15 +140,21 @@ class SahamView extends StatefulWidget {
           ),
           actions: [
             GestureDetector(
-              onTap: () {
-                TRX.cleanData();
-                PortofolioNewController.instance.reload();
-                controller.reload();
+              onTap: () async {
+                bool confirmed = await showConfirmationDialog();
+                if (confirmed) {
+                  TRX.cleanData();
+                  PortofolioNewController.instance.reload();
+                  controller.reload();
+                }
               },
-              onDoubleTap: () {
-                TRX.generateCustomDummies();
-                PortofolioNewController.instance.reload();
-                controller.reload();
+              onDoubleTap: () async {
+                bool confirmed = await showConfirmationDialog();
+                if (confirmed) {
+                  TRX.generateCustomDummies();
+                  PortofolioNewController.instance.reload();
+                  controller.reload();
+                }
               },
               child: Icon(
                 Icons.delete_forever,

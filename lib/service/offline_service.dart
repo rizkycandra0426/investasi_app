@@ -8,7 +8,7 @@ class OfflineService {
     "kategori-pengeluaran",
     "pemasukan",
     "pengeluaran",
-    "berita",
+    // "berita",
   ];
 
   static List get(String key) {
