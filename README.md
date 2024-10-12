@@ -21,4 +21,4 @@ v pada saat edit transaksi pencatatan keuangan dia gk bisa masden selalu 0 kebac
 --------------------
 v ⁠pada saat mau ngulang membuat portofolio bisa pake bahasa indonesia
 v ⁠bisa buatkan validasi harus kelipatan 100 dibagian volume pada saat membeli dan menjual
-- ⁠notifikasi belum berjalan
+v ⁠notifikasi belum berjalan
