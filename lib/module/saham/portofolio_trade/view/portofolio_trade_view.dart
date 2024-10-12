@@ -118,7 +118,7 @@ class PortofolioTradeView extends StatefulWidget {
                       ),
                       QNumberField(
                         label: "Volume",
-                        validator: Validator.required,
+                        validator: Validator.multipleOf100,
                         value: controller.volume.toString(),
                         onChanged: (value) {
                           controller.volume = int.tryParse(value) ?? 0;

@@ -15,11 +15,11 @@ Widget QDismissible({
         barrierDismissible: true,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: const Text('Confirm'),
+            title: const Text('Konfirmasi'),
             content: SingleChildScrollView(
               child: ListBody(
                 children: const <Widget>[
-                  Text('Are you sure you want to delete this item?'),
+                  Text('Apakah kamu yakin ingin menghapus data?'),
                 ],
               ),
             ),

@@ -1,7 +1,6 @@
 {
     "modules": [
-        "stock_report",
-        "buy_deposito"
+        "debug_user"
     ],
     "module_directory_name": "module/saham",
     "experimental_mode": false,

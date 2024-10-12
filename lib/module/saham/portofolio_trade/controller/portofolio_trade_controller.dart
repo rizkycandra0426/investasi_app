@@ -40,7 +40,7 @@ class PortofolioTradeController extends State<PortofolioTradeView> {
 
   double realtimePrice = 0;
   double price = 0;
-  int volume = 1;
+  int volume = 100;
   DateTime date = DateTime.now();
   String sekuritas = "Ajaib";
   double get total {

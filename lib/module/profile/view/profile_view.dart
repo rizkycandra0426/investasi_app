@@ -51,11 +51,20 @@ class ProfileView extends StatefulWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     SizedBox(height: 60),
-                    CircleAvatar(
-                      radius: 50,
-                      backgroundImage: AssetImage('assets/images/robot.png'),
-                      backgroundColor:
-                          Colors.white, // Ganti dengan path gambar Anda
+                    GestureDetector(
+                      onLongPress: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => DebugUserView()),
+                        );
+                      },
+                      child: CircleAvatar(
+                        radius: 50,
+                        backgroundImage: AssetImage('assets/images/robot.png'),
+                        backgroundColor:
+                            Colors.white, // Ganti dengan path gambar Anda
+                      ),
                     ),
                     SizedBox(height: 10), // Spasi antara CircleAvatar dan teks
                     Text(

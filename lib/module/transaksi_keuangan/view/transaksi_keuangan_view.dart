@@ -73,7 +73,7 @@ class TransaksiKeuanganView extends StatefulWidget {
                       );
 
                       var valuex = value.replaceAll(",", "");
-                      valuex = value.replaceAll(".", "");
+                      valuex = valuex.replaceAll(".", "");
                       controller.amount = double.tryParse(valuex) ?? 0;
                     },
                     onFieldSubmitted: (value) {

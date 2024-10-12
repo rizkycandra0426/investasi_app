@@ -75,6 +75,8 @@ export 'package:hyper_ui/module/saham/auth/lupa-password/controller/lupa-passwor
 export 'package:hyper_ui/module/saham/auth/lupa-password/view/lupa-password_view.dart';
 export 'package:hyper_ui/module/saham/buy_deposito/controller/buy_deposito_controller.dart';
 export 'package:hyper_ui/module/saham/buy_deposito/view/buy_deposito_view.dart';
+export 'package:hyper_ui/module/saham/debug_user/controller/debug_user_controller.dart';
+export 'package:hyper_ui/module/saham/debug_user/view/debug_user_view.dart';
 export 'package:hyper_ui/module/saham/histori_dana/controller/histori_dana_controller.dart';
 export 'package:hyper_ui/module/saham/histori_dana/view/histori_dana_view.dart';
 export 'package:hyper_ui/module/saham/histori_ihsg/controller/histori_ihsg_controller.dart';

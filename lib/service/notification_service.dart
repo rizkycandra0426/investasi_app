@@ -5,7 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:hyper_ui/core.dart';
 
-
+String? fcmToken;
 @pragma('vm:entry-point')
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   print("Handling a background message: ${message.messageId}");
@@ -98,6 +98,8 @@ class FirebaseNotificationService {
     if (token == null) {
       throw Exception("Failed to get FCM token");
     }
+
+    fcmToken = token;
 
     // 1 user 1 fcmToken
     // mengirim notifikasi ke user tertentu

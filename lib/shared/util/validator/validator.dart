@@ -28,6 +28,45 @@ class Validator {
     return null;
   }
 
+  static String? multipleOf100(String? value) {
+    if (value!.isEmpty) return "This field is required";
+
+    final bool isNumber = RegExp(r"^[0-9]+$").hasMatch(value);
+    if (!isNumber) {
+      return "This field is not in a valid number format";
+    }
+
+    if (int.parse(value) % 100 != 0) {
+      return "This field must be a multiple of 100";
+    }
+    return null;
+  }
+
+  static String? requiredIf(bool condition, dynamic value) {
+    if (condition) {
+      return required(value);
+    }
+    return null;
+  }
+
+  static String? minLength(String? value, int length) {
+    if (value!.isEmpty) return "This field is required";
+
+    if (value.length < length) {
+      return "This field must be at least $length characters";
+    }
+    return null;
+  }
+
+  static String? maxLength(String? value, int length) {
+    if (value!.isEmpty) return "This field is required";
+
+    if (value.length > length) {
+      return "This field must be at most $length characters";
+    }
+    return null;
+  }
+
   static String? email(String? value) {
     if (value!.isEmpty) return "This field is required";
 

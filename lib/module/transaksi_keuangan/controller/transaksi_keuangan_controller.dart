@@ -225,7 +225,6 @@ class TransaksiKeuanganController extends State<TransaksiKeuanganView> {
     var inputKategoriPemasukanList = OfflineService.get("kategori-pemasukan");
     var inputKategoriPengeluaranList =
         OfflineService.get("kategori-pengeluaran");
-
     showLoading();
 
     if (isPemasukan) {
