@@ -605,7 +605,13 @@ class TRX {
     if (type == TopupType.topupBalance) {
       newYield = getLastYieldInRecord();
     } else if (type == TopupType.buyDeposito) {
-      newYield = getLastYieldInRecord();
+      //Versi lama-nya hanya baris ini
+      // newYield = getLastYieldInRecord();
+      double hargaUnitDiawalTahun = getHargaUnitDiawalTahun(date.year);
+      newYield =
+          (newHargaUnit - hargaUnitDiawalTahun) / hargaUnitDiawalTahun * 100;
+
+      print("BUYDEPOSITO: ${newYield}");
     } else if (type == TopupType.devidenDeposito ||
         type == TopupType.devidenSaham) {
       double hargaUnitDiawalTahun = getHargaUnitDiawalTahun(date.year);
@@ -960,6 +966,7 @@ class TRX {
     int qty = 1;
     double price = 100000000;
     double total = qty * price;
+
     topup(
       date: DateTime(2024, 01, 01),
       amount: 10000000,
@@ -974,15 +981,30 @@ class TRX {
       saham: "ABBA",
     );
 
+    buy(
+      date: DateTime(2024, 02, 01),
+      qty: 1000,
+      price: 1000,
+      currentPrice: 1500,
+      saham: "BBCA",
+    );
+
     topup(
-      date: DateTime(2024, 05, 01),
+      date: DateTime(2024, 05, 02),
+      amount: 1000000,
+      type: TopupType.devidenSaham,
+      saham: "ABBA",
+    );
+
+    topup(
+      date: DateTime(2024, 05, 03),
       amount: 1000000,
       type: TopupType.buyDeposito,
       namaBank: "MANDIRI",
     );
 
     topup(
-      date: DateTime(2024, 05, 02),
+      date: DateTime(2024, 05, 04),
       amount: 1000000,
       type: TopupType.devidenDeposito,
       namaBank: "MANDIRI",

@@ -55,7 +55,7 @@ class _DemoSahamViewState extends State<DemoSahamView> {
                     PortofolioNewController.instance.reload();
                   },
                   icon: Text(
-                    "DM",
+                    "Custom",
                     style: TextStyle(
                       fontSize: 16.0,
                       color: Colors.white,
@@ -172,56 +172,31 @@ class _DemoSahamViewState extends State<DemoSahamView> {
                             }
 
                             return Container(
-                              padding: const EdgeInsets.all(12.0),
+                              color: index % 2 == 0
+                                  ? Colors.grey[200]
+                                  : Colors.grey[300],
+                              margin: const EdgeInsets.only(
+                                bottom: 12.0,
+                              ),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Row(
-                                    children: [
-                                      Expanded(
-                                        child: getWidget(
-                                          null,
-                                          "${item.date.day}/${item.date.month}/${item.date.year}",
-                                        ),
-                                      ),
-                                      Expanded(
-                                        child: getWidget(
-                                          null,
-                                          item.activity,
-                                        ),
-                                      ),
-                                      Expanded(
-                                        child: getWidget(
-                                          null,
-                                          item.target,
-                                        ),
-                                      ),
-                                    ],
+                                  getWidget(
+                                    null,
+                                    "#${index + 1} >>> ${item.date.day}/${item.date.month}/${item.date.year} | ${item.activity} | ${item.target} | ${item.sekuritas}",
                                   ),
                                   GridView(
                                     padding: EdgeInsets.zero,
                                     gridDelegate:
                                         const SliverGridDelegateWithFixedCrossAxisCount(
-                                      childAspectRatio: 1.0 / 0.56,
-                                      crossAxisCount: 4,
-                                      mainAxisSpacing: 6,
-                                      crossAxisSpacing: 6,
+                                      childAspectRatio: 1.0 / 0.60,
+                                      crossAxisCount: 5,
+                                      mainAxisSpacing: 0,
+                                      crossAxisSpacing: 0,
                                     ),
                                     shrinkWrap: true,
                                     physics: const ScrollPhysics(),
                                     children: [
-                                      getWidgetC(
-                                        "Date",
-                                        "${item.date.day}/${item.date.month}/${item.date.year}",
-                                      ),
-                                      getWidgetC(
-                                        "Activity",
-                                        item.activity,
-                                      ),
-                                      getWidgetC(
-                                        "Target",
-                                        item.target,
-                                      ),
                                       getWidgetC(
                                         "Buying Price",
                                         item.buyingPrice.number,
@@ -303,13 +278,8 @@ class _DemoSahamViewState extends State<DemoSahamView> {
                                         "Yield",
                                         item.yieldValue.percentage,
                                       ),
-                                      getWidgetC(
-                                        "Sekuritas",
-                                        item.sekuritas.number,
-                                      ),
                                     ],
                                   ),
-                                  Divider(),
                                 ],
                               ),
                             );
