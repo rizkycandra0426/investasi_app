@@ -26,4 +26,14 @@ class HistoriDanaController extends State<HistoriDanaView> {
   reload() {
     setState(() {});
   }
+
+  double get totalJumlahUnit {
+    var histories = TRX.danaHistories;
+    return histories.fold(0.0, (prev, e) {
+      if (e.total < 0) {
+        return prev - e.jumlahUnit;
+      }
+      return prev + e.jumlahUnit;
+    });
+  }
 }

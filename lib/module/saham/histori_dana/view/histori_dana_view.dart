@@ -28,7 +28,8 @@ class HistoriDanaView extends StatefulWidget {
             )
           : QActionButton(
               color: Colors.blue,
-              label: "Balance: ${TRX.getSaldoTerakhir().number}",
+              // label: "Balance: ${TRX.getSaldoTerakhir().number}",
+              label: "Balance: ${controller.totalJumlahUnit.number}",
               onPressed: () {},
             ),
       body: Builder(builder: (context) {
