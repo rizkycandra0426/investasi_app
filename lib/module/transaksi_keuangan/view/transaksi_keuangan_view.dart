@@ -262,28 +262,33 @@ class TransaksiKeuanganView extends StatefulWidget {
                       child: Row(
                         children: [
                           Expanded(
-                            child: QDropdownField(
-                              label: "",
-                              validator: Validator.required,
-                              items: [
-                                {
-                                  "label": "Pemasukan",
-                                  "value": "Pemasukan",
+                            child: Builder(builder: (context) {
+                              return QDropdownField(
+                                label: "",
+                                validator: Validator.required,
+                                emptyMode: false,
+                                items: [
+                                  {
+                                    "label": "Pemasukan",
+                                    "value": "Pemasukan",
+                                  },
+                                  {
+                                    "label": "Pengeluaran",
+                                    "value": "Pengeluaran",
+                                  }
+                                ],
+                                value: controller.categoryValue,
+                                onChanged: (value, label) {
+                                  print("$value");
+                                  controller.isPemasukan =
+                                      value == "Pemasukkan";
+                                  controller.idCategory = 0;
+                                  controller.categoryName = "";
+                                  controller.categoryValue = value;
+                                  controller.reload();
                                 },
-                                {
-                                  "label": "Pengeluaran",
-                                  "value": "Pengeluaran",
-                                }
-                              ],
-                              value: "Pemasukan",
-                              onChanged: (value, label) {
-                                controller.isPemasukan =
-                                    value == "Pengeluaran" ? false : true;
-                                controller.idCategory = 0;
-                                controller.categoryName = "";
-                                controller.setState(() {});
-                              },
-                            ),
+                              );
+                            }),
                           ),
                           SizedBox(
                             width: 12.0,

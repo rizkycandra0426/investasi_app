@@ -11,6 +11,11 @@ class OfflineService {
     // "berita",
   ];
 
+  static reloadPemasukanAndPengeluaran() async {
+    await OfflineService.loadLocalValues(["pemasukan", "pengeluaran"]);
+    StatistikDashboardController.instance.reload();
+  }
+
   static List get(String key) {
     if (OfflineService.localValues["$key"] == null) return [];
     return OfflineService.localValues["$key"]!
@@ -81,15 +86,20 @@ class OfflineService {
     OfflineService.localValues[key]!.removeAt(currentValueIndex);
   }
 
-  static Future loadLocalValues() async {
+  static Future loadLocalValues([List<String> onlyKeys = const []]) async {
     if (token == null) return;
 
-    for (var key in keys) {
+    var targetKeys = keys;
+    if (onlyKeys.isNotEmpty) {
+      targetKeys = onlyKeys;
+    }
+
+    for (var key in targetKeys) {
       localValues["$key"] = await DBService.loadList("$key");
     }
 
     //Get updates from servers
-    for (var key in keys) {
+    for (var key in targetKeys) {
       try {
         var response = await dio.get(
           "/offline/$key",
@@ -103,6 +113,8 @@ class OfflineService {
         print(err);
       }
     }
+
+    if (onlyKeys.isNotEmpty) return;
 
     //### Independent sync
     StockNewService.stocks = await DBService.loadList("stocks");
@@ -239,5 +251,9 @@ class OfflineService {
     if (thereIsDeletedItem) {
       DashboardController.instance.reload();
     }
+
+    Future.delayed(Duration(seconds: 2), () {
+      reloadPemasukanAndPengeluaran();
+    });
   }
 }

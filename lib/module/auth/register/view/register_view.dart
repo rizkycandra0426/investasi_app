@@ -73,6 +73,19 @@ class RegisterView extends StatefulWidget {
                 value: controller.password,
               ),
               SizedBox(
+                height: 10,
+              ),
+              CustomTextField(
+                title: 'Konfirmasi password',
+                hintText: 'Konfirmasi password.....',
+                obscureText: true,
+                iconForm: "assets/icons/icon_password.png",
+                onChanged: (value) {
+                  controller.passwordConfirmation = value;
+                },
+                value: controller.password,
+              ),
+              SizedBox(
                 height: 25,
               ),
               SizedBox(

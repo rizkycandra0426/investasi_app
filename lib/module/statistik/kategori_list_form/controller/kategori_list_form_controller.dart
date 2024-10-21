@@ -13,7 +13,10 @@ class KategoriListFormController extends State<KategoriListFormView> {
   }
 
   void onReady() {
-    userBudget = getBudget(view.item.namaKategoriPengeluaran!);
+    userBudget = getBudget(
+      name: view.item.namaKategoriPengeluaran!,
+      month: AnggaranPengeluaranController.instance.selectedMonth.toString(),
+    );
   }
 
   @override

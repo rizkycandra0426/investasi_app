@@ -71,15 +71,26 @@ class BulananInvestasiView extends StatefulWidget {
                               fillColor: Colors.transparent,
                             ),
                             onChanged: (value) {
+                              final NumberFormat _numberFormat = NumberFormat(
+                                '#,###',
+                              );
+                              final formattedValue = _numberFormat.format(
+                                  double.tryParse(value.replaceAll(',', '')) ??
+                                      0);
+                              controller.investasiAwalController.value =
+                                  TextEditingValue(
+                                text: formattedValue,
+                                selection: TextSelection.fromPosition(
+                                  TextPosition(offset: formattedValue.length),
+                                ),
+                              );
+
+                              var valuex = value.replaceAll(",", "");
+                              valuex = valuex.replaceAll(".", "");
                               controller.investasiAwal =
-                                  double.tryParse(value) ?? 0;
+                                  double.tryParse(valuex) ?? 0;
                             },
-                            onFieldSubmitted: (value) {
-                              controller.investasiAwal =
-                                  double.tryParse(value) ?? 0;
-                              controller.investasiAwalController.text =
-                                  controller.investasiAwal.number;
-                            },
+                            onFieldSubmitted: (value) {},
                           ),
                         ),
                       ],
@@ -182,6 +193,7 @@ class BulananInvestasiView extends StatefulWidget {
                       key: Key(
                           "jenis_persentase_${controller.jenisPersentaseBunga}"),
                       label: "",
+                      emptyMode: false,
                       validator: Validator.required,
                       items: [
                         {
@@ -224,7 +236,7 @@ class BulananInvestasiView extends StatefulWidget {
                                 if ((double.tryParse(value!.toString()) ?? 0) >
                                     controller.maxPercentage) {
                                   // Set your maximum value here
-                                  return 'Persentase Melebihi Batas ${controller.maxPercentage}';
+                                  // return 'Persentase Melebihi Batas ${controller.maxPercentage}';
                                 }
                                 return null; // Valid
                               },

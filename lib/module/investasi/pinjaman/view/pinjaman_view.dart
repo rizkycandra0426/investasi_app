@@ -119,13 +119,29 @@ class PinjamanView extends StatefulWidget {
                                     );
                                   },
                                   onChanged: (value) {
+                                    final NumberFormat _numberFormat =
+                                        NumberFormat(
+                                      '#,###',
+                                    );
+                                    final formattedValue = _numberFormat.format(
+                                        double.tryParse(
+                                                value.replaceAll(',', '')) ??
+                                            0);
+                                    controller.pinjamanAwalController.value =
+                                        TextEditingValue(
+                                      text: formattedValue,
+                                      selection: TextSelection.fromPosition(
+                                        TextPosition(
+                                            offset: formattedValue.length),
+                                      ),
+                                    );
+
+                                    var valuex = value.replaceAll(",", "");
+                                    valuex = valuex.replaceAll(".", "");
                                     controller.pinjamanAwal =
-                                        (double.tryParse(value) ?? 0);
+                                        double.tryParse(valuex) ?? 0;
                                   },
-                                  onFieldSubmitted: (value) {
-                                    controller.pinjamanAwalController.text =
-                                        controller.pinjamanAwal.number;
-                                  },
+                                  onFieldSubmitted: (value) {},
                                 ),
                               ),
                             ],

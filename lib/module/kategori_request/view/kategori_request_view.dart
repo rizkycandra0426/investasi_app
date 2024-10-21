@@ -163,12 +163,53 @@ class KategoriRequestView extends StatefulWidget {
                     SizedBox(
                       height: 12.0,
                     ),
+                    Container(
+                      width: MediaQuery.of(context).size.width,
+                      child: SegmentedButton(
+                        showSelectedIcon: false,
+                        segments: const <ButtonSegment>[
+                          ButtonSegment(
+                            value: "Pending",
+                            label: Text(
+                              'Pending',
+                              style: TextStyle(
+                                fontSize: 12.0,
+                              ),
+                            ),
+                          ),
+                          ButtonSegment(
+                            value: "Approved",
+                            label: Text(
+                              'Approved',
+                              style: TextStyle(
+                                fontSize: 12.0,
+                              ),
+                            ),
+                          ),
+                          ButtonSegment(
+                            value: "Rejected",
+                            label: Text(
+                              'Rejected',
+                              style: TextStyle(
+                                fontSize: 12.0,
+                              ),
+                            ),
+                          ),
+                        ],
+                        selected: {controller.status},
+                        onSelectionChanged: (Set newSelection) {
+                          controller.updateStatus(newSelection.first);
+                        },
+                      ),
+                    ),
                     ListView.builder(
                       itemCount: controller.items.length,
                       shrinkWrap: true,
                       physics: ScrollPhysics(),
                       itemBuilder: (BuildContext context, int index) {
                         var item = controller.items[index];
+                        if (item['status'] != controller.status)
+                          return Container();
                         return ListTile(
                           contentPadding: EdgeInsets.all(0.0),
                           title: Text(

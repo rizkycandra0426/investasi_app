@@ -26,8 +26,14 @@ class RegisterController extends State<RegisterView> {
   String? name;
   String? email;
   String? password;
+  String? passwordConfirmation;
 
   register() async {
+    if (passwordConfirmation != password) {
+      showInfoDialog("Password confirmation must be the same as password");
+      return;
+    }
+
     showLoading();
     bool isSuccess = await AuthService().register(
       name: name!,
@@ -37,7 +43,7 @@ class RegisterController extends State<RegisterView> {
     hideLoading();
 
     if (!isSuccess) {
-      snackbarDanger(message: "Daftar akun gagal");
+      showInfoDialog("Daftar akun gagal");
       return;
     }
     Get.back();

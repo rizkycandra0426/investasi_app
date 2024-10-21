@@ -79,6 +79,14 @@ class TransaksiKeuanganController extends State<TransaksiKeuanganView> {
     kategoriPemasukanList = items;
   }
 
+  getSelectedCategories() {
+    if (isPemasukan) {
+      return kategoriPemasukanList;
+    } else {
+      return kategoriPengeluaranList;
+    }
+  }
+
   getPengeluaranCategories() async {
     var values = await OfflineService.get("kategori-pengeluaran");
     List items = [];
@@ -92,6 +100,7 @@ class TransaksiKeuanganController extends State<TransaksiKeuanganView> {
   }
 
   showBottomSheet() async {
+    print(getSelectedCategories());
     await Get.to(CategorySelectorView());
     setState(() {});
   }
@@ -234,10 +243,11 @@ class TransaksiKeuanganController extends State<TransaksiKeuanganView> {
       );
 
       var data = {
-        "tanggal": date.yMd,
+        "tanggal": widget.item!.tanggal!.yMd,
         "jumlah": double.parse(amount.toString()).floor(),
         "catatan": memo,
         "id_kategori_pemasukan": idCategory,
+        "created_at": widget.item!.createdAt!,
         "updated_at": DateTime.now().toString(),
         "kategori_pemasukan": category,
         "nama_kategori": category["nama_kategori_pemasukan"],
@@ -267,10 +277,11 @@ class TransaksiKeuanganController extends State<TransaksiKeuanganView> {
       printg(kategoriPengeluaranList);
 
       var data = {
-        "tanggal": date.yMd,
+        "tanggal": widget.item!.tanggal!.yMd,
         "jumlah": double.parse(amount.toString()).floor(),
         "catatan": memo,
         "id_kategori_pengeluaran": idCategory,
+        "created_at": widget.item!.createdAt!,
         "updated_at": DateTime.now().toString(),
         "kategori_pengeluaran": category,
         "nama_kategori": category["nama_kategori_pengeluaran"],
@@ -312,6 +323,11 @@ class TransaksiKeuanganController extends State<TransaksiKeuanganView> {
     OfflineService.syncPemasukanDanPengeluaranToServer();
     hideLoading();
     Get.back();
+  }
+
+  String categoryValue = "Pemasukan";
+  reload() async {
+    setState(() {});
   }
 
   TextEditingController textEditingController = TextEditingController();

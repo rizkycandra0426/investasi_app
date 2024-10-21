@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hyper_ui/core.dart';
+import 'package:hyper_ui/shared/widget/form/category_picker/category_picker2.dart';
 
 class AnggaranPengeluaranView extends StatefulWidget {
   const AnggaranPengeluaranView({Key? key}) : super(key: key);
@@ -7,13 +8,14 @@ class AnggaranPengeluaranView extends StatefulWidget {
   Widget build(context, AnggaranPengeluaranController controller) {
     controller.view = this;
     if (controller.response == null) return LoadingScaffold();
-
+    if (controller.loading) return LoadingScaffold();
     return Scaffold(
       // appBar: AppBar(
       //   title: const Text("AnggaranPengeluaran"),
       //   actions: const [],
       // ),
       body: ListView(
+        key: UniqueKey(),
         physics: ScrollPhysics(),
         children: [
           Padding(
@@ -94,7 +96,11 @@ class AnggaranPengeluaranView extends StatefulWidget {
             shrinkWrap: true,
             itemBuilder: (BuildContext context, int index) {
               var item = controller.response!.data![index];
-              var budget = getBudget(item.namaKategoriPengeluaran!);
+              var budget = getBudget(
+                name: item.namaKategoriPengeluaran!,
+                month: AnggaranPengeluaranController.instance.selectedMonth
+                    .toString(),
+              );
 
               return PengeluaranItem(
                 label: item.namaKategoriPengeluaran!,

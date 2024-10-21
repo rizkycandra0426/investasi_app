@@ -11,7 +11,10 @@ class KategoriListFormView extends StatefulWidget {
 
   Widget build(context, KategoriListFormController controller) {
     controller.view = this;
-    var budget = getBudget(item.namaKategoriPengeluaran!);
+    var budget = getBudget(
+      name: item.namaKategoriPengeluaran!,
+      month: AnggaranPengeluaranController.instance.selectedMonth.toString(),
+    );
 
     return Scaffold(
       appBar: AppBar(
@@ -35,7 +38,11 @@ class KategoriListFormView extends StatefulWidget {
                 label: "Save",
                 onPressed: () {
                   setBudget(
-                      item.namaKategoriPengeluaran!, controller.userBudget);
+                    name: item.namaKategoriPengeluaran!,
+                    month: AnggaranPengeluaranController.instance.selectedMonth
+                        .toString(),
+                    value: controller.userBudget,
+                  );
                   Navigator.pop(context);
                 },
               ),

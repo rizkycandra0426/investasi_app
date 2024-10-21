@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hyper_ui/core.dart';
 
 class QDropdownField extends StatefulWidget {
   final String label;
@@ -68,6 +69,12 @@ class _QDropdownFieldState extends State<QDropdownField> {
         "label": "-",
         "value": "-",
       };
+    } else {
+      var foundItems =
+          items.where((i) => i["value"] == selectedValue?["value"]).toList();
+      if (foundItems.isNotEmpty) {
+        return foundItems.first;
+      }
     }
     return items.first;
   }
@@ -128,13 +135,17 @@ class _QDropdownFieldState extends State<QDropdownField> {
                       color: Colors.grey[300],
                     ),
                     onChanged: (Map<String, dynamic>? newValue) {
-                      if (widget.emptyMode && newValue?["value"] == "-") {
+                      printo(newValue!["value"]);
+                      if (widget.emptyMode && newValue["value"] == "-") {
                         selectedValue = {
                           "label": "-",
                           "value": "-",
                         };
                       } else {
-                        selectedValue = newValue!;
+                        selectedValue = {
+                          "label": newValue["label"],
+                          "value": newValue["value"],
+                        };
                       }
                       setState(() {});
 

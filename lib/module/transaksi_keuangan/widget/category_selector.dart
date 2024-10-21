@@ -14,6 +14,7 @@ class _CategorySelectorViewState extends State<CategorySelectorView> {
   @override
   Widget build(BuildContext context) {
     var controller = TransaksiKeuanganController.instance;
+    var categories = controller.getSelectedCategories();
 
     return Scaffold(
       appBar: AppBar(
@@ -22,52 +23,28 @@ class _CategorySelectorViewState extends State<CategorySelectorView> {
       ),
       body: Column(
         children: [
-          if (controller.isPemasukan)
-            Expanded(
-              child: ListView.builder(
-                itemCount: controller.kategoriPemasukanList.length,
-                padding: EdgeInsets.all(12.0),
-                physics: ScrollPhysics(),
-                itemBuilder: (BuildContext context, int index) {
-                  var item = controller.kategoriPemasukanList[index];
-                  return Card(
-                    child: ListTile(
-                      title: Text(item["label"]),
-                      onTap: () {
-                        controller.setCategoryValue(
-                          item["value"],
-                          item["label"],
-                        );
-                        Get.back();
-                      },
-                    ),
-                  );
-                },
-              ),
+          Expanded(
+            child: ListView.builder(
+              itemCount: categories.length,
+              padding: EdgeInsets.all(12.0),
+              physics: ScrollPhysics(),
+              itemBuilder: (BuildContext context, int index) {
+                var item = categories[index];
+                return Card(
+                  child: ListTile(
+                    title: Text(item["label"]),
+                    onTap: () {
+                      controller.setCategoryValue(
+                        item["value"],
+                        item["label"],
+                      );
+                      Get.back();
+                    },
+                  ),
+                );
+              },
             ),
-          if (controller.isPengeluaran)
-            Expanded(
-              child: ListView.builder(
-                itemCount: controller.kategoriPengeluaranList.length,
-                padding: EdgeInsets.all(12.0),
-                physics: ScrollPhysics(),
-                itemBuilder: (BuildContext context, int index) {
-                  var item = controller.kategoriPengeluaranList[index];
-                  return Card(
-                    child: ListTile(
-                      title: Text(item["label"]),
-                      onTap: () {
-                        controller.setCategoryValue(
-                          item["value"],
-                          item["label"],
-                        );
-                        Get.back();
-                      },
-                    ),
-                  );
-                },
-              ),
-            ),
+          ),
         ],
       ),
     );

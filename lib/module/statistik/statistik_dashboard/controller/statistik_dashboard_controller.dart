@@ -38,4 +38,8 @@ class StatistikDashboardController extends State<StatistikDashboardView> {
     DateTime now = DateTime.now();
     return DateTime(now.year, (now.month + counter));
   }
+
+  reload() {
+    if (mounted) setState(() {});
+  }
 }

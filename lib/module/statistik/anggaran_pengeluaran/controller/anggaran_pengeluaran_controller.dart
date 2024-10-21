@@ -63,7 +63,10 @@ class AnggaranPengeluaranController extends State<AnggaranPengeluaranView> {
   double get totalBudget {
     double _total = 0;
     for (var item in response!.data!) {
-      var budget = getBudget(item.namaKategoriPengeluaran!);
+      var budget = getBudget(
+        name: item.namaKategoriPengeluaran!,
+        month: AnggaranPengeluaranController.instance.selectedMonth.toString(),
+      );
       if (budget == 0) continue;
       _total += budget;
     }
@@ -73,4 +76,6 @@ class AnggaranPengeluaranController extends State<AnggaranPengeluaranView> {
   double get sisa {
     return totalBudget - total;
   }
+
+  int get selectedMonth => DashboardController.instance.currentDate.month;
 }

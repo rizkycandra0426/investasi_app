@@ -16,6 +16,7 @@ class StatistikDashboardView extends StatefulWidget {
     );
 
     return Scaffold(
+      key: UniqueKey(),
       appBar: AppBar(
         elevation: 0.0,
         backgroundColor: primaryColor,

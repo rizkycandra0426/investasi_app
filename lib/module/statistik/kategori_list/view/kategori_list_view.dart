@@ -17,7 +17,11 @@ class KategoriListView extends StatefulWidget {
         physics: const ScrollPhysics(),
         itemBuilder: (BuildContext context, int index) {
           var item = controller.response!.data![index];
-          var budget = getBudget(item.namaKategoriPengeluaran!);
+          var budget = getBudget(
+            name: item.namaKategoriPengeluaran!,
+            month:
+                AnggaranPengeluaranController.instance.selectedMonth.toString(),
+          );
 
           return InkWell(
             onTap: () async {

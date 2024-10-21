@@ -58,4 +58,10 @@ class KategoriRequestController extends State<KategoriRequestView> {
       se("$err");
     }
   }
+
+  String status = "Pending";
+  updateStatus(String value) {
+    status = value;
+    setState(() {});
+  }
 }

@@ -53,17 +53,22 @@ class PengeluaranItem extends StatelessWidget {
                     bottom: 0,
                     child: LinearProgressIndicator(
                       value: progressPercentage,
-                      backgroundColor: Colors.grey[300],
+                      backgroundColor: Colors.grey[400],
                       color: percent < 100 ? Colors.blue : Colors.red,
                     ),
                   ),
                   Align(
                     alignment: Alignment.centerRight,
-                    child: Text(
-                      "${percent.toStringAsFixed(2)}%",
-                      style: TextStyle(
-                        fontSize: 14.0,
-                        color: Colors.black,
+                    child: Container(
+                      margin: const EdgeInsets.symmetric(
+                        horizontal: 12.0,
+                      ),
+                      child: Text(
+                        "${percent.toStringAsFixed(2)}%",
+                        style: TextStyle(
+                          fontSize: 12.0,
+                          color: Colors.black,
+                        ),
                       ),
                     ),
                   ),
