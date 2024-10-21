@@ -7,11 +7,11 @@ Issue tambahan
 - ⁠ lalu ketika beli saham lagi setelah melakukan beli deposito dan topup deviden deposito dia juga belum bener hancur perhitungannya pada kasus beli 2 saham kalo 1 saham aman dia
 
 [Pending]
-- Fitur catatan diganti menjadi seperti to do list gitu 
 - Perbaiki perhitungan investasi dan pinjaman ( untuk rumus dari java bisa ditranslete ke flutter tidak masden soalnya ini disuruh make rumus yg seperti temen saya)
 
 
 [Lainnya]
+v Fitur catatan diganti menjadi seperti to do list gitu 
 v tambahkan confirm password pada register
 v Ketika salah satu form tidak terisi pada saat transaksi keuangan, gk boleh keriset ulang 
 v Ketika ditambahkan di bulan november,  balance pada bulan november tidak muncul malah jadi satu di bulan oktobernya

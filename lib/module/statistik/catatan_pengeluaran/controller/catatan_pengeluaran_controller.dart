@@ -10,7 +10,7 @@ class CatatanPengeluaranController extends State<CatatanPengeluaranView> {
   void initState() {
     instance = this;
     super.initState();
-    getHistories();
+    getData();
   }
 
   @override
@@ -19,21 +19,39 @@ class CatatanPengeluaranController extends State<CatatanPengeluaranView> {
   @override
   Widget build(BuildContext context) => widget.build(context, this);
 
-  TransactionByMonthAndYearResponse? response;
-  bool loading = true;
-  getHistories({
-    int? month,
-    int? year,
-  }) async {
-    loading = true;
+  List items = [];
+  getData() async {
+    items = await DBService.loadList("catatan");
     setState(() {});
+  }
 
-    response = await TransactionHistoryService().byMonthAndYear(
-      month: month ?? DateTime.now().month,
-      year: year ?? DateTime.now().year,
-    );
+  String deskripsi = "";
+  double amount = 0;
 
-    loading = false;
+  create() {
+    if (deskripsi.isEmpty) {
+      showInfoDialog("Deskripsi tidak boleh kosong");
+      return;
+    }
+    if (amount == 0) {
+      showInfoDialog("Jumlah tidak boleh kosong");
+      return;
+    }
+
+    items.add({
+      "deskripsi": deskripsi,
+      "amount": amount,
+    });
+
+    ss("Berhasil menyimpan catatan!");
+    DBService.saveList("catatan", items);
+    setState(() {});
+  }
+
+  delete(Map item) {
+    items.remove(item);
+    ss("Berhasil menghapus catatan!");
+    DBService.saveList("catatan", items);
     setState(() {});
   }
 }

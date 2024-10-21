@@ -6,79 +6,82 @@ class CatatanPengeluaranView extends StatefulWidget {
 
   Widget build(context, CatatanPengeluaranController controller) {
     controller.view = this;
-    if (controller.loading) return LoadingScaffold();
-    var items = controller.response!.data!
-        .where((i) => i.type == "Pengeluaran")
-        .toList();
 
     return Scaffold(
       body: SingleChildScrollView(
         child: Container(
-          padding: EdgeInsets.all(10.0),
+          padding: const EdgeInsets.symmetric(
+            horizontal: 20.0,
+          ),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Text(
-                    "Catatan",
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                  ),
-                  Text(
-                    "Total",
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                  ),
-                ],
+              H5(
+                title: "Catatan",
+              ),
+              Divider(),
+              QTextField(
+                label: "Deskripsi",
+                validator: Validator.required,
+                value: controller.deskripsi,
+                onChanged: (value) {
+                  controller.deskripsi = value;
+                },
+              ),
+              QTextField(
+                label: "Jumlah",
+                validator: Validator.required,
+                value: controller.amount.toString(),
+                onChanged: (value) {
+                  controller.amount = double.tryParse(value) ?? 0;
+                },
+              ),
+              QButton(
+                label: "Catat",
+                onPressed: () => controller.create(),
               ),
               Divider(),
               ListView.builder(
-                itemCount: items.length,
                 shrinkWrap: true,
-                physics: ScrollPhysics(),
+                itemCount: controller.items.length,
+                physics: const ScrollPhysics(),
                 itemBuilder: (BuildContext context, int index) {
-                  var item = items[index];
-                  return Column(
-                    children: [
-                      Container(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 20.0,
-                          vertical: 10.0,
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            Expanded(
-                              child: Container(
-                                width: 80,
-                                child: Text(
-                                  "${item.catatan}",
-                                  style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w400,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Container(
-                              width: 80,
-                              child: Text(
-                                "${NumberFormat().format(item.jumlah!)}",
-                                textAlign: TextAlign.right,
-                                style: TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w400,
-                                  color: warningColor,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
+                  var item = controller.items[index];
+                  return QDismissible(
+                    onDismiss: () {
+                      controller.delete(item);
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 20.0,
+                        vertical: 10.0,
                       ),
-                    ],
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: Text(
+                              item["deskripsi"],
+                              style: const TextStyle(
+                                fontSize: 18.0,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.blue,
+                              ),
+                            ),
+                          ),
+                          Text(
+                            "${NumberFormat().format(item["amount"])}",
+                            style: const TextStyle(
+                              fontSize: 20.0,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.red,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                   );
                 },
               ),
-              // ... widget lainnya
             ],
           ),
         ),
