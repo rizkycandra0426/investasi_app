@@ -10,6 +10,9 @@ class HistoriDanaView extends StatefulWidget {
 
   Widget build(context, HistoriDanaController controller) {
     controller.view = this;
+
+    double getTotalForNonDepositoMode() => TRX.getJumlahUnit();
+
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -29,7 +32,7 @@ class HistoriDanaView extends StatefulWidget {
           : QActionButton(
               color: Colors.blue,
               // label: "Balance: ${TRX.getSaldoTerakhir().number}",
-              label: "Balance: ${controller.totalJumlahUnit.number}",
+              label: "Total: ${getTotalForNonDepositoMode().number}",
               onPressed: () {},
             ),
       body: Builder(builder: (context) {
@@ -107,7 +110,6 @@ class HistoriDanaView extends StatefulWidget {
                 itemCount: TRX.danaHistories.length,
                 itemBuilder: (BuildContext context, int index) {
                   var item = TRX.danaHistories[index];
-
                   var action = "TOPUP";
 
                   if (depositoMode) {
@@ -169,7 +171,7 @@ class HistoriDanaView extends StatefulWidget {
                       },
                       {
                         "label": "Jumlah Unit",
-                        "value": item.jumlahUnit.number,
+                        "value": (item.total / item.hargaUnit).number,
                       },
                     ],
                     if (depositoMode) ...[

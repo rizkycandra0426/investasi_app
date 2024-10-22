@@ -65,9 +65,12 @@ class PortofolioNewView extends StatefulWidget {
                           color: dangerColor,
                           size: xs,
                           width: 130.0,
-                          onPressed: () => Get.to(TopupView(
-                            topupMode: false,
-                          )),
+                          onPressed: () async {
+                            await Get.to(TopupView(
+                              topupMode: false,
+                            ));
+                            controller.reload();
+                          },
                         ),
                         Spacer(),
                         InkWell(
@@ -166,7 +169,8 @@ class PortofolioNewView extends StatefulWidget {
                               },
                               {
                                 "label": "Jumlah/unit",
-                                "value": TRX.getlastJumlahUnit(targetYear),
+                                // "value": TRX.getlastJumlahUnit(targetYear),
+                                "value": TRX.getJumlahUnit(targetYear),
                               },
                               {
                                 "label": "Yield",

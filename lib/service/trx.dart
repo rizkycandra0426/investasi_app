@@ -575,6 +575,7 @@ class TRX {
 
     if (type == TopupType.buyDeposito) {
       saldo = getSaldoTerakhir() - amount;
+      valuation = getLastCurrentValuationOfAllSaham();
       newValuationPlusSaldo = saldo + valuation;
       // newHargaUnit = getHargaUnitTerakhir();
       newJumlahUnit = getJumlahUnitTerakhir();
@@ -951,6 +952,20 @@ class TRX {
     saveRecord();
   }
 
+  static getJumlahUnit([int? year]) {
+    var total = 0.0;
+    TRX.danaHistories.forEach((item) {
+      if (item.target == "DEVIDENSAHAM") return;
+      if (item.target == "DEVIDENDEPOSITO") return;
+      if (item.target == "BUYDEPOSITO") return;
+      if (year != null && item.date.year != year) return;
+
+      double jumlahUnit = item.total / item.hargaUnit;
+      total += jumlahUnit;
+    });
+    return total;
+  }
+
   static generateCustomDummies() {
     historyList.value.clear();
 
@@ -974,7 +989,7 @@ class TRX {
     );
 
     buy(
-      date: DateTime(2024, 02, 01),
+      date: DateTime(2024, 01, 02),
       qty: 1000,
       price: 1000,
       currentPrice: 2000,
@@ -982,7 +997,7 @@ class TRX {
     );
 
     buy(
-      date: DateTime(2024, 02, 01),
+      date: DateTime(2024, 01, 02),
       qty: 1000,
       price: 1000,
       currentPrice: 1500,
@@ -990,7 +1005,7 @@ class TRX {
     );
 
     topup(
-      date: DateTime(2024, 05, 02),
+      date: DateTime(2024, 01, 03),
       amount: 1000000,
       type: TopupType.devidenSaham,
       saham: "ABBA",
@@ -1009,6 +1024,57 @@ class TRX {
       type: TopupType.devidenDeposito,
       namaBank: "MANDIRI",
     );
+
+    buy(
+      date: DateTime(2024, 05, 05),
+      qty: 1000,
+      price: 2000,
+      currentPrice: 2000,
+      saham: "ABBA",
+    );
+
+    // sell(
+    //   date: DateTime(2024, 01, 02),
+    //   qty: 500,
+    //   price: 1000,
+    //   currentPrice: 1500,
+    //   saham: "BBCA",
+    // );
+
+    // topup(
+    //   date: DateTime(2024, 01, 03),
+    //   amount: 1000000,
+    //   type: TopupType.topupBalance,
+    // );
+
+    // buy(
+    //   date: DateTime(2024, 02, 01),
+    //   qty: 1000,
+    //   price: 1000,
+    //   currentPrice: 1500,
+    //   saham: "BBCA",
+    // );
+
+    // topup(
+    //   date: DateTime(2024, 05, 02),
+    //   amount: 1000000,
+    //   type: TopupType.devidenSaham,
+    //   saham: "ABBA",
+    // );
+
+    // topup(
+    //   date: DateTime(2024, 05, 03),
+    //   amount: 1000000,
+    //   type: TopupType.buyDeposito,
+    //   namaBank: "MANDIRI",
+    // );
+
+    // topup(
+    //   date: DateTime(2024, 05, 04),
+    //   amount: 1000000,
+    //   type: TopupType.devidenDeposito,
+    //   namaBank: "MANDIRI",
+    // );
   }
 
   static generateDummies() {

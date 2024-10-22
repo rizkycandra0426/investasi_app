@@ -79,7 +79,8 @@ class TopupController extends State<TopupView> {
 
     hideLoading();
     Get.back();
-    snackbarSuccess(message: "Berhasil topup");
+    snackbarSuccess(
+        message: "Berhasil ${widget.topupMode ? "topup" : "withdraw"}");
   }
 
   reload() {
