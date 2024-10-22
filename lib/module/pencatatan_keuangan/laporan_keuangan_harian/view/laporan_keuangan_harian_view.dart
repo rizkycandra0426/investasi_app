@@ -31,6 +31,7 @@ class LaporanKeuanganHarianView extends StatefulWidget {
                 physics: ScrollPhysics(),
                 itemBuilder: (BuildContext context, int index) {
                   var item = items[index];
+
                   if (item.action == "delete") return Container();
 
                   if (date != null) {
@@ -90,6 +91,12 @@ class LaporanKeuanganHarianView extends StatefulWidget {
                   var amount = "Rp " + NumberFormat().format(item.jumlah);
                   bool isPemasukan = item.type == "Pemasukan";
                   bool isPengeluaran = item.type == "Pengeluaran";
+
+                  if (item.tanggal!.year !=
+                          DashboardController.instance.currentDate.year ||
+                      item.tanggal!.month !=
+                          DashboardController.instance.currentDate.month)
+                    return Container();
 
                   return InkWell(
                     onTap: () async {

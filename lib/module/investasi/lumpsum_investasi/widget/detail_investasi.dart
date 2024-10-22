@@ -82,7 +82,6 @@ class DetailInvestasi extends StatelessWidget {
                       controller.persentaseBunga /
                       100;
                   var amount = controller.investasiAwal;
-
                   var nilaiInvestasi = amount + (profit * (index + 1));
 
                   return Container(
