@@ -6,8 +6,10 @@
 [Edit anggaran di bulan X, tapi muncul di bulan Y]
 
 [Pending]
-5. Perbaiki perhitungan investasi dan pinjaman ( untuk rumus dari java bisa ditranslete ke flutter tidak masden soalnya ini disuruh make rumus yg seperti temen saya)
-
+v 5. Perbaiki perhitungan investasi dan pinjaman ( untuk rumus dari java bisa ditranslete ke flutter tidak masden soalnya ini disuruh make rumus yg seperti temen saya)
+v Lumpsum
+v Bulanan
+v Target
 
 [Portofolio]
 v 1. ⁠portofolionya pada bagian histori dana masih belum bener jumlah unitnya ketika topup dana lagi, jadi ketika top up dana dia ngejumlahin jumlah unitnya sebelumnya sama jumlah unit yg baru di topup nah di balance itu dimunculi totalnya  berapa

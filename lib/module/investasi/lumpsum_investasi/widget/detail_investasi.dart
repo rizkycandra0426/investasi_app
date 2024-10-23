@@ -47,7 +47,7 @@ class DetailInvestasi extends StatelessWidget {
                 return DetailInvestasiValueItem(
                   label: "Nilai Investasi",
                   value:
-                      "${(nilaiInvestasi - controller.investasiAwal).currency}",
+                      "${(controller.nilaiInvestasiSetelahDitotal).currency}",
                 );
               }),
               Builder(builder: (context) {
@@ -60,7 +60,7 @@ class DetailInvestasi extends StatelessWidget {
 
                 return DetailInvestasiValueItem(
                   label: "Total nilai",
-                  value: "${(nilaiInvestasi).currency}",
+                  value: "${(controller.totalNilaiInvestasi).currency}",
                 );
               }),
               Divider(),
@@ -73,28 +73,27 @@ class DetailInvestasi extends StatelessWidget {
                   value: "Nilai Investasi",
                 ),
               ),
-              ListView.builder(
-                itemCount: controller.jangkaWaktuDalamTahun,
-                shrinkWrap: true,
-                physics: const ScrollPhysics(),
-                itemBuilder: (BuildContext context, int index) {
-                  var profit = controller.investasiAwal *
-                      controller.persentaseBunga /
-                      100;
-                  var amount = controller.investasiAwal;
-                  var nilaiInvestasi = amount + (profit * (index + 1));
-
-                  return Container(
-                    padding: const EdgeInsets.all(6.0),
-                    color: index % 2 == 0 ? Colors.white : Colors.white,
-                    child: DetailInvestasiIndexedValueItem(
-                      number: index + 1,
-                      label: "${(controller.investasiAwal).currency}",
-                      value: "${nilaiInvestasi.currency}",
-                    ),
+              if (controller.values.isNotEmpty)
+                Builder(builder: (context) {
+                  return ListView.builder(
+                    itemCount: controller.values.length,
+                    shrinkWrap: true,
+                    physics: const ScrollPhysics(),
+                    itemBuilder: (BuildContext context, int index) {
+                      var item = controller.values[index];
+                      return Container(
+                        padding: const EdgeInsets.all(6.0),
+                        color: index % 2 == 0 ? Colors.white : Colors.white,
+                        child: DetailInvestasiIndexedValueItem(
+                          number: index + 1,
+                          label: "${(item["investasi"] as double).currency}",
+                          value:
+                              "${(item["nilai_investasi"] as double).currency}",
+                        ),
+                      );
+                    },
                   );
-                },
-              ),
+                }),
             ],
           ),
         ),

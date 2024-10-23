@@ -94,7 +94,7 @@ class BulananDetail extends StatelessWidget {
                     color: index % 2 == 0 ? Colors.white : Colors.white,
                     child: IndexedValueItem(
                       number: index + 1,
-                      label: "${danaInvestasiAwal.currency}",
+                      label: "${(danaInvestasiAwal * (index + 1)).currency}",
                       value: "${totalDanaAkhir.currency}",
                     ),
                   );

@@ -74,7 +74,7 @@ class TargetDetail extends StatelessWidget {
                     color: index % 2 == 0 ? Colors.white : Colors.white,
                     child: TargetDetailIndexedValueItem(
                       number: index + 1,
-                      label: monthlyContribution.currency,
+                      label: (monthlyContribution * (index + 1)).currency,
                       value: (monthlyContribution * (index + 1)).currency,
                     ),
                   );

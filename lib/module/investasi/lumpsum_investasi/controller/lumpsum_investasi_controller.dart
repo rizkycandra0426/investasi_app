@@ -69,6 +69,7 @@ class LumpsumInvestasiController extends State<LumpsumInvestasiView> {
       isButtonPressed = true;
     });
 
+    getValues();
     await Future.delayed(Duration(milliseconds: 450));
     scrollController.jumpTo(scrollController.position.maxScrollExtent);
     print("Scroll to bottom");
@@ -106,4 +107,30 @@ class LumpsumInvestasiController extends State<LumpsumInvestasiView> {
   TextEditingController persentaseBungaController = TextEditingController(
     text: "0",
   );
+
+  List values = [];
+  double totalNilaiInvestasi = 0;
+  double get nilaiInvestasiSetelahDitotal =>
+      totalNilaiInvestasi - investasiAwal;
+
+  getValues() async {
+    values = [];
+    int count = jangkaWaktuDalamTahun;
+    for (var i = 0; i < count; i++) {
+      double investasi = investasiAwal;
+      if (i > 0) {
+        investasi = values[i - 1]["nilai_investasi"];
+      }
+      var profit = investasi * (persentaseBunga / 100);
+      double nilaiInvestasi = investasi + profit;
+
+      values.add({
+        "investasi": investasi,
+        "nilai_investasi": nilaiInvestasi,
+      });
+    }
+
+    totalNilaiInvestasi = values.last["nilai_investasi"];
+    setState(() {});
+  }
 }
