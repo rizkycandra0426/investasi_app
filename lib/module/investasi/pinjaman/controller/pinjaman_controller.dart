@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:hyper_ui/core.dart';
-import '../view/pinjaman_view.dart';
 
 class PinjamanController extends State<PinjamanView> {
   static late PinjamanController instance;

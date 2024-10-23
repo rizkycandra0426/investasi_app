@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hyper_ui/core.dart';
-import '../controller/debug_user_controller.dart';
 
 class DebugUserView extends StatefulWidget {
   const DebugUserView({super.key});
