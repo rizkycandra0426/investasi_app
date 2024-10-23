@@ -42,7 +42,6 @@ class HistoriTahunanController extends State<HistoriTahunanView> {
   }
 
   getData(int year) async {
-    //TODO: IHSG by YEAR?
     var response1 = await IhsgService().get(param: {
       "year": year,
     });

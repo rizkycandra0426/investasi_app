@@ -6,7 +6,6 @@ class StockView extends StatefulWidget {
 
   Widget build(context, StockController controller) {
     controller.view = this;
-    final StockController _controller = StockController();
 
     return Scaffold(
       backgroundColor: Colors.white,

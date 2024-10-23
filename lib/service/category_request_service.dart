@@ -1,6 +1,5 @@
 import 'package:hyper_ui/service/base_service.dart';
 
-//TODO: Update model-nya
 class CategoryRequestService extends BaseService<Map<String, dynamic>> {
   @override
   String get endpoint => "category-requests";

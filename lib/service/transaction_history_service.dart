@@ -18,7 +18,6 @@ class TransactionHistoryService extends BaseService {
     //   ),
     // );
 
-    Map<String, dynamic> data = {};
     var pemasukanList = OfflineService.get("pemasukan");
     var pengeluaranList = OfflineService.get("pengeluaran");
 
@@ -90,7 +89,6 @@ class TransactionHistoryService extends BaseService {
     //   ),
     // );
 
-    Map<String, dynamic> data = {};
     var pemasukanList = OfflineService.get("pemasukan");
     var pengeluaranList = OfflineService.get("pengeluaran");
 
@@ -142,15 +140,9 @@ class TransactionHistoryService extends BaseService {
     // );
     // return TransactionCategoriesByYearResponse.fromJson(response.data);
 
-    Map<String, dynamic> data = {};
-    var pemasukanList = OfflineService.get("pemasukan");
     var pengeluaranList = OfflineService.get("pengeluaran");
 
     List values = [];
-
-    var filteredPemasukanList = pemasukanList.where((i) =>
-        DateTime.parse(i["created_at"]).month == month &&
-        DateTime.parse(i["created_at"]).year == year);
 
     var filteredPengeluaranList = pengeluaranList.where((i) =>
         DateTime.parse(i["created_at"]).month == month &&

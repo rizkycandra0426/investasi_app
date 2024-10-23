@@ -53,18 +53,18 @@ class HistoryTransaksiView extends StatefulWidget {
                 int price = 0;
                 String volume = "0";
                 DateTime? date;
-                String penjualanOrPembelian = "";
+                // String penjualanOrPembelian = "";
                 String total = "";
                 if (isBeli) {
                   price = item["harga_beli"];
                   volume = item["volume_beli"].toString();
-                  penjualanOrPembelian = item["harga_total"].toString();
+                  // penjualanOrPembelian = item["harga_total"].toString();
                   total = item["pembelian"].toString();
                   date = DateTime.parse(item["tanggal_beli"]);
                 } else {
                   price = item["harga_jual"];
                   volume = item["volume_jual"].toString();
-                  penjualanOrPembelian = item["harga_total"].toString();
+                  // penjualanOrPembelian = item["harga_total"].toString();
                   total = item["penjualan"].toString();
                   date = DateTime.parse(item["tanggal_jual"]);
                 }

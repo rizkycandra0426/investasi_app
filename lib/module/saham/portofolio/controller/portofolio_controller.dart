@@ -26,7 +26,6 @@ class PortofolioController extends State<PortofolioView> {
     setState(() {});
 
     print("get IHSG?");
-    //TODO: IHSG by YEAR?
     var response1 = await IhsgService().get(param: {
       "year": year,
     });
@@ -43,7 +42,7 @@ class PortofolioController extends State<PortofolioView> {
 
     //----------------------
     double ihsgDouble = double.tryParse(ihsg.replaceAll("%", "")) ?? 0.0;
-    double portoYieldDouble = double.tryParse(portoYield.toString()) ?? 0.0;
+    // double portoYieldDouble = double.tryParse(portoYield.toString()) ?? 0.0;
 
     await dio.post(
       "$baseUrl/v2/ihsg",

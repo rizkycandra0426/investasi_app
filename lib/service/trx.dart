@@ -541,11 +541,8 @@ class TRX {
     }
     double saldo = getSaldoTerakhir() + amount;
     double modal = getModalTerakhir() + amount;
-    double valuationPlusSaldo = saldo;
     //---------------------------------
     //---------------------------------
-    double hargaUnit = getHargaUnitTerakhir();
-    double jumlahUnit = valuationPlusSaldo / hargaUnit;
     double valuation = getLastValuation();
 
     double newValuationPlusSaldo = getLastValuationPlusSaldo() + saldo;
@@ -906,7 +903,7 @@ class TRX {
           amount: item.price,
           type: type,
           saham: item.targetSaham == "-" ? null : item.targetSaham,
-          namaBank: item.namaBank ?? '-',
+          namaBank: item.namaBank,
         );
       } else if (item.activity == "ADJUSTMENT") {
         addAdjustment(
@@ -969,18 +966,9 @@ class TRX {
   static generateCustomDummies() {
     historyList.value.clear();
 
-    double hargaUnit = -1;
-    double jumlahUnit = -1;
-    if (historyList.value.isEmpty) {
-      hargaUnit = 1000;
-    }
     addAdjustment(
       date: DateTime(2024, 1, 1),
     );
-
-    int qty = 1;
-    double price = 100000000;
-    double total = qty * price;
 
     topup(
       date: DateTime(2024, 01, 01),
@@ -1080,18 +1068,9 @@ class TRX {
   static generateDummies() {
     historyList.value.clear();
 
-    double hargaUnit = -1;
-    double jumlahUnit = -1;
-    if (historyList.value.isEmpty) {
-      hargaUnit = 1000;
-    }
     addAdjustment(
       date: DateTime(2024, 1, 1),
     );
-
-    int qty = 1;
-    double price = 100000000;
-    double total = qty * price;
 
     topup(
       date: DateTime(2024, 01, 01),

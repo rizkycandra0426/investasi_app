@@ -44,24 +44,24 @@ class HistoriIhsgView extends StatefulWidget {
               physics: const ScrollPhysics(),
               itemBuilder: (BuildContext context, int index) {
                 var targetYear = years[index];
-                var yearItems = LocalIHSGService.getLastValue(year: targetYear);
+                // var yearItems = LocalIHSGService.getLastValue(year: targetYear);
 
-                var yearYield = 0.0;
-                var yearIhsg = 0.0;
+                // var yearYield = 0.0;
+                // var yearIhsg = 0.0;
 
-                for (var item in yearItems) {
-                  if (item["yield"] != null && item["yield"] != 0) {
-                    yearYield = item["yield"];
-                    break;
-                  }
-                }
+                // for (var item in yearItems) {
+                //   if (item["yield"] != null && item["yield"] != 0) {
+                //     yearYield = item["yield"];
+                //     break;
+                //   }
+                // }
 
-                for (var item in yearItems) {
-                  if (item["ihsg"] != null && item["ihsg"] != 0) {
-                    yearIhsg = item["ihsg"];
-                    break;
-                  }
-                }
+                // for (var item in yearItems) {
+                //   if (item["ihsg"] != null && item["ihsg"] != 0) {
+                //     yearIhsg = item["ihsg"];
+                //     break;
+                //   }
+                // }
 
                 double ihsgTotal = 0;
                 double yieldTotal = 0;

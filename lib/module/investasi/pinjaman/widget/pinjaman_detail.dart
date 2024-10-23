@@ -74,10 +74,6 @@ class PinjamanDetail extends StatelessWidget {
                 physics: const ScrollPhysics(),
                 itemBuilder: (BuildContext context, int index) {
                   double danaInvestasiAwal = controller.hasil; // Dana bulanan
-                  double bungaPerBulan =
-                      controller.persentaseBunga / 100 / 12; // Bunga per bulan
-
-                  // Menghitung total angsuran yang telah dibayarkan hingga bulan ini
 
                   bool isBungaMenetap =
                       PinjamanController.instance.jenisPinjaman ==

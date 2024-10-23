@@ -233,10 +233,6 @@ class StockListView extends StatefulWidget {
                                   children: [
                                     if (portofolioMode)
                                       Builder(builder: (context) {
-                                        var currentVolume =
-                                            (item["buy_volume"] -
-                                                item["sell_volume"]);
-
                                         var summary =
                                             StockNewService.getSummary(
                                                 item["id_saham"]);

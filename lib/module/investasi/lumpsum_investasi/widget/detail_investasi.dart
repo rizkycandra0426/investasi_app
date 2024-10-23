@@ -37,12 +37,12 @@ class DetailInvestasi extends StatelessWidget {
                 value: "${controller.investasiAwal.currency}",
               ),
               Builder(builder: (context) {
-                var profit =
-                    controller.investasiAwal * controller.persentaseBunga / 100;
-                var amount = controller.investasiAwal;
+                // var profit =
+                //     controller.investasiAwal * controller.persentaseBunga / 100;
+                // var amount = controller.investasiAwal;
 
-                var nilaiInvestasi =
-                    amount + (profit * (controller.jangkaWaktuDalamTahun));
+                // var nilaiInvestasi =
+                //     amount + (profit * (controller.jangkaWaktuDalamTahun));
 
                 return DetailInvestasiValueItem(
                   label: "Nilai Investasi",
@@ -51,12 +51,12 @@ class DetailInvestasi extends StatelessWidget {
                 );
               }),
               Builder(builder: (context) {
-                var profit =
-                    controller.investasiAwal * controller.persentaseBunga / 100;
-                var amount = controller.investasiAwal;
+                // var profit =
+                //     controller.investasiAwal * controller.persentaseBunga / 100;
+                // var amount = controller.investasiAwal;
 
-                var nilaiInvestasi =
-                    amount + (profit * (controller.jangkaWaktuDalamTahun));
+                // var nilaiInvestasi =
+                //     amount + (profit * (controller.jangkaWaktuDalamTahun));
 
                 return DetailInvestasiValueItem(
                   label: "Total nilai",

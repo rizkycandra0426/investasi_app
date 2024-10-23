@@ -212,8 +212,6 @@ class StockDetailView extends StatefulWidget {
                     "1 Tahun",
                   ];
 
-                  var selectedFilter = filters[controller.dateFilterIndex];
-
                   return Container(
                     height: 40.0,
                     child: ListView.builder(

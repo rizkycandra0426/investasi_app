@@ -110,7 +110,7 @@ class HistoriDanaView extends StatefulWidget {
                 itemCount: TRX.danaHistories.length,
                 itemBuilder: (BuildContext context, int index) {
                   var item = TRX.danaHistories[index];
-                  var action = "TOPUP";
+                  // var action = "TOPUP";
 
                   if (depositoMode) {
                     if (item.target.contains("DEPOSITO") == false)
@@ -127,19 +127,19 @@ class HistoriDanaView extends StatefulWidget {
                     if (index != lastIndex) return Container();
                   }
 
-                  if (item.price < 0) {
-                    action = "WITHDRAW";
-                  }
+                  // if (item.price < 0) {
+                  //   action = "WITHDRAW";
+                  // }
 
-                  if (item.target == "DEVIDENSAHAM") {
-                    action = "TOPUP DEVIDEN SAHAM";
-                  }
-                  if (item.target == "DEVIDENDEPOSITO") {
-                    action = "TOPUP DEVIDEN DEPOSITO";
-                  }
+                  // if (item.target == "DEVIDENSAHAM") {
+                  //   action = "TOPUP DEVIDEN SAHAM";
+                  // }
+                  // if (item.target == "DEVIDENDEPOSITO") {
+                  //   action = "TOPUP DEVIDEN DEPOSITO";
+                  // }
 
-                  var deviden = 0;
-                  var jumlahDeviden = 0;
+                  // var deviden = 0;
+                  // var jumlahDeviden = 0;
 
                   var itemValues = [
                     if (!depositoMode) ...[
@@ -155,7 +155,7 @@ class HistoriDanaView extends StatefulWidget {
                     if (depositoMode) ...[
                       {
                         "label": "Bank",
-                        "value": item.namaBank ?? '-',
+                        "value": item.namaBank,
                       },
                       {
                         "label": "Deposito",

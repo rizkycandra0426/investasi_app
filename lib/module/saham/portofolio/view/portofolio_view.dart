@@ -7,7 +7,6 @@ class PortofolioView extends StatefulWidget {
   Widget build(context, PortofolioController controller) {
     controller.view = this;
     final screenHeight = MediaQuery.of(context).size.height;
-    final formatter = NumberFormat('#,###');
 
     if (controller.loading) return LoadingScaffold();
 
@@ -411,18 +410,16 @@ class PortofolioView extends StatefulWidget {
                                     ),
                                     Expanded(
                                       child: Builder(builder: (context) {
-                                        var valuation = (item["vol_total"] *
-                                                item["harga_saat_ini"] *
-                                                1.0 as double) *
-                                            100;
-
-                                        var pl = valuation - item["equity"];
-
-                                        var plInPercent =
-                                            (pl / item["equity"]) * 100;
-                                        if (item["vol_total"] == 0) {
-                                          plInPercent = 0.0;
-                                        }
+                                        // var valuation = (item["vol_total"] *
+                                        //         item["harga_saat_ini"] *
+                                        //         1.0 as double) *
+                                        //     100;
+                                        // var pl = valuation - item["equity"];
+                                        // var plInPercent =
+                                        //     (pl / item["equity"]) * 100;
+                                        // if (item["vol_total"] == 0) {
+                                        //   plInPercent = 0.0;
+                                        // }
                                         return Column(
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,

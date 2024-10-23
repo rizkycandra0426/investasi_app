@@ -16,7 +16,6 @@ class _JualwidgetState extends State<Jualwidget> {
   bool loading = true;
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     getData();
   }
@@ -24,7 +23,6 @@ class _JualwidgetState extends State<Jualwidget> {
   int sisaVolume = 0;
   getData() async {
     var controller = StockDetailController.instance;
-    var value = controller.data?.response?.data?.results?.first;
 
     sisaVolume = await PortofolioJualService()
         .getSisaVolume(controller.view.stock["id_saham"]);

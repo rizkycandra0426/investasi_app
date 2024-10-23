@@ -96,12 +96,11 @@ class _DemoSahamViewState extends State<DemoSahamView> {
                   builder: (context, child, value) {
                     return LayoutBuilder(
                         builder: (context, BoxConstraints constraints) {
-                      bool isTablet =
-                          MediaQuery.of(context).size.width < 1100 &&
-                              MediaQuery.of(context).size.width >= 850;
-
-                      bool isDesktop =
-                          MediaQuery.of(context).size.width >= 1100;
+                      // bool isTablet =
+                      //     MediaQuery.of(context).size.width < 1100 &&
+                      //         MediaQuery.of(context).size.width >= 850;
+                      // bool isDesktop =
+                      //     MediaQuery.of(context).size.width >= 1100;
                       bool isMobile = MediaQuery.of(context).size.width < 850;
 
                       if (isMobile) {

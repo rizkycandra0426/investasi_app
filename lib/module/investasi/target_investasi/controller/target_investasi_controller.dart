@@ -17,9 +17,6 @@ class TargetInvestasiController extends State<TargetInvestasiView> {
   }
 
   @override
-  void dispose() {}
-
-  @override
   Widget build(BuildContext context) => widget.build(context, this);
 
   bool isTarget = true;
@@ -95,7 +92,6 @@ class TargetInvestasiController extends State<TargetInvestasiView> {
     int years = jangkaWaktuDalamTahun;
 
     // Lakukan perhitungan investasi untuk mencapai target secara iteratif
-    double futureValue = 0;
     double monthlyInterestRate = persentase / 100 / 12;
     int months = years * 12;
     double totalMultiplier = 1.0;

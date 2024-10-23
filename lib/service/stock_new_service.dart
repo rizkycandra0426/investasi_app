@@ -254,13 +254,13 @@ class StockNewService {
         .toList();
 
     double buyingPriceTotal = 0;
-    double currentStockVolume = 0;
+    // double currentStockVolume = 0;
     double currentTradeCount = 0;
     for (var item in currentStockHistories) {
       if (item["action"] == "SELL") continue;
       // currentStockTotal += (item["volume"] * item["buying_price"]);
       buyingPriceTotal += item["buying_price"];
-      currentStockVolume += item["volume"];
+      // currentStockVolume += item["volume"];
       currentTradeCount++;
     }
     avgPrice = buyingPriceTotal / currentTradeCount;
@@ -326,13 +326,13 @@ class StockNewService {
         .toList();
 
     double buyingPriceTotal = 0;
-    double currentStockVolume = 0;
+    // double currentStockVolume = 0;
     double currentTradeCount = 0;
     for (var item in currentStockHistories) {
       if (item["action"] == "SELL") continue;
       // currentStockTotal += (item["volume"] * item["buying_price"]);
       buyingPriceTotal += item["buying_price"];
-      currentStockVolume += item["volume"];
+      // currentStockVolume += item["volume"];
       currentTradeCount++;
     }
     avgPrice = buyingPriceTotal / currentTradeCount;
@@ -369,10 +369,10 @@ class StockNewService {
       items = tradeHistories;
     }
     var costTotal = 0.0;
-    var valuationTotal = 0.0;
-    var floatingReturnTotal = 0.0;
+    // var valuationTotal = 0.0;
+    // var floatingReturnTotal = 0.0;
     var fundAllocTotal = 0.0;
-    var valueEffectTotal = 0.0;
+    // var valueEffectTotal = 0.0;
 
     var volumeTotal = 0.0;
 
@@ -384,9 +384,9 @@ class StockNewService {
 
       costTotal += item["cost"];
       valuationTotal += item["valuation"];
-      floatingReturnTotal += item["floating_return"];
+      // floatingReturnTotal += item["floating_return"];
       fundAllocTotal += item["fund_alloc"];
-      valueEffectTotal += item["value_effect"];
+      // valueEffectTotal += item["value_effect"];
       if (item["action"] == "SELL") {
         sellTotal += item["total"];
       }
@@ -459,20 +459,20 @@ class StockNewService {
   }
 
   static double getAllStockBuyTotal(int year) {
-    var allStockValuationsTotal = 0.0;
+    // var allStockValuationsTotal = 0.0;
     var allStockBuyTotal = 0.0;
     for (var stock in StockNewService.stocks) {
       if (stock["buy_volume"] - stock["sell_volume"] <= 0) continue;
 
       double volumeTotal = 0.0;
-      double lastCurrentPrice = 0;
-      double lastAveragePrice = 0;
+      // double lastCurrentPrice = 0;
+      // double lastAveragePrice = 0;
       for (var history in StockNewService.tradeHistories) {
         if (DateTime.parse(history["date"]).year != year) continue;
         if (history["id_saham"] == stock["id_saham"]) {
           volumeTotal = volumeTotal + history["volume"];
-          lastCurrentPrice = history["current_price"] ?? 0.0;
-          lastAveragePrice = history["avg_price"] ?? 0.0;
+          // lastCurrentPrice = history["current_price"] ?? 0.0;
+          // lastAveragePrice = history["avg_price"] ?? 0.0;
 
           if (history["action"] == "BUY") {
             allStockBuyTotal += (history["cost"] ?? 0);
@@ -481,8 +481,8 @@ class StockNewService {
           }
         }
       }
-      var summaryValuation = (volumeTotal * lastCurrentPrice);
-      allStockValuationsTotal += summaryValuation;
+      // var summaryValuation = (volumeTotal * lastCurrentPrice);
+      // allStockValuationsTotal += summaryValuation;
     }
     return allStockBuyTotal;
   }
@@ -594,9 +594,9 @@ class UserBalanceService {
 
   static double get sisaSaldoPlusSellValuation {
     return UserBalanceService.saldo;
-    return UserBalanceService.saldo -
-        StockNewService.costTotal +
-        StockNewService.sellTotalFromTradehistories;
+    // return UserBalanceService.saldo -
+    //     StockNewService.costTotal +
+    //     StockNewService.sellTotalFromTradehistories;
   }
 }
 

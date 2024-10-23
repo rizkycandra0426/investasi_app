@@ -45,7 +45,7 @@ class LaporanKeuanganHarianView extends StatefulWidget {
                   }
 
                   var day = DateFormat("d").format(item.tanggal!);
-                  var dayName = DateFormat("EEEE").format(item.tanggal!);
+                  // var dayName = DateFormat("EEEE").format(item.tanggal!);
                   var monthName = DateFormat("MMMM").format(item.tanggal!);
 
                   bool visible = false;
@@ -56,7 +56,7 @@ class LaporanKeuanganHarianView extends StatefulWidget {
                   }
 
                   if (index > 0) {
-                    var beforeItem = items[index - 1];
+                    // var beforeItem = items[index - 1];
                     var dateBefore =
                         DateFormat("d MMM y").format(item.tanggal!);
                     var currentDate =
@@ -68,7 +68,7 @@ class LaporanKeuanganHarianView extends StatefulWidget {
                   }
 
                   if (index < items.length - 1) {
-                    var afterItem = items[index + 1];
+                    // var afterItem = items[index + 1];
                     var dateBefore =
                         DateFormat("d MMM y").format(item.tanggal!);
                     var currentDate =

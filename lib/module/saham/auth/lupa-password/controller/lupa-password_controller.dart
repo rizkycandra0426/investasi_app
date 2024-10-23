@@ -60,7 +60,7 @@ class LupaPasswordController extends State<LupaPasswordView> {
 
     try {
       showLoading();
-      var response = await dio.post(
+      await dio.post(
         "/auth/reset-password",
         data: {
           "email": email,
@@ -68,7 +68,6 @@ class LupaPasswordController extends State<LupaPasswordView> {
           "verification_code": verificationCode,
         },
       );
-      Map obj = response.data;
       hideLoading();
       ss("Reset password success!");
       Get.back();
