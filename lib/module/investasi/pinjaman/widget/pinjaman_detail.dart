@@ -1,7 +1,5 @@
 // ignore_for_file: camel_case_types, prefer_typing_uninitialized_variables
 
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:hyper_ui/core.dart';
 
@@ -40,7 +38,6 @@ class PinjamanDetail extends StatelessWidget {
         ((persentaseBunga / jangkaWaktuDalamBulan) * pinjamanAwal) / 100;
 
     for (int i = 0; i < jangkaWaktuDalamBulan; i++) {
-      double danaInvestasiAwal = controller.hasil; // Dana bulanan
       int bulan = i + 1;
 
       bool isBungaMenetap =
@@ -48,17 +45,13 @@ class PinjamanDetail extends StatelessWidget {
       bool isBungaMenurun = !isBungaMenetap;
 
       double angsuranPerBulan = 0;
-      double totalAngsuran = 0;
       double sisaPinjaman = 0;
 
       if (isBungaMenetap) {
         angsuranPerBulan = pinjamanAwal / jangkaWaktuDalamBulan;
-        totalAngsuran = angsuranPerBulan;
         sisaPinjaman = pinjamanAwal - (angsuranPerBulan * bulan);
       } else if (isBungaMenurun) {
         angsuranPerBulan = pinjamanAwal / jangkaWaktuDalamBulan;
-        double bunga = pinjamanAwal * persentaseBunga;
-        totalAngsuran = angsuranPerBulan + bunga;
         sisaPinjaman = pinjamanAwal - (angsuranPerBulan * bulan);
       }
 
