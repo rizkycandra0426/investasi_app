@@ -1,9 +1,15 @@
 [NEW]
-18. pada bagian pencatatan keuangan, pada saat nambah di bulan november, dataynga masih tetep masuk di bulan oktober dan masuk ke total balance seharusnya data masuk ke bulan november
+v 18. pada bagian pencatatan keuangan, pada saat nambah di bulan november, dataynga masih tetep masuk di bulan oktober dan masuk ke total balance seharusnya data masuk ke bulan november
 [Check getHistories]
 
-19. ⁠lalu di bagian anggaran ketika dia buat anggaran di bulan oktober sebesar 200k, dan pindah bulan ke november dia mau ubah ke 250k maka anggaran yg di bulan oktober tidak berubah
+v 19. ⁠lalu di bagian anggaran ketika dia buat anggaran di bulan oktober sebesar 200k, dan pindah bulan ke november dia mau ubah ke 250k maka anggaran yg di bulan oktober tidak berubah
 [Edit anggaran di bulan X, tapi muncul di bulan Y]
+v Sisa budget by month
+v Total by month
+v List budget by month
+v Total List item by month
+v Edit budget by month
+v Total, Budget di October 2025, masih menampilkan total di October 2024
 
 [Pending]
 v 5. Perbaiki perhitungan investasi dan pinjaman ( untuk rumus dari java bisa ditranslete ke flutter tidak masden soalnya ini disuruh make rumus yg seperti temen saya)
@@ -36,16 +42,3 @@ v 14. ⁠hilangkan validasi di persentase pada investasi agar user bisa nginputi
 v 15. ⁠hilangkan (-) pada setiap milih persentase bunga karena ketika user milih itu terjadi bug
 v 16. Pada investasi dan pinjaman ketika inputin nominal isikan titik agar mengetahui berapa nomila ketiak di ketik  (Sudah di update juga di versi Lumpsum dan Target Investasi dan Pinjaman)
 v 17. Kategori request berikan pesan error ketika ada kategori yg sama dengan sebelumnya lalu ketika berhasil di approve oleh admin dia muncul di kategori yg user tambahkan
-
-
-
-Gan, untuk biayanya sampai sejauh ini:
-Pengerjaan 12 point, 400k
-
-Nomor 5 saya kerjakan tanpa meet dulu ya,
-Nomor 1-4 lebih baik meet saja.. Soalnya saya sering mentok soal portofolio ini..
-
-Perkiraan saya, setelah 1-5 selesai
-Biayanya di 550k-700k gan
-
-Lumayan banyak dan memakan waktu gan update-nya -_-'

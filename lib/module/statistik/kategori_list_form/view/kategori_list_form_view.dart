@@ -13,7 +13,8 @@ class KategoriListFormView extends StatefulWidget {
     controller.view = this;
     var budget = getBudget(
       name: item.namaKategoriPengeluaran!,
-      month: AnggaranPengeluaranController.instance.selectedMonth.toString(),
+      month: StatistikDashboardController.instance.currentDate.month.toString(),
+      year: StatistikDashboardController.instance.currentDate.year.toString(),
     );
 
     return Scaffold(
@@ -39,7 +40,10 @@ class KategoriListFormView extends StatefulWidget {
                 onPressed: () {
                   setBudget(
                     name: item.namaKategoriPengeluaran!,
-                    month: AnggaranPengeluaranController.instance.selectedMonth
+                    month: StatistikDashboardController
+                        .instance.currentDate.month
+                        .toString(),
+                    year: StatistikDashboardController.instance.currentDate.year
                         .toString(),
                     value: controller.userBudget,
                   );

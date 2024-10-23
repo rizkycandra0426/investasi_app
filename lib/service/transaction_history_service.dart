@@ -8,28 +8,18 @@ class TransactionHistoryService extends BaseService {
     required int month,
     required int year,
   }) async {
-    // var response = await dio.get(
-    //   "$baseUrl/transaction-histories/$month/$year",
-    //   options: Options(
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //       'ngrok-skip-browser-warning': true,
-    //     },
-    //   ),
-    // );
-
     var pemasukanList = OfflineService.get("pemasukan");
     var pengeluaranList = OfflineService.get("pengeluaran");
 
     List values = [];
 
     var filteredPemasukanList = pemasukanList.where((i) =>
-        DateTime.parse(i["created_at"]).month == month &&
-        DateTime.parse(i["created_at"]).year == year);
+        DateTime.parse(i["tanggal"]).month == month &&
+        DateTime.parse(i["tanggal"]).year == year);
 
     var filteredPengeluaranList = pengeluaranList.where((i) =>
-        DateTime.parse(i["created_at"]).month == month &&
-        DateTime.parse(i["created_at"]).year == year);
+        DateTime.parse(i["tanggal"]).month == month &&
+        DateTime.parse(i["tanggal"]).year == year);
 
     for (var item in filteredPemasukanList) {
       values.add({
@@ -67,8 +57,8 @@ class TransactionHistoryService extends BaseService {
 
     //Sort values by created_at DESC?
     values.sort((a, b) {
-      return DateTime.parse(b['created_at'])
-          .compareTo(DateTime.parse(a['created_at']));
+      return DateTime.parse(b['tanggal'])
+          .compareTo(DateTime.parse(a['tanggal']));
     });
 
     return TransactionByMonthAndYearResponse.fromJson({

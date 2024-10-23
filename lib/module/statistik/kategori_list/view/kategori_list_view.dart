@@ -9,7 +9,9 @@ class KategoriListView extends StatefulWidget {
     if (controller.response == null) return LoadingScaffold();
     return Scaffold(
       appBar: AppBar(
-        title: const Text("KategoriList"),
+        title: Text(
+          "KategoriList",
+        ),
         actions: const [],
       ),
       body: ListView.builder(
@@ -19,8 +21,10 @@ class KategoriListView extends StatefulWidget {
           var item = controller.response!.data![index];
           var budget = getBudget(
             name: item.namaKategoriPengeluaran!,
-            month:
-                AnggaranPengeluaranController.instance.selectedMonth.toString(),
+            month: StatistikDashboardController.instance.currentDate.month
+                .toString(),
+            year: StatistikDashboardController.instance.currentDate.year
+                .toString(),
           );
 
           return InkWell(

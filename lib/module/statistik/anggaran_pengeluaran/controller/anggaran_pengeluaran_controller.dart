@@ -53,9 +53,16 @@ class AnggaranPengeluaranController extends State<AnggaranPengeluaranView> {
   }
 
   double get total {
+    var pengeluaranList = OfflineService.get("pengeluaran");
     double _total = 0;
-    for (var item in response!.data!) {
-      _total += item.total ?? 0;
+    for (var item in pengeluaranList) {
+      var tanggal = DateTime.parse(item['tanggal']);
+      if (tanggal.month !=
+          StatistikDashboardController.instance.currentDate.month) continue;
+      if (tanggal.year !=
+          StatistikDashboardController.instance.currentDate.year) continue;
+
+      _total += double.parse(item['jumlah'] ?? 0);
     }
     return _total;
   }
@@ -65,10 +72,28 @@ class AnggaranPengeluaranController extends State<AnggaranPengeluaranView> {
     for (var item in response!.data!) {
       var budget = getBudget(
         name: item.namaKategoriPengeluaran!,
-        month: AnggaranPengeluaranController.instance.selectedMonth.toString(),
+        month:
+            StatistikDashboardController.instance.currentDate.month.toString(),
+        year: StatistikDashboardController.instance.currentDate.year.toString(),
       );
       if (budget == 0) continue;
       _total += budget;
+    }
+    return _total;
+  }
+
+  double getPengeluaranByNamaKategori(String namaKategoriPengeluaran) {
+    var pengeluaranList = OfflineService.get("pengeluaran");
+    double _total = 0;
+    for (var item in pengeluaranList) {
+      if (item['kategori_pengeluaran']['nama_kategori_pengeluaran'] !=
+          namaKategoriPengeluaran) continue;
+      var tanggal = DateTime.parse(item['tanggal']);
+      if (tanggal.month !=
+          StatistikDashboardController.instance.currentDate.month) continue;
+      if (tanggal.year !=
+          StatistikDashboardController.instance.currentDate.year) continue;
+      _total += double.parse(item['jumlah'] ?? 0);
     }
     return _total;
   }

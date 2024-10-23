@@ -15,7 +15,8 @@ class KategoriListFormController extends State<KategoriListFormView> {
   void onReady() {
     userBudget = getBudget(
       name: view.item.namaKategoriPengeluaran!,
-      month: AnggaranPengeluaranController.instance.selectedMonth.toString(),
+      month: StatistikDashboardController.instance.currentDate.month.toString(),
+      year: StatistikDashboardController.instance.currentDate.year.toString(),
     );
   }
 

@@ -97,13 +97,18 @@ class AnggaranPengeluaranView extends StatefulWidget {
               var item = controller.response!.data![index];
               var budget = getBudget(
                 name: item.namaKategoriPengeluaran!,
-                month: AnggaranPengeluaranController.instance.selectedMonth
+                month: StatistikDashboardController.instance.currentDate.month
+                    .toString(),
+                year: StatistikDashboardController.instance.currentDate.year
                     .toString(),
               );
 
               return PengeluaranItem(
                 label: item.namaKategoriPengeluaran!,
-                total: double.parse(item.total!.toString()),
+                // total: double.parse(item.total!.toString()),
+                total: controller.getPengeluaranByNamaKategori(
+                  item.namaKategoriPengeluaran!,
+                ),
                 budget: budget,
                 index: index,
                 enablePercentage: true,

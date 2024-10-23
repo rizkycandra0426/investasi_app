@@ -30,8 +30,8 @@ class KategoriListController extends State<KategoriListView> {
     setState(() {});
 
     response = await TransactionHistoryService().categoriesByMonthAndYear(
-      month: month ?? DateTime.now().month,
-      year: year ?? DateTime.now().year,
+      month: StatistikDashboardController.instance.currentDate.month,
+      year: StatistikDashboardController.instance.currentDate.year,
     );
 
     items = [];

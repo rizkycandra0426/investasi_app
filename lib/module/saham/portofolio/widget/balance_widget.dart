@@ -15,7 +15,6 @@ class BalanceWidget extends StatefulWidget {
 class _BalanceWidgetState extends State<BalanceWidget> {
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
   }
 
