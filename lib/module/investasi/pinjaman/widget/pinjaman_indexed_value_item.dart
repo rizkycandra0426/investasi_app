@@ -28,8 +28,10 @@ class PinjamanIndexedValueItem extends StatelessWidget {
             width: 32.0,
             child: Text(
               "$number",
+              textAlign: TextAlign.center,
+              overflow: TextOverflow.ellipsis,
               style: TextStyle(
-                fontSize: 10.0,
+                fontSize: 12.0,
               ),
             ),
           ),
@@ -37,26 +39,31 @@ class PinjamanIndexedValueItem extends StatelessWidget {
             child: Text(
               "$angsuran",
               textAlign: TextAlign.center,
+              overflow: TextOverflow.ellipsis,
               style: TextStyle(
-                fontSize: 10.0,
+                fontSize: 12.0,
               ),
             ),
           ),
-          Expanded(
+          Container(
+            width: 100.0,
             child: Text(
               "$totalAngsuran",
               textAlign: TextAlign.center,
+              overflow: TextOverflow.ellipsis,
               style: TextStyle(
-                fontSize: 10.0,
+                fontSize: 12.0,
               ),
             ),
           ),
-          Expanded(
+          Container(
+            width: 100.0,
             child: Text(
               "$sisaPinjaman",
-              textAlign: TextAlign.center,
+              overflow: TextOverflow.ellipsis,
+              textAlign: TextAlign.right,
               style: TextStyle(
-                fontSize: 10.0,
+                fontSize: 12.0,
                 fontWeight: FontWeight.bold,
               ),
             ),
