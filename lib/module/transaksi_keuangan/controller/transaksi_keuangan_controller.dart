@@ -80,6 +80,7 @@ class TransaksiKeuanganController extends State<TransaksiKeuanganView> {
   }
 
   getSelectedCategories() {
+    printr("isPemasukan: ${isPemasukan}");
     if (isPemasukan) {
       return kategoriPemasukanList;
     } else {

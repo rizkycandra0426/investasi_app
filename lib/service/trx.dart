@@ -575,7 +575,8 @@ class TRX {
       valuation = getLastCurrentValuationOfAllSaham();
       newValuationPlusSaldo = saldo + valuation;
       // newHargaUnit = getHargaUnitTerakhir();
-      newJumlahUnit = getJumlahUnitTerakhir();
+      // newJumlahUnit = getJumlahUnitTerakhir();
+      newJumlahUnit = TRX.getJumlahUnit(date.year);
       newHargaUnit = newValuationPlusSaldo / newJumlahUnit;
       modal = getModalTerakhir();
     }
@@ -601,6 +602,7 @@ class TRX {
 
     var newYield = getLastYieldInRecord();
     if (type == TopupType.topupBalance) {
+      newValuationPlusSaldo = saldo + valuation;
       newYield = getLastYieldInRecord();
     } else if (type == TopupType.buyDeposito) {
       //Versi lama-nya hanya baris ini
@@ -649,6 +651,10 @@ class TRX {
       jumlahDeviden: newJumlahDeviden,
       yieldValue: newYield,
     ));
+
+    if (type == TopupType.topupBalance) {
+      historyList.value.last.jumlahUnit = TRX.getJumlahUnit(date.year);
+    }
     sortByDateAndRecalculate();
   }
 
@@ -949,8 +955,25 @@ class TRX {
     saveRecord();
   }
 
-  static getJumlahUnit([int? year]) {
+  static double getJumlahUnit([int? year]) {
     var total = 0.0;
+    if (year != null) {
+      if (TRX.danaHistories.where((i) => i.date.year == year).isEmpty) {
+        var items =
+            TRX.danaHistories.where((i) => i.date.year == year - 1).toList();
+        for (var item in items) {
+          if (item.target == "DEVIDENSAHAM") continue;
+          if (item.target == "DEVIDENDEPOSITO") continue;
+          if (item.target == "BUYDEPOSITO") continue;
+          if (item.date.year != year - 1) continue;
+
+          double jumlahUnit = item.total / item.hargaUnit;
+          total += jumlahUnit;
+        }
+        return total;
+      }
+    }
+
     TRX.danaHistories.forEach((item) {
       if (item.target == "DEVIDENSAHAM") return;
       if (item.target == "DEVIDENDEPOSITO") return;
@@ -984,14 +1007,6 @@ class TRX {
       saham: "ABBA",
     );
 
-    buy(
-      date: DateTime(2024, 01, 02),
-      qty: 1000,
-      price: 1000,
-      currentPrice: 1500,
-      saham: "BBCA",
-    );
-
     topup(
       date: DateTime(2024, 01, 03),
       amount: 1000000,
@@ -999,27 +1014,54 @@ class TRX {
       saham: "ABBA",
     );
 
+    // topup(
+    //   date: DateTime(2024, 01, 04),
+    //   amount: 10000000,
+    //   type: TopupType.topupBalance,
+    // );
+
     topup(
-      date: DateTime(2024, 05, 03),
+      date: DateTime(2024, 01, 05),
       amount: 1000000,
       type: TopupType.buyDeposito,
       namaBank: "MANDIRI",
     );
 
     topup(
-      date: DateTime(2024, 05, 04),
+      date: DateTime(2024, 01, 07),
       amount: 1000000,
       type: TopupType.devidenDeposito,
       namaBank: "MANDIRI",
     );
 
-    buy(
-      date: DateTime(2024, 05, 05),
-      qty: 1000,
-      price: 2000,
+    topup(
+      date: DateTime(2024, 01, 08),
+      amount: 10000000,
+      type: TopupType.topupBalance,
+    );
+
+    sell(
+      date: DateTime(2024, 01, 09),
+      qty: 500,
+      price: 2200,
       currentPrice: 2000,
       saham: "ABBA",
     );
+
+    // topup(
+    //   date: DateTime(2024, 05, 04),
+    //   amount: 1000000,
+    //   type: TopupType.devidenDeposito,
+    //   namaBank: "MANDIRI",
+    // );
+
+    // buy(
+    //   date: DateTime(2024, 05, 05),
+    //   qty: 1000,
+    //   price: 2000,
+    //   currentPrice: 2000,
+    //   saham: "ABBA",
+    // );
 
     // sell(
     //   date: DateTime(2024, 01, 02),

@@ -16,9 +16,6 @@ class CatatanPengeluaranView extends StatefulWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              H5(
-                title: "Catatan",
-              ),
               Divider(),
               QTextField(
                 label: "Deskripsi",

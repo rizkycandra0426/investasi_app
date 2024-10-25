@@ -84,22 +84,22 @@ class TransactionHistoryService extends BaseService {
 
     List values = [];
 
-    var filteredPemasukanList = pemasukanList
-        .where((i) => DateTime.parse(i["created_at"]).year == year);
+    var filteredPemasukanList =
+        pemasukanList.where((i) => DateTime.parse(i["tanggal"]).year == year);
 
-    var filteredPengeluaranList = pengeluaranList
-        .where((i) => DateTime.parse(i["created_at"]).year == year);
+    var filteredPengeluaranList =
+        pengeluaranList.where((i) => DateTime.parse(i["tanggal"]).year == year);
 
     for (var i = 1; i <= 12; i++) {
       var totalPemasukan = 0;
       for (var item in filteredPemasukanList) {
-        if (DateTime.parse(item['created_at']).month != i) continue;
+        if (DateTime.parse(item['tanggal']).month != i) continue;
         totalPemasukan += int.parse(item['jumlah'].toString());
       }
 
       var totalPengeluaran = 0;
       for (var item in filteredPengeluaranList) {
-        if (DateTime.parse(item['created_at']).month != i) continue;
+        if (DateTime.parse(item['tanggal']).month != i) continue;
         totalPengeluaran += int.parse(item['jumlah'].toString());
       }
 

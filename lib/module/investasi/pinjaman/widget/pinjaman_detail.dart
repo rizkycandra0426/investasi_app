@@ -118,9 +118,10 @@ class PinjamanDetail extends StatelessWidget {
                 color: Colors.white,
                 child: PinjamanIndexedValueItem(
                   number: "Bulan",
+                  bungaPerBulan: "Bunga",
                   angsuran: "Angsuran",
-                  totalAngsuran: "Total Angsuran",
-                  sisaPinjaman: "Sisa Pinjaman",
+                  totalAngsuran: "Total\nAngsuran",
+                  sisaPinjaman: "Sisa\nPinjaman",
                 ),
               ),
               ListView.builder(
@@ -136,8 +137,8 @@ class PinjamanDetail extends StatelessWidget {
                     color: index % 2 == 0 ? Colors.white : Colors.white,
                     child: PinjamanIndexedValueItem(
                       number: item.bulanKe,
-                      angsuran:
-                          "${item.angsuran.number} (${item.bungaPerBulan.number})",
+                      bungaPerBulan: item.bungaPerBulan.number,
+                      angsuran: "${item.angsuran.number}",
                       totalAngsuran: item.totalAngsuran.number,
                       sisaPinjaman: item.sisaPinjaman.number,
                     ),

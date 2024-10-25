@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 class PinjamanIndexedValueItem extends StatelessWidget {
   final dynamic number;
+  final String bungaPerBulan;
   final String angsuran;
   final String totalAngsuran;
   final dynamic sisaPinjaman;
@@ -11,6 +12,7 @@ class PinjamanIndexedValueItem extends StatelessWidget {
   const PinjamanIndexedValueItem({
     super.key,
     required this.number,
+    required this.bungaPerBulan,
     required this.angsuran,
     required this.totalAngsuran,
     required this.sisaPinjaman,
@@ -25,45 +27,55 @@ class PinjamanIndexedValueItem extends StatelessWidget {
       child: Row(
         children: [
           Container(
-            width: 32.0,
+            width: 30.0,
             child: Text(
               "$number",
               textAlign: TextAlign.center,
               overflow: TextOverflow.ellipsis,
               style: TextStyle(
-                fontSize: 12.0,
+                fontSize: 10.0,
+              ),
+            ),
+          ),
+          Container(
+            width: 80.0,
+            child: Text(
+              "$bungaPerBulan",
+              textAlign: TextAlign.center,
+              overflow: TextOverflow.ellipsis,
+              style: TextStyle(
+                fontSize: 10.0,
+              ),
+            ),
+          ),
+          Container(
+            width: 80.0,
+            child: Text(
+              "$angsuran",
+              textAlign: TextAlign.left,
+              overflow: TextOverflow.ellipsis,
+              style: TextStyle(
+                fontSize: 10.0,
               ),
             ),
           ),
           Expanded(
             child: Text(
-              "$angsuran",
-              textAlign: TextAlign.center,
-              overflow: TextOverflow.ellipsis,
-              style: TextStyle(
-                fontSize: 12.0,
-              ),
-            ),
-          ),
-          Container(
-            width: 100.0,
-            child: Text(
               "$totalAngsuran",
               textAlign: TextAlign.center,
               overflow: TextOverflow.ellipsis,
               style: TextStyle(
-                fontSize: 12.0,
+                fontSize: 10.0,
               ),
             ),
           ),
-          Container(
-            width: 100.0,
+          Expanded(
             child: Text(
               "$sisaPinjaman",
               overflow: TextOverflow.ellipsis,
-              textAlign: TextAlign.right,
+              textAlign: TextAlign.center,
               style: TextStyle(
-                fontSize: 12.0,
+                fontSize: 10.0,
                 fontWeight: FontWeight.bold,
               ),
             ),

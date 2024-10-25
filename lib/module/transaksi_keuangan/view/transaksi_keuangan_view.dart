@@ -280,8 +280,7 @@ class TransaksiKeuanganView extends StatefulWidget {
                                 value: controller.categoryValue,
                                 onChanged: (value, label) {
                                   print("$value");
-                                  controller.isPemasukan =
-                                      value == "Pemasukkan";
+                                  controller.isPemasukan = value == "Pemasukan";
                                   controller.idCategory = 0;
                                   controller.categoryName = "";
                                   controller.categoryValue = value;
@@ -289,6 +288,12 @@ class TransaksiKeuanganView extends StatefulWidget {
                                 },
                               );
                             }),
+                          ),
+                          Text(
+                            "${controller.idCategory}",
+                            style: TextStyle(
+                              fontSize: 12.0,
+                            ),
                           ),
                           SizedBox(
                             width: 12.0,

@@ -26,18 +26,19 @@ class LaporanKeuanganBulananController
   getHistories({
     int? year,
   }) async {
-    if (!mounted) return;
+    print("getHistories...");
     if (!mounted) return;
     loading = true;
     setState(() {});
 
     response = await TransactionHistoryService().byYear(
-      year: year ?? DateTime.now().year,
+      year: DashboardController.instance.currentDate.year,
     );
     calculateTotal();
 
     loading = false;
     setState(() {});
+    print("getHistories Done...");
   }
 
   calculateTotal() {

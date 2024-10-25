@@ -1,44 +1,32 @@
-[NEW]
-v 18. pada bagian pencatatan keuangan, pada saat nambah di bulan november, dataynga masih tetep masuk di bulan oktober dan masuk ke total balance seharusnya data masuk ke bulan november
-[Check getHistories]
+[Portofolio]
+1. verifikasi emailnya pada saat klik link dia muncul invalid tapi bisa login
+2. Fitur bulanan dia jadi satu pada bulan oktober padahal  datanya 1 dibulan oktober dan 1 lagi di 1 november
+[C:\Users\DNE\Documents\FREELANCE\investasi_app\investasi_app_mobile\lib\module\pencatatan_keuangan\laporan_keuangan_bulanan\controller\laporan_keuangan_bulanan_controller.dart]
 
-v 19. ⁠lalu di bagian anggaran ketika dia buat anggaran di bulan oktober sebesar 200k, dan pindah bulan ke november dia mau ubah ke 250k maka anggaran yg di bulan oktober tidak berubah
-[Edit anggaran di bulan X, tapi muncul di bulan Y]
-v Sisa budget by month
-v Total by month
-v List budget by month
-v Total List item by month
-v Edit budget by month
-v Total, Budget di October 2025, masih menampilkan total di October 2024
+v 3. Kategorinya malah kepanggil yang kategori pengeluaran saja, yang kategori pemasukan tidak kebaca
+4. Fitur statistiknya malah kegabung setiap bulanya, bukan tiap bulan
+* Masih kegabung semuanya
 
-[Pending]
-v 5. Perbaiki perhitungan investasi dan pinjaman ( untuk rumus dari java bisa ditranslete ke flutter tidak masden soalnya ini disuruh make rumus yg seperti temen saya)
-v Lumpsum
-v Bulanan
-v Target
+5. Fitur catatan yang jumlah diubah menjadi notes kayak deskripsi, nanti saya berikan contohnya
+* Cukup dengan title dan note
+* Hilangkan jumlah, deskripsi ganti dengan title dan note
+* Pisahkan catatan per bulan
+
+6. Untuk yang investasi target, masih agak salah masden (nanti saya kirimkan contohnya)
+* cek ss di wa
+* simmulasinya 1jt, 5 tahun 3%
+* bulan pertama sharusnya 15469
+
+v 7. Untuk yang pinjaman bisa buatkan table lagi satu tidak, yaitu Bunga untuk naruh bunganya karena tidak keliatan (nanti saya kasi contohnya)
 
 [Portofolio]
-v 1. ⁠portofolionya pada bagian histori dana masih belum bener jumlah unitnya ketika topup dana lagi, jadi ketika top up dana dia ngejumlahin jumlah unitnya sebelumnya sama jumlah unit yg baru di topup nah di balance itu dimunculi totalnya  berapa
-v 2. ⁠sama kayak top up dana ketika witdraw dia belum bener jumlah unitnya 
+v 8. Untuk yg portofolio pada saat udah beli saham dan melakukan deviden saham, 
+- saya topup dana lagi 1jt, terus melakukan 
+- buy deposito senilai 1 juta nah disitu dia masih salah yield dan harga unitnya
 
-v 3. ⁠lalu ketika beli 2 saham deviden deposito masih belum bener sama juga kalo beli 1 saham dia gk ada perubahan yield sama harga unit kayak kemarin
+v 9. Terus saya ulang, lalu beli saham, edit current pricenya, tambah deviden saham , beli deposito, tambahan deviden deposito, topup dana lagi dan yg terakhir jual saham, nah disini dia masih error
 
-v 4. lalu ketika beli saham lagi setelah melakukan beli deposito dan topup deviden deposito dia juga belum bener hancur perhitungannya pada kasus beli 2 saham kalo 1 saham aman dia
-v harga unit
-v yield
+v 10. Pada saat pindah tahun di portofolio jumlah dana tmasih 0
 
-[Lainnya]
-v 6. Fitur catatan diganti menjadi seperti to do list gitu 
-v 7. tambahkan confirm password pada register
-v 8. Ketika salah satu form tidak terisi pada saat transaksi keuangan, gk boleh keriset ulang 
-v 9. Ketika ditambahkan di bulan november,  balance pada bulan november tidak muncul malah jadi satu di bulan oktobernya
-v 10. Hilangin tanda (-) pada saat milih pemasukan atau pengeluaran
-v 11. Pas update data di bulan november malah dia kesimpan di bulan oktober
-v 12. Anggaran dibuatkan perbulan dan ada bug di muncul persentasenha
-v 13. Bug ketika masuk statistik gak muncul grafik persentase
-
-[Investasi-Pinjaman-Category-Requests]
-v 14. ⁠hilangkan validasi di persentase pada investasi agar user bisa nginputin berapa saja 
-v 15. ⁠hilangkan (-) pada setiap milih persentase bunga karena ketika user milih itu terjadi bug
-v 16. Pada investasi dan pinjaman ketika inputin nominal isikan titik agar mengetahui berapa nomila ketiak di ketik  (Sudah di update juga di versi Lumpsum dan Target Investasi dan Pinjaman)
-v 17. Kategori request berikan pesan error ketika ada kategori yg sama dengan sebelumnya lalu ketika berhasil di approve oleh admin dia muncul di kategori yg user tambahkan
+[SKIP]
+11. ⁠pada saat notifikasi logo tidak muncul
