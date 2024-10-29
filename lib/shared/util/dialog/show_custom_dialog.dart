@@ -18,17 +18,17 @@ Future showCustomDialog({
             ],
           ),
         ),
-        actions: <Widget>[
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.blueGrey,
-            ),
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            child: const Text("Ok"),
-          ),
-        ],
+        // actions: <Widget>[
+        //   ElevatedButton(
+        //     style: ElevatedButton.styleFrom(
+        //       backgroundColor: Colors.blueGrey,
+        //     ),
+        //     onPressed: () {
+        //       Navigator.pop(context);
+        //     },
+        //     child: const Text("Ok"),
+        //   ),
+        // ],
       );
     },
   );

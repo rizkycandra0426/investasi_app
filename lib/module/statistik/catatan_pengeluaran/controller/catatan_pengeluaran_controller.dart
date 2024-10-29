@@ -24,23 +24,26 @@ class CatatanPengeluaranController extends State<CatatanPengeluaranView> {
     setState(() {});
   }
 
-  String deskripsi = "";
-  double amount = 0;
+  String title = "";
+  String note = "";
 
   create() {
-    if (deskripsi.isEmpty) {
+    if (title.isEmpty) {
       showInfoDialog("Deskripsi tidak boleh kosong");
       return;
     }
-    if (amount == 0) {
+    if (note == 0) {
       showInfoDialog("Jumlah tidak boleh kosong");
       return;
     }
 
     items.add({
-      "deskripsi": deskripsi,
-      "amount": amount,
+      "year": StatistikDashboardController.instance.currentDate.year,
+      "month": StatistikDashboardController.instance.currentDate.month,
+      "title": title,
+      "note": note,
     });
+    Navigator.pop(context);
 
     ss("Berhasil menyimpan catatan!");
     DBService.saveList("catatan", items);

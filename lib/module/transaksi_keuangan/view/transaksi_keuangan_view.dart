@@ -289,12 +289,6 @@ class TransaksiKeuanganView extends StatefulWidget {
                               );
                             }),
                           ),
-                          Text(
-                            "${controller.idCategory}",
-                            style: TextStyle(
-                              fontSize: 12.0,
-                            ),
-                          ),
                           SizedBox(
                             width: 12.0,
                           ),

@@ -1,13 +1,17 @@
 [Portofolio]
-1. verifikasi emailnya pada saat klik link dia muncul invalid tapi bisa login
-2. Fitur bulanan dia jadi satu pada bulan oktober padahal  datanya 1 dibulan oktober dan 1 lagi di 1 november
-[C:\Users\DNE\Documents\FREELANCE\investasi_app\investasi_app_mobile\lib\module\pencatatan_keuangan\laporan_keuangan_bulanan\controller\laporan_keuangan_bulanan_controller.dart]
+v 1. verifikasi emailnya pada saat klik link dia muncul invalid tapi bisa login
+(Yang ini karena ke klik 2x)
+
+v 2. Fitur bulanan dia jadi satu pada bulan oktober padahal  datanya 1 dibulan oktober dan 1 lagi di 1 november
 
 v 3. Kategorinya malah kepanggil yang kategori pengeluaran saja, yang kategori pemasukan tidak kebaca
-4. Fitur statistiknya malah kegabung setiap bulanya, bukan tiap bulan
+
+v 4a. Setelah tambah pemasukkan pengeluaran, ambil ulang data pemasukan dan pengeluaran.
+
+v 4b. Fitur statistiknya malah kegabung setiap bulanya, bukan tiap bulan
 * Masih kegabung semuanya
 
-5. Fitur catatan yang jumlah diubah menjadi notes kayak deskripsi, nanti saya berikan contohnya
+v 5. Fitur catatan yang jumlah diubah menjadi notes kayak deskripsi, nanti saya berikan contohnya
 * Cukup dengan title dan note
 * Hilangkan jumlah, deskripsi ganti dengan title dan note
 * Pisahkan catatan per bulan

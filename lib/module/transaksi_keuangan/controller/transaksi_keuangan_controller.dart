@@ -224,7 +224,9 @@ class TransaksiKeuanganController extends State<TransaksiKeuanganView> {
       //   "id_kategori_pengeluaran": idCategory,
       // });
     }
-    OfflineService.syncPemasukanDanPengeluaranToServer();
+
+    await OfflineService.syncPemasukanDanPengeluaranToServer();
+    await OfflineService.reloadPemasukanAndPengeluaran();
 
     hideLoading();
 

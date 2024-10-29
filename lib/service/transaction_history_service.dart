@@ -135,8 +135,8 @@ class TransactionHistoryService extends BaseService {
     List values = [];
 
     var filteredPengeluaranList = pengeluaranList.where((i) =>
-        DateTime.parse(i["created_at"]).month == month &&
-        DateTime.parse(i["created_at"]).year == year);
+        DateTime.parse(i["tanggal"]).month == month &&
+        DateTime.parse(i["tanggal"]).year == year);
 
     List kategoriPengeluaran = OfflineService.get("kategori-pengeluaran");
 

@@ -16,61 +16,81 @@ class CatatanPengeluaranView extends StatefulWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Divider(),
-              QTextField(
-                label: "Deskripsi",
-                validator: Validator.required,
-                value: controller.deskripsi,
-                onChanged: (value) {
-                  controller.deskripsi = value;
-                },
-              ),
-              QTextField(
-                label: "Jumlah",
-                validator: Validator.required,
-                value: controller.amount.toString(),
-                onChanged: (value) {
-                  controller.amount = double.tryParse(value) ?? 0;
-                },
-              ),
               QButton(
-                label: "Catat",
-                onPressed: () => controller.create(),
+                label: "Buat catatan",
+                onPressed: () async {
+                  showCustomDialog(
+                    title: "Buat catatan",
+                    children: [
+                      QTextField(
+                        label: "Title",
+                        validator: Validator.required,
+                        onChanged: (value) {
+                          controller.title = value;
+                        },
+                      ),
+                      QMemoField(
+                        label: "Note",
+                        validator: Validator.required,
+                        onChanged: (value) {
+                          controller.note = value;
+                        },
+                      ),
+                      QButton(
+                        label: "Catat",
+                        onPressed: () => controller.create(),
+                      ),
+                    ],
+                  );
+                },
               ),
-              Divider(),
+              const SizedBox(
+                height: 20.0,
+              ),
               ListView.builder(
                 shrinkWrap: true,
                 itemCount: controller.items.length,
                 physics: const ScrollPhysics(),
                 itemBuilder: (BuildContext context, int index) {
                   var item = controller.items[index];
+                  if (item["year"] !=
+                      StatistikDashboardController.instance.currentDate.year)
+                    return Container();
+                  if (item["month"] !=
+                      StatistikDashboardController.instance.currentDate.month)
+                    return Container();
                   return QDismissible(
                     onDismiss: () {
                       controller.delete(item);
                     },
                     child: Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 20.0,
-                        vertical: 10.0,
+                      padding: const EdgeInsets.all(16.0),
+                      margin: const EdgeInsets.only(
+                        bottom: 12.0,
                       ),
-                      child: Row(
+                      decoration: BoxDecoration(
+                        color: Color(0xffffd145),
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(12.0),
+                        ),
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Expanded(
-                            child: Text(
-                              item["deskripsi"],
-                              style: const TextStyle(
-                                fontSize: 18.0,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.blue,
-                              ),
+                          Text(
+                            item["title"] ?? "-",
+                            style: const TextStyle(
+                              fontSize: 16.0,
+                              fontWeight: FontWeight.bold,
                             ),
                           ),
+                          const SizedBox(
+                            height: 8.0,
+                          ),
                           Text(
-                            "${NumberFormat().format(item["amount"])}",
+                            item["note"] ?? "-",
                             style: const TextStyle(
-                              fontSize: 20.0,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.red,
+                              fontSize: 14.0,
                             ),
                           ),
                         ],

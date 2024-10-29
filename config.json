@@ -1,6 +1,6 @@
 {
     "modules": [
-        "debug_user"
+        "statistik/catatan_pengeluaran_form"
     ],
     "module_directory_name": "module/saham",
     "experimental_mode": false,
