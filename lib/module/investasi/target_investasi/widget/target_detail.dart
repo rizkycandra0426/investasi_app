@@ -36,7 +36,7 @@ class TargetDetail extends StatelessWidget {
             children: [
               TargetDetailValueItem(
                 label: "Target Dana",
-                value: "${controller.investasiAwal.currency}",
+                value: "${controller.investasiAwal.number}",
               ),
               TargetDetailValueItem(
                 label: "Jangka Waktu",
@@ -50,7 +50,7 @@ class TargetDetail extends StatelessWidget {
                 return TargetDetailValueItem(
                   label: "Total Dana per Bulan",
                   value:
-                      "${monthlyContribution.currency}", // Format dengan dua desimal
+                      "${TargetInvestasiController.instance.currentMonthlyDeposit.number}", // Format dengan dua desimal
                 );
               }),
               Divider(),
@@ -60,26 +60,33 @@ class TargetDetail extends StatelessWidget {
                 child: TargetDetailIndexedValueItem(
                   number: "Bulan",
                   label: "Dana Per Bulan",
+                  sublabel: "Bunga",
                   value: "Nilai Investasi",
                 ),
               ),
-              ListView.builder(
-                itemCount:
-                    controller.jangkaWaktuDalamTahun * 12, // Menggunakan bulan
-                shrinkWrap: true,
-                physics: const ScrollPhysics(),
-                itemBuilder: (BuildContext context, int index) {
-                  return Container(
-                    padding: const EdgeInsets.all(6.0),
-                    color: index % 2 == 0 ? Colors.white : Colors.white,
-                    child: TargetDetailIndexedValueItem(
-                      number: index + 1,
-                      label: (monthlyContribution * (index + 1)).currency,
-                      value: (monthlyContribution * (index + 1)).currency,
-                    ),
-                  );
-                },
-              ),
+              Builder(builder: (context) {
+                var items = TargetInvestasiController.instance
+                    .getInvestmentForEachMonths();
+
+                return ListView.builder(
+                  itemCount: items.length, // Menggunakan bulan
+                  shrinkWrap: true,
+                  physics: const ScrollPhysics(),
+                  itemBuilder: (BuildContext context, int index) {
+                    var item = items[index];
+                    return Container(
+                      padding: const EdgeInsets.all(6.0),
+                      color: index % 2 == 0 ? Colors.white : Colors.white,
+                      child: TargetDetailIndexedValueItem(
+                        number: item["month"].toString(),
+                        label: (item["deposit"] as double).number,
+                        sublabel: (item["interest"] as double).number2,
+                        value: (item["endingBalance"] as double).number,
+                      ),
+                    );
+                  },
+                );
+              }),
             ],
           ),
         ),
@@ -130,12 +137,14 @@ class TargetDetailValueItem extends StatelessWidget {
 class TargetDetailIndexedValueItem extends StatelessWidget {
   final dynamic number;
   final String label;
+  final String sublabel;
   final dynamic value;
 
   const TargetDetailIndexedValueItem({
     super.key,
     required this.number,
     required this.label,
+    required this.sublabel,
     required this.value,
   });
 
@@ -159,6 +168,15 @@ class TargetDetailIndexedValueItem extends StatelessWidget {
           Expanded(
             child: Text(
               "$label",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 12.0,
+              ),
+            ),
+          ),
+          Expanded(
+            child: Text(
+              "$sublabel",
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 12.0,
