@@ -79,6 +79,14 @@ class TRX {
     return historyList.value.last.saldo;
   }
 
+  static double getSaldoTerakhirDiTahun(int year) {
+    var items = historyList.value.where((item) {
+      return item.date.year == year;
+    }).toList();
+    if (items.isEmpty) return 0;
+    return items.last.saldo;
+  }
+
   static double getModalTerakhir() {
     var items = historyList.value.where((item) => item.modal != 0).toList();
     if (items.isEmpty) {
@@ -197,6 +205,16 @@ class TRX {
       valuationTotal += sahamHistories.last.valuation;
     }
     return valuationTotal;
+  }
+
+  static double getCurrentValuationInYear(int year) {
+    double valuation = 0;
+    for (var item in historyList.value) {
+      if (item.date.year == year) {
+        valuation = item.currentValuation;
+      }
+    }
+    return valuation;
   }
 
   static double getSahamLastCurrentPrice(String saham) {
@@ -342,6 +360,28 @@ class TRX {
       total += item.total;
     }
     return total;
+  }
+
+  static double getTotalEquitySahamBerdasarkanVolumeTerakhir() {
+    List<String> uniqueSaham =
+        historyList.value.map((e) => e.target).toSet().toList();
+    double totalEquity = 0;
+    for (var saham in uniqueSaham) {
+      var x = getEquitySahamBerdasarkanVolumeTerakhir(saham);
+      totalEquity += x;
+    }
+    return totalEquity;
+  }
+
+  static double getTotalEquitySahamBerdasarkanVolumeTerakhirByYear(int year) {
+    List<String> uniqueSaham =
+        historyList.value.map((e) => e.target).toSet().toList();
+    double totalEquity = 0;
+    for (var saham in uniqueSaham) {
+      var x = getEquitySahamBerdasarkanVolumeTerakhir(saham);
+      totalEquity += x;
+    }
+    return totalEquity;
   }
 
   static double getTotalOfEquityByVolumeOfUniqueSahamInYear(int year) {
@@ -543,7 +583,10 @@ class TRX {
     double modal = getModalTerakhir() + amount;
     //---------------------------------
     //---------------------------------
+
     double valuation = getLastValuation();
+
+    double currentValuation = getLastCurrentValuationOfYear(date.year);
 
     double newValuationPlusSaldo = getLastValuationPlusSaldo() + saldo;
     double newJumlahUnit = newValuationPlusSaldo / getHargaUnitTerakhir();
@@ -565,7 +608,7 @@ class TRX {
     // }
 
     if (type == TopupType.devidenSaham) {
-      newValuationPlusSaldo = saldo + valuation;
+      newValuationPlusSaldo = saldo + currentValuation;
       newJumlahUnit = getJumlahUnitTerakhir();
       newHargaUnit = newValuationPlusSaldo / newJumlahUnit;
     }
@@ -573,7 +616,7 @@ class TRX {
     if (type == TopupType.buyDeposito) {
       saldo = getSaldoTerakhir() - amount;
       valuation = getLastCurrentValuationOfAllSaham();
-      newValuationPlusSaldo = saldo + valuation;
+      newValuationPlusSaldo = saldo + currentValuation;
       // newHargaUnit = getHargaUnitTerakhir();
       // newJumlahUnit = getJumlahUnitTerakhir();
       newJumlahUnit = TRX.getJumlahUnit(date.year);
@@ -582,10 +625,16 @@ class TRX {
     }
 
     if (type == TopupType.devidenDeposito) {
-      newValuationPlusSaldo = saldo + valuation;
+      newValuationPlusSaldo = saldo + currentValuation;
       newJumlahUnit = getJumlahUnitTerakhir();
       // newHargaUnit = modal / newJumlahUnit;
       newHargaUnit = newValuationPlusSaldo / newJumlahUnit;
+    }
+
+    if (type == TopupType.withdrawBalance) {
+      // saldo = getSaldoTerakhir() - amount;
+      valuation = getLastCurrentValuationOfAllSaham();
+      newValuationPlusSaldo = saldo + currentValuation;
     }
 
     double newDeviden = 0;
@@ -602,7 +651,7 @@ class TRX {
 
     var newYield = getLastYieldInRecord();
     if (type == TopupType.topupBalance) {
-      newValuationPlusSaldo = saldo + valuation;
+      newValuationPlusSaldo = saldo + currentValuation;
       newYield = getLastYieldInRecord();
     } else if (type == TopupType.buyDeposito) {
       //Versi lama-nya hanya baris ini
@@ -640,7 +689,7 @@ class TRX {
       modal: modal,
       currentPrice: 0,
       valuation: valuation,
-      currentValuation: 0,
+      currentValuation: currentValuation,
       pl: 0,
       valuationPlusSaldo: newValuationPlusSaldo,
       hargaUnit: newHargaUnit,
@@ -686,7 +735,9 @@ class TRX {
     initStockForYearIfHistoryInYearIsEmpty(date.year);
 
     double hargaUnit = getHargaUnitTerakhir();
-    double jumlahUnit = getJumlahUnitTerakhir();
+    // double jumlahUnit = getJumlahUnitTerakhir();
+    double jumlahUnit = TRX.getJumlahUnit(date.year);
+
     double modal = getModalTerakhir();
 
     double total = qty * price;
@@ -711,8 +762,9 @@ class TRX {
     double otherSahamValuation = getOtherSahamValuation(saham);
     currentValuation = otherSahamValuation + valuation;
 
-    double pl = valuation - equityByVolume;
+    double profitAndLoss = valuation - equityByVolume;
 
+    // double valuationPlusSaldo = saldoTerbaru + currentValuation;
     double valuationPlusSaldo = saldoTerbaru + currentValuation;
     hargaUnit = valuationPlusSaldo / jumlahUnit;
 
@@ -721,13 +773,31 @@ class TRX {
 
     // double yield =
     //     ((hargaUnit - getHargaUnitTerakhir()) / getHargaUnitTerakhir()) * 100;
-    double hargaUnitDiawalTahun = getHargaUnitDiawalTahun(date.year);
+    // double hargaUnitDiawalTahun = getHargaUnitDiawalTahun(date.year);
+    double hargaUnitDiawalTahun = getHargaUnitTerakhir();
+
     double yield =
         (hargaUnit - hargaUnitDiawalTahun) / hargaUnitDiawalTahun * 100;
+
+    if (date.year == 2025) {
+      print("~~~~");
+      print("2025: saldoTerbaru: ${saldoTerbaru}");
+      print("2025: valuation: ${valuation}");
+      print("2025: hargaUnit: ${hargaUnit}");
+      print("2025: hargaUnitDiawalTahun: ${hargaUnitDiawalTahun}");
+      print("2025: valuationPlusSaldo: ${valuationPlusSaldo}");
+      print("2025: jumlahUnit: ${jumlahUnit}");
+      print("2025: yield: ${yield}");
+      print("~~~~");
+    }
 
     // if (lastBuyOrSellIsEqualToSaham(saham) == false) {
     //   yield = yield + getLastYieldInRecord();
     // }
+
+    if (qty == 0) {
+      yield = getLastYieldInRecord();
+    }
 
     historyList.value.add(History(
       date: date,
@@ -746,7 +816,7 @@ class TRX {
       currentPrice: currentPrice,
       valuation: valuation,
       currentValuation: currentValuation,
-      pl: pl,
+      pl: profitAndLoss,
       valuationPlusSaldo: valuationPlusSaldo,
       hargaUnit: hargaUnit,
       jumlahUnit: jumlahUnit,
@@ -1003,8 +1073,22 @@ class TRX {
       date: DateTime(2024, 01, 02),
       qty: 1000,
       price: 1000,
-      currentPrice: 2000,
+      currentPrice: 1500,
       saham: "ABBA",
+    );
+
+    buy(
+      date: DateTime(2024, 01, 02),
+      qty: 1000,
+      price: 1000,
+      currentPrice: 2000,
+      saham: "BBCA",
+    );
+
+    topup(
+      date: DateTime(2024, 01, 02),
+      amount: 1000000,
+      type: TopupType.topupBalance,
     );
 
     topup(
@@ -1014,11 +1098,12 @@ class TRX {
       saham: "ABBA",
     );
 
-    // topup(
-    //   date: DateTime(2024, 01, 04),
-    //   amount: 10000000,
-    //   type: TopupType.topupBalance,
-    // );
+    topup(
+      date: DateTime(2024, 01, 03),
+      amount: 1000000,
+      type: TopupType.devidenSaham,
+      saham: "BBCA",
+    );
 
     topup(
       date: DateTime(2024, 01, 05),
@@ -1034,19 +1119,26 @@ class TRX {
       namaBank: "MANDIRI",
     );
 
-    topup(
+    withdraw(
       date: DateTime(2024, 01, 08),
-      amount: 10000000,
-      type: TopupType.topupBalance,
+      amount: 1000000,
     );
 
-    sell(
-      date: DateTime(2024, 01, 09),
-      qty: 500,
-      price: 2200,
+    buy(
+      date: DateTime(2025, 01, 02),
+      qty: 1000,
+      price: 1500,
       currentPrice: 2000,
       saham: "ABBA",
     );
+
+    // sell(
+    //   date: DateTime(2024, 01, 09),
+    //   qty: 500,
+    //   price: 2200,
+    //   currentPrice: 2000,
+    //   saham: "ABBA",
+    // );
 
     // topup(
     //   date: DateTime(2024, 05, 04),

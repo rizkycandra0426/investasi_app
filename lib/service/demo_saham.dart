@@ -155,13 +155,11 @@ class _DemoSahamViewState extends State<DemoSahamView> {
                                       ),
                                     ],
                                     Expanded(
-                                      child: FittedBox(
-                                        child: Text(
-                                          "$value",
-                                          textAlign: TextAlign.center,
-                                          style: TextStyle(
-                                            fontSize: 12.0,
-                                          ),
+                                      child: Text(
+                                        "$value",
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                          fontSize: 10.0,
                                         ),
                                       ),
                                     ),
@@ -188,8 +186,8 @@ class _DemoSahamViewState extends State<DemoSahamView> {
                                     padding: EdgeInsets.zero,
                                     gridDelegate:
                                         const SliverGridDelegateWithFixedCrossAxisCount(
-                                      childAspectRatio: 1.0 / 0.60,
-                                      crossAxisCount: 5,
+                                      childAspectRatio: 1.0 / 0.48,
+                                      crossAxisCount: 4,
                                       mainAxisSpacing: 0,
                                       crossAxisSpacing: 0,
                                     ),
@@ -246,13 +244,13 @@ class _DemoSahamViewState extends State<DemoSahamView> {
                                         item.valuation.number,
                                       ),
                                       getWidgetC(
-                                        "Current Valuation",
+                                        "C.Valuation",
                                         item.currentValuation.number,
                                       ),
-                                      getWidgetC(
-                                        "PL",
-                                        item.pl.number,
-                                      ),
+                                      // getWidgetC(
+                                      //   "PL",
+                                      //   item.pl.number,
+                                      // ),
                                       getWidgetC(
                                         "V+S",
                                         item.valuationPlusSaldo.number,

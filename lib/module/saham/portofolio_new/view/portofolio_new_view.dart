@@ -143,9 +143,8 @@ class PortofolioNewView extends StatefulWidget {
                                 "label": "Valuation",
                                 // "value": TRX
                                 //     .getLastCurrentValuationOfYear(targetYear),
-                                "value": TRX
-                                    .getTotalValuationOfLastRecordOfUniqueSaham(
-                                        targetYear),
+                                "value":
+                                    TRX.getCurrentValuationInYear(targetYear),
                               },
                               // {
                               //   "label": "Valuation",
@@ -154,8 +153,11 @@ class PortofolioNewView extends StatefulWidget {
                               // },
                               {
                                 "label": "Equity",
+                                // "value": TRX
+                                //     .getTotalOfEquityByVolumeOfUniqueSahamInYear(
+                                //         targetYear),
                                 "value": TRX
-                                    .getTotalOfEquityByVolumeOfUniqueSahamInYear(
+                                    .getTotalEquitySahamBerdasarkanVolumeTerakhirByYear(
                                         targetYear),
                               },
                               // {
