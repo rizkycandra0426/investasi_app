@@ -78,7 +78,7 @@ class DashboardInvestasiView extends StatefulWidget {
                                 Padding(
                                   padding: EdgeInsets.only(left: 8.0),
                                   child: Text(
-                                    "Mulai Investasi",
+                                    "Mulai",
                                     style: TextStyle(
                                       fontSize: 15,
                                       fontWeight: FontWeight.w600,
@@ -185,7 +185,7 @@ class DashboardInvestasiView extends StatefulWidget {
                                 Padding(
                                   padding: EdgeInsets.only(left: 8.0),
                                   child: Text(
-                                    "Mulai Pinjaman",
+                                    "Mulai",
                                     style: TextStyle(
                                       fontSize: 15,
                                       fontWeight: FontWeight.w600,
@@ -292,7 +292,7 @@ class DashboardInvestasiView extends StatefulWidget {
                                 Padding(
                                   padding: EdgeInsets.only(left: 8.0),
                                   child: Text(
-                                    "Mulai Saham",
+                                    "Mulai",
                                     style: TextStyle(
                                       fontSize: 15,
                                       fontWeight: FontWeight.w600,
