@@ -59,6 +59,7 @@ class TradeHistoyView extends StatefulWidget {
             if (item.activity == "TOPUP" && item.targetSaham != saham)
               return SizedBox.shrink();
 
+            if (item.total == 0) return SizedBox.shrink();
             // var itemValues = [
             //   {
             //     "label": "Date",

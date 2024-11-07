@@ -74,9 +74,12 @@ class PortofolioNewView extends StatefulWidget {
                         ),
                         Spacer(),
                         InkWell(
-                          onTap: () => Get.to(HistoriDanaView(
-                            depositoMode: true,
-                          )),
+                          onTap: () async {
+                            await Get.to(HistoriDanaView(
+                              depositoMode: true,
+                            ));
+                            controller.reload();
+                          },
                           child: CircleAvatar(
                             radius: 12.0,
                             backgroundColor: Colors.red,
@@ -91,9 +94,12 @@ class PortofolioNewView extends StatefulWidget {
                           width: 8.0,
                         ),
                         InkWell(
-                          onTap: () => Get.to(HistoriDanaView(
-                            depositoMode: false,
-                          )),
+                          onTap: () async {
+                            await Get.to(HistoriDanaView(
+                              depositoMode: false,
+                            ));
+                            controller.reload();
+                          },
                           child: CircleAvatar(
                             radius: 12.0,
                             backgroundColor: Colors.orange,
@@ -108,7 +114,10 @@ class PortofolioNewView extends StatefulWidget {
                           width: 8.0,
                         ),
                         InkWell(
-                          onTap: () => Get.to(HistoriIhsgView()),
+                          onTap: () async {
+                            await Get.to(HistoriIhsgView());
+                            controller.reload();
+                          },
                           child: CircleAvatar(
                             radius: 12.0,
                             backgroundColor: Colors.blue,
