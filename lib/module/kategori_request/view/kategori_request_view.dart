@@ -25,7 +25,7 @@ class KategoriRequestView extends StatefulWidget {
             ClipPath(
               clipper: RequestClipPathClass(),
               child: Container(
-                height: 170,
+                height: 120,
                 width: MediaQuery.of(context).size.width,
                 color: Colors.blue,
               ),

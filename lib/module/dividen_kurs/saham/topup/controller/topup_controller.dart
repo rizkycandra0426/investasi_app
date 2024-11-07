@@ -77,6 +77,10 @@ class TopupController extends State<TopupView> {
       );
     }
 
+    TRX.disableCalculate = false;
+    TRX.sortByDateAndRecalculate();
+    TRX.disableCalculate = true;
+
     hideLoading();
     Get.back();
     snackbarSuccess(

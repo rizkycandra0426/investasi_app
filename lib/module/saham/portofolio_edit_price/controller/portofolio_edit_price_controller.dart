@@ -31,26 +31,28 @@ class PortofolioEditPriceController extends State<PortofolioEditPriceView> {
     showLoading();
     var recordIndex =
         TRX.updateCurrentPriceOfLastSaham(widget.item.target, price);
-    await Future.delayed(Duration(seconds: 1));
+    await Future.delayed(Duration(milliseconds: 1200));
 
     TRX.disableCalculate = false;
     TRX.sortByDateAndRecalculate();
     TRX.disableCalculate = true;
 
-    hideLoading();
-    Get.back();
-
     PortofolioNewController.instance.reload();
+
+    await Future.delayed(Duration(milliseconds: 1200));
 
     //START OF HOT Fix, yield issues
     TRX.topup(
-      date: TRX.historyList.value[recordIndex].date.add(Duration(seconds: 1)),
+      date: TRX.historyList.value[recordIndex].date.add(Duration(minutes: 1)),
       amount: 0,
       type: TopupType.devidenSaham,
       saham: widget.item.target,
     );
     PortofolioNewController.instance.reload();
     //#END
+
+    hideLoading();
+    Get.back();
   }
 
   bool loading = false;
