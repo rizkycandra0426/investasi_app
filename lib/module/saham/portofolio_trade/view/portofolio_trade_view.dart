@@ -26,7 +26,7 @@ class PortofolioTradeView extends StatefulWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: buyMode ? Colors.green : Colors.red,
-        title: Text("Trade - ${buyMode ? "Buy" : "Sell"}"),
+        title: Text("${buyMode ? "Buy" : "Sell"} $namaSaham"),
         actions: [
           InkWell(
             onTap: () async {
@@ -66,7 +66,7 @@ class PortofolioTradeView extends StatefulWidget {
                     children: [
                       QNumberField(
                         label: "Price",
-                        validator: Validator.required,
+                        validator: Validator.multipleOf100,
                         value: controller.price.toString(),
                         onChanged: (value) {
                           controller.price = double.tryParse(value) ?? 0;

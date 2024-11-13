@@ -72,4 +72,19 @@ class LaporanKeuanganHarianController extends State<LaporanKeuanganHarianView> {
     DashboardController.instance.pengeluaran = pengeluaran;
     DashboardController.instance.setState(() {});
   }
+
+  delete(HistoryHarian item) async {
+    showLoading();
+    bool isPemasukan = item.type == "Pemasukan";
+    if (isPemasukan) {
+      OfflineService.delete("pemasukan", "id_pemasukan", item.id!);
+      // await PemasukanService().delete(widget.item!.id!);
+    } else {
+      OfflineService.delete("pengeluaran", "id_pengeluaran", item.id!);
+      // await PengeluaranService().delete(widget.item!.id!);
+    }
+    OfflineService.syncPemasukanDanPengeluaranToServer();
+    hideLoading();
+    DashboardController.instance.reload();
+  }
 }

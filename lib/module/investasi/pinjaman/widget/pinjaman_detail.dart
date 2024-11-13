@@ -118,8 +118,8 @@ class PinjamanDetail extends StatelessWidget {
                 color: Colors.white,
                 child: PinjamanIndexedValueItem(
                   number: "Bulan",
-                  bungaPerBulan: "Bunga",
-                  angsuran: "Angsuran",
+                  bungaPerBulan: "Bunga\n/Bulan",
+                  angsuran: "Angsuran\n/Bulan",
                   totalAngsuran: "Total\nAngsuran",
                   sisaPinjaman: "Sisa\nPinjaman",
                 ),

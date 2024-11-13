@@ -123,6 +123,11 @@ class TransaksiKeuanganController extends State<TransaksiKeuanganView> {
   }
 
   save() async {
+    bool isNotValid = formKey.currentState!.validate() == false;
+    if (isNotValid) {
+      return;
+    }
+
     amount = double.parse(textEditingController.text.replaceAll(",", ""));
     printg(textEditingController.text);
     printg(amount);

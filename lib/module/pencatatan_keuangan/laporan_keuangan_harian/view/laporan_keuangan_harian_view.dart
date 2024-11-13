@@ -152,67 +152,75 @@ class LaporanKeuanganHarianView extends StatefulWidget {
                             ),
                           ),
                         Divider(),
-                        Padding(
-                          padding: EdgeInsets.symmetric(
-                            horizontal: 20.0,
-                            vertical: 4.0,
-                          ),
-                          child: Row(
-                            children: [
-                              Expanded(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      "${item.namaKategori}",
-                                      textAlign: TextAlign.start,
-                                      style: TextStyle(
-                                        fontSize: 16.0,
-                                        fontWeight: FontWeight.bold,
-                                        color: isPengeluaran
-                                            ? dangerColor
-                                            : infoColor,
+                        QDismissible(
+                          onDismiss: () async {
+                            await controller.delete(item);
+                          },
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(
+                              horizontal: 20.0,
+                              vertical: 4.0,
+                            ),
+                            child: Row(
+                              children: [
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        "${item.namaKategori}",
+                                        textAlign: TextAlign.start,
+                                        style: TextStyle(
+                                          fontSize: 16.0,
+                                          fontWeight: FontWeight.bold,
+                                          color: isPengeluaran
+                                              ? dangerColor
+                                              : infoColor,
+                                        ),
                                       ),
-                                    ),
-                                    SizedBox(
-                                      height: 4.0,
-                                    ),
-                                    Text(
-                                      "${item.catatan}",
-                                      style: TextStyle(
-                                        fontSize: 16.0,
+                                      SizedBox(
+                                        height: 4.0,
                                       ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Container(
-                                width: 80.0,
-                                child: Text(
-                                  "${amount}",
-                                  textAlign: TextAlign.right,
-                                  style: TextStyle(
-                                    fontSize: isPemasukan ? 14.0 : 0,
-                                    fontWeight: FontWeight.bold,
-                                    color:
-                                        isPengeluaran ? dangerColor : infoColor,
+                                      Text(
+                                        "${item.catatan}",
+                                        style: TextStyle(
+                                          fontSize: 16.0,
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ),
-                              ),
-                              Container(
-                                width: 80.0,
-                                child: Text(
-                                  "${amount}",
-                                  textAlign: TextAlign.right,
-                                  style: TextStyle(
-                                    fontSize: isPengeluaran ? 14.0 : 0,
-                                    fontWeight: FontWeight.bold,
-                                    color:
-                                        isPengeluaran ? dangerColor : infoColor,
+                                Container(
+                                  width: 80.0,
+                                  child: Text(
+                                    "${amount}",
+                                    textAlign: TextAlign.right,
+                                    style: TextStyle(
+                                      fontSize: isPemasukan ? 14.0 : 0,
+                                      fontWeight: FontWeight.bold,
+                                      color: isPengeluaran
+                                          ? dangerColor
+                                          : infoColor,
+                                    ),
                                   ),
                                 ),
-                              ),
-                            ],
+                                Container(
+                                  width: 80.0,
+                                  child: Text(
+                                    "${amount}",
+                                    textAlign: TextAlign.right,
+                                    style: TextStyle(
+                                      fontSize: isPengeluaran ? 14.0 : 0,
+                                      fontWeight: FontWeight.bold,
+                                      color: isPengeluaran
+                                          ? dangerColor
+                                          : infoColor,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                         if (dividerVisible)

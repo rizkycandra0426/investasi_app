@@ -52,6 +52,7 @@ class TransaksiKeuanganView extends StatefulWidget {
                     textAlign: TextAlign.center,
                     style: TextStyle(color: Colors.white, fontSize: 26),
                     keyboardType: TextInputType.number,
+                    validator: Validator.required,
                     decoration: InputDecoration(
                       border: InputBorder.none,
                       filled: true,
@@ -102,35 +103,84 @@ class TransaksiKeuanganView extends StatefulWidget {
                 right: 25,
                 child: InkWell(
                   onTap: () => controller.showBottomSheet(),
-                  child: Container(
-                    height: 60,
-                    width: MediaQuery.of(context).size.width,
-                    decoration: BoxDecoration(
-                      color: Colors.white60,
-                      boxShadow: [
-                        BoxShadow(
-                          color: Color(0x19000000),
-                          blurRadius: 24,
-                          offset: Offset(0, 11),
-                        ),
+                  child: AbsorbPointer(
+                    child: Stack(
+                      children: [
+                        if (controller.categoryName.isEmpty)
+                          QTextField(
+                            label: "",
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return "Kategori tidak boleh kosong";
+                              }
+                              return null;
+                            },
+                            hint: "Kategori",
+                            value: controller.categoryName,
+                            onChanged: (value) {},
+                          ),
+                        if (controller.categoryName.isEmpty)
+                          Center(
+                            child: Container(
+                              margin: const EdgeInsets.only(
+                                top: 12.0,
+                              ),
+                              child: Text(
+                                "Kategori",
+                                style: TextStyle(
+                                  fontSize: 20.0,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          ),
+                        if (controller.categoryName.isEmpty == false)
+                          Center(
+                            child: Container(
+                              margin: const EdgeInsets.only(
+                                top: 12.0,
+                              ),
+                              child: Text(
+                                "${controller.categoryName}",
+                                style: TextStyle(
+                                  fontSize: 20.0,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          ),
                       ],
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(30),
-                      ),
-                    ),
-                    child: Center(
-                      child: Text(
-                        controller.categoryName.isEmpty
-                            ? "Kategori"
-                            : controller.categoryName,
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black,
-                        ),
-                      ),
                     ),
                   ),
+                  // child: Container(
+                  //   height: 60,
+                  //   width: MediaQuery.of(context).size.width,
+                  //   decoration: BoxDecoration(
+                  //     color: Colors.white60,
+                  //     boxShadow: [
+                  //       BoxShadow(
+                  //         color: Color(0x19000000),
+                  //         blurRadius: 24,
+                  //         offset: Offset(0, 11),
+                  //       ),
+                  //     ],
+                  //     borderRadius: BorderRadius.all(
+                  //       Radius.circular(30),
+                  //     ),
+                  //   ),
+                  //   child: Center(
+                  //     child: Text(
+                  //       controller.categoryName.isEmpty
+                  //           ? "Kategori"
+                  //           : controller.categoryName,
+                  //       style: TextStyle(
+                  //         fontSize: 16,
+                  //         fontWeight: FontWeight.bold,
+                  //         color: Colors.black,
+                  //       ),
+                  //     ),
+                  //   ),
+                  // ),
                 ),
               ),
               Positioned(
@@ -159,6 +209,7 @@ class TransaksiKeuanganView extends StatefulWidget {
                       showCursor: true,
                       cursorColor: Colors.transparent,
                       textAlign: TextAlign.center,
+                      validator: Validator.required,
                       style: TextStyle(color: Colors.black, fontSize: 20),
                       decoration: InputDecoration(
                         border: InputBorder.none,

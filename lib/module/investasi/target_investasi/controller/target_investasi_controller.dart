@@ -138,13 +138,10 @@ class TargetInvestasiController extends State<TargetInvestasiView> {
       double interest = 0;
 
       // Calculate interest for the previous month's balance, if not the first month
-      if (month > 1) {
-        interest = balance * monthlyRate;
-      }
 
       // Add the monthly deposit to the balance
       balance += depositPerMonth;
-
+      interest = balance * monthlyRate;
       // Add interest to the balance
       balance += interest;
 

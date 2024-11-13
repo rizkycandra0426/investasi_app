@@ -22,26 +22,53 @@ class CatatanPengeluaranView extends StatefulWidget {
                   showCustomDialog(
                     title: "Buat catatan",
                     children: [
-                      QTextField(
-                        label: "Title",
-                        validator: Validator.required,
-                        onChanged: (value) {
-                          controller.title = value;
-                        },
-                      ),
-                      QMemoField(
-                        label: "Note",
-                        validator: Validator.required,
-                        onChanged: (value) {
-                          controller.note = value;
-                        },
-                      ),
-                      QButton(
-                        label: "Catat",
-                        onPressed: () => controller.create(),
+                      Form(
+                        key: controller.formKey,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            QTextField(
+                              label: "Title",
+                              validator: Validator.required,
+                              onChanged: (value) {
+                                controller.title = value;
+                              },
+                            ),
+                            QMemoField(
+                              label: "Note",
+                              validator: Validator.required,
+                              onChanged: (value) {
+                                controller.note = value;
+                              },
+                            ),
+                            QDatePicker(
+                              label: "Tanggal",
+                              validator: Validator.required,
+                              value: controller.tanggal,
+                              onChanged: (value) {
+                                controller.tanggal = value;
+                              },
+                            ),
+                            QButton(
+                              label: "Catat",
+                              onPressed: () => controller.create(),
+                            ),
+                          ],
+                        ),
                       ),
                     ],
                   );
+                },
+              ),
+              const SizedBox(
+                height: 12.0,
+              ),
+              QTextField(
+                label: "Search",
+                validator: Validator.required,
+                value: controller.search,
+                onChanged: (value) {
+                  controller.searchItem(value);
                 },
               ),
               const SizedBox(
@@ -59,41 +86,108 @@ class CatatanPengeluaranView extends StatefulWidget {
                   if (item["month"] !=
                       StatistikDashboardController.instance.currentDate.month)
                     return Container();
+
+                  if (controller.search.isNotEmpty) {
+                    if (!item["title"].toString().contains(controller.search) &&
+                        !item["note"].toString().contains(controller.search)) {
+                      return Container();
+                    }
+                  }
+
                   return QDismissible(
                     onDismiss: () {
                       controller.delete(item);
                     },
-                    child: Container(
-                      padding: const EdgeInsets.all(16.0),
-                      margin: const EdgeInsets.only(
-                        bottom: 12.0,
-                      ),
-                      decoration: BoxDecoration(
-                        color: Color(0xffffd145),
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(12.0),
+                    child: InkWell(
+                      onTap: () async {
+                        controller.title = item["title"];
+                        controller.note = item["note"];
+                        controller.tanggal = DateTime.parse(item["tanggal"]);
+
+                        await showCustomDialog(
+                          title: "Buat catatan",
+                          children: [
+                            Form(
+                              key: controller.formKey,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  QTextField(
+                                    label: "Title",
+                                    validator: Validator.required,
+                                    value: controller.title,
+                                    onChanged: (value) {
+                                      controller.title = value;
+                                    },
+                                  ),
+                                  QMemoField(
+                                    label: "Note",
+                                    validator: Validator.required,
+                                    value: controller.note,
+                                    onChanged: (value) {
+                                      controller.note = value;
+                                    },
+                                  ),
+                                  QDatePicker(
+                                    label: "Tanggal",
+                                    validator: Validator.required,
+                                    value: controller.tanggal,
+                                    onChanged: (value) {
+                                      controller.tanggal = value;
+                                    },
+                                  ),
+                                  QButton(
+                                    label: "Catat",
+                                    onPressed: () =>
+                                        controller.update(item["id"]),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        );
+                      },
+                      child: Container(
+                        padding: const EdgeInsets.all(16.0),
+                        margin: const EdgeInsets.only(
+                          bottom: 12.0,
                         ),
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            item["title"] ?? "-",
-                            style: const TextStyle(
-                              fontSize: 16.0,
-                              fontWeight: FontWeight.bold,
+                        decoration: BoxDecoration(
+                          color: Color(0xffffd145),
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(12.0),
+                          ),
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              item["title"] ?? "-",
+                              style: const TextStyle(
+                                fontSize: 16.0,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
-                          ),
-                          const SizedBox(
-                            height: 8.0,
-                          ),
-                          Text(
-                            item["note"] ?? "-",
-                            style: const TextStyle(
-                              fontSize: 14.0,
+                            const SizedBox(
+                              height: 6.0,
                             ),
-                          ),
-                        ],
+                            Text(
+                              item["tanggal"] ?? "-",
+                              style: const TextStyle(
+                                fontSize: 12.0,
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 6.0,
+                            ),
+                            Text(
+                              item["note"] ?? "-",
+                              style: const TextStyle(
+                                fontSize: 14.0,
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   );

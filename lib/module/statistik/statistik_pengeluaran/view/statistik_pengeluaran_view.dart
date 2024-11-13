@@ -88,13 +88,62 @@ class StatistikPengeluaranView extends StatefulWidget {
                       };
                     }).toList();
 
+                    bool allPercentageZero =
+                        chartData.every((element) => element["sales"] == 0.0);
+
+                    if (allPercentageZero) {
+                      return Container(
+                        height: 300.0,
+                        color: Theme.of(context).cardColor,
+                        child: SfCircularChart(
+                          legend: Legend(isVisible: false),
+                          series: <CircularSeries>[
+                            PieSeries<Map, String>(
+                              dataSource: [
+                                ...chartData,
+                                {
+                                  "label": "No Data",
+                                  "sales": 100.0,
+                                },
+                              ],
+                              dataLabelSettings: const DataLabelSettings(
+                                isVisible: true,
+                              ),
+                              xValueMapper: (Map data, _) => data["label"],
+                              yValueMapper: (Map data, _) => data["sales"],
+                              dataLabelMapper: (datum, index) {
+                                if (datum["label"] == "No Data")
+                                  return "No data";
+                                return (datum["sales"] as double)
+                                        .toStringAsFixed(2) +
+                                    "%";
+                              },
+                              pointColorMapper: (datum, index) {
+                                var categoryindex =
+                                    categories.indexOf(datum["label"]);
+                                print(datum);
+                                if (categoryindex == -1)
+                                  return Colors.grey[300];
+                                return colorSets[categoryindex];
+                              },
+                            )
+                          ],
+                        ),
+                      );
+                    }
+
                     return Container(
                       height: 300,
                       color: Theme.of(context).cardColor,
                       // padding: const EdgeInsets.all(12.0),
                       child: controller.items.isEmpty
                           ? Center(
-                              child: Text("No Data"),
+                              child: Text(
+                                "No Data",
+                                style: TextStyle(
+                                  color: Colors.red,
+                                ),
+                              ),
                             )
                           : SfCircularChart(
                               legend: Legend(isVisible: false),
