@@ -6,14 +6,6 @@ class StatistikDashboardView extends StatefulWidget {
 
   Widget build(context, StatistikDashboardController controller) {
     controller.view = this;
-    var now = DateTime.now();
-    var datef = DateFormat("MMMM y").format(
-      DateTime(now.year, (now.month + controller.counter), 1).add(
-        Duration(
-          days: controller.counter,
-        ),
-      ),
-    );
 
     return Scaffold(
       key: UniqueKey(),
@@ -32,7 +24,7 @@ class StatistikDashboardView extends StatefulWidget {
             Expanded(
               child: Center(
                 child: Text(
-                  "$datef",
+                  "${controller.currentDate.MMMMy}",
                   style: TextStyle(
                     fontSize: 18.0,
                   ),

@@ -4,9 +4,11 @@ import 'package:hyper_ui/model/transaction_categories_by_month_and_year_response
 
 class KategoriListFormView extends StatefulWidget {
   final Datum item;
+  final bool isTiapBulanSama;
   KategoriListFormView({
     Key? key,
     required this.item,
+    required this.isTiapBulanSama,
   }) : super(key: key);
 
   Widget build(context, KategoriListFormController controller) {
@@ -38,15 +40,31 @@ class KategoriListFormView extends StatefulWidget {
               QButton(
                 label: "Save",
                 onPressed: () {
-                  setBudget(
-                    name: item.namaKategoriPengeluaran!,
-                    month: StatistikDashboardController
-                        .instance.currentDate.month
-                        .toString(),
-                    year: StatistikDashboardController.instance.currentDate.year
-                        .toString(),
-                    value: controller.userBudget,
-                  );
+                  if (isTiapBulanSama == false) {
+                    setBudget(
+                      name: item.namaKategoriPengeluaran!,
+                      month: StatistikDashboardController
+                          .instance.currentDate.month
+                          .toString(),
+                      year: StatistikDashboardController
+                          .instance.currentDate.year
+                          .toString(),
+                      value: controller.userBudget,
+                    );
+                  } else {
+                    for (var y = 0; y <= 2; y++) {
+                      for (var i = 1; i <= 12; i++) {
+                        var date = DateTime.now();
+                        var year = date.year + y;
+                        setBudget(
+                          name: item.namaKategoriPengeluaran!,
+                          month: i.toString(),
+                          year: year.toString(),
+                          value: controller.userBudget,
+                        );
+                      }
+                    }
+                  }
                   Navigator.pop(context);
                 },
               ),

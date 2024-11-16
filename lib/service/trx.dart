@@ -1038,6 +1038,11 @@ class TRX {
   static double getJumlahUnit([int? year]) {
     var total = 0.0;
     if (year != null) {
+      if (year != DateTime.now().year) {
+        total = getJumlahUnit(year - 1);
+      }
+    }
+    if (year != null) {
       if (TRX.danaHistories.where((i) => i.date.year == year).isEmpty) {
         var items =
             TRX.danaHistories.where((i) => i.date.year == year - 1).toList();
@@ -1046,7 +1051,6 @@ class TRX {
           if (item.target == "DEVIDENDEPOSITO") continue;
           if (item.target == "BUYDEPOSITO") continue;
           if (item.date.year != year - 1) continue;
-
           double jumlahUnit = item.total / item.hargaUnit;
           total += jumlahUnit;
         }

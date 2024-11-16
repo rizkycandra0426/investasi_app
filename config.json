@@ -1,6 +1,6 @@
 {
     "modules": [
-        "statistik/catatan_pengeluaran_form"
+        "statistik/rekap_anggaran"
     ],
     "module_directory_name": "module/saham",
     "experimental_mode": false,

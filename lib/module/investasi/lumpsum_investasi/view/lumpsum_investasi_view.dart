@@ -156,7 +156,7 @@ class LumpsumInvestasiView extends StatefulWidget {
                         ),
                         SizedBox(width: 5),
                         Text(
-                          "/Tahun",
+                          "Tahun",
                           style: TextStyle(
                             fontSize: 14,
                           ),
@@ -267,7 +267,7 @@ class LumpsumInvestasiView extends StatefulWidget {
                         ),
                         SizedBox(width: 5),
                         Text(
-                          "% per-Bulan",
+                          "%",
                           style: TextStyle(
                             fontSize: 14,
                           ),

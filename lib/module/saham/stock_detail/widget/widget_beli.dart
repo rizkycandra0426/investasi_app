@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hyper_ui/core.dart';
+import 'package:hyper_ui/module/saham/portofolio_new/widget/balance_widget.dart';
 
 class Beliwidget extends StatefulWidget {
   const Beliwidget({Key? key}) : super(key: key);
@@ -83,8 +84,8 @@ class _BeliwidgetState extends State<Beliwidget> {
                               ],
                             ),
                             SizedBox(
-                                width:
-                                    8), // Jarak antara teks dan kontainer pertama
+                              width: 8,
+                            ), // Jarak antara teks dan kontainer pertama
                             Expanded(
                               // Kontainer pertama
                               child: Column(

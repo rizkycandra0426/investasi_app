@@ -211,7 +211,7 @@ class PinjamanView extends StatefulWidget {
                               ),
                               SizedBox(width: 5),
                               Text(
-                                "/Bulan",
+                                "Bulan",
                                 style: TextStyle(
                                   fontSize: 14,
                                 ),
@@ -241,7 +241,7 @@ class PinjamanView extends StatefulWidget {
                       child: Column(
                         children: [
                           Text(
-                            "Persentase Bunga",
+                            "Persentase Bunga per-Bulan",
                             style: TextStyle(
                               fontSize: 16,
                               color: Colors.black,

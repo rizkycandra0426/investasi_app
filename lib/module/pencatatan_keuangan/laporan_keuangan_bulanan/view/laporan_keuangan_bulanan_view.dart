@@ -9,7 +9,7 @@ class LaporanKeuanganBulananView extends StatefulWidget {
     if (controller.loading) return LoadingScaffold();
     var items = controller.response!.data!;
 
-    items = items.reversed.toList();
+    // items = items.reversed.toList();
 
     return Scaffold(
       body: ListView.builder(

@@ -115,6 +115,18 @@ class AnggaranPengeluaranView extends StatefulWidget {
               );
             },
           ),
+          const SizedBox(
+            height: 12.0,
+          ),
+          Padding(
+            padding: EdgeInsets.symmetric(
+              horizontal: 20.0,
+            ),
+            child: QButton(
+              label: "Rekap Anggaran",
+              onPressed: () => Get.to(RekapAnggaranView()),
+            ),
+          ),
         ],
       ),
     );
