@@ -2,6 +2,8 @@
     "modules": [
         "statistik/rekap_anggaran"
     ],
+    "clean_architecture": false,
+    "services": [],
     "module_directory_name": "module/saham",
     "experimental_mode": false,
     "learning_mode": false,

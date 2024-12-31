@@ -71,7 +71,20 @@ class LupaPasswordController extends State<LupaPasswordView> {
       hideLoading();
       ss("Reset password success!");
       Get.back();
-    } on Exception {
+    } on DioException catch (e) {
+      printg(e.response?.data);
+      hideLoading();
+      if (e.response?.data["message"]
+              .toString()
+              .toLowerCase()
+              .contains("user not found") ==
+          true) {
+        se("User not found!");
+      } else {
+        se("Invalid verification code!");
+      }
+    } on Exception catch (e) {
+      printr(e);
       hideLoading();
       se("Invalid verification code!");
     }
