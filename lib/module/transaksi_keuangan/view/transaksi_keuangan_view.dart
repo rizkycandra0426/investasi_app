@@ -125,12 +125,31 @@ class TransaksiKeuanganView extends StatefulWidget {
                               margin: const EdgeInsets.only(
                                 top: 12.0,
                               ),
-                              child: Text(
-                                "Kategori",
-                                style: TextStyle(
-                                  fontSize: 20.0,
-                                  fontWeight: FontWeight.bold,
-                                ),
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Expanded(
+                                    child: Text(
+                                      "Kategori",
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        fontSize: 20.0,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ),
+                                  Positioned(
+                                    right: 10,
+                                    child: Transform.rotate(
+                                      angle: 3.14 / 2,
+                                      child: Icon(
+                                        Icons.chevron_right,
+                                        size: 32.0,
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                  )
+                                ],
                               ),
                             ),
                           ),
