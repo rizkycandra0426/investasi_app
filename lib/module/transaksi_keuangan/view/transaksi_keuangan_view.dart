@@ -137,15 +137,46 @@ class TransaksiKeuanganView extends StatefulWidget {
                         if (controller.categoryName.isEmpty == false)
                           Center(
                             child: Container(
+                              padding: const EdgeInsets.all(20.0),
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Color(0x19000000),
+                                    blurRadius: 24,
+                                    offset: Offset(0, 11),
+                                  ),
+                                ],
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(32.0),
+                                ),
+                              ),
                               margin: const EdgeInsets.only(
                                 top: 12.0,
                               ),
-                              child: Text(
-                                "${controller.categoryName}",
-                                style: TextStyle(
-                                  fontSize: 20.0,
-                                  fontWeight: FontWeight.bold,
-                                ),
+                              child: Stack(
+                                children: [
+                                  Center(
+                                    child: Text(
+                                      "${controller.categoryName}",
+                                      style: TextStyle(
+                                        fontSize: 20.0,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ),
+                                  Positioned(
+                                    right: 10,
+                                    child: Transform.rotate(
+                                      angle: 3.14 / 2,
+                                      child: Icon(
+                                        Icons.chevron_right,
+                                        size: 32.0,
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
                           ),

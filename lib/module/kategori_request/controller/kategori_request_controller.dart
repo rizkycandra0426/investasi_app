@@ -55,7 +55,7 @@ class KategoriRequestController extends State<KategoriRequestView> {
       getData();
     } on Exception catch (err) {
       hideLoading();
-      se("$err");
+      se("Kategori sudah ada!");
     }
   }
 
